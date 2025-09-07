@@ -12,8 +12,8 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'wot-design-uni/components/wd-form/types'
 import { onLoad } from '@dcloudio/uni-app'
+import { useRequest } from 'alova/client'
 import { computed, onUnmounted, reactive, ref } from 'vue'
-import Apis from '@/api/guohaoapi'
 
 // 当前步骤：1-验证手机号，2-重置密码
 const currentStep = ref(1)
@@ -33,11 +33,25 @@ const resetToken = ref<any>('')
 const formRef = ref<FormInstance>()
 
 // 全局提示store
-const globalToast = useGlobalToast()
+// const globalToast = useGlobalToast()
+const globalToast = {
+  success: (message: string) => {
+    uni.showToast({
+      title: message,
+      icon: 'success',
+    })
+  },
+  error: (message: string) => {
+    uni.showToast({
+      title: message,
+      icon: 'error',
+    })
+  },
+}
 
 // 验证码倒计时
 const countdown = ref(0)
-const countdownTimer = ref<number>()
+const countdownTimer = ref<NodeJS.Timeout>()
 
 // 倒计时文本
 const countdownText = computed(() => {
