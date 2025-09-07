@@ -64,10 +64,7 @@
     },
     {
       "path": "pages/index/Normal",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "普通用户首页"
-      }
+      "type": "page"
     },
     {
       "path": "pages/login/forget-password",
@@ -83,7 +80,7 @@
       "path": "pages/login/login",
       "type": "page",
       "style": {
-        "navigationBarTitleText": ""
+        "navigationBarTitleText": "登录"
       }
     },
     {
