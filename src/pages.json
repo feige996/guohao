@@ -63,8 +63,18 @@
       }
     },
     {
+      "path": "pages/index/Doctor",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "医生用户首页"
+      }
+    },
+    {
       "path": "pages/index/Normal",
-      "type": "page"
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "普通用户首页"
+      }
     },
     {
       "path": "pages/login/forget-password",
@@ -80,7 +90,7 @@
       "path": "pages/login/login",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "登录"
+        "navigationBarTitleText": ""
       }
     },
     {

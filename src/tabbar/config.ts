@@ -33,6 +33,12 @@ export const nativeTabbarList: NativeTabBarItem[] = [
     text: '普通用户首页',
   },
   {
+    iconPath: 'static/tabbar/doctor.png',
+    selectedIconPath: 'static/tabbar/doctorHL.png',
+    pagePath: 'pages/index/Doctor',
+    text: '医生用户首页',
+  },
+  {
     iconPath: 'static/tabbar/example.png',
     selectedIconPath: 'static/tabbar/exampleHL.png',
     pagePath: 'pages/about/about',
@@ -70,6 +76,12 @@ export const customTabbarList: CustomTabBarItem[] = [
     iconType: 'uniUi',
     icon: 'home',
     // badge: 'dot',
+  },
+  {
+    text: '医生',
+    pagePath: 'pages/index/Doctor',
+    iconType: 'uniUi',
+    icon: 'home',
   },
   {
     text: '关于',
