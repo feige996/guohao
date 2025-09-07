@@ -2,8 +2,8 @@
 import type { IUploadSuccessInfo } from '@/api/types/login'
 import { storeToRefs } from 'pinia'
 import { LOGIN_PAGE } from '@/router/config'
-import { useUserStore } from '@/store'
 import { useTokenStore } from '@/store/token'
+import { useUserStore } from '@/store/userStore'
 import { useUpload } from '@/utils/uploadFile'
 
 definePage({
@@ -25,7 +25,7 @@ const { run: uploadAvatar } = useUpload<IUploadSuccessInfo>(
   {
     onSuccess: (res) => {
       console.log('h5头像上传成功', res)
-      useUserStore().setUserAvatar(res.url)
+      // useUserStore().setUserAvatar(res.url)
     },
   },
 )
@@ -57,7 +57,7 @@ function onChooseAvatar(e: any) {
     {
       onSuccess: (res) => {
         console.log('wx头像上传成功', res)
-        useUserStore().setUserAvatar(res.url)
+        // useUserStore().setUserAvatar(res.url)
       },
     },
     avatarUrl,
@@ -129,7 +129,7 @@ function handleLogout() {
         </view>
         <!-- #endif -->
         <view class="user-id">
-          ID: {{ userInfo.userId }}
+          ID: {{ userInfo.id }}
         </view>
       </view>
     </view>

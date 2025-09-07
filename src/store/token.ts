@@ -10,7 +10,7 @@ import {
 } from '@/api/login'
 import { isDoubleTokenRes, isSingleTokenRes } from '@/api/types/login'
 import { isDoubleTokenMode } from '@/utils'
-import { useUserStore } from './user'
+import { useUserStore } from './userStore'
 
 // 初始化状态
 const tokenInfoState = isDoubleTokenMode
@@ -88,7 +88,7 @@ export const useTokenStore = defineStore(
     async function _postLogin(tokenInfo: IAuthLoginRes) {
       setTokenInfo(tokenInfo)
       const userStore = useUserStore()
-      await userStore.fetchUserInfo()
+      // await userStore.fetchUserInfo()
     }
 
     /**

@@ -1,4 +1,4 @@
-<script lang="ts" setup>
+<!-- <script lang="ts" setup>
 import { useTokenStore } from '@/store/token'
 import { useUserStore } from '@/store/user'
 import { tabbarList } from '@/tabbar/config'
@@ -84,7 +84,7 @@ async function doLogin() {
 
 <template>
   <view class="login">
-    <!-- 本页面是非MP的登录页，主要用于 h5 和 APP -->
+    本页面是非MP的登录页，主要用于 h5 和 APP
     <view class="text-center">
       登录页
     </view>
@@ -92,6 +92,22 @@ async function doLogin() {
       点击模拟登录
     </button>
   </view>
+</template>
+
+<style lang="scss" scoped>
+//
+</style> -->
+
+<script lang="ts" setup>
+definePage({
+  style: {
+    navigationBarTitleText: '',
+  },
+})
+</script>
+
+<template>
+  <view class="" />
 </template>
 
 <style lang="scss" scoped>

@@ -1,4 +1,4 @@
-import type { AppUserInfo } from '@/api/guohaoapi/globals'
+import type { AppUserInfo } from '@/api/guohao-api/globals'
 /*
  * @Author: AI Assistant
  * @Date: 2025-01-14
