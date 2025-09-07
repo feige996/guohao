@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia'
 import { LOGIN_PAGE } from '@/router/config'
 import { useTokenStore } from '@/store/token'
 import { useUserStore } from '@/store/userStore'
+import { tabbarStore } from '@/tabbar/store'
 import { useUpload } from '@/utils/uploadFile'
 
 definePage({
@@ -72,6 +73,34 @@ function getUserInfo(e: any) {
 }
 // #endif
 
+// 从 about.vue 迁移的功能
+function gotoLogin() {
+  if (tokenStore.hasLogin) {
+    uni.showToast({
+      title: '已登录，不能去登录页',
+      icon: 'none',
+    })
+    return
+  }
+  uni.navigateTo({
+    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('/pages/me/me')}`,
+  })
+}
+
+function logout() {
+  // 清空用户信息
+  tokenStore.logout()
+  // 执行退出登录逻辑
+  uni.showToast({
+    title: '退出登录成功',
+    icon: 'success',
+  })
+}
+
+function setTabbarBadge() {
+  tabbarStore.setTabbarItemBadge(1, 100)
+}
+
 // 退出登录
 function handleLogout() {
   uni.showModal({
@@ -131,6 +160,23 @@ function handleLogout() {
         <view class="user-id">
           ID: {{ userInfo.id }}
         </view>
+      </view>
+    </view>
+
+    <!-- 从 about.vue 迁移的功能按钮 -->
+    <view class="function-buttons">
+      <view class="button-row">
+        <button class="function-btn" @click="gotoLogin">
+          点击去登录页
+        </button>
+        <button class="function-btn" @click="logout">
+          点击退出登录
+        </button>
+      </view>
+      <view class="button-row">
+        <button class="function-btn full-width" @click="setTabbarBadge">
+          设置tabbarBadge
+        </button>
       </view>
     </view>
 
@@ -210,5 +256,45 @@ function handleLogout() {
   margin-top: 8rpx;
   font-size: 24rpx;
   color: #999;
+}
+
+/* 从 about.vue 迁移的功能按钮样式 */
+.function-buttons {
+  margin: 30rpx;
+  padding: 30rpx;
+  background-color: #fff;
+  border-radius: 24rpx;
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.08);
+}
+
+.button-row {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.button-row:last-child {
+  margin-bottom: 0;
+}
+
+.function-btn {
+  flex: 1;
+  padding: 20rpx 30rpx;
+  font-size: 28rpx;
+  color: #333;
+  background-color: #f8f9fa;
+  border: 2rpx solid #e9ecef;
+  border-radius: 12rpx;
+  transition: all 0.3s ease;
+}
+
+.function-btn:hover {
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+}
+
+.function-btn.full-width {
+  flex: none;
+  width: 100%;
 }
 </style>
