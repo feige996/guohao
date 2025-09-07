@@ -71,6 +71,16 @@
       }
     },
     {
+      "path": "pages/login/forget-password",
+      "type": "page",
+      "name": "forget-password",
+      "layout": "default",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "忘记密码"
+      }
+    },
+    {
       "path": "pages/login/login",
       "type": "page",
       "style": {
@@ -78,10 +88,30 @@
       }
     },
     {
+      "path": "pages/login/password-login",
+      "type": "page",
+      "name": "password-login",
+      "layout": "default",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "密码登录"
+      }
+    },
+    {
       "path": "pages/login/register",
       "type": "page",
       "style": {
         "navigationBarTitleText": "注册"
+      }
+    },
+    {
+      "path": "pages/login/sms-login",
+      "type": "page",
+      "name": "sms-login",
+      "layout": "default",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "验证码登录"
       }
     },
     {
