@@ -97,6 +97,8 @@ const {
     immediate: false,
   },
 ).onSuccess((event) => {
+  console.log('登录成功:', event.data)
+
   // 保存登录结果到store
   if (event.data) {
     _userStore.saveLoginResult(event.data as any)
@@ -107,8 +109,8 @@ const {
 
   setTimeout(() => {
     // 检查用户默认首页是否存在，如果不存在则使用默认页面
-    const defaultPage = _userStore.userDefaultIndexPage || '/pages/tabbar/index_Normal'
-    console.log(_userStore.userDefaultIndexPage)
+    // const defaultPage = _userStore.userDefaultIndexPage || '/pages/tabbar/index_Normal'
+    // console.log(_userStore.userDefaultIndexPage)
     // router.pushTab(defaultPage)
   }, 50)
 })
