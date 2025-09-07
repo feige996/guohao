@@ -1,20 +1,18 @@
-<route lang="jsonc" type="page">
-{
-  "name": "sms-login",
-  "layout": "default",
-  "style": {
-    "navigationStyle": "custom",
-    "navigationBarTitleText": "验证码登录"
-  }
-}
-</route>
-
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'wot-design-uni/components/wd-form/types'
 import { onLoad } from '@dcloudio/uni-app'
 import { useRequest } from 'alova/client'
 import { computed, onUnmounted, reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
+
+definePage({
+  name: 'sms-login',
+  layout: 'default',
+  style: {
+    navigationStyle: 'custom',
+    navigationBarTitleText: '验证码登录',
+  },
+})
 
 // 表单数据
 const formData = reactive({

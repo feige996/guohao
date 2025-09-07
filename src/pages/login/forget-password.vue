@@ -1,19 +1,17 @@
-<route lang="jsonc" type="page">
-{
-  "name": "forget-password",
-  "layout": "default",
-  "style": {
-    "navigationStyle": "custom",
-    "navigationBarTitleText": "忘记密码"
-  }
-}
-</route>
-
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'wot-design-uni/components/wd-form/types'
 import { onLoad } from '@dcloudio/uni-app'
 import { useRequest } from 'alova/client'
 import { computed, onUnmounted, reactive, ref } from 'vue'
+
+definePage({
+  name: 'forget-password',
+  layout: 'default',
+  style: {
+    navigationStyle: 'custom',
+    navigationBarTitleText: '忘记密码',
+  },
+})
 
 // 当前步骤：1-验证手机号，2-重置密码
 const currentStep = ref(1)

@@ -1,14 +1,3 @@
-<route lang="jsonc" type="page">
-{
-  "name": "password-login",
-  "layout": "default",
-  "style": {
-    "navigationStyle": "custom",
-    "navigationBarTitleText": "密码登录"
-  }
-}
-</route>
-
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'wot-design-uni/components/wd-form/types'
 import { onLoad } from '@dcloudio/uni-app'
@@ -16,6 +5,15 @@ import { useRequest } from 'alova/client'
 import { sm2 } from 'sm-crypto'
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
+
+definePage({
+  name: 'password-login',
+  layout: 'default',
+  style: {
+    navigationStyle: 'custom',
+    navigationBarTitleText: '密码登录',
+  },
+})
 
 // const router = useRouter()
 
