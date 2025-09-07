@@ -27,7 +27,7 @@
     "list": [
       {
         "text": "首页",
-        "pagePath": "pages/index/index"
+        "pagePath": "pages/index/Normal"
       },
       {
         "text": "关于",
@@ -40,14 +40,6 @@
     ]
   },
   "pages": [
-    {
-      "path": "pages/index/index",
-      "type": "home",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "首页"
-      }
-    },
     {
       "path": "pages/about/about",
       "type": "page",
@@ -68,6 +60,13 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "Vue Query 演示"
+      }
+    },
+    {
+      "path": "pages/index/Normal",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "普通用户首页"
       }
     },
     {
