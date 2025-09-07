@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { LOGIN_PAGE } from '@/router/config'
 import { useThemeStore } from '@/store'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
@@ -18,7 +17,7 @@ definePage({
 
 const themeStore = useThemeStore()
 
-const author = ref('菲鸽1')
+const author = ref('菲鸽')
 const description = ref(
   'micropu',
 )
@@ -27,12 +26,6 @@ console.log('index/index 首页打印了')
 onLoad(() => {
   console.log('测试 uni API 自动引入: onLoad')
 })
-
-function toLogin() {
-  uni.navigateTo({
-    url: LOGIN_PAGE,
-  })
-}
 </script>
 
 <template>
@@ -104,9 +97,6 @@ function toLogin() {
         https://wot-design-uni.cn
       </text>
     </view>
-    <button class="mt-4 w-40 text-center" @click="toLogin">
-      点击去登录页
-    </button>
     <view class="h-6" />
   </view>
 </template>
