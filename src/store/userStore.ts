@@ -217,4 +217,6 @@ export const useUserStore = defineStore('user', () => {
     isTokenExpired,
     getAuthHeader,
   }
+}, {
+  persist: true,
 })
