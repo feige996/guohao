@@ -14,6 +14,11 @@ const { loading, data, send } = useRequest(foo, {
   initialData,
   immediate: true,
 })
+
+function sendguohao() {
+  Apis.app.apiAppLoginPost().send()
+}
+
 console.log(data)
 function reset() {
   data.value = initialData
@@ -25,6 +30,11 @@ function reset() {
     <button type="primary" size="mini" class="my-6 w-160px" @click="send">
       发送请求
     </button>
+
+    <button type="primary" size="mini" class="my-6 w-160px" @click="sendguohao">
+      发送请求GUOHAO
+    </button>
+
     <view class="h-16">
       <view v-if="loading">
         loading...

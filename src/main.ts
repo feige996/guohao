@@ -3,8 +3,9 @@ import { createSSRApp } from 'vue'
 import App from './App.vue'
 import { requestInterceptor } from './http/interceptor'
 import { routeInterceptor } from './router/interceptor'
-
 import store from './store'
+
+import './api/guohao-api'
 import '@/style/index.scss'
 import 'virtual:uno.css'
 

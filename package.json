@@ -122,6 +122,7 @@
     "z-paging": "2.8.7"
   },
   "devDependencies": {
+    "@alova/wormhole": "^1.2.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@dcloudio/types": "^3.4.8",
