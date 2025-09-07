@@ -16,7 +16,18 @@ const { loading, data, send } = useRequest(foo, {
 })
 
 function sendguohao() {
-  Apis.app.apiAppLoginPost().send()
+  // Apis.app.apiAppLoginPost().send()
+
+  Apis.app.apiAppLoginPost({
+    data: {
+      account: 'admin',
+      password: '123456',
+      loginFrom: 'app',
+    },
+    meta: {
+      ignoreAuth: true,
+    },
+  }).send()
 }
 
 console.log(data)

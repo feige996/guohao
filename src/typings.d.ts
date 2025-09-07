@@ -7,6 +7,15 @@ declare global {
     data: T
   }
 
+  interface IResAdminData<T> {
+    code: number
+    type: string
+    message: string
+    result: T
+    extras: T
+    time: string
+  }
+
   // uni.uploadFile文件上传参数
   interface IUniUploadFileOptions {
     file?: File
