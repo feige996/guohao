@@ -89,8 +89,12 @@ function gotoLogin() {
     })
     return
   }
+  // uni.navigateTo({
+  //   url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('pages/doctor/me/me')}`,
+  // })
+  const { path } = currRoute()
   uni.navigateTo({
-    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('pages/doctor/me/me')}`,
+    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent(path)}`,
   })
 }
 
