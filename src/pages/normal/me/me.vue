@@ -5,6 +5,7 @@ import { LOGIN_PAGE } from '@/router/config'
 import { useTokenStore } from '@/store/token'
 import { useUserStore } from '@/store/userStore'
 import { tabbarStore } from '@/tabbar/store'
+import { currRoute } from '@/utils'
 import { useUpload } from '@/utils/uploadFile'
 
 definePage({
@@ -34,15 +35,22 @@ const { run: uploadAvatar } = useUpload<IUploadSuccessInfo>(
 
 // 微信小程序下登录
 async function handleLogin() {
+  const { path } = currRoute()
+
   // #ifdef MP-WEIXIN
 
   // 微信登录
   await tokenStore.wxLogin()
   // #endif
   // #ifndef MP-WEIXIN
+  // uni.navigateTo({
+  //   url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('/pages/me/me')}`,
+  // })
+
   uni.navigateTo({
-    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('/pages/me/me')}`,
+    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent(path)}`,
   })
+
   // #endif
 }
 

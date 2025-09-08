@@ -5,6 +5,10 @@ import { useRequest } from 'alova/client'
 import { sm2 } from 'sm-crypto'
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
+import { tabbarList } from '@/tabbar/config'
+import { isPageTabbar } from '@/tabbar/store'
+import { ensureDecodeURIComponent } from '@/utils'
+import { parseUrlToObj } from '@/utils/index'
 
 definePage({
   name: 'password-login',
@@ -70,8 +74,19 @@ const rules: FormRules = {
   ],
 }
 
+const redirectUrl = ref('')
+
 // 页面加载
-onLoad(() => { })
+onLoad((options) => {
+  console.log('login options: ', options)
+  if (options.redirect) {
+    redirectUrl.value = ensureDecodeURIComponent(options.redirect)
+  }
+  else {
+    redirectUrl.value = tabbarList[0].pagePath
+  }
+  console.log('redirectUrl.value: ', redirectUrl.value)
+})
 
 // 用户store
 const _userStore = useUserStore()
@@ -102,6 +117,32 @@ const {
   // 保存登录结果到store
   if (event.data) {
     _userStore.saveLoginResult(event.data as any)
+  }
+
+  let path = redirectUrl.value
+  if (!path.startsWith('/')) {
+    path = `/${path}`
+  }
+
+  const { path: _path, query } = parseUrlToObj(path)
+  console.log('_path:', _path, 'query:', query, 'path:', path)
+  console.log('isPageTabbar(_path):', isPageTabbar(_path))
+  if (isPageTabbar(_path)) {
+    // 经过我的测试 switchTab 不能带 query 参数, 不管是放到 url  还是放到 query ,
+    // 最后跳转过去的时候都会丢失 query 信息
+    uni.switchTab({
+      url: path,
+    })
+    // uni.switchTab({
+    //   url: _path,
+    //   query,
+    // })
+  }
+  else {
+    console.log('redirectTo:', path)
+    uni.redirectTo({
+      url: path,
+    })
   }
 
   // 登录成功提示
