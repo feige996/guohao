@@ -127,14 +127,14 @@ export const customTabbarList: CustomTabBarItem[] = [
     text: '问诊',
     pagePath: 'pages/normal/diagnosis/diagnosis',
     iconType: 'uniUi',
-    icon: 'stethoscope',
+    icon: 'home-filled',
     roles: [AppRoleEnum.NormalUser],
   },
   {
     text: '问诊',
     pagePath: 'pages/doctor/diagnosis/diagnosis',
-    iconType: 'iconfont',
-    icon: 'i-carbon-stethoscope',
+    iconType: 'uniUi',
+    icon: 'home-filled',
     roles: [AppRoleEnum.Doctor],
   },
   {
@@ -157,8 +157,8 @@ export const customTabbarList: CustomTabBarItem[] = [
     // 注意 unocss 图标需要如下处理：（二选一）
     // 1）在fg-tabbar.vue页面上引入一下并注释掉（见tabbar/index.vue代码第2行）
     // 2）配置到 unocss.config.ts 的 safelist 中
-    iconType: 'unocss',
-    icon: 'i-carbon-shopping-cart',
+    iconType: 'uniUi',
+    icon: 'person',
     roles: [AppRoleEnum.NormalUser],
     // badge: 10,
   },
