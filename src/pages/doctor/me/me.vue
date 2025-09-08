@@ -135,7 +135,7 @@ function handleLogout() {
     <view class="user-info-section">
       <!-- #ifdef MP-WEIXIN -->
       <button class="avatar-button" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-        <image :src="userInfo.avatar" mode="scaleToFill" class="h-full w-full" />
+        <!-- <image :src="userInfo.avatar" mode="scaleToFill" class="h-full w-full" /> -->
       </button>
       <!-- #endif -->
       <!-- #ifndef MP-WEIXIN -->
