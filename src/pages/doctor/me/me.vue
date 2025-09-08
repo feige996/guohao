@@ -140,25 +140,25 @@ function handleLogout() {
       <!-- #endif -->
       <!-- #ifndef MP-WEIXIN -->
       <view class="avatar-wrapper" @click="uploadAvatar">
-        <image :src="userInfo.avatar" mode="scaleToFill" class="h-full w-full" />
+        <!-- <image :src="userInfo.avatar" mode="scaleToFill" class="h-full w-full" /> -->
       </view>
       <!-- #endif -->
       <view class="user-details">
         <!-- #ifdef MP-WEIXIN -->
-        <input
+        <!-- <input
           v-model="userInfo.username"
           type="nickname"
           class="weui-input"
           placeholder="请输入昵称"
-        >
+        > -->
         <!-- #endif -->
         <!-- #ifndef MP-WEIXIN -->
         <view class="username">
-          {{ userInfo.username }}
+          <!-- {{ userInfo.username }} -->
         </view>
         <!-- #endif -->
         <view class="user-id">
-          ID: {{ userInfo.id }}
+          <!-- ID: {{ userInfo.id }} -->
         </view>
       </view>
     </view>

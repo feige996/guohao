@@ -31,12 +31,39 @@ export const navigateToInterceptor = {
 
     console.log('path==========================', path)
 
+    // // 处理根路径访问
+    // if (path === '/pages/normal/index/index') {
+    //   const userStore = useUserStore()
+    //   const defaultPage = userStore.userDefaultIndexPage
+    //   console.log('defaultPage==========================', defaultPage)
+
+    //   if (isPageTabbar(defaultPage)) {
+    //     uni.switchTab({ url: defaultPage })
+    //   }
+    //   else {
+    //     uni.navigateTo({ url: defaultPage })
+    //   }
+    //   return false // 阻止原路由
+    //   // return true // 明确表示允许路由继续执行
+    // }
+
     // 处理根路径访问
+    // H5的路由机制可能对重复跳转有保护机制，不会无限循环,解决小程序会无限循环
+    // 微信小程序 return true 允许路由继续执行，会真正跳转到 /pages/normal/index/index
+    // 代码中调用了 uni.switchTab() 跳转到其他页面
+    // 这导致了路由循环：跳转 → 拦截 → 再跳转 → 再拦截...
+    // H5的路由机制可能对重复跳转有保护机制，不会无限循环
     if (path === '/pages/normal/index/index') {
       const userStore = useUserStore()
       const defaultPage = userStore.userDefaultIndexPage
       console.log('defaultPage==========================', defaultPage)
 
+      // 如果默认页面就是当前页面，允许继续执行
+      if (defaultPage === '/pages/normal/index/index') {
+        return true
+      }
+
+      // 否则跳转到正确的默认页面
       if (isPageTabbar(defaultPage)) {
         uni.switchTab({ url: defaultPage })
       }
