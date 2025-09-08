@@ -30,6 +30,10 @@
         "pagePath": "pages/index/Normal"
       },
       {
+        "text": "医生",
+        "pagePath": "pages/index/Doctor"
+      },
+      {
         "text": "关于",
         "pagePath": "pages/about/about"
       },
@@ -40,42 +44,6 @@
     ]
   },
   "pages": [
-    {
-      "path": "pages/about/about",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "关于"
-      },
-      "excludeLoginPath": false
-    },
-    {
-      "path": "pages/about/alova",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "Alova 演示"
-      }
-    },
-    {
-      "path": "pages/about/vue-query",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "Vue Query 演示"
-      }
-    },
-    {
-      "path": "pages/index/Doctor",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "医生用户首页"
-      }
-    },
-    {
-      "path": "pages/index/Normal",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "普通用户首页"
-      }
-    },
     {
       "path": "pages/login/forget-password",
       "type": "page",
@@ -121,10 +89,68 @@
       }
     },
     {
-      "path": "pages/me/me",
+      "path": "pages/shop/index",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "我的"
+        "navigationBarTitleText": "商城"
+      }
+    },
+    {
+      "path": "pages/Doctor/index/index",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "医生用户首页"
+      }
+    },
+    {
+      "path": "pages/Doctor/me/me",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "医生我的"
+      }
+    },
+    {
+      "path": "pages/Doctor/Medical/Medical",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "医生问诊"
+      }
+    },
+    {
+      "path": "pages/Doctor/patient/patient",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "患者"
+      },
+      "excludeLoginPath": false
+    },
+    {
+      "path": "pages/Normal/Health/Health",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "养生"
+      },
+      "excludeLoginPath": false
+    },
+    {
+      "path": "pages/Normal/index/index",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "普通用户首页"
+      }
+    },
+    {
+      "path": "pages/Normal/me/me",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "普通用户我的"
+      }
+    },
+    {
+      "path": "pages/Normal/Medical/Medical",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "普通用户问诊"
       }
     }
   ],

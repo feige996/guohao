@@ -29,26 +29,56 @@ export const nativeTabbarList: NativeTabBarItem[] = [
   {
     iconPath: 'static/tabbar/home.png',
     selectedIconPath: 'static/tabbar/homeHL.png',
-    pagePath: 'pages/index/Normal',
-    text: '普通用户首页',
+    pagePath: 'pages/normal/index/index',
+    text: '首页',
   },
   {
-    iconPath: 'static/tabbar/doctor.png',
-    selectedIconPath: 'static/tabbar/doctorHL.png',
-    pagePath: 'pages/index/Doctor',
-    text: '医生用户首页',
+    iconPath: 'static/tabbar/doctor-home.png',
+    selectedIconPath: 'static/tabbar/doctor-homeHL.png',
+    pagePath: 'pages/doctor/index/index',
+    text: '首页',
   },
   {
-    iconPath: 'static/tabbar/example.png',
-    selectedIconPath: 'static/tabbar/exampleHL.png',
-    pagePath: 'pages/about/about',
-    text: '关于',
+    iconPath: 'static/tabbar/diagnosis.png',
+    selectedIconPath: 'static/tabbar/diagnosisHL.png',
+    pagePath: 'pages/normal/diagnosis/diagnosis',
+    text: '问诊',
+  },
+  {
+    iconPath: 'static/tabbar/doctor-diagnosis.png',
+    selectedIconPath: 'static/tabbar/doctor-diagnosisHL.png',
+    pagePath: 'pages/doctor/diagnosis/diagnosis',
+    text: '问诊',
+  },
+  {
+    iconPath: 'static/tabbar/healthcare.png',
+    selectedIconPath: 'static/tabbar/healthcareHL.png',
+    pagePath: 'pages/normal/healthcare/healthcare',
+    text: '养生',
+  },
+  {
+    iconPath: 'static/tabbar/patient.png',
+    selectedIconPath: 'static/tabbar/patientHL.png',
+    pagePath: 'pages/doctor/patient/patient',
+    text: '患者',
+  },
+  {
+    iconPath: 'static/tabbar/shop.png',
+    selectedIconPath: 'static/tabbar/shopHL.png',
+    pagePath: 'pages/shop/shop',
+    text: '商城',
   },
   {
     iconPath: 'static/tabbar/personal.png',
     selectedIconPath: 'static/tabbar/personalHL.png',
-    pagePath: 'pages/me/me',
-    text: '个人',
+    pagePath: 'pages/normal/me/me',
+    text: '我的',
+  },
+  {
+    iconPath: 'static/tabbar/doctor-me.png',
+    selectedIconPath: 'static/tabbar/doctor-meHL.png',
+    pagePath: 'pages/doctor/me/me',
+    text: '我的',
   },
 ]
 
@@ -69,7 +99,7 @@ export interface CustomTabBarItem {
 export const customTabbarList: CustomTabBarItem[] = [
   {
     text: '首页',
-    pagePath: 'pages/index/Normal',
+    pagePath: 'pages/normal/index/index',
     // 本框架内置了 uniapp 官方UI库 （uni-ui)的图标库
     // 使用方式如：<uni-icons type="home" size="30"/>
     // 图标列表地址：https://uniapp.dcloud.net.cn/component/uniui/uni-icons.html
@@ -78,27 +108,57 @@ export const customTabbarList: CustomTabBarItem[] = [
     // badge: 'dot',
   },
   {
-    text: '医生',
-    pagePath: 'pages/index/Doctor',
+    text: '首页',
+    pagePath: 'pages/doctor/index/index',
     iconType: 'uniUi',
-    icon: 'home',
+    icon: 'home-filled',
   },
   {
-    text: '关于',
-    pagePath: 'pages/about/about',
+    text: '问诊',
+    pagePath: 'pages/normal/diagnosis/diagnosis',
+    iconType: 'uniUi',
+    icon: 'stethoscope',
+  },
+  {
+    text: '问诊',
+    pagePath: 'pages/doctor/diagnosis/diagnosis',
+    iconType: 'unocss',
+    icon: 'i-carbon-stethoscope',
+  },
+  {
+    text: '养生',
+    pagePath: 'pages/normal/healthcare/healthcare',
+    iconType: 'uniUi',
+    icon: 'heart',
+  },
+  {
+    text: '患者',
+    pagePath: 'pages/doctor/patient/patient',
+    iconType: 'uniUi',
+    icon: 'person',
+  },
+  {
+    text: '商城',
+    pagePath: 'pages/shop/shop',
     // 注意 unocss 图标需要如下处理：（二选一）
     // 1）在fg-tabbar.vue页面上引入一下并注释掉（见tabbar/index.vue代码第2行）
     // 2）配置到 unocss.config.ts 的 safelist 中
     iconType: 'unocss',
-    icon: 'i-carbon-code',
+    icon: 'i-carbon-shopping-cart',
     // badge: 10,
   },
   {
-    pagePath: 'pages/me/me',
     text: '我的',
+    pagePath: 'pages/normal/me/me',
     iconType: 'uniUi',
     icon: 'contact',
     // badge: 100,
+  },
+  {
+    text: '我的',
+    pagePath: 'pages/doctor/me/me',
+    iconType: 'uniUi',
+    icon: 'contact-filled',
   },
   // 其他类型演示
   // 1、uiLib

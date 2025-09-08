@@ -9,7 +9,7 @@ import { useUpload } from '@/utils/uploadFile'
 
 definePage({
   style: {
-    navigationBarTitleText: '我的',
+    navigationBarTitleText: '普通用户我的',
   },
 })
 
