@@ -27,23 +27,50 @@
     "list": [
       {
         "text": "首页",
-        "pagePath": "pages/index/Normal"
+        "pagePath": "pages/normal/index/index"
       },
       {
-        "text": "医生",
-        "pagePath": "pages/index/Doctor"
+        "text": "首页",
+        "pagePath": "pages/doctor/index/index"
       },
       {
-        "text": "关于",
-        "pagePath": "pages/about/about"
+        "text": "问诊",
+        "pagePath": "pages/normal/diagnosis/diagnosis"
+      },
+      {
+        "text": "问诊",
+        "pagePath": "pages/doctor/diagnosis/diagnosis"
+      },
+      {
+        "text": "养生",
+        "pagePath": "pages/normal/healthcare/healthcare"
+      },
+      {
+        "text": "患者",
+        "pagePath": "pages/doctor/patient/patient"
+      },
+      {
+        "text": "商城",
+        "pagePath": "pages/shop/shop"
       },
       {
         "text": "我的",
-        "pagePath": "pages/me/me"
+        "pagePath": "pages/normal/me/me"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/doctor/me/me"
       }
     ]
   },
   "pages": [
+    {
+      "path": "pages/normal/index/index",
+      "type": "home",
+      "style": {
+        "navigationBarTitleText": "普通用户首页"
+      }
+    },
     {
       "path": "pages/login/forget-password",
       "type": "page",
@@ -52,13 +79,6 @@
       "style": {
         "navigationStyle": "custom",
         "navigationBarTitleText": "忘记密码"
-      }
-    },
-    {
-      "path": "pages/login/login",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": ""
       }
     },
     {
@@ -72,13 +92,6 @@
       }
     },
     {
-      "path": "pages/login/register",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "注册"
-      }
-    },
-    {
       "path": "pages/login/sms-login",
       "type": "page",
       "name": "sms-login",
@@ -89,35 +102,35 @@
       }
     },
     {
-      "path": "pages/shop/index",
+      "path": "pages/shop/shop",
       "type": "page",
       "style": {
         "navigationBarTitleText": "商城"
       }
     },
     {
-      "path": "pages/Doctor/index/index",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "医生用户首页"
-      }
-    },
-    {
-      "path": "pages/Doctor/me/me",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "医生我的"
-      }
-    },
-    {
-      "path": "pages/Doctor/Medical/Medical",
+      "path": "pages/doctor/diagnosis/diagnosis",
       "type": "page",
       "style": {
         "navigationBarTitleText": "医生问诊"
       }
     },
     {
-      "path": "pages/Doctor/patient/patient",
+      "path": "pages/doctor/index/index",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "医生用户首页"
+      }
+    },
+    {
+      "path": "pages/doctor/me/me",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "医生我的"
+      }
+    },
+    {
+      "path": "pages/doctor/patient/patient",
       "type": "page",
       "style": {
         "navigationBarTitleText": "患者"
@@ -125,7 +138,14 @@
       "excludeLoginPath": false
     },
     {
-      "path": "pages/Normal/Health/Health",
+      "path": "pages/normal/diagnosis/diagnosis",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "普通用户问诊"
+      }
+    },
+    {
+      "path": "pages/normal/healthcare/healthcare",
       "type": "page",
       "style": {
         "navigationBarTitleText": "养生"
@@ -133,24 +153,10 @@
       "excludeLoginPath": false
     },
     {
-      "path": "pages/Normal/index/index",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "普通用户首页"
-      }
-    },
-    {
-      "path": "pages/Normal/me/me",
+      "path": "pages/normal/me/me",
       "type": "page",
       "style": {
         "navigationBarTitleText": "普通用户我的"
-      }
-    },
-    {
-      "path": "pages/Normal/Medical/Medical",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "普通用户问诊"
       }
     }
   ],

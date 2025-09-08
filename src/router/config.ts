@@ -9,7 +9,7 @@ export const LOGIN_STRATEGY = LOGIN_STRATEGY_MAP.DEFAULT_NO_NEED_LOGIN
 export const isNeedLoginMode = LOGIN_STRATEGY === LOGIN_STRATEGY_MAP.DEFAULT_NEED_LOGIN
 
 export const LOGIN_PAGE = '/pages/login/password-login'
-export const REGISTER_PAGE = '/pages/login/register'
+export const REGISTER_PAGE = '/pages/login/sms-login'
 
 export const LOGIN_PAGE_LIST = [LOGIN_PAGE, REGISTER_PAGE]
 
