@@ -26,11 +26,11 @@ function handleClick(index: number) {
   if (index === tabbarStore.curIdx) {
     return
   }
-  if (tabbarList[index].isBulge) {
+  if (tabbarList.value[index].isBulge) {
     handleClickBulge()
     return
   }
-  const url = tabbarList[index].pagePath
+  const url = tabbarList.value[index].pagePath
   tabbarStore.setCurIdx(index)
   if (tabbarCacheEnable) {
     uni.switchTab({ url })

@@ -2,6 +2,7 @@
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({
+  // type: 'home',
   style: {
     navigationBarTitleText: '医生用户首页',
   },

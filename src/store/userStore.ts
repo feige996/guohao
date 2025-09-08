@@ -62,15 +62,15 @@ export const useUserStore = defineStore('user', () => {
     // 根据用户角色返回对应的 userDefaultIndexPage 配置
     switch (targetRole) {
       case 666: // Agent (代理)
-        return '/pages/tabbar/index_Normal'
+        return '/pages/normal/index/index'
       case 777: // NormalUser (普通用户)
-        return '/pages/tabbar/index_Normal'
+        return '/pages/normal/index/index'
       case 888: // Doctor (医生)
-        return '/pages/tabbar/index_Doctor'
+        return '/pages/doctor/index/index'
       case 999: // Consultant (顾问)
-        return '/pages/tabbar/index_Normal'
+        return '/pages/normal/index/index'
       default: // 默认使用普通用户配置
-        return '/pages/tabbar/index_Normal'
+        return '/pages/normal/index/index'
     }
   })
 

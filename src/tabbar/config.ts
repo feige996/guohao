@@ -85,6 +85,13 @@ export const nativeTabbarList: NativeTabBarItem[] = [
 // badge 显示一个数字或 小红点（样式可以直接在 tabbar/index.vue 里面修改）
 export type CustomTabBarItemBadge = number | 'dot'
 
+export enum AppRoleEnum {
+  Agent = 666, // 代理
+  NormalUser = 777, // 普通用户
+  Doctor = 888, // 医生
+  Consultant = 999, // 顾问
+}
+
 export interface CustomTabBarItem {
   text: string
   pagePath: string
@@ -93,6 +100,7 @@ export interface CustomTabBarItem {
   iconActive?: string // 只有在 image 模式下才需要，传递的是高亮的图片（PS： 不建议用 image 模式）
   badge?: CustomTabBarItemBadge
   isBulge?: boolean // 是否是中间的鼓包tabbarItem
+  roles: AppRoleEnum[] // 拥有此tabbar的角色
 }
 // TODO: 3/3. 使用 CUSTOM_TABBAR(2,3) 时，更新下面的 tabbar 配置
 // 如果需要配置鼓包，需要在 'tabbar/store.ts' 里面设置，最后在 `tabbar/index.vue` 里面更改鼓包的图片
@@ -105,6 +113,7 @@ export const customTabbarList: CustomTabBarItem[] = [
     // 图标列表地址：https://uniapp.dcloud.net.cn/component/uniui/uni-icons.html
     iconType: 'uniUi',
     icon: 'home',
+    roles: [AppRoleEnum.NormalUser],
     // badge: 'dot',
   },
   {
@@ -112,30 +121,35 @@ export const customTabbarList: CustomTabBarItem[] = [
     pagePath: 'pages/doctor/index/index',
     iconType: 'uniUi',
     icon: 'home-filled',
+    roles: [AppRoleEnum.Doctor],
   },
   {
     text: '问诊',
     pagePath: 'pages/normal/diagnosis/diagnosis',
     iconType: 'uniUi',
     icon: 'stethoscope',
+    roles: [AppRoleEnum.NormalUser],
   },
   {
     text: '问诊',
     pagePath: 'pages/doctor/diagnosis/diagnosis',
-    iconType: 'unocss',
+    iconType: 'iconfont',
     icon: 'i-carbon-stethoscope',
+    roles: [AppRoleEnum.Doctor],
   },
   {
     text: '养生',
     pagePath: 'pages/normal/healthcare/healthcare',
     iconType: 'uniUi',
     icon: 'heart',
+    roles: [AppRoleEnum.NormalUser],
   },
   {
     text: '患者',
     pagePath: 'pages/doctor/patient/patient',
     iconType: 'uniUi',
     icon: 'person',
+    roles: [AppRoleEnum.Doctor],
   },
   {
     text: '商城',
@@ -145,6 +159,7 @@ export const customTabbarList: CustomTabBarItem[] = [
     // 2）配置到 unocss.config.ts 的 safelist 中
     iconType: 'unocss',
     icon: 'i-carbon-shopping-cart',
+    roles: [AppRoleEnum.NormalUser],
     // badge: 10,
   },
   {
@@ -152,6 +167,7 @@ export const customTabbarList: CustomTabBarItem[] = [
     pagePath: 'pages/normal/me/me',
     iconType: 'uniUi',
     icon: 'contact',
+    roles: [AppRoleEnum.NormalUser],
     // badge: 100,
   },
   {
@@ -159,6 +175,7 @@ export const customTabbarList: CustomTabBarItem[] = [
     pagePath: 'pages/doctor/me/me',
     iconType: 'uniUi',
     icon: 'contact-filled',
+    roles: [AppRoleEnum.Doctor],
   },
   // 其他类型演示
   // 1、uiLib

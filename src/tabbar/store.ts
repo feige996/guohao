@@ -2,29 +2,62 @@ import type { CustomTabBarItem, CustomTabBarItemBadge } from './config'
 import { reactive } from 'vue'
 
 import { FG_LOG_ENABLE } from '@/router/interceptor'
-import { tabbarList as _tabbarList, customTabbarEnable } from './config'
+import { useUserStore } from '@/store/userStore'
+import { AppRoleEnum, customTabbarEnable, customTabbarList } from './config'
 
 // TODO 1/2: 中间的鼓包tabbarItem的开关
 const BULGE_ENABLE = false
 
 /** tabbarList 里面的 path 从 pages.config.ts 得到 */
-const tabbarList = reactive<CustomTabBarItem[]>(_tabbarList.map(item => ({
-  ...item,
-  pagePath: item.pagePath.startsWith('/') ? item.pagePath : `/${item.pagePath}`,
-})))
+// const tabbarList = reactive<CustomTabBarItem[]>(_tabbarList.map(item => ({
+//   ...item,
+//   pagePath: item.pagePath.startsWith('/') ? item.pagePath : `/${item.pagePath}`,
+// })))
+
+/** tabbarList 里面的 path 从 pages.config.ts 得到 */
+const tabbarList = computed<CustomTabBarItem[]>(() => {
+  const userStore = useUserStore()
+  const targetRole = userStore.userInfo?.defaultRole || AppRoleEnum.NormalUser
+
+  console.log('=== tabbarList Debug ===')
+  console.log('userInfo:', userStore.userInfo)
+  console.log('targetRole:', targetRole)
+  console.log('AppRoleEnum.NormalUser:', AppRoleEnum.NormalUser)
+  console.log('customTabbarList:', customTabbarList)
+
+  // 检查每个 item 的 roles
+  customTabbarList.forEach((item, index) => {
+    console.log(`item[${index}]:`, item.text, 'roles:', item.roles, 'includes targetRole:', item.roles.includes(targetRole))
+  })
+
+  const list = customTabbarList
+    .filter((item) => {
+      const shouldInclude = item.roles.includes(targetRole)
+      console.log(`Filter ${item.text}:`, shouldInclude)
+      return shouldInclude
+    })
+    .map(item => ({
+      ...item,
+      pagePath: item.pagePath.startsWith('/') ? item.pagePath : `/${item.pagePath}`,
+    }))
+
+  console.log('Filtered list:', list)
+  console.log('=== End Debug ===')
+  return list
+})
 
 if (customTabbarEnable && BULGE_ENABLE) {
-  if (tabbarList.length % 2) {
+  if (tabbarList.value.length % 2) {
     console.error('有鼓包时 tabbar 数量必须是偶数，否则样式很奇怪！！')
   }
-  tabbarList.splice(tabbarList.length / 2, 0, {
+  tabbarList.value.splice(tabbarList.value.length / 2, 0, {
     isBulge: true,
   } as CustomTabBarItem)
 }
 
 export function isPageTabbar(path: string) {
   const _path = path.split('?')[0]
-  return tabbarList.some(item => item.pagePath === _path)
+  return tabbarList.value.some(item => item.pagePath === _path)
 }
 
 /**
@@ -40,18 +73,18 @@ const tabbarStore = reactive({
     uni.setStorageSync('app-tabbar-index', idx)
   },
   setTabbarItemBadge(idx: number, badge: CustomTabBarItemBadge) {
-    if (tabbarList[idx]) {
-      tabbarList[idx].badge = badge
+    if (tabbarList.value[idx]) {
+      tabbarList.value[idx].badge = badge
     }
   },
   setAutoCurIdx(path: string) {
-    const index = tabbarList.findIndex(item => item.pagePath === path)
+    const index = tabbarList.value.findIndex(item => item.pagePath === path)
     FG_LOG_ENABLE && console.log('index:', index, path)
     // console.log('tabbarList:', tabbarList)
     if (index === -1) {
       const pagesPathList = getCurrentPages().map(item => item.route.startsWith('/') ? item.route : `/${item.route}`)
       // console.log(pagesPathList)
-      const flag = tabbarList.some(item => pagesPathList.includes(item.pagePath))
+      const flag = tabbarList.value.some(item => pagesPathList.includes(item.pagePath))
       if (!flag) {
         this.setCurIdx(0)
         return

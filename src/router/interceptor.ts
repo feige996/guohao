@@ -5,6 +5,7 @@ import { isMp } from '@uni-helper/uni-env'
  * 黑白名单的配置，请看 config.ts 文件， EXCLUDE_LOGIN_PATH_LIST
  */
 import { useTokenStore } from '@/store/token'
+import { useUserStore } from '@/store/userStore'
 import { isPageTabbar, tabbarStore } from '@/tabbar/store'
 import { getAllPages, getLastPage, HOME_PAGE, parseUrlToObj } from '@/utils/index'
 import { EXCLUDE_LOGIN_PATH_LIST, isNeedLoginMode, LOGIN_PAGE, LOGIN_PAGE_ENABLE_IN_MP } from './config'
@@ -27,6 +28,23 @@ export const navigateToInterceptor = {
       return
     }
     let { path, query: _query } = parseUrlToObj(url)
+
+    console.log('path==========================', path)
+
+    // 处理根路径访问
+    if (path === '/pages/normal/index/index') {
+      const userStore = useUserStore()
+      const defaultPage = userStore.userDefaultIndexPage
+      console.log('defaultPage==========================', defaultPage)
+
+      if (isPageTabbar(defaultPage)) {
+        uni.switchTab({ url: defaultPage })
+      }
+      else {
+        uni.navigateTo({ url: defaultPage })
+      }
+      return false // 阻止原路由
+    }
 
     FG_LOG_ENABLE && console.log('\n\n路由拦截器:-------------------------------------')
     FG_LOG_ENABLE && console.log('路由拦截器 1: url->', url, ', query ->', query)
