@@ -149,6 +149,14 @@ declare global {
      */
     // eslint-disable-next-line ts/method-signature-style
     hideToast<T extends UniNamespace.HideLoadingOption = UniNamespace.HideLoadingOption>(options?: T): void
+
+    // TUIKit 相关全局变量
+    /** 腾讯云 IM SDK 应用 ID */
+    $SDKAppID?: number
+    /** 腾讯云 IM 用户 ID */
+    $userID?: string
+    /** 腾讯云 IM 用户签名 */
+    $userSig?: string
   }
 }
 

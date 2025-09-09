@@ -33,6 +33,11 @@ export default defineManifestConfig({
     router: {
       base: VITE_APP_PUBLIC_BASE,
     },
+    optimization: {
+      treeShaking: {
+        enable: false,
+      },
+    },
   },
   /* 5+App特有相关 */
   'app-plus': {
