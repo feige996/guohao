@@ -118,7 +118,7 @@ export const useUserStore = defineStore('user', () => {
    * @param loginResult 登录API返回的结果
    */
   function saveLoginResult(loginResult: LoginOutput) {
-    console.log('保存登录结果:', loginResult)
+    // console.log('保存登录结果:', loginResult)
 
     // 保存令牌信息
     if (loginResult.accessToken) {
@@ -142,11 +142,11 @@ export const useUserStore = defineStore('user', () => {
       userInfo.value = loginResult.userInfo
     }
 
-    console.log('用户信息已保存到store:', {
-      isLoggedIn: isLoggedIn.value,
-      userInfo: userInfo.value,
-      hasToken: !!accessToken.value,
-    })
+    // console.log('用户信息已保存到store:', {
+    //   isLoggedIn: isLoggedIn.value,
+    //   userInfo: userInfo.value,
+    //   hasToken: !!accessToken.value,
+    // })
   }
 
   /**

@@ -5,8 +5,8 @@ import { useRequest } from 'alova/client'
 import { sm2 } from 'sm-crypto'
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
-import { tabbarList } from '@/tabbar/config'
-import { isPageTabbar } from '@/tabbar/store'
+// import { tabbarList } from '@/tabbar/config'
+import { isPageTabbar, tabbarList } from '@/tabbar/store'
 import { ensureDecodeURIComponent } from '@/utils'
 import { parseUrlToObj } from '@/utils/index'
 
@@ -112,7 +112,7 @@ const {
     immediate: false,
   },
 ).onSuccess((event) => {
-  console.log('登录成功:', event.data)
+  // console.log('登录成功:', event.data)
 
   // 保存登录结果到store
   if (event.data) {
@@ -139,6 +139,9 @@ const {
     // })
   }
   else {
+    console.log('redirectUrl.value:', path)
+    console.log(tabbarList.value)
+
     console.log('redirectTo:', path)
     uni.redirectTo({
       url: path,
