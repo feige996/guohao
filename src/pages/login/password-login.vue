@@ -124,6 +124,9 @@ const {
     path = `/${path}`
   }
 
+  const foundTabbarItem = tabbarList.value.find(item => item.pagePath === path)
+  path = foundTabbarItem ? path : `${tabbarList.value[0].pagePath}`
+
   const { path: _path, query } = parseUrlToObj(path)
   console.log('_path:', _path, 'query:', query, 'path:', path)
   console.log('isPageTabbar(_path):', isPageTabbar(_path))
@@ -141,6 +144,11 @@ const {
   else {
     console.log('redirectUrl.value:', path)
     console.log(tabbarList.value)
+
+    // 在 tabbarList 中查找 path，如果不存在则返回第一个项
+    // const targetPath = _path.startsWith('/') ? _path.substring(1) : _path
+    // const foundTabbarItem = tabbarList.value.find(item => item.pagePath === targetPath)
+    // const finalPath = foundTabbarItem ? path : `${tabbarList.value[0].pagePath}`
 
     console.log('redirectTo:', path)
     uni.redirectTo({

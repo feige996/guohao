@@ -4,6 +4,9 @@ import { onLoad } from '@dcloudio/uni-app'
 import { useRequest } from 'alova/client'
 import { computed, onUnmounted, reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
+import { isPageTabbar, tabbarList } from '@/tabbar/store'
+import { ensureDecodeURIComponent } from '@/utils'
+import { parseUrlToObj } from '@/utils/index'
 
 definePage({
   name: 'sms-login',
@@ -13,6 +16,9 @@ definePage({
     navigationBarTitleText: '验证码登录',
   },
 })
+
+// 重定向URL
+const redirectUrl = ref('')
 
 // 表单数据
 const formData = reactive({
@@ -96,7 +102,16 @@ const rules: FormRules = {
 }
 
 // 页面加载
-onLoad(() => {})
+onLoad((options) => {
+  console.log('sms-login options: ', options)
+  if (options.redirect) {
+    redirectUrl.value = ensureDecodeURIComponent(options.redirect)
+  }
+  else {
+    redirectUrl.value = tabbarList.value[0].pagePath
+  }
+  console.log('redirectUrl.value: ', redirectUrl.value)
+})
 
 // 用户store
 const userStore = useUserStore()
@@ -147,12 +162,32 @@ const {
   // 登录成功提示
   globalToast.success('登录成功')
 
-  // 延迟跳转到首页或其他页面
+  // 延迟跳转到重定向页面或首页
   setTimeout(() => {
-    // 这里可以根据用户角色跳转到不同页面
-    uni.switchTab({
-      url: '/pages/tabbar/index_Normal',
-    })
+    let path = redirectUrl.value
+    if (!path.startsWith('/')) {
+      path = `/${path}`
+    }
+
+    const { path: _path, query } = parseUrlToObj(path)
+
+    if (isPageTabbar(_path)) {
+      // 如果是 tabbar 页面，使用 switchTab
+      uni.switchTab({
+        url: _path,
+      })
+    }
+    else {
+      // 在 tabbarList 中查找 path，如果不存在则返回第一个项
+      const targetPath = _path.startsWith('/') ? _path.substring(1) : _path
+      const foundTabbarItem = tabbarList.value.find(item => item.pagePath === targetPath)
+      const finalPath = foundTabbarItem ? path : `/${tabbarList.value[0].pagePath}`
+
+      console.log('redirectTo:', finalPath)
+      uni.redirectTo({
+        url: finalPath,
+      })
+    }
   }, 50)
 })
 
