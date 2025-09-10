@@ -1,10 +1,55 @@
+/* uni-app 特定样式 */
 .tui-chat-uni {
   &-message-input {
-    max-height: 370px;
+    max-height: 200px; /* 减少最大高度，防止超出屏幕 */
+    min-height: 50px; /* 设置最小高度 */
     padding: 10px;
+    flex-shrink: 0; /* 防止被压缩 */
+    box-sizing: border-box;
   }
 
   &-message-input-toolbar {
     z-index: 100;
+    flex-shrink: 0; /* 防止被压缩 */
   }
 }
+
+/* 确保在uni-app环境下整体布局正确 */
+.tui-chat-uniapp-header {
+  display: none; /* 隐藏头部，使用系统导航栏 */
+}
+
+/* uni-app 环境下的聊天容器 */
+.chat {
+  /* 使用CSS变量来动态设置高度，避免导航栏影响 */
+  height: var(--window-height, 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.tui-chat.tui-chat-h5 {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* H5环境特殊处理 */
+/* #ifdef H5 */
+.chat {
+  /* H5环境下使用CSS变量，如果没有设置则使用calc计算 */
+  height: var(--window-height, calc(100vh - env(safe-area-inset-top)));
+}
+/* #endif */
+
+/* 小程序和APP环境 */
+/* #ifdef APP-PLUS || MP-WEIXIN || MP-ALIPAY || MP-BAIDU || MP-TOUTIAO || MP-QQ */
+.chat,
+.tui-chat.tui-chat-h5 {
+  /* 在小程序和APP中，页面高度通常是100% */
+  height: 100%;
+}
+/* #endif */

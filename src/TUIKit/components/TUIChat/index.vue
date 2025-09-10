@@ -58,6 +58,33 @@ onMounted(() => {
   TUIStore.watch(StoreName.CONV, {
     currentConversation: onCurrentConversationUpdate,
   })
+
+  // 设置窗口高度CSS变量，解决导航栏高度问题
+  if (isUniFrameWork) {
+    try {
+      // 获取系统信息
+      const systemInfo = uni.getSystemInfoSync()
+      const windowHeight = systemInfo.windowHeight
+
+      if (windowHeight) {
+        // 设置CSS变量到根元素，确保全局可用
+        document.documentElement.style.setProperty('--window-height', `${windowHeight}px`)
+
+        // 也可以直接设置到页面元素
+        setTimeout(() => {
+          const chatElement = document.querySelector('.chat') as HTMLElement
+          if (chatElement) {
+            chatElement.style.height = `${windowHeight}px`
+          }
+        }, 0)
+      }
+    }
+    catch (error) {
+      console.warn('获取系统信息失败:', error)
+      // 降级方案：使用100%高度
+      document.documentElement.style.setProperty('--window-height', '100%')
+    }
+  }
 })
 
 onUnmounted(() => {
@@ -227,7 +254,7 @@ function onCurrentConversationUpdate(conversation: IConversationModel) {
       </view>
       <view
         v-if="currentConversationID"
-        class="tui-chat" :class="[!isPC && 'tui-chat-h5']"
+        class="tui-chat-content" :class="[!isPC && 'tui-chat-h5']"
       >
         <ChatHeader
           class="tui-chat-header" :class="[
