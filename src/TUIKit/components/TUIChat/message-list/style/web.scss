@@ -24,10 +24,19 @@
       text-align: justify;
       font-size: 12px;
 
+      /* #ifndef MP-WEIXIN */
       a {
         color: #006eff;
         float: right;
       }
+      /* #endif */
+
+      /* #ifdef MP-WEIXIN */
+      .safe-tips-link {
+        color: #006eff;
+        float: right;
+      }
+      /* #endif */
     }
 
     .tui-chat-application-tips {
@@ -87,9 +96,17 @@
         display: flex;
         flex-direction: column;
 
+        /* #ifndef MP-WEIXIN */
         &:first-child {
           margin-top: 5px;
         }
+        /* #endif */
+
+        /* #ifdef MP-WEIXIN */
+        &.message-li-first {
+          margin-top: 5px;
+        }
+        /* #endif */
 
         .message-item {
           display: flex;
@@ -152,6 +169,7 @@
   top: 63px;
   left: 0;
 
+  /* #ifndef MP-WEIXIN */
   header {
     display: flex;
     justify-content: flex-end;
@@ -159,8 +177,21 @@
     box-sizing: border-box;
     padding: 10px;
   }
+  /* #endif */
+
+  /* #ifdef MP-WEIXIN */
+  .image-dialog-header {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+  /* #endif */
 }
 
+/* 微信小程序不支持webkit伪元素选择器 */
+/* #ifndef MP-WEIXIN */
 ::-webkit-scrollbar {
   width: 6px;
   height: 140px;
@@ -175,3 +206,4 @@
   border-radius: 10px;
   background-color: #9a999c;
 }
+/* #endif */

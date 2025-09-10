@@ -5,18 +5,38 @@
     &-item {
       background: #FFF;
 
+      /* #ifndef MP-WEIXIN */
       label {
         font-family: PingFangSC-Regular;
         font-weight: 400;
         color: #333;
       }
+      /* #endif */
+
+      /* #ifdef MP-WEIXIN */
+      .group-label {
+        font-family: PingFangSC-Regular;
+        font-weight: 400;
+        color: #333;
+      }
+      /* #endif */
     }
 
+    /* #ifndef MP-WEIXIN */
     input {
       border: 1px solid rgba(131, 137, 153, 0.40);
       font-weight: 400;
       color: #333;
     }
+    /* #endif */
+
+    /* #ifdef MP-WEIXIN */
+    .group-input {
+      border: 1px solid rgba(131, 137, 153, 0.40);
+      font-weight: 400;
+      color: #333;
+    }
+    /* #endif */
 
     &-edit {
       background: #FFF;
@@ -35,9 +55,17 @@
       font-weight: 400;
       color: #888;
 
+      /* #ifndef MP-WEIXIN */
       a {
         color: #006EFF;
       }
+      /* #endif */
+
+      /* #ifdef MP-WEIXIN */
+      .group-link {
+        color: #006EFF;
+      }
+      /* #endif */
     }
   }
 }
@@ -45,9 +73,17 @@
 .select {
   flex: 1;
 
+  /* #ifndef MP-WEIXIN */
   a {
     color: #006EFF;
   }
+  /* #endif */
+
+  /* #ifdef MP-WEIXIN */
+  .select-link {
+    color: #006EFF;
+  }
+  /* #endif */
 
   &-item {
     border: 1px solid rgba(131, 137, 153, 0.40);
@@ -69,6 +105,7 @@
   }
 }
 
+/* #ifndef MP-WEIXIN */
 header {
   background: #FFF;
 
@@ -79,6 +116,20 @@ header {
     letter-spacing: 0;
   }
 }
+/* #endif */
+
+/* #ifdef MP-WEIXIN */
+.group-header {
+  background: #FFF;
+
+  .group-title {
+    font-family: PingFangSC-Medium;
+    font-weight: 500;
+    color: #000;
+    letter-spacing: 0;
+  }
+}
+/* #endif */
 
 .btn-default {
   background: #FFF;

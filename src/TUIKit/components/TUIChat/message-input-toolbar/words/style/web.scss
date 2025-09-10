@@ -25,8 +25,16 @@
       color: #50545c;
       line-height: 18px;
     }
+    /* #ifndef MP-WEIXIN */
     &-item:hover {
       color: #006eff;
     }
+    /* #endif */
+
+    /* #ifdef MP-WEIXIN */
+    &-item.words-list-item-hover {
+      color: #006eff;
+    }
+    /* #endif */
   }
 }

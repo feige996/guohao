@@ -12,6 +12,7 @@
     color: #000;
     letter-spacing: 0;
 
+    /* #ifndef MP-WEIXIN */
     input {
       background: #FFF;
       border: 1px solid #DEE0E3;
@@ -19,6 +20,17 @@
       color: #8F959E;
       letter-spacing: 0;
     }
+    /* #endif */
+
+    /* #ifdef MP-WEIXIN */
+    .transfer-input {
+      background: #FFF;
+      border: 1px solid #DEE0E3;
+      font-weight: 500;
+      color: #8F959E;
+      letter-spacing: 0;
+    }
+    /* #endif */
   }
 
   .transfer-list {

@@ -235,7 +235,9 @@ function onGroupSystemNoticeListUpdated() {
 </script>
 
 <style scoped lang="scss">
-:not(not) {
+/* 基础样式 - 应用于群组申请组件的主要元素 */
+.application-tips,
+.flex-row {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

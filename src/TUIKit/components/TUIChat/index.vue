@@ -59,30 +59,33 @@ onMounted(() => {
     currentConversation: onCurrentConversationUpdate,
   })
 
-  // 设置窗口高度CSS变量，解决导航栏高度问题
+  // 设置窗口高度，解决导航栏高度问题
   if (isUniFrameWork) {
     try {
-      // 获取系统信息
-      const systemInfo = uni.getSystemInfoSync()
+      // 获取系统信息 - 使用新的API避免弃用警告
+      const systemInfo = uni.getWindowInfo()
       const windowHeight = systemInfo.windowHeight
 
       if (windowHeight) {
-        // 设置CSS变量到根元素，确保全局可用
-        document.documentElement.style.setProperty('--window-height', `${windowHeight}px`)
-
-        // 也可以直接设置到页面元素
+        // 在非微信小程序环境下设置具体高度
+        // #ifndef MP-WEIXIN
         setTimeout(() => {
           const chatElement = document.querySelector('.chat') as HTMLElement
           if (chatElement) {
             chatElement.style.height = `${windowHeight}px`
           }
         }, 0)
+        // #endif
+
+        // 微信小程序环境下使用100%高度，依赖页面容器
+        // #ifdef MP-WEIXIN
+        // 微信小程序中页面高度由页面容器控制，这里不需要特殊处理
+        // #endif
       }
     }
     catch (error) {
       console.warn('获取系统信息失败:', error)
-      // 降级方案：使用100%高度
-      document.documentElement.style.setProperty('--window-height', '100%')
+      // 降级方案：保持默认样式
     }
   }
 })

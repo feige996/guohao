@@ -200,7 +200,10 @@ defineExpose({
 <style scoped lang="scss">
 @import "../../../assets/styles/common";
 
-:not(not) {
+/* 基础样式 - 应用于消息输入组件的主要元素 */
+.message-input,
+.message-input-editor,
+.message-input-h5 {
   display: flex;
   flex-direction: column;
   min-width: 0;

@@ -21,8 +21,8 @@
 
 /* uni-app 环境下的聊天容器 */
 .chat {
-  /* 使用CSS变量来动态设置高度，避免导航栏影响 */
-  height: var(--window-height, 100%);
+  /* 默认使用100%高度 */
+  height: 100%;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -40,8 +40,8 @@
 /* H5环境特殊处理 */
 /* #ifdef H5 */
 .chat {
-  /* H5环境下使用CSS变量，如果没有设置则使用calc计算 */
-  height: var(--window-height, calc(100vh - env(safe-area-inset-top)));
+  /* H5环境下使用100vh */
+  height: 100vh;
 }
 /* #endif */
 

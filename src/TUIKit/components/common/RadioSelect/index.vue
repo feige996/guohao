@@ -37,11 +37,13 @@ function toggleSelect() {
 }
 </script>
 <style lang="scss" scoped>
-:not(not) {
+/* 基础样式 - 应用于单选组件的主要元素 */
+.radio-select,
+.radio-no-select {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  box-sizing: border-box
+  box-sizing: border-box;
 }
 
 .radio-select {

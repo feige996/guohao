@@ -53,9 +53,11 @@
 }
 
 // uniapp swiper style
+/* #ifndef MP-WEIXIN */
 wx-swiper .wx-swiper-wrapper,
 wx-swiper .wx-swiper-slides,
 wx-swiper .wx-swiper-slide-frame,
+/* #endif */
 .message-input-toolbar-list {
   overflow: visible !important;
 }
@@ -73,6 +75,7 @@ wx-swiper .wx-swiper-slide-frame,
   width: 100%;
   height: 220px;
 
+  /* #ifndef MP-WEIXIN */
   ::v-deep .uni-swiper-wrapper,
   wx-swiper .wx-swiper-wrapper {
     overflow: visible !important;
@@ -86,6 +89,18 @@ wx-swiper .wx-swiper-slide-frame,
       .wx-swiper-slide-frame,
       wx-swiper .wx-swiper-slide-frame {
         overflow: visible !important;
+  /* #endif */
+
+  /* #ifdef MP-WEIXIN */
+  .uni-swiper-wrapper {
+    overflow: visible !important;
+
+    .uni-swiper-slides {
+      overflow: visible !important;
+
+      .uni-swiper-slide-frame {
+        overflow: visible !important;
+  /* #endif */
 
         .message-input-toolbar-list {
           overflow: visible !important;

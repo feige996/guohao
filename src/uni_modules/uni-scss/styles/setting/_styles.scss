@@ -6,15 +6,27 @@ $-color-black:#000;
 	color: #fff;
 	background-color: $color;
 	border-color: mix($-color-black, $color, 8%);
+	/* #ifndef MP-WEIXIN */
 	&:not([hover-class]):active {
 		background: mix($-color-black, $color, 10%);
 		border-color: mix($-color-black, $color, 20%);
 		color: $-color-white;
 		outline: none;
 	}
+	/* #endif */
+
+	/* #ifdef MP-WEIXIN */
+	&.button-active {
+		background: mix($-color-black, $color, 10%);
+		border-color: mix($-color-black, $color, 20%);
+		color: $-color-white;
+		outline: none;
+	}
+	/* #endif */
 }
 @mixin is-color($color) {
 	@include base-style($color);
+	/* #ifndef MP-WEIXIN */
 	&[loading] {
 		@include base-style($color);
 		&::before {
@@ -30,18 +42,48 @@ $-color-black:#000;
 	    background-color: mix($color, $-color-white);
 	  }
 	}
+	/* #endif */
+
+	/* #ifdef MP-WEIXIN */
+	&.button-loading {
+		@include base-style($color);
+		.button-loading-before {
+			margin-right:5px;
+		}
+	}
+	&.button-disabled {
+	  &,
+		&.button-loading,
+	  &.button-active {
+	    color: $-color-white;
+			border-color: mix(darken($color,10%), $-color-white);
+	    background-color: mix($color, $-color-white);
+	  }
+	}
+	/* #endif */
 
 }
 @mixin base-plain-style($color) {
 	color:$color;
 	background-color: mix($-color-white, $color, 90%);
 	border-color: mix($-color-white, $color, 70%);
+	/* #ifndef MP-WEIXIN */
 	&:not([hover-class]):active {
 	  background: mix($-color-white, $color, 80%);
 	  color: $color;
 	  outline: none;
 		border-color: mix($-color-white, $color, 50%);
 	}
+	/* #endif */
+
+	/* #ifdef MP-WEIXIN */
+	&.button-active {
+	  background: mix($-color-white, $color, 80%);
+	  color: $color;
+	  outline: none;
+		border-color: mix($-color-white, $color, 50%);
+	}
+	/* #endif */
 }
 @mixin is-plain($color){
 	&[plain] {

@@ -270,11 +270,20 @@ const handleMemberName = (item: any) => {
     padding-top: 5px;
     cursor: pointer;
 
+    /* #ifndef MP-WEIXIN */
     &:hover {
       background: rgba(0,110,255,0.1);
     }
+    /* #endif */
+
+    /* #ifdef MP-WEIXIN */
+    &.member-list-box-header-hover {
+      background: rgba(0,110,255,0.1);
+    }
+    /* #endif */
   }
 
+  /* #ifndef MP-WEIXIN */
   span {
     font-family: PingFangSC-Regular;
     font-weight: 400;
@@ -283,6 +292,18 @@ const handleMemberName = (item: any) => {
     letter-spacing: 0;
     padding: 5px;
   }
+  /* #endif */
+
+  /* #ifdef MP-WEIXIN */
+  .member-text {
+    font-family: PingFangSC-Regular;
+    font-weight: 400;
+    font-size: 12px;
+    color: #000;
+    letter-spacing: 0;
+    padding: 5px;
+  }
+  /* #endif */
 
   &-body {
     height: 30px;
@@ -290,10 +311,21 @@ const handleMemberName = (item: any) => {
     display: flex;
     align-items: center;
 
-    .selected,
+    .selected {
+      background: rgba(0,110,255,0.1);
+    }
+
+    /* #ifndef MP-WEIXIN */
     &:hover {
       background: rgba(0,110,255,0.1);
     }
+    /* #endif */
+
+    /* #ifdef MP-WEIXIN */
+    &.member-list-box-body-hover {
+      background: rgba(0,110,255,0.1);
+    }
+    /* #endif */
 
     &-name {
       overflow: hidden;
@@ -369,6 +401,7 @@ const handleMemberName = (item: any) => {
       &-body {
         padding: 10px;
 
+        /* #ifndef MP-WEIXIN */
         img {
           width: 26px;
           height: 26px;
@@ -377,6 +410,18 @@ const handleMemberName = (item: any) => {
         span {
           font-size: 14px;
         }
+        /* #endif */
+
+        /* #ifdef MP-WEIXIN */
+        .member-avatar {
+          width: 26px;
+          height: 26px;
+        }
+
+        .member-text {
+          font-size: 14px;
+        }
+        /* #endif */
       }
 
       &-loading {

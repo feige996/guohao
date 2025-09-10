@@ -154,9 +154,17 @@
     &-content {
       position: relative;
 
+      /* #ifndef MP-WEIXIN */
       .tui-conversation-item:hover {
         background: rgba(0, 110, 255, 0.1);
       }
+      /* #endif */
+
+      /* #ifdef MP-WEIXIN */
+      .tui-conversation-item.conversation-item-hover {
+        background: rgba(0, 110, 255, 0.1);
+      }
+      /* #endif */
 
       .dialog {
         position: absolute;

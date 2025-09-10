@@ -50,10 +50,19 @@
         top: 0;
         padding: 0 18px;
 
+        /* #ifndef MP-WEIXIN */
         input {
           border-radius: 5px;
           font-size: 14px;
         }
+        /* #endif */
+
+        /* #ifdef MP-WEIXIN */
+        .transfer-input {
+          border-radius: 5px;
+          font-size: 14px;
+        }
+        /* #endif */
       }
 
       &-uniapp-input {

@@ -21,6 +21,7 @@
     line-height: 14px;
     padding-bottom: 20px;
 
+    /* #ifndef MP-WEIXIN */
     input {
       box-sizing: border-box;
       width: 100%;
@@ -29,6 +30,18 @@
       line-height: 14px;
       padding: 9px 12px;
     }
+    /* #endif */
+
+    /* #ifdef MP-WEIXIN */
+    .transfer-input {
+      box-sizing: border-box;
+      width: 100%;
+      border-radius: 30px;
+      font-size: 10px;
+      line-height: 14px;
+      padding: 9px 12px;
+    }
+    /* #endif */
   }
 
   .transfer-list {

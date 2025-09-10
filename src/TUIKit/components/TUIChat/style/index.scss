@@ -4,8 +4,13 @@
 @import './uni';
 @import './wx';
 
-/* 基础样式 - 只应用于聊天组件内的元素 */
-.tui-chat * {
+/* 基础样式 - 应用于聊天组件的主要元素 */
+.tui-chat,
+.tui-chat-content,
+.tui-chat-header,
+.tui-chat-message-list,
+.tui-chat-message-input,
+.tui-chat-message-input-toolbar {
   box-sizing: border-box;
 }
 

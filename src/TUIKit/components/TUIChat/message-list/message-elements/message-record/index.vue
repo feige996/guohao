@@ -104,7 +104,8 @@ function closeMergeDetail() {
 }
 </script>
 <style lang="scss" scoped>
-:not(not) {
+/* 基础样式 - 应用于消息记录组件的主要元素 */
+.message-record {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

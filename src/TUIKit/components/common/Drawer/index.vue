@@ -92,7 +92,9 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
-:not(not) {
+/* 基础样式 - 应用于抽屉组件的主要元素 */
+.drawer,
+.drawer-content {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

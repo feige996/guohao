@@ -247,7 +247,10 @@ function openReadUserPanel() {
 </script>
 
 <style lang="scss" scoped>
-:not(not) {
+/* 基础样式 - 应用于消息气泡组件的主要元素 */
+.message-bubble,
+.flex-row,
+.reverse {
   display: flex;
   flex-direction: column;
   min-width: 0;
