@@ -124,6 +124,9 @@ const {
   (mobile: string) => Apis.app.apiAppSendsmscodeMobilePost({
     pathParams: { mobile },
     data: {},
+    meta: {
+      ignoreAuth: true,
+    },
   }),
   {
     immediate: false,
@@ -147,47 +150,67 @@ const {
       code,
       loginFrom: 'app',
     },
+    meta: {
+      ignoreAuth: true,
+    },
   }),
   {
     immediate: false,
   },
 ).onSuccess(async (response) => {
   console.log('短信登录成功:', response)
+  console.log('短信登录成功:', response.data)
 
   // 保存登录结果到store
-  if (response?.data?.result) {
-    await userStore.saveLoginResult(response.data.result)
+  if (response.data) {
+    await userStore.saveLoginResult(response.data as any)
+  }
+
+  let path = redirectUrl.value
+  if (!path.startsWith('/')) {
+    path = `/${path}`
+  }
+
+  const foundTabbarItem = tabbarList.value.find(item => item.pagePath === path)
+  path = foundTabbarItem ? path : `${tabbarList.value[0].pagePath}`
+
+  const { path: _path, query } = parseUrlToObj(path)
+  console.log('_path:', _path, 'query:', query, 'path:', path)
+  console.log('isPageTabbar(_path):', isPageTabbar(_path))
+  if (isPageTabbar(_path)) {
+    // 经过我的测试 switchTab 不能带 query 参数, 不管是放到 url  还是放到 query ,
+    // 最后跳转过去的时候都会丢失 query 信息
+    uni.switchTab({
+      url: path,
+    })
+    // uni.switchTab({
+    //   url: _path,
+    //   query,
+    // })
+  }
+  else {
+    console.log('redirectUrl.value:', path)
+    console.log(tabbarList.value)
+
+    // 在 tabbarList 中查找 path，如果不存在则返回第一个项
+    // const targetPath = _path.startsWith('/') ? _path.substring(1) : _path
+    // const foundTabbarItem = tabbarList.value.find(item => item.pagePath === targetPath)
+    // const finalPath = foundTabbarItem ? path : `${tabbarList.value[0].pagePath}`
+
+    console.log('redirectTo:', path)
+    uni.redirectTo({
+      url: path,
+    })
   }
 
   // 登录成功提示
-  globalToast.success('登录成功')
+  // globalToast.success('登录成功')
 
-  // 延迟跳转到重定向页面或首页
   setTimeout(() => {
-    let path = redirectUrl.value
-    if (!path.startsWith('/')) {
-      path = `/${path}`
-    }
-
-    const { path: _path, query } = parseUrlToObj(path)
-
-    if (isPageTabbar(_path)) {
-      // 如果是 tabbar 页面，使用 switchTab
-      uni.switchTab({
-        url: _path,
-      })
-    }
-    else {
-      // 在 tabbarList 中查找 path，如果不存在则返回第一个项
-      const targetPath = _path.startsWith('/') ? _path.substring(1) : _path
-      const foundTabbarItem = tabbarList.value.find(item => item.pagePath === targetPath)
-      const finalPath = foundTabbarItem ? path : `/${tabbarList.value[0].pagePath}`
-
-      console.log('redirectTo:', finalPath)
-      uni.redirectTo({
-        url: finalPath,
-      })
-    }
+    // 检查用户默认首页是否存在，如果不存在则使用默认页面
+    // const defaultPage = userStore.userDefaultIndexPage || '/pages/tabbar/index_Normal'
+    // console.log(userStore.userDefaultIndexPage)
+    // router.pushTab(defaultPage)
   }, 50)
 })
 
