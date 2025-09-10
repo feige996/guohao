@@ -13,17 +13,9 @@
     font-weight: 500;
     color: #999;
 
-    /* #ifndef MP-WEIXIN */
     a {
       color: #006eff;
     }
-    /* #endif */
-
-    /* #ifdef MP-WEIXIN */
-    .evaluate-link {
-      color: #006eff;
-    }
-    /* #endif */
   }
 
   &-content {
@@ -47,21 +39,11 @@
       .evaluate-main-content {
         background: #fff;
 
-        /* #ifndef MP-WEIXIN */
         p {
           a {
             color: #3370ff;
           }
         }
-        /* #endif */
-
-        /* #ifdef MP-WEIXIN */
-        .evaluate-text {
-          .evaluate-link {
-            color: #3370ff;
-          }
-        }
-        /* #endif */
 
         .close {
           font-family: PingFangSC-Regular;

@@ -315,10 +315,7 @@ function closeReadReceiptPanel(): void {
 </script>
 
 <style scoped lang="scss">
-/* 基础样式 - 应用于已读回执面板组件的主要元素 */
-.read-receipt-panel,
-.header,
-.content {
+:not(not) {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

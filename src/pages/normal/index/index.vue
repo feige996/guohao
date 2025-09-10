@@ -23,9 +23,9 @@ function openChat() {
   // conversationID = C2C${userID} | GROUP${groupID}
   // 1v1 chat: conversationID = `C2C${userID}`
   // group chat: conversationID = `GROUP${groupID}`
-  const conversationID = '704314381250629'
+  const conversationID = '703181956661317'
   uni.navigateTo({
-    url: `/TUIKit/components/TUIChat/index?conversationID=${conversationID}`,
+    url: `/TUIKit/components/TUIChat/index?conversationID=C2C${conversationID}`,
   })
 }
 </script>

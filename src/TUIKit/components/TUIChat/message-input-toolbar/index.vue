@@ -23,11 +23,21 @@
             'message-input-toolbar-uni-list',
           ]"
         >
-          <AlbumUpload
-            v-if="featureConfig.InputAlbum"
+          <ImageUpload
+            v-if="featureConfig.InputImage"
+            imageSourceType="camera"
           />
-          <CameraUpload
-            v-if="featureConfig.InputCamera"
+          <ImageUpload
+            v-if="featureConfig.InputImage"
+            imageSourceType="album"
+          />
+          <VideoUpload
+            v-if="featureConfig.InputVideo"
+            videoSourceType="album"
+          />
+          <VideoUpload
+            v-if="featureConfig.InputVideo"
+            videoSourceType="camera"
           />
           <template v-if="currentExtensionList.length > 0">
             <div
@@ -126,8 +136,8 @@ import TUIChatEngine, {
   TUIReportService,
 } from '@tencentcloud/chat-uikit-engine';
 import TUICore, { ExtensionInfo, TUIConstants } from '@tencentcloud/tui-core';
-import AlbumUpload from './album-upload/index.vue';
-import CameraUpload from './camera-upload/index.vue';
+import ImageUpload from './image-upload/index.vue';
+import VideoUpload from './video-upload/index.vue';
 import Evaluate from './evaluate/index.vue';
 import Words from './words/index.vue';
 import ToolbarItemContainer from './toolbar-item-container/index.vue';
@@ -157,10 +167,10 @@ const neededCountFirstPage = ref<number>(8);
 const slicePos = ref<number>(0);
 
 const computeToolbarPaging = () => {
-  if (featureConfig.InputAlbum && featureConfig.InputCamera) {
+  if (featureConfig.InputImage && featureConfig.InputVideo) {
+    neededCountFirstPage.value -= 4;
+  } else if (featureConfig.InputImage || featureConfig.InputVideo) {
     neededCountFirstPage.value -= 2;
-  } else if (featureConfig.InputAlbum || featureConfig.InputCamera) {
-    neededCountFirstPage.value -= 1;
   }
 
   slicePos.value = neededCountFirstPage.value;

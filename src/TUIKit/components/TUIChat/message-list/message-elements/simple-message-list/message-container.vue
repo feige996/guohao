@@ -50,8 +50,7 @@ const isNoPadding = computed(() => {
 </script>
 
 <style scoped lang="scss">
-/* 基础样式 - 应用于消息容器组件的主要元素 */
-.message-container {
+:not(not){
   display: flex;
   flex-direction: column;
   min-width: 0;

@@ -91,8 +91,7 @@ function cancelMultipleSelect() {
 </script>
 
 <style lang="scss" scoped>
-/* 基础样式 - 应用于多选面板组件的主要元素 */
-.mulitple-select-panel {
+:not(not) {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

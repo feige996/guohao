@@ -291,8 +291,7 @@ function resolveBigFaceUrl(bigFaceKey: string): string {
 </script>
 
 <style scoped lang="scss">
-/* 基础样式 - 应用于简单消息列表组件的主要元素 */
-.simple-message-list {
+:not(not){
   display: flex;
   flex-direction: column;
   min-width: 0;

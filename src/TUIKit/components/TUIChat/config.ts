@@ -15,8 +15,6 @@ const defaultFeatures = {
   InputVoice: true,
   InputVideo: true,
   InputFile: true,
-  InputAlbum: true,
-  InputCamera: true,
   InputEvaluation: true,
   InputQuickReplies: true,
   InputMention: true,
@@ -42,8 +40,6 @@ enum FeaturesType {
   InputVoice = 'InputVoice',
   InputVideo = 'InputVideo',
   InputFile = 'InputFile',
-  InputAlbum = 'InputAlbum',
-  InputCamera = 'InputCamera',
   InputEvaluation = 'InputEvaluation',
   InputQuickReplies = 'InputQuickReplies',
   InputMention = 'InputMention',
@@ -115,7 +111,7 @@ class TUIChatConfig {
   }
 
   resetFeatureConfig() {
-    this.features = JSON.parse(JSON.stringify(defaultFeatures));
+    this.features = JSON.parse(JSON.stringify(defaultFeatures));;
   }
 }
 

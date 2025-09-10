@@ -9,17 +9,9 @@
   .image-dialog {
     background: rgba(0, 0, 0, 0.6);
 
-    /* #ifndef MP-WEIXIN */
     header {
       background: rgba(0,0,0,0.49);
     }
-    /* #endif */
-
-    /* #ifdef MP-WEIXIN */
-    .image-dialog-header {
-      background: rgba(0,0,0,0.49);
-    }
-    /* #endif */
   }
 }
 
@@ -32,17 +24,9 @@
     background: #FFF;
 
     .input {
-      /* #ifndef MP-WEIXIN */
       input {
         background: #F4F5F9;
       }
-      /* #endif */
-
-      /* #ifdef MP-WEIXIN */
-      .input-field {
-        background: #F4F5F9;
-      }
-      /* #endif */
     }
   }
 }

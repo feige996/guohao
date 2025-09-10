@@ -86,16 +86,8 @@
     font-size: 12px;
     text-align: center;
 
-    /* #ifndef MP-WEIXIN */
     a {
       display: inline-block;
     }
-    /* #endif */
-
-    /* #ifdef MP-WEIXIN */
-    .evaluate-link {
-      display: inline-block;
-    }
-    /* #endif */
   }
 }

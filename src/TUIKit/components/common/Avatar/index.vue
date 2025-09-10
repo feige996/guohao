@@ -98,9 +98,7 @@ function avatarLoadFailed(e: Event) {
 </script>
 
 <style scoped lang="scss">
-/* 基础样式 - 应用于头像组件的主要元素 */
-.avatar,
-.avatar-container {
+:not(not) {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;

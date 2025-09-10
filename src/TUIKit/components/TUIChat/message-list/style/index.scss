@@ -3,11 +3,7 @@
 @import "./web";
 @import "./h5";
 
-/* 基础样式 - 应用于消息列表的主要元素 */
-.tui-message-list,
-.message-li,
-.message-item,
-.message-tool {
+:not(not) {
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
