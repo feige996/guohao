@@ -7,6 +7,7 @@ import type { AppUserInfo } from '@/api/guohao-api/globals'
  */
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
+import { initTUIKitAuto, logoutTUIKit } from '@/utils/tuikit'
 
 // 登录输出接口定义
 interface LoginOutput {
@@ -117,7 +118,7 @@ export const useUserStore = defineStore('user', () => {
    * 保存登录结果
    * @param loginResult 登录API返回的结果
    */
-  function saveLoginResult(loginResult: LoginOutput) {
+  async function saveLoginResult(loginResult: LoginOutput) {
     // console.log('保存登录结果:', loginResult)
 
     // 保存令牌信息
@@ -142,6 +143,25 @@ export const useUserStore = defineStore('user', () => {
       userInfo.value = loginResult.userInfo
     }
 
+    // 登录成功后重新初始化IM
+    // 延迟一下确保store数据已更新
+    setTimeout(async () => {
+      try {
+        console.log('登录成功，开始重新初始化IM...')
+        await initTUIKitAuto()
+        console.log('IM重新初始化成功')
+      }
+      catch (error) {
+        console.error('IM重新初始化失败:', error)
+        // 显示用户友好的错误提示
+        uni.showToast({
+          title: '即时通讯初始化失败',
+          icon: 'none',
+          duration: 2000,
+        })
+      }
+    }, 500) // 延迟500ms，确保store数据已更新
+
     // console.log('用户信息已保存到store:', {
     //   isLoggedIn: isLoggedIn.value,
     //   userInfo: userInfo.value,
@@ -165,7 +185,19 @@ export const useUserStore = defineStore('user', () => {
   /**
    * 清除用户信息（登出）
    */
-  function clearUserInfo() {
+  async function clearUserInfo() {
+    // 先登出IM
+    try {
+      console.log('开始登出IM...')
+      await logoutTUIKit()
+      console.log('IM登出成功')
+    }
+    catch (error) {
+      console.error('IM登出失败:', error)
+      // 登出失败不影响用户信息清除
+    }
+
+    // 清除用户信息
     userInfo.value = null
     accessToken.value = ''
     refreshToken.value = ''

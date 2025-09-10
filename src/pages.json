@@ -157,6 +157,13 @@
       }
     },
     {
+      "path": "pages/login/login",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "登录"
+      }
+    },
+    {
       "path": "pages/login/password-login",
       "type": "page",
       "name": "password-login",

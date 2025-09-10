@@ -151,12 +151,12 @@ const {
   {
     immediate: false,
   },
-).onSuccess((response) => {
+).onSuccess(async (response) => {
   console.log('短信登录成功:', response)
 
   // 保存登录结果到store
   if (response?.data?.result) {
-    userStore.saveLoginResult(response.data.result)
+    await userStore.saveLoginResult(response.data.result)
   }
 
   // 登录成功提示

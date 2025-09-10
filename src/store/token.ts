@@ -170,7 +170,7 @@ export const useTokenStore = defineStore(
         tokenInfo.value = { ...tokenInfoState }
         uni.removeStorageSync('token')
         const userStore = useUserStore()
-        userStore.clearUserInfo()
+        await userStore.clearUserInfo()
       }
     }
 

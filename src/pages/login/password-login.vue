@@ -111,13 +111,13 @@ const {
   {
     immediate: false,
   },
-).onSuccess((event) => {
+).onSuccess(async (event) => {
   console.log('登录成功:', event)
   console.log('登录成功:', event.data)
 
   // 保存登录结果到store
   if (event.data) {
-    _userStore.saveLoginResult(event.data as any)
+    await _userStore.saveLoginResult(event.data as any)
   }
 
   let path = redirectUrl.value
