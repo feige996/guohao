@@ -72,7 +72,13 @@ export default defineUniPages({
   ],
   // 预加载规则
   preloadRule: {
-    'pages/index/index': {
+  // 可以配置多个触发页面
+    'pages/normal/index/index': {
+      network: 'all',
+      packages: ['TUIKit'],
+    },
+    // 可以配置多个触发页面
+    'pages/doctor/index/index': {
       network: 'all',
       packages: ['TUIKit'],
     },

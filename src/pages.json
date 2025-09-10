@@ -76,7 +76,13 @@
     }
   ],
   "preloadRule": {
-    "pages/index/index": {
+    "pages/normal/index/index": {
+      "network": "all",
+      "packages": [
+        "TUIKit"
+      ]
+    },
+    "pages/doctor/index/index": {
       "network": "all",
       "packages": [
         "TUIKit"
