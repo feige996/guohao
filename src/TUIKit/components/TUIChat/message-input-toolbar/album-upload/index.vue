@@ -1,15 +1,29 @@
+<script lang="ts" setup>
+import ToolbarItemContainer from '../toolbar-item-container/index.vue'
+import { UploadType, useUpload } from '../uploadToolkit'
+
+const {
+  inputRef,
+  toolbarConfig,
+  isPC,
+  isUniFrameWork,
+  handleIconClick,
+  handleWebFileChange,
+} = useUpload(UploadType.ALBUM)
+</script>
+
 <template>
   <ToolbarItemContainer
-    :iconFile="toolbarConfig.icon"
+    :icon-file="toolbarConfig.icon"
     :title="toolbarConfig.title"
-    :iconWidth="toolbarConfig.iconWidth"
-    :iconHeight="toolbarConfig.iconHeight"
-    :needDialog="false"
-    @onIconClick="handleIconClick"
+    :icon-width="toolbarConfig.iconWidth"
+    :icon-height="toolbarConfig.iconHeight"
+    :need-dialog="false"
+    @on-icon-click="handleIconClick"
   >
     <div
       v-if="!isUniFrameWork"
-      :class="['image-upload', !isPC && 'image-upload-h5']"
+      class="image-upload" :class="[!isPC && 'image-upload-h5']"
     >
       <input
         ref="inputRef"
@@ -22,20 +36,7 @@
     </div>
   </ToolbarItemContainer>
 </template>
-<script lang="ts" setup>
-import ToolbarItemContainer from '../toolbar-item-container/index.vue';
-import { useUpload, UploadType } from '../uploadToolkit';
-
-const {
-  inputRef,
-  toolbarConfig,
-  isPC,
-  isUniFrameWork,
-  handleIconClick,
-  handleWebFileChange,
-} = useUpload(UploadType.ALBUM);
-</script>
 
 <style lang="scss" scoped>
-@import "../../../../assets/styles/common";
+@import '../../../../assets/styles/common';
 </style>
