@@ -10,8 +10,7 @@
   >
     <div
       v-if="props.useMask"
-      :class="{
-        'overlay-mask': true,
+      class="overlay-mask" :class="{
         'fade-in': props.visible,
       }"
       :style="{
@@ -21,8 +20,7 @@
       @touchstart.prevent.stop="onOverlayClick"
     />
     <div
-      :class="{
-        'overlay-content': true,
+      class="overlay-content" :class="{
         'full-screen': props.isFullScreen,
       }"
     >
@@ -32,18 +30,17 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, withDefaults } from '../../../adapter-vue';
-export interface IOverlayProps {
-  visible?: boolean;
-  zIndex?: number | undefined;
-  useMask?: boolean | undefined;
-  maskColor?: string | undefined;
-  isFullScreen?: boolean | undefined;
-  width?: string;
-  height?: string;
-}
+import { ref, watch, withDefaults } from '../../../adapter-vue'
 
-const emits = defineEmits(['onOverlayClick']);
+export interface IOverlayProps {
+  visible?: boolean
+  zIndex?: number | undefined
+  useMask?: boolean | undefined
+  maskColor?: string | undefined
+  isFullScreen?: boolean | undefined
+  width?: string
+  height?: string
+}
 
 const props = withDefaults(defineProps<IOverlayProps>(), {
   visible: true,
@@ -53,30 +50,33 @@ const props = withDefaults(defineProps<IOverlayProps>(), {
   maskColor: 'rgba(0, 0, 0, 0.6)',
   width: 'auto',
   height: 'auto',
-});
+})
 
-const overlayDomRef = ref<HTMLElement>();
-const isOverlayShow = ref<boolean>(props.visible);
+const emits = defineEmits(['onOverlayClick'])
+
+const overlayDomRef = ref<HTMLElement>()
+const isOverlayShow = ref<boolean>(props.visible)
 
 watch(() => props.visible, (visible: boolean) => {
   if (visible) {
-    isOverlayShow.value = true;
-  } else {
+    isOverlayShow.value = true
+  }
+  else {
     setTimeout(() => {
-      isOverlayShow.value = false;
-    }, 150);
+      isOverlayShow.value = false
+    }, 150)
   }
 }, {
   immediate: true,
-});
+})
 
 function onOverlayClick() {
-  emits('onOverlayClick');
+  emits('onOverlayClick')
 }
 
 defineExpose({
   overlayDomRef,
-});
+})
 </script>
 
 <style scoped lang="scss">
@@ -104,7 +104,7 @@ defineExpose({
     animation: fade-in 0.15s linear;
   }
 
-  .full-screen{
+  .full-screen {
     width: 100%;
     height: 100%;
     display: flex;
