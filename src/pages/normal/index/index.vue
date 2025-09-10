@@ -17,6 +17,17 @@ function openConversationList() {
 function openContact() {
   uni.navigateTo({ url: '/TUIKit/components/TUIContact/index' })
 }
+
+// 打开聊天
+function openChat() {
+  // conversationID = C2C${userID} | GROUP${groupID}
+  // 1v1 chat: conversationID = `C2C${userID}`
+  // group chat: conversationID = `GROUP${groupID}`
+  const conversationID = '704314381250629'
+  uni.navigateTo({
+    url: `/TUIKit/components/TUIChat/index?conversationID=${conversationID}`,
+  })
+}
 </script>
 
 <template>
@@ -37,10 +48,17 @@ function openContact() {
         打开会话列表
       </button>
       <button
-        class="w-full rounded-lg bg-green-500 py-3 text-lg text-white font-medium"
+        class="mb-4 w-full rounded-lg bg-green-500 py-3 text-lg text-white font-medium"
         @click="openContact"
       >
         打开联系人
+      </button>
+
+      <button
+        class="mb-4 w-full rounded-lg bg-blue-500 py-3 text-lg text-white font-medium"
+        @click="openChat"
+      >
+        打开聊天
       </button>
     </view>
   </view>
