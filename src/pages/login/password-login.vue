@@ -112,7 +112,8 @@ const {
     immediate: false,
   },
 ).onSuccess((event) => {
-  // console.log('登录成功:', event.data)
+  console.log('登录成功:', event)
+  console.log('登录成功:', event.data)
 
   // 保存登录结果到store
   if (event.data) {

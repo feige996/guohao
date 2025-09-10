@@ -84,7 +84,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
 })
 
 export const alovaInstance = createAlova({
-  baseURL: 'http://localhost:5005',
+  baseURL: 'http://192.168.0.68:5005',
   ...AdapterUniapp(),
   timeout: 10000, // 10秒超时
   statesHook: VueHook,
