@@ -2,6 +2,7 @@
 import type { FormInstance, FormRules } from 'wot-design-uni/components/wd-form/types'
 import { onLoad } from '@dcloudio/uni-app'
 import { useRequest } from 'alova/client'
+import { sm2 } from 'sm-crypto'
 import { computed, onUnmounted, reactive, ref } from 'vue'
 
 definePage({
@@ -129,6 +130,9 @@ const {
 } = useRequest(
   (mobile: string) => Apis.app.apiAppCheckmobileregisteredandsendcodeGet({
     params: { mobile },
+    meta: {
+      ignoreAuth: true,
+    },
   }),
   {
     immediate: false,
@@ -146,15 +150,21 @@ const {
 } = useRequest(
   (mobile: string, code: string) => Apis.app.apiAppVerifyforgetpasswordcodePost({
     data: { mobile, code },
+    meta: {
+      ignoreAuth: true,
+    },
   }),
   {
     immediate: false,
   },
 ).onSuccess((response) => {
   console.log('验证码验证成功:', response)
+  console.log('验证码验证成功:', response.data)
 
   // 保存resetToken - 根据API响应结构调整
-  resetToken.value = (response as any)?.result || response
+  resetToken.value = response.data
+
+  console.log('保存的resetToken:', resetToken.value)
 
   // 进入下一步
   currentStep.value = 2
@@ -169,6 +179,9 @@ const {
 } = useRequest(
   (mobile: string, resetToken: string, newPassword: string) => Apis.app.apiAppResetpasswordPost({
     data: { mobile, resetToken, newPassword },
+    meta: {
+      ignoreAuth: true,
+    },
   }),
   {
     immediate: false,
@@ -252,14 +265,23 @@ async function handleResetPassword() {
       return
     }
 
+    // SM2加密密码
+    const publicKey = import.meta.env.VITE_SM_PUBLIC_KEY
+    // 如果没有配置公钥，使用明文密码
+    const encryptedPassword = publicKey
+      ? sm2.doEncrypt(formData.newPassword, publicKey, 1)
+      : formData.newPassword
+
     console.log('准备重置密码，参数:', {
       mobile: formData.mobile,
       resetToken: resetToken.value,
+      resetTokenType: typeof resetToken.value,
       hasNewPassword: !!formData.newPassword,
+      encryptedPassword: encryptedPassword ? '***已加密***' : '明文密码',
     })
 
     // 调用重置密码API
-    await resetPassword(formData.mobile, resetToken.value, formData.newPassword)
+    await resetPassword(formData.mobile, resetToken.value, encryptedPassword)
   }
   catch (error: any) {
     console.error('重置密码失败:', error)
