@@ -405,24 +405,24 @@ function openReadUserPanel() {
       }
 
       .blink-shadow {
+        box-shadow: rgba(255, 156, 25, 0) 0 0 10px 0;
+        animation: shadow-blink 1s linear 3;
+
         @keyframes shadow-blink {
           50% {
             box-shadow: rgba(255, 156, 25, 1) 0 0 10px 0;
           }
         }
-
-        box-shadow: rgba(255, 156, 25, 0) 0 0 10px 0;
-        animation: shadow-blink 1s linear 3;
       }
 
       .blink-content {
+        animation: reference-blink 1s linear 3;
+
         @keyframes reference-blink {
           50% {
             background-color: #ff9c19;
           }
         }
-
-        animation: reference-blink 1s linear 3;
       }
 
     .message-label {

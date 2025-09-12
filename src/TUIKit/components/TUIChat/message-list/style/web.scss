@@ -84,12 +84,12 @@
       }
 
       .message-li {
+        display: flex;
+        flex-direction: column;
+
         &:first-child {
           margin-top: 5px;
         }
-
-        display: flex;
-        flex-direction: column;
 
         .message-item {
           display: flex;
