@@ -7,9 +7,11 @@ import { TUILogin } from '@tencentcloud/tui-core'
 import Apis from '@/api/guohao-api'
 import { useUserStore } from '@/store/userStore'
 
-// #ifdef APP-PLUS || H5
+// // #ifdef APP-PLUS || H5
+// import { TUIChatKit } from '@/TUIKit'
+// // #endif
+
 import { TUIChatKit } from '@/TUIKit'
-// #endif
 
 /**
  * TUIKit 配置接口
@@ -101,6 +103,19 @@ class TUIKitManager {
       throw new Error('TUIKit 配置未设置，请先调用 setConfig 方法')
     }
 
+    // 添加调试信息
+    console.log('TUIKit 配置检查:', {
+      SDKAppID: this.config.SDKAppID,
+      userID: this.config.userID,
+      userSig: this.config.userSig ? '已设置' : '未设置',
+      userSigLength: this.config.userSig?.length || 0,
+    })
+
+    // 验证配置
+    if (!validateTUIKitConfig(this.config)) {
+      throw new Error('TUIKit 配置验证失败')
+    }
+
     if (this.isInitialized) {
       console.warn('TUIKit 已经初始化，跳过重复初始化')
       return
@@ -108,26 +123,73 @@ class TUIKitManager {
 
     try {
       // #ifdef APP-PLUS || H5
-      // 初始化 TUIChatKit
+      // 初始化 TUIChatKit 并等待完成
       TUIChatKit.init()
       // #endif
 
-      // 登录 TUIKit
-      await TUILogin.login({
-        SDKAppID: this.config.SDKAppID,
-        userID: this.config.userID,
-        userSig: this.config.userSig,
-        useUploadPlugin: this.config.useUploadPlugin ?? true,
-        framework: `vue${this.vueVersion}`,
-      })
-
-      this.isInitialized = true
-      console.log('TUIKit 初始化成功')
+      setTimeout(async () => {
+        await this.performTUIKitLoginWithRetry()
+      }, 2000)
     }
     catch (error) {
       console.error('TUIKit 初始化失败:', error)
       throw error
     }
+  }
+
+  /**
+   * 执行 TUIKit 登录（带重试机制）
+   * @private
+   * @param maxRetries 最大重试次数，默认3次
+   * @param retryDelay 重试间隔时间（毫秒），默认2000ms
+   */
+  private async performTUIKitLoginWithRetry(maxRetries: number = 3, retryDelay: number = 2000): Promise<void> {
+    let lastError: Error | null = null
+
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(`TUIKit 登录尝试 ${attempt}/${maxRetries}`)
+        await this.performTUIKitLogin()
+        console.log(`TUIKit 登录成功（第 ${attempt} 次尝试）`)
+        return // 成功则直接返回
+      }
+      catch (error) {
+        lastError = error as Error
+        console.warn(`TUIKit 登录失败（第 ${attempt} 次尝试）:`, error)
+
+        // 如果不是最后一次尝试，则等待后重试
+        if (attempt < maxRetries) {
+          console.log(`等待 ${retryDelay}ms 后进行第 ${attempt + 1} 次尝试...`)
+          await new Promise(resolve => setTimeout(resolve, retryDelay))
+        }
+      }
+    }
+
+    // 所有尝试都失败了
+    console.error(`TUIKit 登录失败，已尝试 ${maxRetries} 次`)
+    throw lastError || new Error('TUIKit 登录失败')
+  }
+
+  /**
+   * 执行 TUIKit 登录
+   * @private
+   */
+  private async performTUIKitLogin(): Promise<void> {
+    if (!this.config) {
+      throw new Error('TUIKit 配置未设置')
+    }
+
+    // 登录 TUIKit
+    await TUILogin.login({
+      SDKAppID: this.config.SDKAppID,
+      userID: this.config.userID,
+      userSig: this.config.userSig,
+      useUploadPlugin: this.config.useUploadPlugin ?? true,
+      framework: `vue${this.vueVersion}`,
+    })
+
+    this.isInitialized = true
+    console.log('TUIKit 初始化成功')
   }
 
   /**
