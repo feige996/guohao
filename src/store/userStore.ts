@@ -216,6 +216,7 @@ export const useUserStore = defineStore('user', () => {
     finally {
       // 无论成功失败，都需要清除本地信息
       await clearUserInfo()
+      uni.switchTab({ url: userDefaultIndexPage.value })
       // 退出IM
       // await logoutTUIKit()
     }
