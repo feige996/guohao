@@ -1,17 +1,48 @@
 import type { AppUserInfo } from '@/api/guohao-api/globals'
-import type { IAuthLoginRes } from '@/api/types/login'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import {
-  login as _login,
-  logout as _logout,
-  refreshToken as _refreshToken,
-  wxLogin as _wxLogin,
-  getWxCode,
-} from '@/api/login'
-import { isDoubleTokenRes, isSingleTokenRes } from '@/api/types/login'
+import Apis from '@/api/guohao-api'
 import { isDoubleTokenMode } from '@/utils'
 import { initTUIKitAuto, logoutTUIKit } from '@/utils/tuikit'
+
+// 登录响应类型定义
+interface SingleTokenRes {
+  accessToken: string
+  expiresIn: number
+}
+
+interface DoubleTokenRes {
+  accessToken: string
+  refreshToken: string
+  expiresIn: number
+  refreshExpiresIn?: number
+}
+
+// 统一的登录响应类型
+type IAuthLoginRes = SingleTokenRes | DoubleTokenRes
+
+// 登录响应类型检查函数
+function isDoubleTokenRes(tokenInfo: any): tokenInfo is DoubleTokenRes {
+  return tokenInfo && typeof tokenInfo.accessToken === 'string' && typeof tokenInfo.refreshToken === 'string'
+}
+
+function isSingleTokenRes(tokenInfo: any): tokenInfo is SingleTokenRes {
+  return tokenInfo && typeof tokenInfo.accessToken === 'string' && !tokenInfo.refreshToken
+}
+
+/**
+ * 获取微信登录凭证
+ * @returns Promise 包含微信登录凭证(code)
+ */
+function getWxCode() {
+  return new Promise<UniApp.LoginRes>((resolve, reject) => {
+    uni.login({
+      provider: 'weixin',
+      success: res => resolve(res),
+      fail: err => reject(new Error(err)),
+    })
+  })
+}
 
 // 登录输出接口定义
 interface LoginOutput {
@@ -23,15 +54,15 @@ interface LoginOutput {
 }
 
 // 初始化token状态
-const tokenInfoState = isDoubleTokenMode
+const tokenInfoState: IAuthLoginRes = isDoubleTokenMode
   ? {
       accessToken: '',
-      accessExpiresIn: 0,
       refreshToken: '',
+      expiresIn: 0,
       refreshExpiresIn: 0,
     }
   : {
-      token: '',
+      accessToken: '',
       expiresIn: 0,
     }
 
@@ -117,7 +148,7 @@ export const useUserStore = defineStore('user', () => {
     }
 
     if (!isDoubleTokenMode) {
-      return isSingleTokenRes(tokenInfo.value) ? tokenInfo.value.token : ''
+      return isSingleTokenRes(tokenInfo.value) ? tokenInfo.value.accessToken : ''
     }
     else {
       return isDoubleTokenRes(tokenInfo.value) ? tokenInfo.value.accessToken : ''
@@ -135,7 +166,7 @@ export const useUserStore = defineStore('user', () => {
       return isDoubleTokenRes(tokenInfo.value) && !!tokenInfo.value.accessToken
     }
     else {
-      return isSingleTokenRes(tokenInfo.value) && !!tokenInfo.value.token
+      return isSingleTokenRes(tokenInfo.value) && !!tokenInfo.value.accessToken
     }
   })
 
@@ -219,19 +250,20 @@ export const useUserStore = defineStore('user', () => {
       const expireTime = now + val.expiresIn * 1000
       uni.setStorageSync('accessTokenExpireTime', expireTime)
       // 同步到原有的状态
-      accessToken.value = val.token
+      accessToken.value = val.accessToken
       expiresIn.value = val.expiresIn
     }
     else if (isDoubleTokenRes(val)) {
       // 双token模式
-      const accessExpireTime = now + val.accessExpiresIn * 1000
-      const refreshExpireTime = now + val.refreshExpiresIn * 1000
+      const doubleTokenVal = val as DoubleTokenRes
+      const accessExpireTime = now + doubleTokenVal.expiresIn * 1000
+      const refreshExpireTime = now + (doubleTokenVal.refreshExpiresIn || doubleTokenVal.expiresIn) * 1000
       uni.setStorageSync('accessTokenExpireTime', accessExpireTime)
       uni.setStorageSync('refreshTokenExpireTime', refreshExpireTime)
       // 同步到原有的状态
-      accessToken.value = val.accessToken
-      refreshToken.value = val.refreshToken
-      expiresIn.value = val.accessExpiresIn
+      accessToken.value = doubleTokenVal.accessToken
+      refreshToken.value = doubleTokenVal.refreshToken
+      expiresIn.value = doubleTokenVal.expiresIn
     }
   }
 
@@ -340,23 +372,42 @@ export const useUserStore = defineStore('user', () => {
    * @returns 登录结果
    */
   const login = async (credentials: {
-    username: string
+    account: string
     password: string
-    code: string
-    uuid: string
+    loginFrom?: string
   }) => {
     try {
-      const res = await _login(credentials)
+      const res = await Apis.app.apiAppLoginPost({
+        data: credentials,
+      })
       console.log('普通登录-res: ', res)
-      setTokenInfo(res.data)
 
-      // 如果有用户信息，保存用户信息
-      // 注意：这里假设登录接口可能返回用户信息，如果没有需要单独获取
+      if (res.result) {
+        // 设置token信息
+        const tokenData = {
+          accessToken: res.result.accessToken || '',
+          refreshToken: res.result.refreshToken || '',
+          expiresIn: res.result.expiresIn || 7200,
+        }
+        setTokenInfo(tokenData as any)
+
+        // 设置用户信息
+        if (res.result.userInfo) {
+          userInfo.value = res.result.userInfo
+        }
+
+        // 设置用户签名
+        if (res.result.userSig) {
+          userSig.value = res.result.userSig
+        }
+      }
 
       uni.showToast({
         title: '登录成功',
         icon: 'success',
       })
+      // 初始化 IM
+      await initTUIKitAuto()
       return res
     }
     catch (error) {
@@ -378,13 +429,42 @@ export const useUserStore = defineStore('user', () => {
       // 获取微信小程序登录的code
       const code = await getWxCode()
       console.log('微信登录-code: ', code)
-      const res = await _wxLogin({ code: code.code })
+
+      // 调用微信登录API
+      const res = await Apis.app.apiAppLoginbywechatPost({
+        data: {
+          openId: code.code, // 使用code作为openId，实际项目中可能需要先获取openId
+          loginFrom: 'miniprogram',
+        },
+      })
       console.log('微信登录-res: ', res)
-      setTokenInfo(res.data)
+
+      if (res.result) {
+        // 设置token信息
+        const tokenData = {
+          accessToken: res.result.accessToken || '',
+          refreshToken: res.result.refreshToken || '',
+          expiresIn: res.result.expiresIn || 7200,
+        }
+        setTokenInfo(tokenData as any)
+
+        // 设置用户信息
+        if (res.result.userInfo) {
+          userInfo.value = res.result.userInfo
+        }
+
+        // 设置用户签名
+        if (res.result.userSig) {
+          userSig.value = res.result.userSig
+        }
+      }
+
       uni.showToast({
         title: '登录成功',
         icon: 'success',
       })
+      // 初始化 IM
+      await initTUIKitAuto()
       return res
     }
     catch (error) {
@@ -402,7 +482,7 @@ export const useUserStore = defineStore('user', () => {
    */
   const logout = async () => {
     try {
-      await _logout()
+      await Apis.app.apiAppLogoutPost({})
     }
     catch (error) {
       console.error('退出登录失败:', error)
@@ -410,6 +490,8 @@ export const useUserStore = defineStore('user', () => {
     finally {
       // 无论成功失败，都需要清除本地信息
       await clearUserInfo()
+      // 退出IM
+      await logoutTUIKit()
     }
   }
 
@@ -429,11 +511,10 @@ export const useUserStore = defineStore('user', () => {
         throw new Error('无效的refreshToken')
       }
 
-      const refreshTokenValue = tokenInfo.value.refreshToken
-      const res = await _refreshToken(refreshTokenValue)
-      console.log('刷新token-res: ', res)
-      setTokenInfo(res.data)
-      return res
+      // 注意：当前API中没有专门的refreshToken接口
+      // 这里可能需要重新登录或者使用其他方式刷新token
+      // 暂时抛出错误，由alova的createServerTokenAuthentication处理
+      throw new Error('RefreshToken method not implemented in API')
     }
     catch (error) {
       console.error('刷新token失败:', error)
@@ -457,27 +538,6 @@ export const useUserStore = defineStore('user', () => {
       }
     }
     return getValidToken.value
-  }
-
-  /**
-   * 解密 JWT token 的信息
-   * @param token jwt token 字符串
-   * @returns <any>object
-   */
-  function decryptJWT(token: string): any {
-    token = token.replace(/_/g, '/').replace(/-/g, '+')
-    const json = decodeURIComponent(escape(window.atob(token.split('.')[1])))
-    return JSON.parse(json)
-  }
-
-  /**
-   * 将 JWT 时间戳转换成 Date
-   * @description 主要针对 `exp`，`iat`，`nbf`
-   * @param timestamp 时间戳
-   * @returns Date 对象
-   */
-  function getJWTDate(timestamp: number): Date {
-    return new Date(timestamp * 1000)
   }
 
   /**

@@ -3,7 +3,6 @@ import AdapterUniapp from '@alova/adapter-uniapp'
 import { createAlova } from 'alova'
 import { createServerTokenAuthentication } from 'alova/client'
 import VueHook from 'alova/vue'
-import { nextTick } from 'vue'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
 import { isDoubleTokenMode } from '@/utils'
@@ -26,9 +25,12 @@ export enum ContentTypeEnum {
   FORM_DATA = 'multipart/form-data;charset=UTF-8',
 }
 
-// 刷新 token 状态管理
-let refreshing = false // 防止重复刷新 token 标识
-let taskQueue: (() => void)[] = [] // 刷新 token 请求队列
+// 标准响应数据格式
+export interface IResAdminData<T = any> {
+  code: number
+  message: string
+  result: T
+}
 
 /**
  * 根据状态码生成错误信息
@@ -66,16 +68,18 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
     handler: async () => {
       try {
         const userStore = useUserStore()
-        if (isDoubleTokenMode) {
-          // TODO: 需要实现refreshToken方法
-          throw new Error('RefreshToken method not implemented in userStore')
+        if (isDoubleTokenMode && userStore.refreshToken) {
+          // 使用 userStore 的 refreshTokenMethod 方法
+          await userStore.refreshTokenMethod()
         }
         else {
           throw new Error('Token refresh failed')
         }
       }
       catch (error) {
-        // 刷新失败，跳转到登录页
+        // 刷新失败，清理用户信息并跳转到登录页
+        const userStore = useUserStore()
+        await userStore.clearUserInfo()
         uni.reLaunch({ url: LOGIN_PAGE })
         throw error
       }
@@ -84,7 +88,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
 })
 
 export const alovaInstance = createAlova({
-  baseURL: 'http://192.168.0.68:5005',
+  baseURL: import.meta.env.VITE_SERVER_BASEURL || 'http://192.168.0.68:5005',
   ...AdapterUniapp(),
   timeout: 10000, // 10秒超时
   statesHook: VueHook,
@@ -104,12 +108,10 @@ export const alovaInstance = createAlova({
     const ignoreAuth = config.meta?.ignoreAuth !== true
 
     if (ignoreAuth) {
-      const token = userStore.accessToken
+      const token = userStore.validToken
       if (token) {
         // 根据后端要求设置 token 头部，这里使用 Authorization
         method.config.headers.Authorization = `Bearer ${token}`
-        // 或者使用其他字段名，如：
-        // method.config.headers.token = token
       }
       else if (!config.meta?.allowAnonymous) {
         // 如果没有 token 且不允许匿名访问，抛出错误
@@ -120,7 +122,6 @@ export const alovaInstance = createAlova({
     // 处理动态域名
     if (config.meta?.domain) {
       method.baseURL = config.meta.domain
-      console.log('当前域名', method.baseURL)
     }
   }),
 
@@ -159,94 +160,6 @@ export const alovaInstance = createAlova({
     // 检查是否是标准的业务响应格式
     if (responseData && typeof responseData === 'object' && 'code' in responseData) {
       const { code, message, result } = responseData
-
-      // 处理 401 未授权错误
-      if (code === ResultEnum.Unauthorized) {
-        const userStore = useUserStore()
-
-        if (!isDoubleTokenMode) {
-          // 未启用双token策略，清理用户信息，跳转到登录页
-          await userStore.clearUserInfo()
-          uni.navigateTo({ url: LOGIN_PAGE })
-          throw new Error(`请求错误[${code}]：${message}`)
-        }
-
-        /* -------- 无感刷新 token ----------- */
-        const refreshToken = userStore.refreshToken
-
-        // token 失效的，且有刷新 token 的，才放到请求队列里
-        if (refreshToken) {
-          return new Promise((resolve, reject) => {
-            taskQueue.push(async () => {
-              try {
-                // 重新发起请求
-                const newResponse = await method.send()
-                resolve(newResponse)
-              }
-              catch (error) {
-                reject(error)
-              }
-            })
-
-            // 如果未在刷新中，发起刷新 token 请求
-            if (!refreshing) {
-              refreshing = true
-
-              // TODO: 需要实现refreshToken方法
-              Promise.reject(new Error('RefreshToken method not implemented in userStore'))
-                .then(() => {
-                  // 刷新 token 成功
-                  refreshing = false
-                  nextTick(() => {
-                    uni.hideToast()
-                    uni.showToast({
-                      title: 'token 刷新成功',
-                      icon: 'none',
-                    })
-                  })
-                  // 将任务队列的所有任务重新请求
-                  taskQueue.forEach(task => task())
-                })
-                .catch(async (refreshErr) => {
-                  console.error('刷新 token 失败:', refreshErr)
-                  refreshing = false
-
-                  // 刷新 token 失败，跳转到登录页
-                  nextTick(() => {
-                    uni.hideToast()
-                    uni.showToast({
-                      title: '登录已过期，请重新登录',
-                      icon: 'none',
-                    })
-                  })
-
-                  // 清除用户信息
-                  await userStore.clearUserInfo()
-
-                  // 跳转到登录页
-                  setTimeout(() => {
-                    uni.navigateTo({ url: LOGIN_PAGE })
-                  }, 2000)
-
-                  // 拒绝队列中的所有请求
-                  taskQueue.forEach(() => {
-                    reject(new Error('登录已过期'))
-                  })
-                })
-                .finally(() => {
-                  // 不管刷新 token 成功与否，都清空任务队列
-                  taskQueue = []
-                })
-            }
-          })
-        }
-        else {
-          // 没有 refreshToken 或已过期，直接跳转登录页
-          await userStore.clearUserInfo()
-          uni.navigateTo({ url: LOGIN_PAGE })
-          throw new Error(`请求错误[${code}]：${message}`)
-        }
-      }
 
       // 处理其他业务错误
       if (code !== ResultEnum.Success) {
