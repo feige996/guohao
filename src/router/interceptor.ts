@@ -28,7 +28,7 @@ export const navigateToInterceptor = {
     }
     let { path, query: _query } = parseUrlToObj(url)
 
-    console.log('path==========================', path)
+    // console.log('path==========================', path)
 
     // // 处理根路径访问
     // if (path === '/pages/normal/index/index') {

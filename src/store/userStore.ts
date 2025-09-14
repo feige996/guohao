@@ -174,7 +174,7 @@ export const useUserStore = defineStore('user', () => {
     userSig.value = ''
 
     // 清除token信息
-    console.log('用户信息已清除')
+    // console.log('用户信息已清除')
   }
 
   /**

@@ -9,10 +9,10 @@ const themeStore = useThemeStore()
 
 const isCurrentPageTabbar = ref(true)
 onShow(() => {
-  console.log('App.ku.vue onShow', currRoute())
+  // console.log('App.ku.vue onShow', currRoute())
   const { path } = currRoute()
   isCurrentPageTabbar.value = isPageTabbar(path)
-  console.log('isCurrentPageTabbar', isCurrentPageTabbar.value)
+  // console.log('isCurrentPageTabbar', isCurrentPageTabbar.value)
 })
 
 const helloKuRoot = ref('Hello AppKuVue')

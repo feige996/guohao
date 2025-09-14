@@ -8,11 +8,12 @@ import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
 
 onLaunch((options) => {
   const userStore = useUserStore()
-  console.log('App Launch', options)
+  // console.log('App Launch', options)
   console.log('检查令牌 accessToken 是否过期 : ', userStore.isTokenExpired)
   if (userStore.isTokenExpired) {
     // userStore.logout()
     userStore.clearUserInfo()
+    uni.switchTab({ url: userStore.userDefaultIndexPage })
   }
 
   // 延迟初始化 TUIKit，确保用户登录状态已恢复
@@ -45,7 +46,7 @@ onLaunch((options) => {
 })
 
 onShow((options) => {
-  console.log('App Show', options)
+  // console.log('App Show', options)
   // 处理直接进入页面路由的情况：如h5直接输入路由、微信小程序分享后进入等
   // https://github.com/unibest-tech/unibest/issues/192
   if (options?.path) {
@@ -57,7 +58,7 @@ onShow((options) => {
 })
 
 onHide(() => {
-  console.log('App Hide')
+  // console.log('App Hide')
 })
 </script>
 
