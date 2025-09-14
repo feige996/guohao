@@ -41,11 +41,11 @@ const tabbarList = computed<CustomTabBarItem[]>(() => {
       pagePath: item.pagePath.startsWith('/') ? item.pagePath : `/${item.pagePath}`,
     }))
 
-  console.log('Filtered list:', list)
+  // console.log('Filtered list:', list)
   // console.log('=== End Debug ===')
 
   const { path, query } = currRoute()
-  console.log('当前 tabbar 相关路由:', path)
+  // console.log('当前 tabbar 相关路由:', path)
   // uni.switchTab({ url: list[0].pagePath })
   return list
 })
@@ -60,10 +60,10 @@ if (customTabbarEnable && BULGE_ENABLE) {
 }
 
 export function isPageTabbar(path: string) {
-  console.log(tabBar.list)
-  console.log(path)
+  // console.log(tabBar.list)
+  // console.log(path)
   const _path = path.split('?')[0]
-  console.log(tabBar.list.some(item => item.pagePath === _path))
+  // console.log(tabBar.list.some(item => item.pagePath === _path))
   return tabBar.list.some(item => `/${item.pagePath}` === _path)
 }
 

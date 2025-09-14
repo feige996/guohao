@@ -55,7 +55,7 @@ export const navigateToInterceptor = {
     if (path === '/pages/normal/index/index') {
       const userStore = useUserStore()
       const defaultPage = userStore.userDefaultIndexPage
-      console.log('defaultPage==========================', defaultPage)
+      // console.log('defaultPage==========================', defaultPage)
 
       // 如果默认页面就是当前页面，允许继续执行
       if (defaultPage === '/pages/normal/index/index') {
@@ -96,10 +96,10 @@ export const navigateToInterceptor = {
     }
 
     const userStore = useUserStore()
-    FG_LOG_ENABLE && console.log('userStore.hasLogin:', userStore.hasLogin)
+    FG_LOG_ENABLE && console.log('userStore.isLoggedIn:', userStore.isLoggedIn)
 
     // 不管黑白名单，登录了就直接去吧（但是当前不能是登录页）
-    if (userStore.hasLogin) {
+    if (userStore.isLoggedIn) {
       if (path !== LOGIN_PAGE) {
         return true // 明确表示允许路由继续执行
       }

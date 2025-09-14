@@ -81,7 +81,7 @@ function getUserInfo(e: any) {
 
 // 从 about.vue 迁移的功能
 function gotoLogin() {
-  if (userStore.hasLogin) {
+  if (userStore.isLoggedIn) {
     uni.showToast({
       title: '已登录，不能去登录页',
       icon: 'none',
@@ -196,7 +196,7 @@ function handleLogout() {
 
     <view class="mt-20 px-3">
       <view class="m-auto w-160px text-center">
-        <button v-if="userStore.hasLogin" type="warn" class="w-full" @click="handleLogout">
+        <button v-if="userStore.isLoggedIn" type="warn" class="w-full" @click="handleLogout">
           退出登录
         </button>
         <button v-else type="primary" class="w-full" @click="handleLogin">

@@ -80,7 +80,7 @@ function getUserInfo(e: any) {
 
 // 从 about.vue 迁移的功能
 function gotoLogin() {
-  if (userStore.hasLogin) {
+  if (userStore.isLoggedIn) {
     uni.showToast({
       title: '已登录，不能去登录页',
       icon: 'none',

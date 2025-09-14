@@ -9,7 +9,7 @@ import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
 onLaunch((options) => {
   const userStore = useUserStore()
   // console.log('App Launch', options)
-  console.log('检查令牌 accessToken 是否过期 : ', userStore.isTokenExpired)
+  // console.log('检查令牌 accessToken 是否过期 : ', userStore.isTokenExpired)
   if (userStore.isTokenExpired) {
     // userStore.logout()
     userStore.clearUserInfo()
@@ -19,7 +19,7 @@ onLaunch((options) => {
   // 动态导入并初始化 TUIKit
   setTimeout(async () => {
     if (!userStore.isLoggedIn) {
-      console.log('用户未登录，跳过 TUIKit 初始化')
+      // console.log('用户未登录，跳过 TUIKit 初始化')
       return
     }
 
@@ -27,7 +27,7 @@ onLaunch((options) => {
       // 动态导入 TUIKit 模块
       const { initTUIKitAuto } = await import('@/utils/tuikit')
       await initTUIKitAuto()
-      console.log('TUIKit 动态加载并初始化成功')
+      // console.log('TUIKit 动态加载并初始化成功')
     }
     catch (error) {
       console.error('TUIKit 动态加载失败:', error)
