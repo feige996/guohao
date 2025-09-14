@@ -118,6 +118,29 @@ const {
   // 保存登录结果到store
   if (event.data) {
     await _userStore.saveLoginResult(event.data as any)
+
+    // 动态导入并初始化 TUIKit
+    setTimeout(async () => {
+      if (!_userStore.isLoggedIn) {
+        console.log('用户未登录，跳过 TUIKit 初始化')
+        return
+      }
+
+      try {
+      // 动态导入 TUIKit 模块
+        const { initTUIKitAuto } = await import('@/utils/tuikit')
+        await initTUIKitAuto()
+        console.log('TUIKit 动态加载并初始化成功')
+      }
+      catch (error) {
+        console.error('TUIKit 动态加载失败:', error)
+        uni.showToast({
+          title: '即时通讯初始化失败',
+          icon: 'none',
+          duration: 2000,
+        })
+      }
+    }, 2000) // 延迟 2 秒，确保首屏已渲染
   }
 
   let path = redirectUrl.value
