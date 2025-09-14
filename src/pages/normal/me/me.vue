@@ -2,7 +2,6 @@
 import type { IUploadSuccessInfo } from '@/api/types/login'
 import { storeToRefs } from 'pinia'
 import { LOGIN_PAGE } from '@/router/config'
-import { useTokenStore } from '@/store/token'
 import { useUserStore } from '@/store/userStore'
 import { tabbarStore } from '@/tabbar/store'
 import { currRoute } from '@/utils'
@@ -15,7 +14,6 @@ definePage({
 })
 
 const userStore = useUserStore()
-const tokenStore = useTokenStore()
 // 使用storeToRefs解构userInfo
 const { userInfo } = storeToRefs(userStore)
 
@@ -40,7 +38,7 @@ async function handleLogin() {
   // #ifdef MP-WEIXIN
 
   // 微信登录
-  await tokenStore.wxLogin()
+  await userStore.wxLogin()
   // #endif
   // #ifndef MP-WEIXIN
   // uni.navigateTo({
@@ -83,7 +81,7 @@ function getUserInfo(e: any) {
 
 // 从 about.vue 迁移的功能
 function gotoLogin() {
-  if (tokenStore.hasLogin) {
+  if (userStore.hasLogin) {
     uni.showToast({
       title: '已登录，不能去登录页',
       icon: 'none',
@@ -101,7 +99,7 @@ function gotoLogin() {
 
 function logout() {
   // 清空用户信息
-  tokenStore.logout()
+  userStore.logout()
   // 执行退出登录逻辑
   uni.showToast({
     title: '退出登录成功',
@@ -121,7 +119,7 @@ function handleLogout() {
     success: (res) => {
       if (res.confirm) {
         // 清空用户信息
-        useTokenStore().logout()
+        userStore.logout()
         // 执行退出登录逻辑
         uni.showToast({
           title: '退出登录成功',
@@ -198,7 +196,7 @@ function handleLogout() {
 
     <view class="mt-20 px-3">
       <view class="m-auto w-160px text-center">
-        <button v-if="tokenStore.hasLogin" type="warn" class="w-full" @click="handleLogout">
+        <button v-if="userStore.hasLogin" type="warn" class="w-full" @click="handleLogout">
           退出登录
         </button>
         <button v-else type="primary" class="w-full" @click="handleLogin">

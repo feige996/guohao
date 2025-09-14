@@ -4,7 +4,6 @@ import { isMp } from '@uni-helper/uni-env'
  * 路由拦截，通常也是登录拦截
  * 黑白名单的配置，请看 config.ts 文件， EXCLUDE_LOGIN_PATH_LIST
  */
-import { useTokenStore } from '@/store/token'
 import { useUserStore } from '@/store/userStore'
 import { isPageTabbar, tabbarStore } from '@/tabbar/store'
 import { getAllPages, getLastPage, HOME_PAGE, parseUrlToObj } from '@/utils/index'
@@ -96,11 +95,11 @@ export const navigateToInterceptor = {
       return true // 明确表示允许路由继续执行
     }
 
-    const tokenStore = useTokenStore()
-    FG_LOG_ENABLE && console.log('tokenStore.hasLogin:', tokenStore.hasLogin)
+    const userStore = useUserStore()
+    FG_LOG_ENABLE && console.log('userStore.hasLogin:', userStore.hasLogin)
 
     // 不管黑白名单，登录了就直接去吧（但是当前不能是登录页）
-    if (tokenStore.hasLogin) {
+    if (userStore.hasLogin) {
       if (path !== LOGIN_PAGE) {
         return true // 明确表示允许路由继续执行
       }

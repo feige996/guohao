@@ -1,5 +1,5 @@
 import type { CustomRequestOptions } from '@/http/types'
-import { useTokenStore } from '@/store'
+import { useUserStore } from '@/store/userStore'
 import { getEnvBaseUrl } from '@/utils'
 import { platform } from '@/utils/platform'
 import { stringifyQuery } from './tools/queryString'
@@ -47,8 +47,8 @@ const httpInterceptor = {
       ...options.header,
     }
     // 3. 添加 token 请求头标识
-    const tokenStore = useTokenStore()
-    const token = tokenStore.validToken
+    const userStore = useUserStore()
+    const token = userStore.validToken
 
     if (token) {
       options.header.Authorization = `Bearer ${token}`

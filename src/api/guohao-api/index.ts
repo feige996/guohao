@@ -1,12 +1,11 @@
 import type { uniappRequestAdapter } from '@alova/adapter-uniapp'
-import type { IDoubleTokenRes } from '@/api/types/login'
 import AdapterUniapp from '@alova/adapter-uniapp'
 import { createAlova } from 'alova'
 import { createServerTokenAuthentication } from 'alova/client'
 import VueHook from 'alova/vue'
 import { nextTick } from 'vue'
 import { LOGIN_PAGE } from '@/router/config'
-import { useTokenStore } from '@/store/token'
+import { useUserStore } from '@/store/userStore'
 import { isDoubleTokenMode } from '@/utils'
 import { createApis, mountApis, withConfigType } from './createApis'
 
@@ -66,9 +65,10 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
     },
     handler: async () => {
       try {
-        const tokenStore = useTokenStore()
+        const userStore = useUserStore()
         if (isDoubleTokenMode) {
-          await tokenStore.refreshToken()
+          // TODO: 需要实现refreshToken方法
+          throw new Error('RefreshToken method not implemented in userStore')
         }
         else {
           throw new Error('Token refresh failed')
@@ -90,7 +90,7 @@ export const alovaInstance = createAlova({
   statesHook: VueHook,
 
   beforeRequest: onAuthRequired((method) => {
-    const tokenStore = useTokenStore()
+    const userStore = useUserStore()
 
     // 设置默认 Content-Type
     method.config.headers = {
@@ -104,7 +104,7 @@ export const alovaInstance = createAlova({
     const ignoreAuth = config.meta?.ignoreAuth !== true
 
     if (ignoreAuth) {
-      const token = tokenStore.validToken
+      const token = userStore.accessToken
       if (token) {
         // 根据后端要求设置 token 头部，这里使用 Authorization
         method.config.headers.Authorization = `Bearer ${token}`
@@ -162,17 +162,17 @@ export const alovaInstance = createAlova({
 
       // 处理 401 未授权错误
       if (code === ResultEnum.Unauthorized) {
-        const tokenStore = useTokenStore()
+        const userStore = useUserStore()
 
         if (!isDoubleTokenMode) {
           // 未启用双token策略，清理用户信息，跳转到登录页
-          await tokenStore.logout()
+          await userStore.clearUserInfo()
           uni.navigateTo({ url: LOGIN_PAGE })
           throw new Error(`请求错误[${code}]：${message}`)
         }
 
         /* -------- 无感刷新 token ----------- */
-        const { refreshToken } = tokenStore.tokenInfo as IDoubleTokenRes || {}
+        const refreshToken = userStore.refreshToken
 
         // token 失效的，且有刷新 token 的，才放到请求队列里
         if (refreshToken) {
@@ -192,7 +192,8 @@ export const alovaInstance = createAlova({
             if (!refreshing) {
               refreshing = true
 
-              tokenStore.refreshToken()
+              // TODO: 需要实现refreshToken方法
+              Promise.reject(new Error('RefreshToken method not implemented in userStore'))
                 .then(() => {
                   // 刷新 token 成功
                   refreshing = false
@@ -220,7 +221,7 @@ export const alovaInstance = createAlova({
                   })
 
                   // 清除用户信息
-                  await tokenStore.logout()
+                  await userStore.clearUserInfo()
 
                   // 跳转到登录页
                   setTimeout(() => {
@@ -241,7 +242,7 @@ export const alovaInstance = createAlova({
         }
         else {
           // 没有 refreshToken 或已过期，直接跳转登录页
-          await tokenStore.logout()
+          await userStore.clearUserInfo()
           uni.navigateTo({ url: LOGIN_PAGE })
           throw new Error(`请求错误[${code}]：${message}`)
         }

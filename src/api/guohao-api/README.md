@@ -135,10 +135,10 @@ try {
 
 ### 1. 登录
 ```typescript
-import { useTokenStore } from '@/store/token'
+import { useUserStore } from '@/store/userStore'
 
-const tokenStore = useTokenStore()
-await tokenStore.login({
+const userStore = useUserStore()
+await userStore.login({
   username: 'admin',
   password: '123456',
   code: '1234',
@@ -154,7 +154,7 @@ await tokenStore.login({
 
 ### 4. 登出
 ```typescript
-await tokenStore.logout()
+await userStore.logout()
 ```
 
 ## 🛠️ 高级用法

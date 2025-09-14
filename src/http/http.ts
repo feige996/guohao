@@ -2,7 +2,7 @@ import type { IDoubleTokenRes } from '@/api/types/login'
 import type { CustomRequestOptions } from '@/http/types'
 import { nextTick } from 'vue'
 import { LOGIN_PAGE } from '@/router/config'
-import { useTokenStore } from '@/store/token'
+import { useUserStore } from '@/store/userStore'
 import { isDoubleTokenMode } from '@/utils'
 
 // 刷新 token 状态管理
@@ -27,15 +27,15 @@ export function http<T>(options: CustomRequestOptions) {
         }
         const resData: IResData<T> = res.data as IResData<T>
         if ((res.statusCode === 401) || (resData.code === 401)) {
-          const tokenStore = useTokenStore()
+          const userStore = useUserStore()
           if (!isDoubleTokenMode) {
             // 未启用双token策略，清理用户信息，跳转到登录页
-            tokenStore.logout()
+            userStore.logout()
             uni.navigateTo({ url: LOGIN_PAGE })
             return reject(res)
           }
           /* -------- 无感刷新 token ----------- */
-          const { refreshToken } = tokenStore.tokenInfo as IDoubleTokenRes || {}
+          const { refreshToken } = userStore.tokenInfo as IDoubleTokenRes || {}
           // token 失效的，且有刷新 token 的，才放到请求队列里
           if ((res.statusCode === 401 || resData.code === 401) && refreshToken) {
             taskQueue.push(() => {
@@ -47,7 +47,7 @@ export function http<T>(options: CustomRequestOptions) {
             refreshing = true
             try {
               // 发起刷新 token 请求（使用 store 的 refreshToken 方法）
-              await tokenStore.refreshToken()
+              await userStore.refreshTokenMethod()
               // 刷新 token 成功
               refreshing = false
               nextTick(() => {
@@ -74,7 +74,7 @@ export function http<T>(options: CustomRequestOptions) {
                 })
               })
               // 清除用户信息
-              await tokenStore.logout()
+              await userStore.logout()
               // 跳转到登录页
               setTimeout(() => {
                 uni.navigateTo({ url: LOGIN_PAGE })

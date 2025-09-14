@@ -6,12 +6,12 @@ import { initTUIKitAuto } from '@/utils/tuikit'
 import 'abortcontroller-polyfill/dist/abortcontroller-polyfill-only'
 
 onLaunch((options) => {
+  const userStore = useUserStore()
   console.log('App Launch', options)
+  console.log('检查令牌 accessToken 是否过期 : ', userStore.isTokenExpired)
 
   // 延迟初始化 TUIKit，确保用户登录状态已恢复
   setTimeout(async () => {
-    const userStore = useUserStore()
-
     // 检查用户是否已登录
     if (!userStore.isLoggedIn) {
       console.log('用户未登录，跳过 TUIKit 初始化')

@@ -203,7 +203,7 @@ class TUIKitManager {
     }
     catch (error) {
       console.error('TUIKit 登出失败:', error)
-      throw error
+      // throw error
     }
   }
 
