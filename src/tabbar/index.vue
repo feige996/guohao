@@ -67,6 +67,7 @@ function getImageByIndex(index: number, item: CustomTabBarItem) {
   }
   return tabbarStore.curIdx === index ? item.iconActive : item.icon
 }
+console.log('tabbar index.vue tabbarlist.value', tabbarList.value)
 </script>
 
 <template>

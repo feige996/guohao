@@ -1,9 +1,8 @@
 import type { CustomTabBarItem, CustomTabBarItemBadge } from './config'
 import { reactive } from 'vue'
-
 import { FG_LOG_ENABLE } from '@/router/interceptor'
 import { useUserStore } from '@/store/userStore'
-import { AppRoleEnum, customTabbarEnable, customTabbarList } from './config'
+import { AppRoleEnum, customTabbarEnable, customTabbarList, tabBar } from './config'
 
 // TODO 1/2: 中间的鼓包tabbarItem的开关
 const BULGE_ENABLE = false
@@ -19,11 +18,11 @@ const tabbarList = computed<CustomTabBarItem[]>(() => {
   const userStore = useUserStore()
   const targetRole = userStore.userInfo?.defaultRole || AppRoleEnum.NormalUser
 
-  // console.log('=== tabbarList Debug ===')
-  // console.log('userInfo:', userStore.userInfo)
-  // console.log('targetRole:', targetRole)
-  // console.log('AppRoleEnum.NormalUser:', AppRoleEnum.NormalUser)
-  // console.log('customTabbarList:', customTabbarList)
+  console.log('=== tabbarList Debug ===')
+  console.log('userInfo:', userStore.userInfo)
+  console.log('targetRole:', targetRole)
+  console.log('AppRoleEnum.NormalUser:', AppRoleEnum.NormalUser)
+  console.log('customTabbarList:', customTabbarList)
 
   // 检查每个 item 的 roles
   // customTabbarList.forEach((item, index) => {
@@ -41,7 +40,7 @@ const tabbarList = computed<CustomTabBarItem[]>(() => {
       pagePath: item.pagePath.startsWith('/') ? item.pagePath : `/${item.pagePath}`,
     }))
 
-  // console.log('Filtered list:', list)
+  console.log('Filtered list:', list)
   // console.log('=== End Debug ===')
   return list
 })
@@ -57,7 +56,7 @@ if (customTabbarEnable && BULGE_ENABLE) {
 
 export function isPageTabbar(path: string) {
   const _path = path.split('?')[0]
-  return tabbarList.value.some(item => item.pagePath === _path)
+  return tabBar.value.list.some(item => item.pagePath === _path)
 }
 
 /**
