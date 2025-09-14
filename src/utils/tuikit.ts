@@ -372,5 +372,39 @@ export function getTUIKitManager(): TUIKitManager {
   return tuiKitManager
 }
 
+/**
+ * 懒加载 TUIKit 模块
+ */
+export async function loadTUIKitModule() {
+  if (tuikitModule) {
+    return tuikitModule
+  }
+
+  if (isLoading) {
+    // 如果正在加载，等待加载完成
+    while (isLoading) {
+      await new Promise(resolve => setTimeout(resolve, 100))
+    }
+    return tuikitModule
+  }
+
+  try {
+    isLoading = true
+    console.log('开始动态加载 TUIKit 模块...')
+
+    tuikitModule = await import('@/utils/tuikit')
+    console.log('TUIKit 模块加载成功')
+
+    return tuikitModule
+  }
+  catch (error) {
+    console.error('TUIKit 模块加载失败:', error)
+    throw error
+  }
+  finally {
+    isLoading = false
+  }
+}
+
 // 默认导出管理器实例
 export default tuiKitManager
