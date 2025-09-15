@@ -252,12 +252,17 @@ function handleToPrivacyPolicy() {
     url: '/pages/system/agreement/privacy-policy',
   })
 }
+
+function handleClickLeft() {
+  uni.navigateBack()
+}
 </script>
 
 <template>
   <view
     class="min-h-screen flex flex-col justify-between from-[rgba(255,250,235,1)] via-[rgba(227,255,224,0)] to-white bg-gradient-to-b"
   >
+    <wd-navbar title="" left-text="返回" left-arrow :bordered="false" custom-style="background-color: transparent !important;" @click-left="handleClickLeft" />
     <!-- 标题区域 -->
     <view class="pb-130rpx pt-220rpx">
       <view class="pl-64rpx text-48rpx text-[#383838] font-bold">
