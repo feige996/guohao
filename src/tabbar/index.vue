@@ -54,8 +54,8 @@ onLoad(() => {
   })
 })
 // #endif
-const activeColor = 'var(--wot-color-theme, #1890ff)'
-const inactiveColor = '#666'
+const activeColor = 'var(--wot-color-theme, #D85843)'
+const inactiveColor = '#C5CBD3'
 function getColorByIndex(index: number) {
   return tabbarStore.curIdx === index ? activeColor : inactiveColor
 }
@@ -73,7 +73,7 @@ function getImageByIndex(index: number, item: CustomTabBarItem) {
 <template>
   <view v-if="customTabbarEnable" class="h-50px pb-safe">
     <view class="border-and-fixed bg-white" @touchmove.stop.prevent>
-      <view class="h-50px flex items-center">
+      <view class="h-80px flex items-center">
         <view
           v-for="(item, index) in tabbarList" :key="index"
           class="flex flex-1 flex-col items-center justify-center"
@@ -103,9 +103,9 @@ function getImageByIndex(index: number, item: CustomTabBarItem) {
               <view :class="item.icon" class="text-20px" />
             </template>
             <template v-if="item.iconType === 'image'">
-              <image :src="getImageByIndex(index, item)" mode="scaleToFill" class="h-20px w-20px" />
+              <image :src="getImageByIndex(index, item)" mode="scaleToFill" class="h-24px w-24px" />
             </template>
-            <view class="mt-2px text-12px">
+            <view class="mt-8px text-12px">
               {{ item.text }}
             </view>
             <!-- 角标显示 -->

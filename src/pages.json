@@ -109,6 +109,14 @@
         "pagePath": "pages/doctor/index/index"
       },
       {
+        "text": "养生",
+        "pagePath": "pages/normal/healthcare/healthcare"
+      },
+      {
+        "text": "商城",
+        "pagePath": "pages/shop/shop"
+      },
+      {
         "text": "问诊",
         "pagePath": "pages/normal/diagnosis/diagnosis"
       },
@@ -117,16 +125,8 @@
         "pagePath": "pages/doctor/diagnosis/diagnosis"
       },
       {
-        "text": "养生",
-        "pagePath": "pages/normal/healthcare/healthcare"
-      },
-      {
         "text": "患者",
         "pagePath": "pages/doctor/patient/patient"
-      },
-      {
-        "text": "商城",
-        "pagePath": "pages/shop/shop"
       },
       {
         "text": "我的",
