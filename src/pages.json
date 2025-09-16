@@ -121,12 +121,12 @@
         "pagePath": "pages/normal/diagnosis/diagnosis"
       },
       {
-        "text": "问诊",
-        "pagePath": "pages/doctor/diagnosis/diagnosis"
-      },
-      {
         "text": "患者",
         "pagePath": "pages/doctor/patient/patient"
+      },
+      {
+        "text": "问诊",
+        "pagePath": "pages/doctor/diagnosis/diagnosis"
       },
       {
         "text": "我的",
@@ -141,6 +141,14 @@
   "pages": [
     {
       "path": "pages/normal/index/index",
+      "type": "home",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "普通用户首页"
+      }
+    },
+    {
+      "path": "pages/normal/index/index copy",
       "type": "home",
       "style": {
         "navigationBarTitleText": "普通用户首页"
