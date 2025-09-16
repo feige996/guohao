@@ -236,6 +236,10 @@
       "excludeLoginPath": false
     },
     {
+      "path": "pages/normal/index/DateCard",
+      "type": "page"
+    },
+    {
       "path": "pages/normal/me/me",
       "type": "page",
       "style": {
