@@ -1,22 +1,16 @@
-// 测试用的 iconfont，可生效
-// @import './iconfont.css';
+@import './fonts.css';
 
-.test {
-  // 可以通过 @apply 多个样式封装整体样式
-  @apply mt-4 ml-4;
-
-  padding-top: 4px;
-  color: red;
-}
-
+// 全局设置思源黑体
 :root,
 page {
-  // 修改按主题色
-  // --wot-color-theme: #37c2bc;
-
-  // 修改按钮背景色
-  // --wot-button-primary-bg-color: green;
+  font-family: 'OPPO Sans', 'Source Han Sans CN', 'PingFang SC', 'Microsoft YaHei', sans-serif;
 }
+
+// 修改按主题色
+// --wot-color-theme: #37c2bc;
+
+// 修改按钮背景色
+// --wot-button-primary-bg-color: green;
 
 /*
 border-t-1
