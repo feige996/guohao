@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import ConsultationSection from '@/components/ConsultationSection'
 import SearchBar from '@/components/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 import DateCard from './DateCard.vue'
@@ -21,6 +22,22 @@ function handleSearchBarClick() {
   console.log('点击搜索栏')
   // 在这里添加点击搜索栏的逻辑，比如跳转到搜索页面
 }
+
+// 专业咨询区域事件处理
+function handleConsultClick() {
+  console.log('点击问医生')
+  // 在这里添加问医生的逻辑
+}
+
+function handleUpgradeClick() {
+  console.log('点击升级会员')
+  // 在这里添加升级会员的逻辑
+}
+
+function handleHealthManagerClick() {
+  console.log('点击健康管家消息')
+  // 在这里添加健康管家消息的逻辑
+}
 </script>
 
 <template>
@@ -36,52 +53,11 @@ function handleSearchBarClick() {
         />
 
         <!-- 专业咨询区域 -->
-        <div class="relative isolate z-0 ml-[24rpx] mt-[60rpx] h-[300rpx] w-[702rpx] flex flex-col items-start">
-          <!-- 医生图片 -->
-          <img
-            class="relative z-4 ml-[410rpx] h-[262rpx] w-[274rpx] flex-shrink-0 object-cover -mt-[52rpx]"
-            src="@img/homepage/decoration.png"
-          >
-
-          <!-- 背景矩形 -->
-          <div class="relative z-1 ml-0 h-[300rpx] w-[702rpx] flex-shrink-0 rounded-[16rpx] from-[#feca75] to-[#d4b477] bg-gradient-to-r -mt-[210rpx]" />
-
-          <!-- 专业咨询标题 -->
-          <span class="relative z-3 ml-[24rpx] flex-shrink-0 whitespace-pre from-[#97493d] to-[#ba7720] bg-gradient-to-b bg-clip-text text-[40rpx] text-transparent font-bold leading-[100%] -mt-[252rpx]"> 专业咨询 </span>
-
-          <!-- 副标题 -->
-          <span class="relative z-2 ml-[24rpx] mt-[24rpx] flex-shrink-0 whitespace-pre text-[28rpx] text-white font-medium leading-[100%]"> 为您及家人健康提供专属服务 </span>
-
-          <!-- 健康管家消息框 -->
-          <div class="relative isolate z-5 ml-[24rpx] mt-[54rpx] h-[80rpx] w-[654rpx] flex flex-shrink-0 flex-col items-start">
-            <img
-              class="relative z-1 ml-[540rpx] h-[20rpx] w-[36rpx] -mt-[13rpx]"
-              src="@img/homepage/arrow-icon.png"
-            >
-            <div class="relative isolate z-0 ml-0 h-[80rpx] w-[654rpx] flex flex-row items-start rounded-[40rpx] from-white to-[#fef9eb] bg-gradient-to-b -mt-[7rpx]">
-              <img
-                class="relative z-2 ml-[16rpx] mt-[20rpx] h-[40rpx] w-[40rpx]"
-                src="@img/homepage/health-manager-icon.png"
-              >
-              <span class="relative z-0 ml-[16rpx] mt-[28rpx] whitespace-pre text-[22rpx] text-[#967f64] font-normal leading-[24rpx]">
-                [健康管家]您最近身体怎么样？
-              </span>
-              <div class="relative z-1 ml-[116rpx] mt-[12rpx] h-[56rpx] w-[148rpx] flex flex-col items-start whitespace-pre rounded-[32rpx] from-[#f0c67a] to-[#eba54b] bg-gradient-to-b text-[24rpx] text-white font-medium leading-[100%]">
-                <span class="relative ml-[38rpx] mt-[16rpx]"> 问医生 </span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 会员权益矩形 -->
-          <div class="relative isolate z-0 ml-0 mt-0 h-[98rpx] w-[702rpx] flex flex-shrink-0 flex-row items-start rounded-[16rpx] from-[#f6e2d3] to-[#ece3d1] bg-gradient-to-r">
-            <span class="relative z-1 ml-[24rpx] mt-[50rpx] whitespace-pre text-[24rpx] text-[#ae956d] font-medium leading-[100%]"> 升级会员 享更多权益 </span>
-            <span class="relative z-0 ml-[328rpx] mt-[50rpx] whitespace-pre text-[24rpx] text-[#ae956d] font-medium leading-[100%]"> 去升级 </span>
-            <img
-              class="relative z-2 ml-[8rpx] mt-[50rpx] h-[24rpx] w-[24rpx]"
-              src="@img/homepage/upgrade-arrow.png"
-            >
-          </div>
-        </div>
+        <ConsultationSection
+          @consult-click="handleConsultClick"
+          @upgrade-click="handleUpgradeClick"
+          @health-manager-click="handleHealthManagerClick"
+        />
       </div>
 
       <!-- 体质卡片区域 -->
