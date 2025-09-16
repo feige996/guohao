@@ -79,7 +79,7 @@ definePage({
       </div>
 
       <!-- 体质卡片区域 -->
-      <div class="relative isolate ml-[24rpx] h-[344rpx] w-[702rpx] flex flex-row items-start bg-[url('@img/homepage/background.webp')] bg-cover bg-center bg-no-repeat -mt-[208rpx]">
+      <div class="relative isolate ml-[24rpx] h-[344rpx] w-[702rpx] flex flex-row items-start bg-white bg-cover bg-center bg-no-repeat -mt-[208rpx]">
         <DateCard class="relative z-1 ml-[32rpx] mt-[32rpx] h-[280rpx] w-[282rpx]" />
         <div class="relative z-0 ml-[22rpx] mt-[32rpx] h-[280rpx] w-[334rpx] flex flex-col items-start">
           <div class="relative ml-0 mt-0 h-[280rpx] w-[334rpx] flex flex-col items-start rounded-[16rpx] from-[#fff1f2] to-[#fce3e1] bg-gradient-to-br">
