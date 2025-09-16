@@ -17,28 +17,28 @@ definePage({
       <div class="rectangle_9972" />
       <img
         class="div_3fab9da00f5e52d27d3b9a7812753db13692cfb438d32_opmims_fw1200webp"
-        src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601415869/d530/1292/e788/02106c837015183fa5fb5f9b5ed32943.webp"
+        src="/static/images/homepage/background.webp"
       >
       <div class="rectangle_9961" />
       <img
         class="div_18"
-        src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601419510/8b75/e95f/70cc/a447fe9f9094b63428ceac021bd79fe8.png"
+        src="/static/images/homepage/arrow-icon.png"
       ><span class="text_2"> 为您及家人健康提供专属服务 </span><span class="text_3"> 专业咨询 </span><span class="text_4"> 升级会员 享更多权益 </span><span class="text_5"> 去升级 </span><img
         class="frame"
-        src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601416953/f8fa/6059/aa64/297f15529bda3b4a83b009f44f51d3b5.png"
+        src="/static/images/homepage/upgrade-arrow.png"
       >
       <div class="group_9044">
         <div class="rectangle_9913" />
         <img
           class="frame_1"
-          src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601420111/fed2/cbb1/d5ed/9d44afa76b092e54d8f02119c8980009.png"
+          src="/static/images/homepage/search-icon.png"
         ><span class="text_6"> 搜索疾病、症状、科室等 </span>
         <div class="rectangle_9945" />
         <span class="text_7"> 搜索 </span>
       </div>
       <img
         class="div_7c6b0eae8edeb4866b93c9c11bdc991bf8ab758f9f625_qldtzd_fw1200webp"
-        src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601418796/34fd/be54/3296/f6661d27d5c6d0d765ce89633bf066dc.png"
+        src="/static/images/homepage/decoration.png"
       >
       <div class="group_9227">
         <div class="rectangle_9963" />
@@ -46,7 +46,7 @@ definePage({
         <div class="rectangle_9967" />
         <span class="text_9"> 问医生 </span><img
           class="div_1"
-          src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601419574/7b67/897d/f6b9/7c56f902d415477f209e79b11b38ae5f.png"
+          src="/static/images/homepage/health-manager-icon.png"
         >
       </div>
       <div class="group_9247">
@@ -55,56 +55,56 @@ definePage({
         <div class="group_9045">
           <img
             class="group_9253"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601420142/2765/c692/e618/2dc01b1643183b22e0f9083224ddd65f.png"
+            src="/static/images/homepage/appointment-icon.png"
           ><span class="text_11"> 预约问诊 </span>
         </div>
         <div class="group_9046">
           <img
             class="group_9254"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601421012/a052/ca85/a847/34a6277813499524a1a85d144395fbef.png"
+            src="/static/images/homepage/message-icon.png"
           ><span class="text_12"> 我的消息 </span>
         </div>
         <div class="group_9047">
           <img
             class="group_9255"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601422161/6bb2/6be9/6f53/450116fb4ef0df1e1e41eb284d70cba0.png"
+            src="/static/images/homepage/collection-icon.png"
           ><span class="text_13"> 养生收藏 </span>
         </div>
         <div class="group_9048">
           <img
             class="group_9256"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601418882/7089/96ef/b564/4fb87fb73016fbcef1f6358e17388897.png"
+            src="/static/images/homepage/product-icon.png"
           ><span class="text_14"> 关注商品 </span>
         </div>
         <div class="group_9049">
           <div class="rectangle_9978" />
           <img
             class="rectangle_9979"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601421042/4982/7105/5cfa/05758f8dc08ab29ab7882bfd87b71008.png"
+            src="/static/images/homepage/all-function-bg1.png"
           ><img
             class="rectangle_9980"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601419687/73a7/2445/a03a/a0fe135d2fd96dbb3f764f1e049d6a12.png"
+            src="/static/images/homepage/all-function-bg2.png"
           ><span class="text_15"> 全部功能 </span><span class="text_16"> 7x24小时 </span><span class="text_17"> 一对一服务 </span>
         </div>
         <img
           class="div_2"
-          src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601417953/8f7d/b219/1c9e/d36d3dfd4564ca303beb5a8ffca1f66b.png"
+          src="/static/images/homepage/settings-icon.png"
         ><span class="text_18"> 设置 </span><img
           class="div_3"
-          src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601422965/75d4/bdf7/cbb9/eba12991e51ef0797057be97fd5bbdf9.png"
+          src="/static/images/homepage/settings-arrow.png"
         >
       </div>
 
       <div class="group_9245">
         <img
           class="rectangle_2"
-          src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601422369/95db/5066/5cd1/d894eb89a98ab80a3f5dbf0299d8879a.png"
+          src="/static/images/homepage/calendar-bg.png"
         ><span class="text_23"> GO </span>
       </div>
       <div class="group_9230">
         <img
           class="group_9252"
-          src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601419814/7b78/3e23/906d/214acc03d8b75849d6bfb59a6496944b.png"
+          src="/static/images/homepage/calendar-icon.png"
         ><span class="text_24"> 七月十五 </span><span class="text_25"> 乙己蛇年 </span>
         <div class="rectangle_11843" />
         <span class="text_26"> 09 / 06 </span><span class="text_27"> 2025 </span>
@@ -119,7 +119,7 @@ definePage({
         <div class="group_9228">
           <img
             class="rectangle_11012"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601419837/4862/515f/1e11/5ed7c3fa6906944ec83abd99bc95bf96.png"
+            src="/static/images/homepage/constitution-badge.png"
           ><span class="text_31"> 平和体质 </span>
         </div>
       </div>
