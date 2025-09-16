@@ -79,8 +79,8 @@ defineProps(['style'])
 /* 组 9252 */
 .group_9252 {
   position: relative;
-  width: 141px;
-  height: 140px;
+  width: 282rpx;
+  height: 280rpx;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -88,31 +88,31 @@ defineProps(['style'])
 
 /* 矩形 */
 .rectangle {
-  width: 140px;
-  height: 140px;
+  width: 280rpx;
+  height: 280rpx;
   position: relative;
   margin-top: 0;
-  margin-left: 0.5px;
+  margin-left: 1rpx;
 }
 
 /* 蒙版组 26 */
 .group_26 {
   position: relative;
-  width: 140px;
-  height: 140px;
+  width: 280rpx;
+  height: 280rpx;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: -140px;
+  margin-top: -280rpx;
   margin-left: 0;
 }
 
 /* 矩形 */
 .rectangle_1 {
   position: relative;
-  width: 140px;
-  height: 140px;
-  border-radius: 10px;
+  width: 280rpx;
+  height: 280rpx;
+  border-radius: 20rpx;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -125,33 +125,33 @@ defineProps(['style'])
 
 /* 热门活动-1 */
 .div_1 {
-  width: 99px;
-  height: 99px;
+  width: 198rpx;
+  height: 198rpx;
   position: absolute;
   top: 50%;
-  left: 41px;
+  left: 82rpx;
   bottom: auto;
-  margin-top: -10px;
+  margin-top: -20rpx;
 }
 
 /* flexContainer */
 .flexcontainer {
   position: relative;
   display: flex;
-  width: 122px;
-  height: 42px;
+  width: 244rpx;
+  height: 84rpx;
   flex-direction: row;
   align-items: flex-start;
-  margin-top: -132px;
-  margin-left: 8px;
+  margin-top: -264rpx;
+  margin-left: 16rpx;
 }
 
 /* flexContainer */
 .flexcontainer_1 {
   position: relative;
   display: flex;
-  width: 56px;
-  height: 40px;
+  width: 112rpx;
+  height: 80rpx;
   flex-direction: column;
   align-items: flex-start;
   margin-left: 0;
@@ -161,10 +161,10 @@ defineProps(['style'])
 /* 七月十五 */
 .text {
   text-align: center;
-  font-size: 14px;
+  font-size: 28rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 20px;
+  line-height: 40rpx;
   color: #999999;
   white-space: pre;
   position: relative;
@@ -175,10 +175,10 @@ defineProps(['style'])
 /* 乙己蛇年 */
 .text_1 {
   text-align: center;
-  font-size: 14px;
+  font-size: 28rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 20px;
+  line-height: 40rpx;
   color: #999999;
   white-space: pre;
   position: relative;
@@ -188,77 +188,77 @@ defineProps(['style'])
 
 /* 组 9292 */
 .group_9292 {
-  width: 24px;
-  height: 42px;
+  width: 48rpx;
+  height: 84rpx;
   position: relative;
   text-align: center;
-  font-size: 12px;
+  font-size: 24rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 16.8px;
+  line-height: 33.6rpx;
   color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-left: 42px;
+  margin-left: 84rpx;
   margin-top: 0;
-  border-radius: 8px;
+  border-radius: 16rpx;
   background-color: rgba(40, 107, 171, 0.48);
 }
 
 /* 雨 水 */
 .text_2 {
   position: relative;
-  margin-top: 4px;
-  margin-left: 6px;
+  margin-top: 8rpx;
+  margin-left: 12rpx;
 }
 
 /* Seal Group */
 .seal_group {
-  width: 124px;
-  height: 64px;
+  width: 248rpx;
+  height: 128rpx;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-top: 18px;
-  margin-left: 8px;
-  border-radius: 5px;
+  margin-top: 36rpx;
+  margin-left: 16rpx;
+  border-radius: 10rpx;
   background-color: #ffffff;
   isolation: isolate;
 }
 
 /* 2025 */
 .text_3 {
-  width: 36px;
-  height: 15px;
+  width: 72rpx;
+  height: 30rpx;
   text-align: center;
-  font-size: 12.5px;
+  font-size: 25rpx;
   font-family: 'Source Han Sans';
   font-weight: 700;
-  line-height: 15px;
+  line-height: 30rpx;
   color: #286bab;
   white-space: pre;
   z-index: 1;
   position: relative;
-  margin-top: 4.5px;
-  margin-left: 7px;
+  margin-top: 9rpx;
+  margin-left: 14rpx;
 }
 
 /* 09 / 06 */
 .text_4 {
   text-align: center;
-  font-size: 30px;
+  font-size: 60rpx;
   font-family: 'Source Han Sans';
   font-weight: 700;
-  line-height: 44px;
+  line-height: 88rpx;
   color: #286bab;
   white-space: pre;
-  height: 44px;
-  margin-top: 7.5px;
-  margin-bottom: -9.5px;
+  height: 88rpx;
+  margin-top: 15rpx;
+  margin-bottom: -19rpx;
   z-index: 0;
   position: relative;
-  margin-left: 13px;
+  margin-left: 26rpx;
 }
 </style>
