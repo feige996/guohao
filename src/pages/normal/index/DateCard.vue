@@ -26,7 +26,7 @@ defineProps(['style'])
       </div>
       <div class="relative isolate ml-[16rpx] mt-[36rpx] h-[128rpx] w-[248rpx] flex flex-col items-start rounded-[10rpx] bg-white">
         <span class="relative z-1 ml-[14rpx] mt-[9rpx] h-[30rpx] w-[72rpx] whitespace-pre text-center text-[25rpx] text-[#286bab] font-bold leading-[30rpx]"> 2025 </span>
-        <span class="relative z-0 ml-[26rpx] mt-[15rpx] h-[88rpx] whitespace-pre text-center text-[60rpx] text-[#286bab] font-bold leading-[88rpx] -mb-[19rpx]"> 09 / 06 </span>
+        <span class="relative z-0 ml-[20rpx] mt-[2rpx] h-[88rpx] whitespace-pre text-center text-[50rpx] text-[#286bab] font-bold leading-[88rpx] -mb-[19rpx]"> 09 / 06 </span>
       </div>
     </div>
   </div>
