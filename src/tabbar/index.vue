@@ -71,7 +71,7 @@ function getImageByIndex(index: number, item: CustomTabBarItem) {
 </script>
 
 <template>
-  <view v-if="customTabbarEnable" class="h-50px pb-safe">
+  <view v-if="customTabbarEnable" class="h-80px pb-safe">
     <view class="border-and-fixed bg-white" @touchmove.stop.prevent>
       <view class="h-80px flex items-center">
         <view
