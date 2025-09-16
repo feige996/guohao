@@ -6,13 +6,13 @@ defineProps(['style'])
   <div class="relative h-[280rpx] w-[282rpx] flex flex-col items-start">
     <img
       class="relative ml-[1rpx] mt-0 h-[280rpx] w-[280rpx]"
-      src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601423099/86c0/5bde/f2aa/79510a8c2affe159918d9ee5caaf16e1.png"
+      src="/static/images/homepage/date-card-bg.png"
     >
     <div class="relative ml-0 h-[280rpx] w-[280rpx] flex flex-col items-start -mt-[280rpx]">
       <div class="mask-image relative ml-0 mt-0 h-[280rpx] w-[280rpx] flex flex-col items-start overflow-hidden rounded-[20rpx]">
         <img
           class="absolute left-[82rpx] top-1/2 h-[198rpx] w-[198rpx] -mt-[20rpx]"
-          src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62609437513/ad3f/4de1/f026/4cdf2770de50ddb8816207913f9f9e1c.png"
+          src="/static/images/homepage/date-card-content.png"
         >
       </div>
       <div class="relative ml-[16rpx] h-[84rpx] w-[244rpx] flex flex-row items-start -mt-[264rpx]">
@@ -34,9 +34,9 @@ defineProps(['style'])
 
 <style scoped>
 .mask-image {
-  -webkit-mask-image: url('https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601423099/86c0/5bde/f2aa/79510a8c2affe159918d9ee5caaf16e1.png');
+  -webkit-mask-image: url('/static/images/homepage/date-card-bg.png');
   -webkit-mask-size: contain;
-  mask-image: url('https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62601423099/86c0/5bde/f2aa/79510a8c2affe159918d9ee5caaf16e1.png');
+  mask-image: url('/static/images/homepage/date-card-bg.png');
   mask-size: contain;
 }
 </style>
