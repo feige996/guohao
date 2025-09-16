@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import SearchBar from '@/components/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 import DateCard from './DateCard.vue'
 
@@ -9,6 +10,17 @@ definePage({
     navigationBarTitleText: '普通用户首页',
   },
 })
+
+// 搜索栏事件处理
+function handleSearch() {
+  console.log('执行搜索')
+  // 在这里添加搜索逻辑
+}
+
+function handleSearchBarClick() {
+  console.log('点击搜索栏')
+  // 在这里添加点击搜索栏的逻辑，比如跳转到搜索页面
+}
 </script>
 
 <template>
@@ -18,16 +30,10 @@ definePage({
       <!-- 顶部渐变区域 -->
       <div class="relative isolate h-[848rpx] w-[750rpx] flex flex-col items-start from-[#f6e2d3] to-transparent bg-gradient-to-b">
         <!-- 搜索栏 -->
-        <div class="relative isolate z-1 ml-[24rpx] mt-[104rpx] h-[80rpx] w-[702rpx] flex flex-row items-start border border-[#cccccc] rounded-[660rpx] bg-[#f7f4f3]">
-          <img
-            class="relative z-0 ml-[30rpx] mt-[24rpx] h-[32rpx] w-[32rpx]"
-            src="@img/homepage/search-icon.png"
-          >
-          <div class="relative z-2 ml-[520rpx] mt-[8rpx] h-[64rpx] w-[112rpx] flex flex-col items-start rounded-[116rpx] bg-[#97493d]">
-            <span class="relative mx-auto mt-[20rpx] w-max whitespace-pre text-center text-[24rpx] text-white font-normal leading-[100%]"> 搜索 </span>
-          </div>
-          <span class="absolute left-0 right-[298rpx] top-[28rpx] z-1 mx-auto w-max whitespace-pre text-[24rpx] text-[#cccccc] font-normal leading-[100%]"> 搜索疾病、症状、科室等 </span>
-        </div>
+        <SearchBar
+          @search="handleSearch"
+          @click="handleSearchBarClick"
+        />
 
         <!-- 专业咨询区域 -->
         <div class="relative isolate z-0 ml-[24rpx] mt-[60rpx] h-[300rpx] w-[702rpx] flex flex-col items-start">
