@@ -238,6 +238,7 @@
       "path": "pages/normal/diagnosis/diagnosis",
       "type": "page",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "普通用户问诊"
       }
     },
