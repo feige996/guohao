@@ -192,6 +192,20 @@
       }
     },
     {
+      "path": "pages/test/healthcare-card-test",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "HealthcareCard 测试"
+      }
+    },
+    {
+      "path": "pages/test/image-test",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "图片路径测试"
+      }
+    },
+    {
       "path": "pages/doctor/diagnosis/diagnosis",
       "type": "page",
       "style": {
