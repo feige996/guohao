@@ -231,6 +231,7 @@
       "path": "pages/normal/healthcare/healthcare",
       "type": "page",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "养生"
       },
       "excludeLoginPath": false
