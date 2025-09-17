@@ -24,18 +24,18 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<Emits>()
 
-const handleSearch = () => {
+function handleSearch() {
   emit('search')
 }
 
-const handleClick = () => {
+function handleClick() {
   emit('click')
 }
 </script>
 
 <template>
   <div
-    class="relative flex flex-row items-start border border-[#cccccc] rounded-[660rpx] bg-[#f7f4f3] cursor-pointer"
+    class="relative flex flex-row cursor-pointer items-start border border-[#cccccc] rounded-[660rpx] bg-[#f7f4f3]"
     :style="{
       marginLeft: props.marginLeft,
       marginTop: props.marginTop,
@@ -53,14 +53,14 @@ const handleClick = () => {
 
     <!-- 搜索按钮 -->
     <div
-      class="relative ml-[520rpx] mt-[8rpx] h-[64rpx] w-[112rpx] flex flex-col items-start rounded-[116rpx] bg-[#97493d] cursor-pointer"
+      class="relative ml-[520rpx] mt-[8rpx] h-[64rpx] w-[112rpx] flex flex-col cursor-pointer items-start rounded-[116rpx] bg-[#97493d]"
       @click.stop="handleSearch"
     >
       <span class="relative mx-auto mt-[20rpx] w-max whitespace-pre text-center text-[24rpx] text-white font-normal leading-[100%]">
         {{ props.buttonText }}
       </span>
     </div>
-    
+
     <!-- 占位符文本 -->
     <span class="absolute left-0 right-[298rpx] top-[28rpx] z-1 mx-auto w-max whitespace-pre text-[24rpx] text-[#cccccc] font-normal leading-[100%]">
       {{ props.placeholder }}
