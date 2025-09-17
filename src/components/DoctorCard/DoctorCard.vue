@@ -72,7 +72,7 @@ function handleClick() {
       </view>
 
       <!-- 擅长描述 -->
-      <text class="absolute left-0 top-118rpx line-clamp-2 w-full overflow-hidden text-22rpx text-[#89a2be] font-500 leading-36rpx">
+      <text class="absolute left-0 top-118rpx line-clamp-2 mt-4 w-full overflow-hidden text-22rpx text-[#89a2be] font-500 leading-36rpx">
         擅长：{{ config.specialty }}
       </text>
     </view>
