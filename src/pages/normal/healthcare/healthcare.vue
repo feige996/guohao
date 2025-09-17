@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import type { DoctorCardConfig } from '@/components/DoctorCard'
 import type { HealthcareCardConfig } from '@/components/HealthcareCard'
 import type { MedicalServiceCardConfig } from '@/components/MedicalServiceCards'
+import { DOCTOR_CARD_CONFIGS, DoctorCardList } from '@/components/DoctorCard'
 import { HEALTHCARE_CARD_CONFIGS, HealthcareCardGroup } from '@/components/HealthcareCard'
 import { MEDICAL_SERVICE_CARDS_CONFIG, MedicalServiceCards } from '@/components/MedicalServiceCards'
 import SearchBar from '@/components/SearchBar'
@@ -23,6 +25,9 @@ const healthcareCards = [
 
 // 医疗服务卡片配置
 const medicalServiceCards = MEDICAL_SERVICE_CARDS_CONFIG
+
+// 医生卡片配置
+const doctorCards = DOCTOR_CARD_CONFIGS
 
 // 搜索栏事件处理
 function handleSearch() {
@@ -78,6 +83,20 @@ function handleMedicalServiceCardClick(card: MedicalServiceCardConfig) {
     icon: 'none',
   })
 }
+
+// 医生卡片点击事件处理
+function handleDoctorCardClick(doctor: DoctorCardConfig) {
+  console.log('点击了医生卡片:', doctor.id, doctor.name)
+
+  // 显示提示
+  uni.showToast({
+    title: `点击了${doctor.name}医生`,
+    icon: 'none',
+  })
+
+  // 这里可以添加跳转到医生详情页面的逻辑
+  // uni.navigateTo({ url: `/pages/doctor/detail?id=${doctor.id}` })
+}
 </script>
 
 <template root="uniKuRoot">
@@ -101,6 +120,14 @@ function handleMedicalServiceCardClick(card: MedicalServiceCardConfig) {
       <MedicalServiceCards
         :cards="medicalServiceCards"
         @card-click="handleMedicalServiceCardClick"
+      />
+    </view>
+
+    <!-- 专家医生卡片列表 -->
+    <view class="w-full flex justify-center pt-6">
+      <DoctorCardList
+        :doctors="doctorCards"
+        @doctor-click="handleDoctorCardClick"
       />
     </view>
   </view>
