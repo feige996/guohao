@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import type { FunctionCardItem } from '@/components/FunctionCards'
 import ConstitutionCard from '@/components/ConstitutionCard'
 import ConsultationSection from '@/components/ConsultationSection'
+import FunctionCards from '@/components/FunctionCards'
 import SearchBar from '@/components/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 import DateCard from './DateCard.vue'
@@ -55,6 +57,81 @@ function handleAdviceClick() {
   console.log('点击养生建议')
   // 在这里添加养生建议的逻辑
 }
+
+// 功能卡片事件处理
+function handleFunctionCardClick(item: FunctionCardItem) {
+  console.log('点击功能卡片:', item)
+  // 根据卡片 ID 处理不同的业务逻辑
+  switch (item.id) {
+    case 'appointment':
+      console.log('跳转到预约问诊')
+      break
+    case 'message':
+      console.log('跳转到我的消息')
+      break
+    case 'collection':
+      console.log('跳转到养生收藏')
+      break
+    case 'product':
+      console.log('跳转到关注商品')
+      break
+    default:
+      console.log('未知功能:', item.id)
+  }
+}
+
+function handleAllFunctionClick() {
+  console.log('点击全部功能')
+  // 在这里添加全部功能页面的逻辑
+}
+
+// 功能卡片数据
+const functionCards: FunctionCardItem[] = [
+  {
+    id: 'appointment',
+    title: '预约问诊',
+    backgroundImage: '/static/images/homepage/appointment-icon.png',
+    enabled: true,
+    textStyle: {
+      marginLeft: '24rpx',
+      marginTop: '64rpx',
+      width: '108rpx',
+    },
+  },
+  {
+    id: 'message',
+    title: '我的消息',
+    backgroundImage: '/static/images/homepage/message-icon.png',
+    enabled: true,
+    textStyle: {
+      marginLeft: '24rpx',
+      marginTop: '64rpx',
+      width: '108rpx',
+    },
+  },
+  {
+    id: 'collection',
+    title: '养生收藏',
+    backgroundImage: '/static/images/homepage/collection-icon.png',
+    enabled: true,
+    className: 'ml-[1rpx]',
+    textStyle: {
+      marginLeft: '23rpx',
+      marginTop: '64rpx',
+      width: '108rpx',
+    },
+  },
+  {
+    id: 'product',
+    title: '关注商品',
+    backgroundImage: '/static/images/homepage/product-icon.png',
+    enabled: true,
+    textStyle: {
+      marginLeft: '24rpx',
+      marginTop: '64rpx',
+    },
+  },
+]
 </script>
 
 <template>
@@ -101,58 +178,12 @@ function handleAdviceClick() {
         >
       </div>
 
-      <!-- 第一行功能卡片 -->
-      <div class="relative isolate z-2 ml-[16rpx] mt-[32rpx] h-[156rpx] w-[670rpx] flex flex-row items-start">
-        <div class="relative z-1 ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]">
-          <div class="relative ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start bg-[url('@img/homepage/appointment-icon.png')] bg-cover bg-center bg-no-repeat">
-            <span class="relative mb-[-7rpx] ml-[24rpx] mt-[64rpx] h-[38rpx] w-[108rpx]"> 预约问诊 </span>
-          </div>
-        </div>
-        <div class="relative z-0 ml-[14rpx] mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]">
-          <div class="relative ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start bg-[url('@img/homepage/message-icon.png')] bg-cover bg-center bg-no-repeat">
-            <span class="relative mb-[-7rpx] ml-[24rpx] mt-[64rpx] h-[38rpx] w-[108rpx]"> 我的消息 </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 第二行功能卡片 -->
-      <div class="relative isolate z-1 ml-[16rpx] mt-[16rpx] h-[156rpx] w-[670rpx] flex flex-row items-start">
-        <div class="relative z-1 ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]">
-          <div class="relative ml-[1rpx] mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start bg-[url('@img/homepage/collection-icon.png')] bg-cover bg-center bg-no-repeat">
-            <span class="relative mb-[-7rpx] ml-[23rpx] mt-[64rpx] h-[38rpx] w-[108rpx]"> 养生收藏 </span>
-          </div>
-        </div>
-        <div class="relative z-0 ml-[14rpx] mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]">
-          <div class="relative ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start bg-[url('@img/homepage/product-icon.png')] bg-cover bg-center bg-no-repeat">
-            <span class="relative mb-[-7rpx] ml-[24rpx] mt-[64rpx] h-[38rpx]"> 关注商品 </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 全部功能卡片 -->
-      <div class="relative isolate z-0 ml-[16rpx] mt-[12rpx] h-[156rpx] w-[328rpx] flex flex-row items-start">
-        <div class="relative z-1 ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start">
-          <div class="relative isolate ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-row items-start rounded-[8rpx] from-[#f1f6ff] to-[#e3eafe] bg-gradient-to-br">
-            <div class="relative z-2 ml-[24rpx] mt-[32rpx] h-[92rpx] w-[104rpx] flex flex-col items-start">
-              <span class="relative mb-[-7rpx] ml-0 mt-0 h-[38rpx] whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]"> 全部功能 </span>
-              <span class="relative ml-0 mt-[16rpx] whitespace-pre text-[20rpx] text-[#aca7c3] font-medium leading-[24rpx]"> 7x24小时 </span>
-              <span class="relative ml-0 mt-[4rpx] whitespace-pre text-[20rpx] text-[#aca7c3] font-medium leading-[24rpx]"> 一对一服务 </span>
-            </div>
-            <img
-              class="relative z-0 ml-[-28rpx] mt-0 h-[156rpx] w-[226rpx]"
-              src="@img/homepage/all-function-bg1.png"
-            >
-            <img
-              class="relative z-1 ml-[-184rpx] mt-0 h-[156rpx] w-[186rpx]"
-              src="@img/homepage/all-function-bg2.png"
-            >
-          </div>
-        </div>
-        <img
-          class="relative z-0 ml-[-132rpx] mt-[22rpx] h-[112rpx] w-[112rpx]"
-          src="@img/homepage/settings-icon.png"
-        >
-      </div>
+      <!-- 功能卡片组件 -->
+      <FunctionCards
+        :cards="functionCards"
+        @card-click="handleFunctionCardClick"
+        @all-function-click="handleAllFunctionClick"
+      />
     </div>
   </div>
 </template>
