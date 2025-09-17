@@ -24,11 +24,11 @@ function handleClick() {
     <!-- 左侧内容区域 -->
     <view class="relative ml-32rpx mt-24rpx h-264rpx w-364rpx flex flex-col items-start">
       <!-- 医生姓名和职称 -->
-      <view class="relative h-32rpx w-218rpx flex flex-row items-start">
-        <text class="absolute left-0 top-0 h-32rpx w-90rpx text-30rpx text-[#333333] font-500 leading-32rpx">
+      <view class="relative h-32rpx w-full flex flex-row items-center">
+        <text class="flex-shrink-0 text-30rpx text-[#333333] font-500 leading-32rpx">
           {{ config.name }}
         </text>
-        <text class="absolute right-0 top-0 h-32rpx w-120rpx text-30rpx text-[#999999] font-400 leading-32rpx">
+        <text class="ml-16rpx flex-shrink-0 text-30rpx text-[#999999] font-400 leading-32rpx">
           {{ config.title }}
         </text>
       </view>
