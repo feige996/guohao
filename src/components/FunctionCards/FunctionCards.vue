@@ -51,10 +51,10 @@ function handleAllFunctionClick() {
     <div
       v-for="(group, groupIndex) in groupedCards"
       :key="groupIndex"
-      class="relative isolate ml-[16rpx] h-[156rpx] w-[670rpx] flex flex-row items-start"
+      class="relative ml-[16rpx] h-[156rpx] w-[670rpx] flex flex-row items-start"
       :class="{
-        'z-2 mt-[32rpx]': groupIndex === 0,
-        'z-1 mt-[16rpx]': groupIndex > 0,
+        'mt-[32rpx]': groupIndex === 0,
+        'mt-[16rpx]': groupIndex > 0,
       }"
     >
       <div
@@ -63,8 +63,8 @@ function handleAllFunctionClick() {
         class="relative h-[156rpx] w-[328rpx] flex flex-col cursor-pointer items-start whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]"
         :class="[
           {
-            'z-1 ml-0': cardIndex === 0,
-            'z-0 ml-[14rpx]': cardIndex === 1,
+            'ml-0': cardIndex === 0,
+            'ml-[14rpx]': cardIndex === 1,
             'opacity-50 cursor-not-allowed': card.enabled === false,
           },
           card.className,
@@ -83,7 +83,7 @@ function handleAllFunctionClick() {
           />
           <!-- 文本内容 -->
           <span
-            class="relative z-1 mb-[-7rpx] h-[38rpx]"
+            class="relative mb-[-7rpx] h-[38rpx]"
             :style="{
               marginLeft: card.textStyle?.marginLeft || '24rpx',
               marginTop: card.textStyle?.marginTop || '64rpx',
@@ -99,12 +99,12 @@ function handleAllFunctionClick() {
     <!-- 全部功能卡片 -->
     <div
       v-if="showAllFunction"
-      class="relative isolate z-0 ml-[16rpx] mt-[12rpx] h-[156rpx] w-[328rpx] flex flex-row cursor-pointer items-start"
+      class="relative ml-[16rpx] mt-[12rpx] h-[156rpx] w-[328rpx] flex flex-row cursor-pointer items-start"
       @click="handleAllFunctionClick"
     >
-      <div class="relative z-1 ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start">
-        <div class="relative isolate ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-row items-start rounded-[8rpx] from-[#f1f6ff] to-[#e3eafe] bg-gradient-to-br">
-          <div class="relative z-2 ml-[24rpx] mt-[32rpx] h-[92rpx] w-[104rpx] flex flex-col items-start">
+      <div class="relative ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start">
+        <div class="relative ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-row items-start rounded-[8rpx] from-[#f1f6ff] to-[#e3eafe] bg-gradient-to-br">
+          <div class="relative ml-[24rpx] mt-[32rpx] h-[92rpx] w-[104rpx] flex flex-col items-start">
             <span class="relative mb-[-7rpx] ml-0 mt-0 h-[38rpx] whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]">
               {{ allFunctionCard.title }}
             </span>
@@ -116,19 +116,19 @@ function handleAllFunctionClick() {
             </span>
           </div>
           <img
-            class="relative z-0 ml-[-28rpx] mt-0 h-[156rpx] w-[226rpx]"
+            class="relative ml-[-28rpx] mt-0 h-[156rpx] w-[226rpx]"
             :src="allFunctionCard.backgroundImage1"
             alt="背景装饰1"
           >
           <img
-            class="relative z-1 ml-[-184rpx] mt-0 h-[156rpx] w-[186rpx]"
+            class="relative ml-[-184rpx] mt-0 h-[156rpx] w-[186rpx]"
             :src="allFunctionCard.backgroundImage2"
             alt="背景装饰2"
           >
         </div>
       </div>
       <img
-        class="relative z-0 ml-[-132rpx] mt-[22rpx] h-[112rpx] w-[112rpx]"
+        class="relative ml-[-132rpx] mt-[22rpx] h-[112rpx] w-[112rpx]"
         :src="allFunctionCard.decorationIcon"
         alt="装饰图标"
       >

@@ -34,8 +34,8 @@ const handleClick = () => {
 </script>
 
 <template>
-  <div 
-    class="relative isolate z-1 flex flex-row items-start border border-[#cccccc] rounded-[660rpx] bg-[#f7f4f3] cursor-pointer"
+  <div
+    class="relative flex flex-row items-start border border-[#cccccc] rounded-[660rpx] bg-[#f7f4f3] cursor-pointer"
     :style="{
       marginLeft: props.marginLeft,
       marginTop: props.marginTop,
@@ -46,14 +46,14 @@ const handleClick = () => {
   >
     <!-- 搜索图标 -->
     <img
-      class="relative z-0 ml-[30rpx] mt-[24rpx] h-[32rpx] w-[32rpx]"
+      class="relative ml-[30rpx] mt-[24rpx] h-[32rpx] w-[32rpx]"
       src="@img/homepage/search-icon.png"
       alt="搜索图标"
     >
-    
+
     <!-- 搜索按钮 -->
-    <div 
-      class="relative z-2 ml-[520rpx] mt-[8rpx] h-[64rpx] w-[112rpx] flex flex-col items-start rounded-[116rpx] bg-[#97493d] cursor-pointer"
+    <div
+      class="relative ml-[520rpx] mt-[8rpx] h-[64rpx] w-[112rpx] flex flex-col items-start rounded-[116rpx] bg-[#97493d] cursor-pointer"
       @click.stop="handleSearch"
     >
       <span class="relative mx-auto mt-[20rpx] w-max whitespace-pre text-center text-[24rpx] text-white font-normal leading-[100%]">

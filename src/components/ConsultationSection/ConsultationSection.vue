@@ -47,8 +47,8 @@ const handleHealthManagerClick = () => {
 </script>
 
 <template>
-  <div 
-    class="relative isolate z-0 flex flex-col items-start"
+  <div
+    class="relative flex flex-col items-start"
     :style="{
       marginLeft: props.marginLeft,
       marginTop: props.marginTop,
@@ -58,16 +58,17 @@ const handleHealthManagerClick = () => {
   >
     <!-- 医生图片 -->
     <img
-      class="relative z-4 ml-[410rpx] h-[262rpx] w-[274rpx] flex-shrink-0 object-cover -mt-[52rpx]"
+      class="relative ml-[410rpx] h-[262rpx] w-[274rpx] flex-shrink-0 object-cover -mt-[52rpx]"
       src="@img/homepage/decoration.png"
       alt="医生装饰图"
+      style="z-index: 4;"
     >
 
     <!-- 背景矩形 -->
-    <div class="relative z-1 ml-0 h-[300rpx] w-[702rpx] flex-shrink-0 rounded-[16rpx] from-[#feca75] to-[#d4b477] bg-gradient-to-r -mt-[210rpx]" />
+    <div class="relative ml-0 h-[300rpx] w-[702rpx] flex-shrink-0 rounded-[16rpx] from-[#feca75] to-[#d4b477] bg-gradient-to-r -mt-[210rpx]" style="z-index: 1;" />
 
     <!-- 专业咨询标题 -->
-    <span class="relative z-3 ml-[24rpx] flex-shrink-0 whitespace-pre from-[#97493d] to-[#ba7720] bg-gradient-to-b bg-clip-text text-[40rpx] text-transparent font-bold leading-[100%] -mt-[252rpx]">
+    <span class="relative ml-[24rpx] flex-shrink-0 whitespace-pre from-[#97493d] to-[#ba7720] bg-gradient-to-b bg-clip-text text-[40rpx] text-transparent font-bold leading-[100%] -mt-[252rpx]" style="z-index: 3;">
       {{ props.title }}
     </span>
 
