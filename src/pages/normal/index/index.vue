@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import ConstitutionCard from '@/components/ConstitutionCard'
 import ConsultationSection from '@/components/ConsultationSection'
 import SearchBar from '@/components/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
@@ -38,6 +39,22 @@ function handleHealthManagerClick() {
   console.log('点击健康管家消息')
   // 在这里添加健康管家消息的逻辑
 }
+
+// 体质卡片事件处理
+function handleConstitutionCardClick() {
+  console.log('点击体质卡片')
+  // 在这里添加体质卡片的逻辑
+}
+
+function handleConstitutionClick() {
+  console.log('点击体质状态')
+  // 在这里添加体质状态的逻辑
+}
+
+function handleAdviceClick() {
+  console.log('点击养生建议')
+  // 在这里添加养生建议的逻辑
+}
 </script>
 
 <template>
@@ -63,24 +80,12 @@ function handleHealthManagerClick() {
       <!-- 体质卡片区域 -->
       <div class="relative isolate ml-[24rpx] h-[344rpx] w-[702rpx] flex flex-row items-start bg-white bg-cover bg-center bg-no-repeat -mt-[208rpx]">
         <DateCard class="relative z-1 ml-[32rpx] mt-[32rpx] h-[280rpx] w-[282rpx]" />
-        <div class="relative z-0 ml-[22rpx] mt-[32rpx] h-[280rpx] w-[334rpx] flex flex-col items-start">
-          <div class="relative ml-0 mt-0 h-[280rpx] w-[334rpx] flex flex-col items-start rounded-[16rpx] from-[#fff1f2] to-[#fce3e1] bg-gradient-to-br">
-            <div class="relative ml-[16rpx] mt-[16rpx] h-[40rpx] w-[288rpx] flex flex-row items-start">
-              <span class="relative ml-0 mt-[8rpx] whitespace-pre text-[24rpx] text-[#ba7210] font-bold leading-[100%]"> 体质状态： </span>
-              <div class="relative ml-[24rpx] mt-0 h-[40rpx] w-[144rpx] flex flex-col items-start whitespace-pre text-center text-[20rpx] text-white font-medium leading-[24rpx]">
-                <div class="absolute bottom-0 left-0 right-0 top-0 mx-auto my-auto h-[40rpx] w-[144rpx] flex flex-col items-start bg-[url('@img/homepage/constitution-badge.png')] bg-cover bg-center bg-no-repeat">
-                  <span class="relative ml-[24rpx] mt-[8rpx]"> 平和体质 </span>
-                </div>
-              </div>
-            </div>
-            <div class="relative ml-[16rpx] mt-[16rpx] h-[192rpx] w-[302rpx] flex flex-col items-start">
-              <div class="relative ml-0 mt-0 h-[192rpx] w-[302rpx] flex flex-col items-start rounded-[8rpx] bg-white/50">
-                <span class="relative ml-[18rpx] mt-[10rpx] whitespace-pre text-[24rpx] text-[#333333] font-medium leading-[100%]"> 气节养生建议：神仙粥 </span>
-                <span class="relative ml-[16rpx] mt-[22rpx] w-[270rpx] text-justify text-[24rpx] text-[#ababab] font-medium leading-[40rpx]"> 糯米30g+生姜5片+葱白3根煮粥，起锅前加10ml陈醋，驱寒暖胃。 </span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ConstitutionCard
+          class="ml-[22rpx] mt-[32rpx]"
+          @click="handleConstitutionCardClick"
+          @constitution-click="handleConstitutionClick"
+          @advice-click="handleAdviceClick"
+        />
       </div>
     </div>
 
