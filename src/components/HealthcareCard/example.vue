@@ -1,13 +1,13 @@
 <template>
-  <view class="p-[24rpx] bg-gray-100 min-h-screen">
+  <view class="min-h-screen bg-gray-100 p-[24rpx]">
     <view class="mb-[32rpx]">
-      <text class="text-[32rpx] font-bold text-gray-800 mb-[16rpx]">HealthcareCard 组件示例</text>
+      <text class="mb-[16rpx] text-[32rpx] text-gray-800 font-bold">HealthcareCard 组件示例</text>
     </view>
 
     <!-- 预设配置示例 -->
     <view class="mb-[48rpx]">
-      <text class="text-[28rpx] font-medium text-gray-700 mb-[24rpx]">预设配置</text>
-      <view class="flex flex-row gap-[14rpx] flex-wrap">
+      <text class="mb-[24rpx] text-[28rpx] text-gray-700 font-medium">预设配置</text>
+      <view class="flex flex-row flex-wrap gap-[14rpx]">
         <HealthcareCard
           :config="HEALTHCARE_CARD_CONFIGS.GUIDE"
           @click="handleCardClick"
@@ -21,8 +21,8 @@
 
     <!-- 自定义配置示例 -->
     <view class="mb-[48rpx]">
-      <text class="text-[28rpx] font-medium text-gray-700 mb-[24rpx]">自定义配置</text>
-      <view class="flex flex-row gap-[14rpx] flex-wrap">
+      <text class="mb-[24rpx] text-[28rpx] text-gray-700 font-medium">自定义配置</text>
+      <view class="flex flex-row flex-wrap gap-[14rpx]">
         <HealthcareCard
           :config="customConfig"
           @click="handleCardClick"
@@ -32,8 +32,8 @@
 
     <!-- 禁用状态示例 -->
     <view class="mb-[48rpx]">
-      <text class="text-[28rpx] font-medium text-gray-700 mb-[24rpx]">禁用状态</text>
-      <view class="flex flex-row gap-[14rpx] flex-wrap">
+      <text class="mb-[24rpx] text-[28rpx] text-gray-700 font-medium">禁用状态</text>
+      <view class="flex flex-row flex-wrap gap-[14rpx]">
         <HealthcareCard
           :config="disabledConfig"
           @click="handleCardClick"
@@ -42,8 +42,8 @@
     </view>
 
     <!-- 点击日志 -->
-    <view class="mt-[48rpx] p-[24rpx] bg-white rounded-[16rpx]">
-      <text class="text-[24rpx] font-medium text-gray-700 mb-[16rpx]">点击日志</text>
+    <view class="mt-[48rpx] rounded-[16rpx] bg-white p-[24rpx]">
+      <text class="mb-[16rpx] text-[24rpx] text-gray-700 font-medium">点击日志</text>
       <view v-if="clickLogs.length === 0" class="text-gray-500">
         暂无点击记录
       </view>
@@ -51,7 +51,7 @@
         <view
           v-for="(log, index) in clickLogs"
           :key="index"
-          class="mb-[8rpx] p-[12rpx] bg-gray-50 rounded-[8rpx]"
+          class="mb-[8rpx] rounded-[8rpx] bg-gray-50 p-[12rpx]"
         >
           <text class="text-[20rpx] text-gray-600">
             {{ log.time }} - 点击了 "{{ log.title }}" ({{ log.id }})
@@ -63,8 +63,9 @@
 </template>
 
 <script setup lang="ts">
+import type { HealthcareCardConfig } from './index'
 import { ref } from 'vue'
-import HealthcareCard, { HEALTHCARE_CARD_CONFIGS, type HealthcareCardConfig } from './index'
+import HealthcareCard, { HEALTHCARE_CARD_CONFIGS } from './index'
 
 // 点击日志
 interface ClickLog {
@@ -83,7 +84,7 @@ const customConfig: HealthcareCardConfig = {
   subtitle2: '快速响应',
   gradientColors: {
     from: '#ffebee',
-    to: '#ffcdd2'
+    to: '#ffcdd2',
   },
   titleColor: '#c62828',
   subtitleColor: '#e57373',
@@ -93,13 +94,13 @@ const customConfig: HealthcareCardConfig = {
     avatar: '/static/images/healthcare/guide-avatar.png',
     icon1: '/static/images/healthcare/guide-icon1.png',
     icon2: '/static/images/healthcare/guide-icon2.png',
-    arrow: '/static/images/healthcare/guide-arrow.png'
+    arrow: '/static/images/healthcare/guide-arrow.png',
   },
   features: {
     feature1: '紧急救治',
-    feature2: '专业团队'
+    feature2: '专业团队',
   },
-  enabled: true
+  enabled: true,
 }
 
 // 禁用状态配置
@@ -109,18 +110,18 @@ const disabledConfig: HealthcareCardConfig = {
   title: '维护中',
   subtitle1: '系统升级',
   subtitle2: '暂停服务',
-  enabled: false
+  enabled: false,
 }
 
 // 处理卡片点击
 function handleCardClick(config: HealthcareCardConfig) {
   const now = new Date()
   const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`
-  
+
   clickLogs.value.unshift({
     id: config.id,
     title: config.title,
-    time: timeString
+    time: timeString,
   })
 
   // 只保留最近10条记录
