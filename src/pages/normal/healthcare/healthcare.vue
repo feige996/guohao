@@ -6,6 +6,7 @@ definePage({
   style: {
     navigationStyle: 'custom',
     navigationBarTitleText: '养生',
+    disableScroll: true, // 禁用页面滚动
   },
   // 登录授权(可选)：跟以前的 needLogin 类似功能，但是同时支持黑白名单，详情请见 arc/router 文件夹
   excludeLoginPath: false,
@@ -137,29 +138,32 @@ function handleCardClick(card: any) {
 </script>
 
 <template root="uniKuRoot">
-  <view class="min-h-screen flex flex-col from-[#f6e2d3] to-transparent bg-gradient-to-b" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
-    <!-- 搜索栏 -->
-    <SearchBar
-      @search="handleSearch"
-      @click="handleSearchBarClick"
-    />
+  <view class="page-container" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+    <!-- 固定头部区域 -->
+    <view class="header-fixed">
+      <!-- 搜索栏 -->
+      <SearchBar
+        @search="handleSearch"
+        @click="handleSearchBarClick"
+      />
 
-    <!-- 轮播图 -->
-    <view class="px-[28rpx] pt-4">
-      <wd-swiper v-model:current="current" height="280rpx" :list="swiperList" autoplay @click="handleClick" @change="onChange" />
+      <!-- 轮播图 -->
+      <view class="px-[28rpx] pt-4">
+        <wd-swiper v-model:current="current" height="280rpx" :list="swiperList" autoplay @click="handleClick" @change="onChange" />
+      </view>
+
+      <!-- Tabs -->
+      <view class="px-[28rpx] pb-4 pt-4">
+        <wd-tabs v-model="tabWithBadge" @change="handleChange">
+          <wd-tab v-for="(item, index) in tabsWithBadge" :key="index" :title="item.title" />
+        </wd-tabs>
+      </view>
     </view>
 
-    <!-- Tabs -->
-    <view class="px-[28rpx] pt-4">
-      <wd-tabs v-model="tabWithBadge" @change="handleChange">
-        <wd-tab v-for="(item, index) in tabsWithBadge" :key="index" :title="item.title" />
-      </wd-tabs>
-    </view>
-
-    <!-- 卡片列表 -->
-    <view class="flex-1 px-[28rpx] pb-4 pt-4">
-      <scroll-view scroll-y class="scroll-container">
-        <view class="space-y-3">
+    <!-- 可滚动的卡片列表区域 -->
+    <view class="content-scroll">
+      <scroll-view scroll-y class="scroll-area" enable-back-to-top>
+        <view class="px-[28rpx] pb-4 space-y-3">
           <view
             v-for="card in currentCards"
             :key="card.id"
@@ -203,6 +207,34 @@ function handleCardClick(card: any) {
 </template>
 
 <style lang="scss" scoped>
+// 页面容器样式
+.page-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, #f6e2d3, transparent);
+  overflow: hidden; // 防止整页滚动
+}
+
+// 固定头部区域
+.header-fixed {
+  flex-shrink: 0;
+  background: linear-gradient(to bottom, #f6e2d3, transparent);
+  z-index: 10;
+}
+
+// 内容滚动区域
+.content-scroll {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.scroll-area {
+  height: 100%;
+  width: 100%;
+}
+
 // 自定义样式
 .healthcare-card {
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -236,10 +268,5 @@ function handleCardClick(card: any) {
     color: #1976d2;
     font-weight: 600;
   }
-}
-
-// 滚动区域样式
-.scroll-container {
-  height: calc(100vh - 400rpx); // 根据实际需要调整
 }
 </style>
