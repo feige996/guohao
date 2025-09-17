@@ -61,10 +61,12 @@ function handleHealthcareCardClick(config: HealthcareCardConfig) {
       />
 
       <!-- 导诊顾问,在线问诊卡片 -->
-      <HealthcareCardGroup
-        :configs="healthcareCards"
-        @click="handleHealthcareCardClick"
-      />
+      <view class="w-full flex justify-center pt-6">
+        <HealthcareCardGroup
+          :configs="healthcareCards"
+          @click="handleHealthcareCardClick"
+        />
+      </view>
     </view>
   </view>
 </template>
