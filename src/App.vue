@@ -13,7 +13,7 @@ onLaunch((options) => {
   if (userStore.isTokenExpired) {
     // userStore.logout()
     userStore.clearUserInfo()
-    uni.switchTab({ url: userStore.userDefaultIndexPage })
+    // uni.switchTab({ url: userStore.userDefaultIndexPage })
   }
 
   // 动态导入并初始化 TUIKit
