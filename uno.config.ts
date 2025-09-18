@@ -48,6 +48,9 @@ export default defineConfig({
   shortcuts: [
     {
       center: 'flex justify-center items-center',
+      // 文本截断快捷类
+      'line-clamp-1': 'overflow-hidden text-ellipsis whitespace-nowrap',
+      'line-clamp-2': 'overflow-hidden text-ellipsis line-clamp-2',
     },
   ],
   // 动态图标需要在这里配置，或者写在vue页面中注释掉
@@ -62,6 +65,17 @@ export default defineConfig({
     ],
     ['pt-safe', { 'padding-top': 'env(safe-area-inset-top)' }],
     ['pb-safe', { 'padding-bottom': 'env(safe-area-inset-bottom)' }],
+    // 文本截断规则
+    [/^line-clamp-(\d+)$/, ([, num]) => ({
+      'overflow': 'hidden',
+      'display': '-webkit-box',
+      '-webkit-box-orient': 'vertical',
+      '-webkit-line-clamp': num,
+      'text-overflow': 'ellipsis',
+    })],
+    // 支持rpx单位的自定义规则
+    [/^text-\[(\d+)rpx\]$/, ([, d]) => ({ 'font-size': `${d}rpx` })],
+    [/^leading-\[([^\]]+)\]$/, ([, d]) => ({ 'line-height': d })],
   ],
   theme: {
     colors: {
