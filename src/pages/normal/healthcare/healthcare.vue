@@ -138,7 +138,7 @@ function handleCardClick(card: any) {
 </script>
 
 <template root="uniKuRoot">
-  <view class="page-container" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <view class="min-h-screen flex flex-col from-[#f6e2d3] to-transparent bg-gradient-to-b" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 固定头部区域 -->
     <view class="header-fixed">
       <!-- 搜索栏 -->
@@ -216,66 +216,10 @@ function handleCardClick(card: any) {
 </template>
 
 <style lang="scss" scoped>
-// 页面容器样式
-.page-container {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(to bottom, #f6e2d3, transparent);
-  overflow: hidden; // 防止整页滚动
-}
-
-// 固定头部区域
-.header-fixed {
-  flex-shrink: 0;
-  background: linear-gradient(to bottom, #f6e2d3, transparent);
-  z-index: 10;
-}
-
-// 内容滚动区域
-.content-scroll {
-  flex: 1;
-  overflow: hidden;
-  position: relative;
-}
-
-.scroll-area {
-  height: 100%;
-  width: 100%;
-}
-
-// 自定义样式
-.healthcare-card {
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  border: 1px solid #e9ecef;
-  transition: all 0.3s ease;
-
-  &:active {
-    transform: scale(0.98);
-    background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
-  }
-}
-
-.card-image-container {
-  background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e8 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-.card-tag {
-  background: linear-gradient(45deg, #ff6b6b, #ee5a24);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 // Tab样式优化
 :deep(.wd-tabs) {
-  .wd-tab {
-    font-weight: 500;
-  }
-
-  .wd-tab--active {
-    color: #8c2303;
-    font-weight: 600;
+  .wd-tabs__nav-item.is-active {
+    font-size: 30rpx;
   }
 
   // 底部指示线样式
@@ -283,11 +227,6 @@ function handleCardClick(card: any) {
     background-color: #8c2303 !important;
     height: 3px !important;
     border-radius: 2px !important;
-  }
-
-  // Tab容器样式
-  .wd-tabs__nav {
-    background-color: transparent;
   }
 }
 </style>
