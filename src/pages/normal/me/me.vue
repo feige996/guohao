@@ -25,9 +25,6 @@ function gotoLogin() {
     })
     return
   }
-  // uni.navigateTo({
-  //   url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('/pages/me/me')}`,
-  // })
   const { path } = currRoute()
   uni.navigateTo({
     url: `${LOGIN_PAGE}?redirect=${encodeURIComponent(path)}`,
@@ -43,96 +40,16 @@ function logout() {
     icon: 'success',
   })
 }
-
-// 退出登录
-function handleLogout() {
-  uni.showModal({
-    title: '提示',
-    content: '确定要退出登录吗？',
-    success: (res) => {
-      if (res.confirm) {
-        // 清空用户信息
-        userStore.logout()
-        // 执行退出登录逻辑
-        uni.showToast({
-          title: '退出登录成功',
-          icon: 'success',
-        })
-        // #ifdef MP-WEIXIN
-        // 微信小程序，去首页
-        // uni.reLaunch({ url: '/pages/index/index' })
-        // #endif
-        // #ifndef MP-WEIXIN
-        // 非微信小程序，去登录页
-        // uni.navigateTo({ url: LOGIN_PAGE })
-        // #endif
-      }
-    },
-  })
-}
 </script>
 
 <template>
   <view class="profile-container">
-    <!-- 用户信息区域 -->
-    <view class="user-info-section">
-      <!-- #ifdef MP-WEIXIN -->
-      <button class="avatar-button" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-        <!-- <image :src="userInfo.avatar" mode="scaleToFill" class="h-full w-full" /> -->
-      </button>
-      <!-- #endif -->
-      <!-- #ifndef MP-WEIXIN -->
-      <view class="avatar-wrapper" @click="uploadAvatar">
-        <!-- <image :src="userInfo.avatar" mode="scaleToFill" class="h-full w-full" /> -->
-      </view>
-      <!-- #endif -->
-      <view class="user-details">
-        <!-- #ifdef MP-WEIXIN -->
-        <!-- <input
-          v-model="userInfo.username"
-          type="nickname"
-          class="weui-input"
-          placeholder="请输入昵称"
-        > -->
-        <!-- #endif -->
-        <!-- #ifndef MP-WEIXIN -->
-        <view class="username">
-          <!-- {{ userInfo.username }} -->
-        </view>
-        <!-- #endif -->
-        <view class="user-id">
-          <!-- ID: {{ userInfo.id }} -->
-        </view>
-      </view>
-    </view>
-
-    <!-- 从 about.vue 迁移的功能按钮 -->
-    <view class="function-buttons">
-      <view class="button-row">
-        <button class="function-btn" @click="gotoLogin">
-          点击去登录页
-        </button>
-        <button class="function-btn" @click="logout">
-          点击退出登录
-        </button>
-      </view>
-      <view class="button-row">
-        <button class="function-btn full-width" @click="setTabbarBadge">
-          设置tabbarBadge
-        </button>
-      </view>
-    </view>
-
-    <view class="mt-3 break-all px-3">
-      {{ JSON.stringify(userInfo, null, 2) }}
-    </view>
-
     <view class="mt-20 px-3">
       <view class="m-auto w-160px text-center">
-        <button v-if="userStore.isLoggedIn" type="warn" class="w-full" @click="handleLogout">
+        <button v-if="userStore.isLoggedIn" type="warn" class="w-full" @click="logout">
           退出登录
         </button>
-        <button v-else type="primary" class="w-full" @click="handleLogin">
+        <button v-else type="primary" class="w-full" @click="gotoLogin">
           登录
         </button>
       </view>
@@ -141,103 +58,5 @@ function handleLogout() {
 </template>
 
 <style lang="scss" scoped>
-/* 基础样式 */
-.profile-container {
-  overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  // background-color: #f7f8fa;
-}
-/* 用户信息区域 */
-.user-info-section {
-  display: flex;
-  align-items: center;
-  padding: 40rpx;
-  margin: 30rpx 30rpx 20rpx;
-  background-color: #fff;
-  border-radius: 24rpx;
-  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
 
-.avatar-wrapper {
-  width: 160rpx;
-  height: 160rpx;
-  margin-right: 40rpx;
-  overflow: hidden;
-  border: 4rpx solid #f5f5f5;
-  border-radius: 50%;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-}
-.avatar-button {
-  height: 160rpx;
-  width: 160rpx;
-  padding: 0;
-  margin-right: 40rpx;
-  overflow: hidden;
-  border: 4rpx solid #f5f5f5;
-  border-radius: 50%;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-}
-.user-details {
-  flex: 1;
-}
-
-.username {
-  margin-bottom: 12rpx;
-  font-size: 38rpx;
-  font-weight: 600;
-  color: #333;
-  letter-spacing: 0.5rpx;
-}
-
-.user-id {
-  font-size: 28rpx;
-  color: #666;
-}
-
-.user-created {
-  margin-top: 8rpx;
-  font-size: 24rpx;
-  color: #999;
-}
-
-/* 从 about.vue 迁移的功能按钮样式 */
-.function-buttons {
-  margin: 30rpx;
-  padding: 30rpx;
-  background-color: #fff;
-  border-radius: 24rpx;
-  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.08);
-}
-
-.button-row {
-  display: flex;
-  gap: 20rpx;
-  margin-bottom: 20rpx;
-}
-
-.button-row:last-child {
-  margin-bottom: 0;
-}
-
-.function-btn {
-  flex: 1;
-  padding: 20rpx 30rpx;
-  font-size: 28rpx;
-  color: #333;
-  background-color: #f8f9fa;
-  border: 2rpx solid #e9ecef;
-  border-radius: 12rpx;
-  transition: all 0.3s ease;
-}
-
-.function-btn:hover {
-  background-color: #e9ecef;
-  border-color: #dee2e6;
-}
-
-.function-btn.full-width {
-  flex: none;
-  width: 100%;
-}
 </style>
