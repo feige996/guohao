@@ -317,8 +317,8 @@ function handleServiceClick(item: any) {
 /* 我的 */
 .div {
   position: relative;
-  width: 375px;
-  height: 812px;
+  width: 750rpx;
+  height: 1624rpx;
   overflow: hidden;
   background-color: #f5f7f4;
   display: flex;
@@ -329,24 +329,24 @@ function handleServiceClick(item: any) {
 
 /* 头像 */
 .div_1 {
-  height: 60px;
+  height: 120rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 20rpx;
   position: relative;
   z-index: 2;
-  margin-top: 100px;
-  margin-left: 20px;
+  margin-top: 200rpx;
+  margin-left: 40rpx;
 }
 
 /* 路径 */
 .path {
-  width: 60px;
+  width: 120rpx;
   flex-shrink: 0;
   align-self: stretch;
-  height: 60px;
+  height: 120rpx;
   margin-top: 0;
   margin-right: 0;
   margin-bottom: 0;
@@ -355,13 +355,13 @@ function handleServiceClick(item: any) {
 
 /* Seal Group */
 .seal_group {
-  width: 96px;
-  height: 48px;
+  width: 192rpx;
+  height: 96rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 4px;
+  gap: 8rpx;
   flex-shrink: 0;
   position: relative;
 }
@@ -369,10 +369,10 @@ function handleServiceClick(item: any) {
 /* 张帅 */
 .text {
   flex-shrink: 0;
-  font-size: 18px;
+  font-size: 36rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 26px;
+  line-height: 52rpx;
   color: #333333;
   white-space: pre;
 }
@@ -380,10 +380,10 @@ function handleServiceClick(item: any) {
 /* ID：335336322 */
 .text_1 {
   flex-shrink: 0;
-  font-size: 13px;
+  font-size: 26rpx;
   font-family: 'PingFang SC';
   font-weight: normal;
-  line-height: 18px;
+  line-height: 36rpx;
   color: #999999;
   white-space: pre;
 }
@@ -392,12 +392,12 @@ function handleServiceClick(item: any) {
 .vip {
   position: relative;
   width: auto;
-  height: 138px;
+  height: 276rpx;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   z-index: 1;
-  margin-top: 12px;
+  margin-top: 24rpx;
   margin-left: 0;
   margin-right: 0;
   align-self: stretch;
@@ -407,86 +407,86 @@ function handleServiceClick(item: any) {
 .vip_1 {
   position: relative;
   width: auto;
-  height: 82px;
-  border-radius: 8px;
+  height: 164rpx;
+  border-radius: 16rpx;
   background: linear-gradient(180deg, #97493d 0%, #c7ac80 193.47%);
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   isolation: isolate;
   margin-top: 0;
-  margin-left: 12px;
-  margin-right: 12px;
+  margin-left: 24rpx;
+  margin-right: 24rpx;
   align-self: stretch;
 }
 
 /* 健康VIP */
 .text_2 {
-  font-size: 16px;
+  font-size: 32rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 24px;
+  line-height: 48rpx;
   color: #ffffff;
   white-space: pre;
-  height: 24px;
-  margin-top: 16px;
-  margin-bottom: -4px;
+  height: 48rpx;
+  margin-top: 32rpx;
+  margin-bottom: -8rpx;
   z-index: 1;
   position: relative;
-  margin-left: 12px;
+  margin-left: 24rpx;
 }
 
 /* 开通VIP 享更高级权益 */
 .text_3 {
-  width: 129px;
-  font-size: 13px;
+  width: 258rpx;
+  font-size: 26rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 16px;
+  line-height: 32rpx;
   color: rgba(255, 255, 255, 0.5);
   white-space: pre;
   z-index: 0;
   position: relative;
-  margin-left: 12px;
-  margin-top: 16px;
+  margin-left: 24rpx;
+  margin-top: 32rpx;
 }
 
 /* 升级按钮 */
 .text_4 {
-  width: 68px;
+  width: 136rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 6px;
-  padding-right: 12px;
-  padding-bottom: 6px;
-  padding-left: 12px;
-  border-radius: 14px;
+  padding-top: 12rpx;
+  padding-right: 24rpx;
+  padding-bottom: 12rpx;
+  padding-left: 24rpx;
+  border-radius: 28rpx;
   background: linear-gradient(180deg, #fefbfb 0%, #f7f9ef 100%);
   text-align: center;
-  font-size: 12px;
+  font-size: 24rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 16px;
+  line-height: 32rpx;
   color: #000000;
   white-space: pre;
   z-index: 2;
   position: relative;
-  margin-left: 61px;
-  margin-top: 12px;
+  margin-left: 122rpx;
+  margin-top: 24rpx;
 }
 
 /* 下部背景 */
 .div_2 {
   position: absolute;
   width: auto;
-  height: 90px;
+  height: 180rpx;
   top: auto;
   left: 0;
-  border-radius: 8px;
+  border-radius: 16rpx;
   background: linear-gradient(180deg, rgba(253, 238, 227, 0.94) 85.24%, rgba(245, 246, 243, 0.94) 100%);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(10rpx);
   right: 0;
   bottom: 0;
   display: flex;
@@ -497,73 +497,73 @@ function handleServiceClick(item: any) {
 
 /* 左边卡片 */
 .div_3 {
-  width: 172px;
-  height: 70px;
+  width: 344rpx;
+  height: 140rpx;
   position: relative;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   z-index: 1;
-  margin-left: 12px;
+  margin-left: 24rpx;
   margin-top: auto;
-  margin-bottom: 8px;
-  border-radius: 8px;
+  margin-bottom: 16rpx;
+  border-radius: 16rpx;
   background: linear-gradient(180deg, #fdf2ea 0%, #f7f6f7 100%);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: 0rpx 0rpx 12rpx 0rpx rgba(0, 0, 0, 0.05);
   isolation: isolate;
 }
 
 /* 图标 */
 .div_4 {
-  width: 35px;
+  width: 70rpx;
   height: auto;
   position: relative;
   z-index: 1;
-  margin-left: 13.5px;
-  margin-top: 19.5px;
-  margin-bottom: 20.5px;
+  margin-left: 27rpx;
+  margin-top: 39rpx;
+  margin-bottom: 41rpx;
   align-self: stretch;
 }
 
 /* 容器 14 */
 .frame_14 {
-  width: 98px;
+  width: 196rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 4px;
+  gap: 8rpx;
   position: relative;
   z-index: 0;
-  margin-left: 9.5px;
-  margin-top: 16px;
+  margin-left: 19rpx;
+  margin-top: 32rpx;
 }
 
 /* 关注医生 */
 .text_5 {
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 28rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 16px;
+  line-height: 32rpx;
   color: #070707;
   white-space: pre;
 }
 
 /* Seal Group */
 .seal_group_1 {
-  width: 98px;
-  height: 18px;
+  width: 196rpx;
+  height: 36rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 15px;
+  gap: 30rpx;
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: 22rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 18px;
+  line-height: 36rpx;
   color: #999999;
   white-space: pre;
   position: relative;
@@ -571,90 +571,90 @@ function handleServiceClick(item: any) {
 
 /* 已关注医生信息 */
 .text_6 {
-  width: 78px;
+  width: 156rpx;
   flex-shrink: 0;
 }
 
 /* 路径 */
 .path_1 {
-  width: 6px;
-  height: 10px;
+  width: 12rpx;
+  height: 20rpx;
   flex-shrink: 0;
-  margin-top: 0px;
-  margin-right: -1px;
-  margin-bottom: 0px;
+  margin-top: 0rpx;
+  margin-right: -2rpx;
+  margin-bottom: 0rpx;
   margin-left: 0;
 }
 
 /* 右边卡片 */
 .div_5 {
-  width: 172px;
-  height: 70px;
+  width: 344rpx;
+  height: 140rpx;
   position: absolute;
   top: auto;
   left: auto;
-  right: 12px;
-  bottom: 8px;
+  right: 24rpx;
+  bottom: 16rpx;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   z-index: 0;
-  border-radius: 8px;
+  border-radius: 16rpx;
   background: linear-gradient(180deg, #fdf2ea 0%, #f7f6f7 100%), linear-gradient(0, #d8d8d8, #d8d8d8);
-  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.05);
+  box-shadow: 0rpx 0rpx 12rpx 0rpx rgba(0, 0, 0, 0.05);
   isolation: isolate;
 }
 
 /* 容器 15 */
 .frame_15 {
-  width: 32px;
-  height: 28px;
+  width: 64rpx;
+  height: 56rpx;
   position: relative;
   margin-top: auto;
   margin-bottom: auto;
   z-index: 1;
-  margin-left: 15px;
+  margin-left: 30rpx;
 }
 
 /* 容器 16 */
 .frame_16 {
-  width: 98px;
+  width: 196rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  gap: 4px;
+  gap: 8rpx;
   position: relative;
   z-index: 0;
-  margin-left: 11px;
-  margin-top: 16px;
+  margin-left: 22rpx;
+  margin-top: 32rpx;
 }
 
 /* 健康档案 */
 .text_7 {
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 28rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 16px;
+  line-height: 32rpx;
   color: #070707;
   white-space: pre;
 }
 
 /* Seal Group */
 .seal_group_2 {
-  width: 98px;
-  height: 18px;
+  width: 196rpx;
+  height: 36rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 5px;
+  gap: 10rpx;
   flex-shrink: 0;
-  font-size: 11px;
+  font-size: 22rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 18px;
+  line-height: 36rpx;
   color: #999999;
   white-space: pre;
   position: relative;
@@ -662,81 +662,81 @@ function handleServiceClick(item: any) {
 
 /* 已记录健康信息 */
 .text_8 {
-  width: 88px;
+  width: 176rpx;
   flex-shrink: 0;
 }
 
 /* 路径 */
 .path_2 {
-  width: 6px;
-  height: 10px;
+  width: 12rpx;
+  height: 20rpx;
   flex-shrink: 0;
-  margin-top: 0px;
-  margin-right: -1px;
-  margin-bottom: 0px;
+  margin-top: 0rpx;
+  margin-right: -2rpx;
+  margin-bottom: 0rpx;
   margin-left: 0;
 }
 
 /* 我的服务卡片 */
 .div_6 {
-  width: 351px;
-  height: 130px;
+  width: 702rpx;
+  height: 260rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-top: 16px;
-  padding-right: 16px;
-  padding-bottom: 16px;
-  padding-left: 16px;
-  gap: 16px;
-  border-radius: 4px;
+  padding-top: 32rpx;
+  padding-right: 32rpx;
+  padding-bottom: 32rpx;
+  padding-left: 32rpx;
+  gap: 32rpx;
+  border-radius: 8rpx;
   background-color: #ffffff;
   position: relative;
   z-index: 0;
-  margin-top: 8px;
-  margin-left: 12px;
+  margin-top: 16rpx;
+  margin-left: 24rpx;
 }
 
 /* 我的服务 */
 .text_9 {
   flex-shrink: 0;
-  font-size: 16px;
+  font-size: 32rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 20px;
+  line-height: 40rpx;
   color: #0e0e0e;
   white-space: pre;
 }
 
 /* 按钮组 */
 .group {
-  width: 319px;
-  height: 62px;
+  width: 638rpx;
+  height: 124rpx;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 43px;
+  gap: 86rpx;
   flex-shrink: 0;
   position: relative;
 }
 
 /* 第1列 */
 .div_1_1 {
-  width: 48px;
-  height: 62px;
+  width: 96rpx;
+  height: 124rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 16rpx;
   flex-shrink: 0;
   text-align: center;
-  font-size: 12px;
+  font-size: 24rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 14px;
+  line-height: 28rpx;
   color: #0e0e0e;
   white-space: pre;
   position: relative;
@@ -744,8 +744,8 @@ function handleServiceClick(item: any) {
 
 /* icon1 */
 .icon1 {
-  width: 40px;
-  height: 40px;
+  width: 80rpx;
+  height: 80rpx;
   position: relative;
   flex-shrink: 0;
   margin-top: 0;
@@ -756,24 +756,24 @@ function handleServiceClick(item: any) {
 
 /* 问诊记录 */
 .text_10 {
-  width: 48px;
+  width: 96rpx;
   flex-shrink: 0;
 }
 
 /* 第2列 */
 .div_2_1 {
-  width: 48px;
-  height: 62px;
+  width: 96rpx;
+  height: 124rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 16rpx;
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 24rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 14px;
+  line-height: 28rpx;
   color: #0e0e0e;
   white-space: pre;
   position: relative;
@@ -781,8 +781,8 @@ function handleServiceClick(item: any) {
 
 /* icon2 */
 .icon2 {
-  width: 40px;
-  height: 40px;
+  width: 80rpx;
+  height: 80rpx;
   position: relative;
   flex-shrink: 0;
   margin-top: 0;
@@ -798,18 +798,18 @@ function handleServiceClick(item: any) {
 
 /* 第3列 */
 .div_3_1 {
-  width: 48px;
-  height: 62px;
+  width: 96rpx;
+  height: 124rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 16rpx;
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 24rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 14px;
+  line-height: 28rpx;
   color: #0e0e0e;
   white-space: pre;
   position: relative;
@@ -817,8 +817,8 @@ function handleServiceClick(item: any) {
 
 /* icon3 */
 .icon3 {
-  width: 40px;
-  height: 40px;
+  width: 80rpx;
+  height: 80rpx;
   position: relative;
   flex-shrink: 0;
   margin-top: 0;
@@ -829,24 +829,24 @@ function handleServiceClick(item: any) {
 
 /* 健康档案 */
 .text_12 {
-  width: 48px;
+  width: 96rpx;
   flex-shrink: 0;
 }
 
 /* 第4列 */
 .div_4_1 {
-  width: 48px;
-  height: 62px;
+  width: 96rpx;
+  height: 124rpx;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 16rpx;
   flex-shrink: 0;
-  font-size: 12px;
+  font-size: 24rpx;
   font-family: 'Source Han Sans';
   font-weight: 500;
-  line-height: 14px;
+  line-height: 28rpx;
   color: #0e0e0e;
   white-space: pre;
   position: relative;
@@ -854,8 +854,8 @@ function handleServiceClick(item: any) {
 
 /* icon4 */
 .icon4 {
-  width: 40px;
-  height: 40px;
+  width: 80rpx;
+  height: 80rpx;
   position: relative;
   flex-shrink: 0;
   margin-top: 0;
@@ -866,7 +866,7 @@ function handleServiceClick(item: any) {
 
 /* 地址管理 */
 .text_13 {
-  width: 48px;
+  width: 96rpx;
   flex-shrink: 0;
 }
 </style>
