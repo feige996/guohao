@@ -154,7 +154,16 @@ function handleCardClick(card: any) {
 
       <!-- Tabs -->
       <view class="px-[28rpx] pb-4 pt-4">
-        <wd-tabs v-model="tabWithBadge" @change="handleChange">
+        <wd-tabs
+          v-model="tabWithBadge"
+          auto-line-width
+          animated
+          slidable="always"
+          color="#8C2303"
+          inactive-color="#9FA9B5"
+          line-color="#8C2303"
+          @change="handleChange"
+        >
           <wd-tab v-for="(item, index) in tabsWithBadge" :key="index" :title="item.title" />
         </wd-tabs>
       </view>
@@ -265,8 +274,20 @@ function handleCardClick(card: any) {
   }
 
   .wd-tab--active {
-    color: #1976d2;
+    color: #8c2303;
     font-weight: 600;
+  }
+
+  // 底部指示线样式
+  .wd-tabs__line {
+    background-color: #8c2303 !important;
+    height: 3px !important;
+    border-radius: 2px !important;
+  }
+
+  // Tab容器样式
+  .wd-tabs__nav {
+    background-color: transparent;
   }
 }
 </style>
