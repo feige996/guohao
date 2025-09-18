@@ -36,65 +36,99 @@ const cardData = ref({
   0: [ // 气节养生
     {
       id: 1,
-      title: '雨水',
-      subtitle: '春捂下厚上且薄',
-      description: '调畅情志以养肝',
-      image: '/static/healthcare/rainwater.png',
-      tag: '雨水',
+      title: '雨水节气养生指南',
+      desc: '春捂下厚上且薄，调畅情志以养肝。雨水时节，天气变化无常，要注意保暖，同时调节情绪，保持心情舒畅。',
+      userAvatar: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
+      label: ['雨水', '春季养生', '情志调理'],
+      collectionCount: 128,
+      likeCount: 256,
     },
     {
       id: 2,
-      title: '清明',
-      subtitle: '广步于庭莫久卧',
-      description: '时令青蒿服之宜',
-      image: '/static/healthcare/qingming.png',
-      tag: '清明',
+      title: '清明时节养生要点',
+      desc: '广步于庭莫久卧，时令青蒿服之宜。清明时节，阳气生发，适合户外运动，可适当食用时令蔬菜。',
+      userAvatar: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=400&fit=crop&crop=center',
+      label: ['清明', '户外运动', '时令食材'],
+      collectionCount: 89,
+      likeCount: 167,
     },
     {
       id: 3,
-      title: '立夏',
-      subtitle: '转眼运目好入眠',
-      description: '晨起清爽多接触',
-      image: '/static/healthcare/lixia.png',
-      tag: '立夏',
+      title: '立夏养生保健法',
+      desc: '转眼运目好入眠，晨起清爽多接触。立夏后天气渐热，要注意养心安神，保证充足睡眠。',
+      userAvatar: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
+      label: ['立夏', '养心安神', '睡眠调理'],
+      collectionCount: 203,
+      likeCount: 445,
     },
   ],
   1: [ // 中医新知
     {
       id: 4,
-      title: '中医理论',
-      subtitle: '阴阳五行学说',
-      description: '了解中医基础理论',
-      image: '/static/healthcare/theory.png',
-      tag: '理论',
+      title: '中医阴阳五行理论详解',
+      desc: '深入了解中医基础理论，阴阳五行学说在现代养生中的应用，帮助您更好地理解中医养生原理。',
+      userAvatar: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=400&fit=crop&crop=center',
+      label: ['中医理论', '阴阳五行', '基础知识'],
+      collectionCount: 156,
+      likeCount: 289,
     },
     {
       id: 5,
-      title: '经络穴位',
-      subtitle: '人体经络分布',
-      description: '掌握重要穴位功效',
-      image: '/static/healthcare/meridian.png',
-      tag: '经络',
+      title: '人体经络穴位图解',
+      desc: '详细介绍人体十二经络分布，常用穴位的位置和功效，学会简单的穴位按摩保健方法。',
+      userAvatar: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=center',
+      label: ['经络穴位', '按摩保健', '图解教学'],
+      collectionCount: 234,
+      likeCount: 378,
+    },
+    {
+      id: 6,
+      title: '现代中医诊断技术',
+      desc: '了解现代中医结合科技的诊断方法，包括舌诊、脉诊的现代化应用，提高诊断准确性。',
+      userAvatar: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=400&fit=crop&crop=center',
+      label: ['现代中医', '诊断技术', '科技应用'],
+      collectionCount: 67,
+      likeCount: 134,
     },
   ],
   2: [ // 案例分享
     {
-      id: 6,
-      title: '失眠调理',
-      subtitle: '中医治疗失眠案例',
-      description: '通过中药调理改善睡眠',
-      image: '/static/healthcare/insomnia.png',
-      tag: '案例',
+      id: 7,
+      title: '中医调理失眠成功案例',
+      desc: '分享一位长期失眠患者通过中药调理、穴位按摩、生活调节等综合方法，成功改善睡眠质量的真实案例。',
+      userAvatar: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center',
+      label: ['失眠调理', '成功案例', '综合治疗'],
+      collectionCount: 189,
+      likeCount: 356,
+    },
+    {
+      id: 8,
+      title: '脾胃虚弱的中医调理',
+      desc: '通过食疗、中药、穴位按摩等方法，帮助脾胃虚弱患者恢复消化功能，提高生活质量的案例分享。',
+      userAvatar: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop&crop=center',
+      label: ['脾胃调理', '食疗', '消化健康'],
+      collectionCount: 145,
+      likeCount: 267,
     },
   ],
   3: [ // 视频课堂
     {
-      id: 7,
-      title: '养生功法',
-      subtitle: '八段锦教学视频',
-      description: '跟随视频学习养生功法',
-      image: '/static/healthcare/video.png',
-      tag: '视频',
+      id: 9,
+      title: '八段锦养生功法教学',
+      desc: '跟随专业老师学习传统八段锦功法，通过视频详细讲解每个动作要领，适合初学者练习。',
+      userAvatar: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
+      label: ['八段锦', '养生功法', '视频教学'],
+      collectionCount: 312,
+      likeCount: 567,
+    },
+    {
+      id: 10,
+      title: '太极拳入门教程',
+      desc: '从基础站桩开始，逐步学习太极拳的基本动作，通过视频演示帮助您掌握太极拳的精髓。',
+      userAvatar: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center',
+      label: ['太极拳', '入门教程', '基础动作'],
+      collectionCount: 278,
+      likeCount: 489,
     },
   ],
 })
@@ -134,6 +168,7 @@ function handleChange(e: any) {
 function handleCardClick(card: any) {
   console.log('点击卡片:', card)
   // 这里可以添加跳转到详情页的逻辑
+  // 例如：uni.navigateTo({ url: `/pages/detail/detail?id=${card.id}` })
 }
 </script>
 
@@ -172,38 +207,40 @@ function handleCardClick(card: any) {
     <!-- 可滚动的卡片列表区域 -->
     <view class="content-scroll">
       <scroll-view scroll-y class="scroll-area" enable-back-to-top>
-        <view class="px-[28rpx] pb-4 space-y-3">
-          <view
-            v-for="card in currentCards"
-            :key="card.id"
-            class="healthcare-card flex items-center justify-between rounded-3xl bg-white p-5 shadow-lg"
-            @click="handleCardClick(card)"
-          >
-            <!-- 左侧内容 -->
-            <view class="flex-1 pr-4">
-              <view class="mb-2 text-3xl text-gray-800 font-bold">
-                {{ card.title }}
-              </view>
-              <view class="mb-1 text-base text-gray-600 leading-relaxed">
-                {{ card.subtitle }}
-              </view>
-              <view class="text-sm text-gray-500 leading-relaxed">
-                {{ card.description }}
+        <view class="tn-margin-bottom-lg">
+          <block v-for="(item, index) in currentCards" :key="index">
+            <view class="article-shadow tn-margin" @click="handleCardClick(item)">
+              <view class="tn-flex">
+                <view class="tn-margin-sm tn-padding-top-xs" style="width: 100%;">
+                  <view class="tn-text-lg tn-text-bold clamp-text-1 tn-text-justify">
+                    <text class="">{{ item.title }}</text>
+                  </view>
+                  <view class="tn-padding-top-xs" style="min-height: 90rpx;">
+                    <text class="tn-text-df tn-color-gray clamp-text-2 tn-text-justify">
+                      {{ item.desc }}
+                    </text>
+                  </view>
+                  <view class="tn-flex tn-flex-row-between tn-flex-col-between tn-margin-top-sm">
+                    <view
+                      v-for="(label_item, label_index) in item.label" :key="label_index"
+                      class="justify-content-item tn-tag-content__item tn-margin-right tn-text-sm tn-text-bold"
+                    >
+                      <text class="tn-tag-content__item--prefix">#</text> {{ label_item }}
+                    </view>
+                    <view class="justify-content-item tn-color-gray tn-text-center" style="padding-top: 5rpx;">
+                      <text class="tn-icon-fire tn-text-lg" style="padding-right: 5rpx;" />
+                      <text class="tn-padding-right tn-text-df">{{ item.collectionCount }}</text>
+                      <text class="tn-icon-like-lack tn-text-lg" style="padding-right: 5rpx;" />
+                      <text class="tn-text-df">{{ item.likeCount }}</text>
+                    </view>
+                  </view>
+                </view>
+                <view class="image-pic tn-margin-sm" :style="`background-image:url(${item.userAvatar})`">
+                  <view class="image-article" />
+                </view>
               </view>
             </view>
-
-            <!-- 右侧图片和标签 -->
-            <view class="relative">
-              <view class="card-image-container h-24 w-24 flex items-center justify-center rounded-full">
-                <!-- 这里可以放置实际的图片，现在用文字代替 -->
-                <text class="text-xl text-gray-700 font-bold">{{ card.tag }}</text>
-              </view>
-              <!-- 右上角的标签 -->
-              <view class="card-tag absolute rounded-full px-2 py-1 text-xs text-white font-medium -right-2 -top-1">
-                {{ card.tag }}
-              </view>
-            </view>
-          </view>
+          </block>
 
           <!-- 空状态提示 -->
           <view v-if="currentCards.length === 0" class="flex flex-col items-center justify-center py-20">
@@ -228,5 +265,156 @@ function handleCardClick(card: any) {
     height: 3px !important;
     border-radius: 2px !important;
   }
+}
+
+// 卡片样式
+.article-shadow {
+  background: #ffffff;
+  border-radius: 24rpx;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.08);
+  margin: 0 28rpx 24rpx 28rpx;
+  padding: 32rpx;
+  transition: all 0.3s ease;
+
+  &:active {
+    transform: scale(0.98);
+    box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.12);
+  }
+}
+
+// 文本截断样式
+.clamp-text-1 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.clamp-text-2 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+}
+
+// 标签样式
+.tn-tag-content__item {
+  background: linear-gradient(135deg, #8c2303 0%, #b8441f 100%);
+  color: #ffffff;
+  border-radius: 20rpx;
+  padding: 8rpx 16rpx;
+  margin-right: 12rpx;
+  margin-bottom: 8rpx;
+  font-size: 24rpx;
+
+  .tn-tag-content__item--prefix {
+    opacity: 0.8;
+    margin-right: 4rpx;
+  }
+}
+
+// 图片样式
+.image-pic {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 16rpx;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+
+  .image-article {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(140, 35, 3, 0.1) 0%, rgba(184, 68, 31, 0.1) 100%);
+    border-radius: 16rpx;
+  }
+}
+
+// 统计信息样式
+.justify-content-item {
+  display: flex;
+  align-items: center;
+
+  .tn-icon-fire {
+    color: #ff6b35;
+  }
+
+  .tn-icon-like-lack {
+    color: #ff4757;
+  }
+}
+
+// TuniaoUI 基础样式补充
+.tn-flex {
+  display: flex;
+}
+
+.tn-flex-row-between {
+  justify-content: space-between;
+}
+
+.tn-flex-col-between {
+  align-items: center;
+}
+
+.tn-margin {
+  margin: 16rpx;
+}
+
+.tn-margin-sm {
+  margin: 8rpx;
+}
+
+.tn-margin-right {
+  margin-right: 8rpx;
+}
+
+.tn-margin-top-sm {
+  margin-top: 8rpx;
+}
+
+.tn-margin-bottom-lg {
+  margin-bottom: 32rpx;
+}
+
+.tn-padding-top-xs {
+  padding-top: 4rpx;
+}
+
+.tn-padding-right {
+  padding-right: 8rpx;
+}
+
+.tn-text-lg {
+  font-size: 32rpx;
+}
+
+.tn-text-df {
+  font-size: 28rpx;
+}
+
+.tn-text-sm {
+  font-size: 24rpx;
+}
+
+.tn-text-bold {
+  font-weight: bold;
+}
+
+.tn-text-justify {
+  text-align: justify;
+}
+
+.tn-text-center {
+  text-align: center;
+}
+
+.tn-color-gray {
+  color: #999999;
 }
 </style>
