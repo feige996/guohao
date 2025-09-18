@@ -1,5 +1,26 @@
+/* MiSans Font Family - Regular (400) */
 @font-face {
-  font-family: 'OPPO Sans';
-  src: url('/static/fonts/OPPO Sans 4.0.woff2') format('woff2');
+  font-family: 'MiSans';
+  src: url('/static/fonts/MiSans-Normal.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* MiSans Font Family - Medium (500) */
+@font-face {
+  font-family: 'MiSans';
+  src: url('/static/fonts/MiSans-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* MiSans Font Family - Bold (700) */
+@font-face {
+  font-family: 'MiSans';
+  src: url('/static/fonts/MiSans-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
   font-display: swap;
 }
