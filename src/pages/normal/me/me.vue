@@ -219,39 +219,39 @@ function handleServiceClick(item: any) {
           </view>
         </view>
       </view>
+    </view>
 
-      <!-- 我的服务卡片 -->
-      <view class="relative z-0 ml-[24rpx] mt-[16rpx] h-[260rpx] w-[702rpx] flex flex-col items-start justify-center gap-[32rpx] rounded-[8rpx] bg-white pb-[32rpx] pl-[32rpx] pr-[32rpx] pt-[32rpx]">
-        <span class="flex-shrink-0 whitespace-pre text-[32rpx] text-[#0e0e0e] font-medium leading-[40rpx]"> 我的服务 </span>
-        <view class="relative h-[124rpx] w-[638rpx] flex flex-shrink-0 flex-row items-start justify-start gap-[86rpx]">
-          <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-center text-[24rpx] text-[#0e0e0e] font-medium leading-[28rpx]">
-            <img
-              class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
-              src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650226508/77bc/5dd6/9844/c4a72f29c70308915a12d88e1bf7f368.png"
-            >
-            <span class="w-[96rpx] flex-shrink-0"> 问诊记录 </span>
-          </view>
-          <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[24rpx] text-[#0e0e0e] font-medium leading-[28rpx]">
-            <img
-              class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
-              src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650223673/8c52/9644/88b4/95fa6e626f409bfcabe3ab2b20269ed2.png"
-            >
-            <span class="flex-shrink-0"> 商品订单 </span>
-          </view>
-          <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[24rpx] text-[#0e0e0e] font-medium leading-[28rpx]">
-            <img
-              class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
-              src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650228089/e392/c333/b6d3/06fc2f16d63579eacfc1f05951fca735.png"
-            >
-            <span class="w-[96rpx] flex-shrink-0"> 健康档案 </span>
-          </view>
-          <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[24rpx] text-[#0e0e0e] font-medium leading-[28rpx]">
-            <img
-              class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
-              src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650224797/4274/2528/339b/600c29854c72cbe3017db993e255c8cd.png"
-            >
-            <span class="w-[96rpx] flex-shrink-0"> 地址管理 </span>
-          </view>
+    <!-- 我的服务卡片 -->
+    <view class="mx-[24rpx] mt-[16rpx] h-[260rpx] flex flex-col items-start justify-center gap-[32rpx] rounded-[8rpx] bg-white pb-[32rpx] pl-[32rpx] pr-[32rpx] pt-[32rpx]">
+      <span class="flex-shrink-0 whitespace-pre text-[32rpx] text-[#0e0e0e] font-medium leading-[40rpx]"> 我的服务 </span>
+      <view class="relative h-[124rpx] w-full flex flex-shrink-0 flex-row items-start justify-between">
+        <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-center text-[24rpx] text-[#0e0e0e] font-medium leading-[28rpx]">
+          <img
+            class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
+            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650226508/77bc/5dd6/9844/c4a72f29c70308915a12d88e1bf7f368.png"
+          >
+          <span class="w-[96rpx] flex-shrink-0"> 问诊记录 </span>
+        </view>
+        <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[24rpx] text-[#0e0e0e] font-medium leading-[28rpx]">
+          <img
+            class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
+            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650223673/8c52/9644/88b4/95fa6e626f409bfcabe3ab2b20269ed2.png"
+          >
+          <span class="flex-shrink-0"> 商品订单 </span>
+        </view>
+        <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[24rpx] text-[#0e0e0e] font-medium leading-[28rpx]">
+          <img
+            class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
+            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650228089/e392/c333/b6d3/06fc2f16d63579eacfc1f05951fca735.png"
+          >
+          <span class="w-[96rpx] flex-shrink-0"> 健康档案 </span>
+        </view>
+        <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[24rpx] text-[#0e0e0e] font-medium leading-[28rpx]">
+          <img
+            class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
+            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650224797/4274/2528/339b/600c29854c72cbe3017db993e255c8cd.png"
+          >
+          <span class="w-[96rpx] flex-shrink-0"> 地址管理 </span>
         </view>
       </view>
     </view>
