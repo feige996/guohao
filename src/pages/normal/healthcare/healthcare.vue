@@ -188,7 +188,7 @@ function handleCardClick(card: any) {
       </view>
 
       <!-- Tabs -->
-      <view class="px-[28rpx] pb-4 pt-4">
+      <view class="px-[28rpx] pb-2 pt-4">
         <wd-tabs
           v-model="tabWithBadge"
           auto-line-width
