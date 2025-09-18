@@ -188,6 +188,7 @@
       "path": "pages/shop/shop",
       "type": "page",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "商城"
       }
     },
