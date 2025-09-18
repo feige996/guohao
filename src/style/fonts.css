@@ -3,7 +3,7 @@
   font-family: 'MiSans';
   src: url('/static/fonts/MiSans-Normal.woff2') format('woff2');
   font-weight: 400;
-  font-style: normal;
+  font-style: Normal;
   font-display: swap;
 }
 
@@ -12,7 +12,7 @@
   font-family: 'MiSans';
   src: url('/static/fonts/MiSans-Medium.woff2') format('woff2');
   font-weight: 500;
-  font-style: normal;
+  font-style: Medium;
   font-display: swap;
 }
 
@@ -21,6 +21,6 @@
   font-family: 'MiSans';
   src: url('/static/fonts/MiSans-Bold.woff2') format('woff2');
   font-weight: 700;
-  font-style: normal;
+  font-style: Bold;
   font-display: swap;
 }
