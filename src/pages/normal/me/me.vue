@@ -177,7 +177,7 @@ function handleServiceClick(item: any) {
         <view class="relative ml-[24rpx] mr-[24rpx] mt-0 h-[164rpx] w-auto flex flex-row items-start self-stretch rounded-[16rpx] from-[#97493d] to-[#c7ac80] bg-gradient-to-b">
           <span class="relative z-1 mb-[-8rpx] ml-[24rpx] mt-[32rpx] h-[48rpx] whitespace-pre text-[32rpx] text-white font-medium leading-[48rpx]"> 健康VIP </span>
           <span class="relative z-0 ml-[24rpx] mt-[32rpx] w-[258rpx] whitespace-pre text-[26rpx] text-white/50 font-medium leading-[32rpx]"> 开通VIP 享更高级权益 </span>
-          <span class="relative z-2 ml-[122rpx] mt-[24rpx] w-[136rpx] flex flex-col items-start justify-center whitespace-pre rounded-[28rpx] from-[#fefbfb] to-[#f7f9ef] bg-gradient-to-b pb-[12rpx] pl-[24rpx] pr-[24rpx] pt-[12rpx] text-center text-[24rpx] text-black font-medium leading-[32rpx]"> 升级VIP </span>
+          <span class="relative z-2 ml-[60rpx] mt-[24rpx] w-[136rpx] flex flex-col items-center justify-center whitespace-pre rounded-[28rpx] from-[#fefbfb] to-[#f7f9ef] bg-gradient-to-b pb-[12rpx] pl-[24rpx] pr-[24rpx] pt-[12rpx] text-center text-[24rpx] text-black font-medium leading-[32rpx]"> 升级VIP </span>
         </view>
 
         <!-- VIP底部背景 -->
