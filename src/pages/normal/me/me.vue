@@ -158,7 +158,7 @@ function handleServiceClick(item: any) {
 <template>
   <div class="min-h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 主容器 -->
-    <div class="relative isolate h-[1624rpx] w-[750rpx] flex flex-col items-start overflow-hidden bg-[#f5f7f4]">
+    <div class="relative h-[1624rpx] w-[750rpx] flex flex-col items-start overflow-hidden bg-[#f5f7f4]">
       <!-- 头像区域 -->
       <div class="relative z-2 ml-[40rpx] mt-[200rpx] h-[120rpx] flex flex-row items-center justify-center gap-[20rpx]">
         <img
@@ -174,16 +174,16 @@ function handleServiceClick(item: any) {
       <!-- VIP卡片区域 -->
       <div class="relative z-1 ml-0 mr-0 mt-[24rpx] h-[276rpx] w-auto flex flex-col items-start self-stretch">
         <!-- VIP顶部 -->
-        <div class="relative isolate ml-[24rpx] mr-[24rpx] mt-0 h-[164rpx] w-auto flex flex-row items-start self-stretch rounded-[16rpx] from-[#97493d] to-[#c7ac80] bg-gradient-to-b">
+        <div class="relative ml-[24rpx] mr-[24rpx] mt-0 h-[164rpx] w-auto flex flex-row items-start self-stretch rounded-[16rpx] from-[#97493d] to-[#c7ac80] bg-gradient-to-b">
           <span class="relative z-1 mb-[-8rpx] ml-[24rpx] mt-[32rpx] h-[48rpx] whitespace-pre text-[32rpx] text-white font-medium leading-[48rpx]"> 健康VIP </span>
           <span class="relative z-0 ml-[24rpx] mt-[32rpx] w-[258rpx] whitespace-pre text-[26rpx] text-white/50 font-medium leading-[32rpx]"> 开通VIP 享更高级权益 </span>
           <span class="relative z-2 ml-[122rpx] mt-[24rpx] w-[136rpx] flex flex-col items-start justify-center whitespace-pre rounded-[28rpx] from-[#fefbfb] to-[#f7f9ef] bg-gradient-to-b pb-[12rpx] pl-[24rpx] pr-[24rpx] pt-[12rpx] text-center text-[24rpx] text-black font-medium leading-[32rpx]"> 升级VIP </span>
         </div>
 
         <!-- VIP底部背景 -->
-        <div class="absolute bottom-0 left-0 right-0 top-auto isolate h-[180rpx] w-auto flex flex-row items-start rounded-[16rpx] from-[rgba(253,238,227,0.94)] to-[rgba(245,246,243,0.94)] bg-gradient-to-b backdrop-blur-[10rpx]">
+        <div class="absolute bottom-0 left-0 right-0 top-auto h-[180rpx] w-auto flex flex-row items-start rounded-[16rpx] from-[rgba(253,238,227,0.94)] to-[rgba(245,246,243,0.94)] bg-gradient-to-b backdrop-blur-[10rpx]">
           <!-- 左边卡片 -->
-          <div class="relative isolate z-1 mb-[16rpx] ml-[24rpx] mt-auto h-[140rpx] w-[344rpx] flex flex-row items-start rounded-[16rpx] from-[#fdf2ea] to-[#f7f6f7] bg-gradient-to-b shadow-[0rpx_0rpx_12rpx_0rpx_rgba(0,0,0,0.05)]">
+          <div class="relative z-1 mb-[16rpx] ml-[24rpx] mt-auto h-[140rpx] w-[344rpx] flex flex-row items-start rounded-[16rpx] from-[#fdf2ea] to-[#f7f6f7] bg-gradient-to-b shadow-[0rpx_0rpx_12rpx_0rpx_rgba(0,0,0,0.05)]">
             <img
               class="relative z-1 mb-[41rpx] ml-[27rpx] mt-[39rpx] h-auto w-[70rpx] self-stretch"
               src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650226633/0ad9/94f5/516d/9dca6d56eb93b5495d8c57770ea9fc5a.png"
@@ -201,7 +201,7 @@ function handleServiceClick(item: any) {
           </div>
 
           <!-- 右边卡片 -->
-          <div class="absolute bottom-[16rpx] left-auto right-[24rpx] top-auto isolate z-0 h-[140rpx] w-[344rpx] flex flex-row items-start rounded-[16rpx] from-[#fdf2ea] to-[#f7f6f7] bg-gradient-to-b shadow-[0rpx_0rpx_12rpx_0rpx_rgba(0,0,0,0.05)]">
+          <div class="absolute bottom-[16rpx] left-auto right-[24rpx] top-auto z-0 h-[140rpx] w-[344rpx] flex flex-row items-start rounded-[16rpx] from-[#fdf2ea] to-[#f7f6f7] bg-gradient-to-b shadow-[0rpx_0rpx_12rpx_0rpx_rgba(0,0,0,0.05)]">
             <img
               class="relative z-1 mb-auto ml-[30rpx] mt-auto h-[56rpx] w-[64rpx]"
               src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650227605/4538/58f9/66c2/4bca6a9bdd69e5a5b6d297cf379d4589.png"
