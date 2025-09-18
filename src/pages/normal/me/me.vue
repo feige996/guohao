@@ -158,9 +158,9 @@ function handleServiceClick(item: any) {
 <template>
   <view class="min-h-screen flex flex-col from-[#f6e2d3] to-transparent bg-gradient-to-b" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 主容器 -->
-    <view class="relative w-[750rpx] flex flex-col items-start overflow-hidden bg-[#f5f7f4]">
+    <view class="relative w-[750rpx] flex flex-col items-start overflow-hidden">
       <!-- 头像区域 -->
-      <view class="relative z-2 ml-[40rpx] mt-[200rpx] h-[120rpx] flex flex-row items-center justify-center gap-[20rpx]">
+      <view class="relative z-2 ml-[40rpx] mt-[100rpx] h-[120rpx] flex flex-row items-center justify-center gap-[20rpx]">
         <img
           class="h-[120rpx] w-[120rpx] flex-shrink-0 self-stretch"
           src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650225780/d9c0/474b/3677/2829810b1541382316783a58674a9deb.png"
@@ -255,36 +255,36 @@ function handleServiceClick(item: any) {
         </view>
       </view>
     </view>
-  </view>
 
-  <!-- 功能菜单 -->
-  <view class="mx-[24rpx] mt-[32rpx] overflow-hidden rounded-[16rpx] bg-white shadow-sm">
-    <view
-      v-for="item in menuItems"
-      :key="item.id"
-      class="flex items-center border-b border-[#f5f5f5] px-[32rpx] py-[32rpx] last:border-b-0"
-      @click="handleMenuClick(item)"
-    >
-      <image :src="item.icon" class="h-[48rpx] w-[48rpx]" />
-      <text class="ml-[24rpx] flex-1 text-[28rpx] text-[#333333]">{{ item.title }}</text>
-      <image
-        v-if="item.arrow"
-        src="/static/images/homepage/settings-arrow.png"
-        class="h-[24rpx] w-[24rpx]"
-      />
+    <!-- 功能菜单 -->
+    <view class="mx-[24rpx] mt-[32rpx] overflow-hidden rounded-[16rpx] bg-white shadow-sm">
+      <view
+        v-for="item in menuItems"
+        :key="item.id"
+        class="flex items-center border-b border-[#f5f5f5] px-[32rpx] py-[32rpx] last:border-b-0"
+        @click="handleMenuClick(item)"
+      >
+        <image :src="item.icon" class="h-[48rpx] w-[48rpx]" />
+        <text class="ml-[24rpx] flex-1 text-[28rpx] text-[#333333]">{{ item.title }}</text>
+        <image
+          v-if="item.arrow"
+          src="/static/images/homepage/settings-arrow.png"
+          class="h-[24rpx] w-[24rpx]"
+        />
+      </view>
     </view>
-  </view>
 
-  <!-- 退出登录按钮 -->
-  <view v-if="isLoggedIn" class="mx-[24rpx] mb-[32rpx] mt-[32rpx]">
-    <button
-      class="h-[88rpx] w-full border border-[#ff4757] rounded-[16rpx] bg-white text-[28rpx] text-[#ff4757] font-medium"
-      @click="logout"
-    >
-      退出登录
-    </button>
-  </view>
+    <!-- 退出登录按钮 -->
+    <view v-if="isLoggedIn" class="mx-[24rpx] mb-[32rpx] mt-[32rpx]">
+      <button
+        class="h-[88rpx] w-full border border-[#ff4757] rounded-[16rpx] bg-white text-[28rpx] text-[#ff4757] font-medium"
+        @click="logout"
+      >
+        退出登录
+      </button>
+    </view>
 
-  <!-- 底部安全区域 -->
-  <view class="h-[32rpx]" />
+    <!-- 底部安全区域 -->
+    <view class="h-[32rpx]" />
+  </view>
 </template>
