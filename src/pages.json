@@ -267,6 +267,7 @@
       "path": "pages/normal/me/me",
       "type": "page",
       "style": {
+        "navigationStyle": "custom",
         "navigationBarTitleText": "普通用户我的"
       }
     }

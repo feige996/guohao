@@ -3,12 +3,11 @@
 import { storeToRefs } from 'pinia'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
-import { tabbarStore } from '@/tabbar/store'
 import { currRoute } from '@/utils'
-import { useUpload } from '@/utils/uploadFile'
 
 definePage({
   style: {
+    navigationStyle: 'custom',
     navigationBarTitleText: '普通用户我的',
   },
 })
@@ -16,68 +15,6 @@ definePage({
 const userStore = useUserStore()
 // 使用storeToRefs解构userInfo
 const { userInfo } = storeToRefs(userStore)
-
-// #ifndef MP-WEIXIN
-// 上传头像
-const { run: uploadAvatar } = useUpload<IUploadSuccessInfo>(
-  import.meta.env.VITE_UPLOAD_BASEURL,
-  {},
-  {
-    onSuccess: (res) => {
-      console.log('h5头像上传成功', res)
-      // useUserStore().setUserAvatar(res.url)
-    },
-  },
-)
-// #endif
-
-// 微信小程序下登录
-async function handleLogin() {
-  const { path } = currRoute()
-
-  // #ifdef MP-WEIXIN
-
-  // 微信登录
-  await userStore.wxLogin()
-  // #endif
-  // #ifndef MP-WEIXIN
-  // uni.navigateTo({
-  //   url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('/pages/me/me')}`,
-  // })
-
-  uni.navigateTo({
-    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent(path)}`,
-  })
-
-  // #endif
-}
-
-// #ifdef MP-WEIXIN
-
-// 微信小程序下选择头像事件
-function onChooseAvatar(e: any) {
-  console.log('选择头像', e.detail)
-  const { avatarUrl } = e.detail
-  const { run } = useUpload<IUploadSuccessInfo>(
-    import.meta.env.VITE_UPLOAD_BASEURL,
-    {},
-    {
-      onSuccess: (res) => {
-        console.log('wx头像上传成功', res)
-        // useUserStore().setUserAvatar(res.url)
-      },
-    },
-    avatarUrl,
-  )
-  run()
-}
-// #endif
-// #ifdef MP-WEIXIN
-// 微信小程序下设置用户名
-function getUserInfo(e: any) {
-  console.log(e.detail)
-}
-// #endif
 
 // 从 about.vue 迁移的功能
 function gotoLogin() {
@@ -105,10 +42,6 @@ function logout() {
     title: '退出登录成功',
     icon: 'success',
   })
-}
-
-function setTabbarBadge() {
-  tabbarStore.setTabbarItemBadge(1, 100)
 }
 
 // 退出登录
