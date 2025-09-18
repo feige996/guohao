@@ -221,16 +221,15 @@ function handleCardClick(card: any) {
                     </text>
                   </view>
                   <view class="tn-flex tn-flex-row-between tn-flex-col-between tn-margin-top-sm">
-                    <view
-                      v-for="(label_item, label_index) in item.label" :key="label_index"
-                      class="justify-content-item tn-tag-content__item tn-margin-right tn-text-sm tn-text-bold"
-                    >
-                      <text class="tn-tag-content__item--prefix">#</text> {{ label_item }}
+                    <view class="tags-container">
+                      <view class="tn-tag-content__item">
+                        <text class="tn-tag-content__item--prefix">#</text>{{ item.label[0] }}
+                      </view>
                     </view>
                     <view class="justify-content-item tn-color-gray tn-text-center" style="padding-top: 5rpx;">
-                      <text class="tn-icon-fire tn-text-lg" style="padding-right: 5rpx;" />
+                      <text class="icon-fire" style="padding-right: 5rpx;">🔥</text>
                       <text class="tn-padding-right tn-text-df">{{ item.collectionCount }}</text>
-                      <text class="tn-icon-like-lack tn-text-lg" style="padding-right: 5rpx;" />
+                      <text class="icon-like" style="padding-right: 5rpx;">❤️</text>
                       <text class="tn-text-df">{{ item.likeCount }}</text>
                     </view>
                   </view>
@@ -300,19 +299,29 @@ function handleCardClick(card: any) {
   line-height: 1.5;
 }
 
+// 标签容器样式
+.tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex: 1;
+}
+
 // 标签样式
 .tn-tag-content__item {
   background: linear-gradient(135deg, #8c2303 0%, #b8441f 100%);
   color: #ffffff;
-  border-radius: 20rpx;
-  padding: 8rpx 16rpx;
-  margin-right: 12rpx;
-  margin-bottom: 8rpx;
-  font-size: 24rpx;
+  border-radius: 12rpx;
+  padding: 4rpx 10rpx;
+  margin-right: 8rpx;
+  margin-bottom: 6rpx;
+  font-size: 20rpx;
+  display: inline-block;
+  line-height: 1.2;
 
   .tn-tag-content__item--prefix {
     opacity: 0.8;
-    margin-right: 4rpx;
+    margin-right: 2rpx;
   }
 }
 
@@ -340,12 +349,14 @@ function handleCardClick(card: any) {
   display: flex;
   align-items: center;
 
-  .tn-icon-fire {
-    color: #ff6b35;
+  .icon-fire {
+    font-size: 28rpx;
+    line-height: 1;
   }
 
-  .tn-icon-like-lack {
-    color: #ff4757;
+  .icon-like {
+    font-size: 28rpx;
+    line-height: 1;
   }
 }
 
