@@ -257,9 +257,9 @@ function handleCardClick(card: any) {
 <style lang="scss" scoped>
 // Tab样式优化
 :deep(.wd-tabs) {
-  .wd-tabs__nav-item.is-active {
-    font-size: 30rpx;
-  }
+  // .wd-tabs__nav-item.is-active {
+  //   font-size: 30rpx;
+  // }
 
   // 底部指示线样式
   .wd-tabs__line {
