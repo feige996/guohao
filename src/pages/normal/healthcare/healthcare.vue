@@ -133,6 +133,9 @@ const cardData = ref({
   ],
 })
 
+// 选中的卡片ID集合
+const selectedCards = ref<Set<number>>(new Set())
+
 // 当前显示的卡片列表
 const currentCards = computed(() => {
   return cardData.value[tabWithBadge.value] || []
@@ -234,7 +237,7 @@ function handleCardClick(card: any) {
                     </view>
                   </view>
                 </view>
-                <view class="relative m-[8rpx] h-[160rpx] w-[160rpx] overflow-hidden rounded-[16rpx] bg-cover bg-center bg-no-repeat" :style="`background-image:url(${item.userAvatar})`">
+                <view class="relative m-[8rpx] h-[160rpx] w-[240rpx] overflow-hidden rounded-[16rpx] bg-cover bg-center bg-no-repeat" :style="`background-image:url(${item.userAvatar})`">
                   <view class="h-full w-full rounded-[16rpx] from-[rgba(140,35,3,0.1)] to-[rgba(184,68,31,0.1)] bg-gradient-to-br" />
                 </view>
               </view>
