@@ -207,6 +207,14 @@
       }
     },
     {
+      "path": "pages/test/searchbar-test",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "SearchBar 测试"
+      }
+    },
+    {
       "path": "pages/doctor/diagnosis/diagnosis",
       "type": "page",
       "style": {

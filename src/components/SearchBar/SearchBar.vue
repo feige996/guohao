@@ -6,11 +6,14 @@ interface Props {
   height?: string
   marginLeft?: string
   marginTop?: string
+  modelValue?: string
 }
 
 interface Emits {
-  (e: 'search'): void
+  (e: 'search', value: string): void
   (e: 'click'): void
+  (e: 'update:modelValue', value: string): void
+  (e: 'input', value: string): void
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -20,51 +23,72 @@ const props = withDefaults(defineProps<Props>(), {
   height: '80rpx',
   marginLeft: '24rpx',
   marginTop: '104rpx',
+  modelValue: '',
 })
 
 const emit = defineEmits<Emits>()
 
+// 内部输入值
+const inputValue = ref(props.modelValue)
+
+// 监听外部传入的值变化
+watch(() => props.modelValue, (newValue) => {
+  inputValue.value = newValue
+})
+
+// 监听内部值变化，同步到外部
+watch(inputValue, (newValue) => {
+  emit('update:modelValue', newValue)
+  emit('input', newValue)
+})
+
 function handleSearch() {
-  emit('search')
+  emit('search', inputValue.value)
 }
 
-function handleClick() {
+function handleInputClick() {
   emit('click')
 }
 </script>
 
 <template>
   <div
-    class="relative flex flex-row cursor-pointer items-start border border-[#cccccc] rounded-[660rpx] bg-[#f7f4f3]"
+    class="relative"
     :style="{
       marginLeft: props.marginLeft,
       marginTop: props.marginTop,
-      height: props.height,
       width: props.width,
     }"
-    @click="handleClick"
   >
-    <!-- 搜索图标 -->
-    <img
-      class="relative ml-[30rpx] mt-[24rpx] h-[32rpx] w-[32rpx]"
-      src="@img/homepage/search-icon.png"
-      alt="搜索图标"
+    <wd-input
+      v-model="inputValue"
+      :placeholder="props.placeholder"
+      :height="props.height"
+      shape="round"
+      clearable
+      prefix-icon="search"
+      custom-style="background-color: #f7f4f3; border: 1px solid #cccccc; border-radius: 660rpx; font-size: 24rpx; color: #333333;"
+      placeholder-style="color: #cccccc; font-size: 24rpx;"
+      @click="handleInputClick"
+      @confirm="handleSearch"
     >
+      <!-- 前置图标插插槽  -->
+      <template #prefix>
+        <wd-icon name="search" class="pl-[20rpx] text-[#999999]" />
+      </template>
 
-    <!-- 搜索按钮 -->
-    <div
-      class="relative ml-[520rpx] mt-[8rpx] h-[64rpx] w-[112rpx] flex flex-col cursor-pointer items-start rounded-[116rpx] bg-[#97493d]"
-      @click.stop="handleSearch"
-    >
-      <span class="relative mx-auto mt-[20rpx] w-max whitespace-pre text-center text-[24rpx] text-white font-normal leading-[100%]">
-        {{ props.buttonText }}
-      </span>
-    </div>
-
-    <!-- 占位符文本 -->
-    <span class="absolute left-0 right-[298rpx] top-[28rpx] z-1 mx-auto w-max whitespace-pre text-[24rpx] text-[#cccccc] font-normal leading-[100%]">
-      {{ props.placeholder }}
-    </span>
+      <!-- 搜索按钮插槽 -->
+      <template #suffix>
+        <div
+          class="mr-[1rpx] h-[60rpx] w-[100rpx] flex cursor-pointer items-center justify-center rounded-[100rpx] bg-[#97493d]"
+          @click="handleSearch"
+        >
+          <span class="text-center text-[24rpx] text-white font-normal">
+            {{ props.buttonText }}
+          </span>
+        </div>
+      </template>
+    </wd-input>
   </div>
 </template>
 

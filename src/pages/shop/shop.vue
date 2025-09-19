@@ -205,8 +205,8 @@ const allProducts = {
 const productList = ref(allProducts.all)
 
 // 搜索事件处理
-function handleSearch() {
-  console.log('执行搜索')
+function handleSearch(searchValue: string) {
+  console.log('执行搜索:', searchValue)
   // 在这里添加搜索逻辑
 }
 

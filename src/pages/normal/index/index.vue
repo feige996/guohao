@@ -17,7 +17,7 @@ definePage({
 
 // 搜索栏事件处理
 function handleSearch() {
-  console.log('执行搜索')
+  console.log('点击完成时， 触发 confirm 事件')
   // 在这里添加搜索逻辑
 }
 
