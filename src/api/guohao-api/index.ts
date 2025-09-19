@@ -172,6 +172,11 @@ export const alovaInstance = createAlova({
         throw new Error(`请求错误[${code}]：${message}`)
       }
 
+      // 对于特定的 API，返回完整的响应数据而不是只返回 result
+      if (method.url.includes('/app_healthskill/random')) {
+        return responseData
+      }
+
       // 处理成功响应，返回业务数据
       return result
     }

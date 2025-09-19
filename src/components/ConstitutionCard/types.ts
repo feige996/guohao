@@ -17,11 +17,11 @@ export interface ConstitutionCardProps {
 /** 体质卡片事件接口 */
 export interface ConstitutionCardEmits {
   /** 点击整个卡片时触发 */
-  click: []
+  (e: 'click'): void
   /** 点击体质状态时触发 */
-  constitutionClick: []
+  (e: 'constitutionClick'): void
   /** 点击养生建议时触发 */
-  adviceClick: []
+  (e: 'adviceClick'): void
 }
 
 /** 体质类型枚举 */
