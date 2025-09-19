@@ -80,7 +80,7 @@ function handleInputClick() {
       <!-- 搜索按钮插槽 -->
       <template #suffix>
         <div
-          class="mr-[1rpx] h-[60rpx] w-[100rpx] flex cursor-pointer items-center justify-center rounded-[100rpx] bg-[#97493d]"
+          class="mr-[4rpx] h-[54rpx] w-[100rpx] flex cursor-pointer items-center justify-center rounded-[100rpx] bg-[#97493d]"
           @click="handleSearch"
         >
           <span class="text-center text-[24rpx] text-white font-normal">
