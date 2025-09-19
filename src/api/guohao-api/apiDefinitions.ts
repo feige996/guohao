@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * APP - version 1.0.0
+ * 国浩中医 - version 1.0.0
  *
  * &lt;br/&gt;&lt;u&gt;&lt;b&gt;&lt;font color&#x3D;&#x27;FF0000&#x27;&gt; 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！&lt;/font&gt;&lt;/b&gt;&lt;/u&gt;
  *
@@ -16,21 +16,32 @@
  * **Do not edit the file manually.**
  */
 export default {
-  'app.apiAppRegisterPost': ['POST', '/api/app/register'],
-  'app.apiAppUserinfoPut': ['PUT', '/api/app/userInfo'],
-  'app.apiAppVerifyforgetpasswordcodePost': ['POST', '/api/app/verifyForgetPasswordCode'],
-  'app.apiAppResetpasswordPost': ['POST', '/api/app/resetPassword'],
-  'app.apiAppCheckmobileregisteredandsendcodeGet': ['GET', '/api/app/checkMobileRegisteredAndSendCode'],
-  'app.apiAppChangepasswordPost': ['POST', '/api/app/changePassword'],
-  'app.apiAppUploadavatarPost': ['POST', '/api/app/uploadAvatar'],
-  'app.apiAppSendsmscodeMobilePost': ['POST', '/api/app/sendSmsCode/{mobile}'],
-  'app.apiAppCheckusernameavailableUsernamePost': ['POST', '/api/app/checkUsernameAvailable/{username}'],
-  'app.apiAppCheckmobileavailableMobilePost': ['POST', '/api/app/checkMobileAvailable/{mobile}'],
-  'app.apiAppTestolddataPost': ['POST', '/api/app/testolddata'],
-  'app.apiAppLoginPost': ['POST', '/api/app/login'],
-  'app.apiAppGenimusersigUseridGet': ['GET', '/api/app/genImUserSig/{userId}'],
-  'app.apiAppLoginbyphonePost': ['POST', '/api/app/loginByPhone'],
-  'app.apiAppLoginbywechatPost': ['POST', '/api/app/loginByWechat'],
-  'app.apiAppAppuserinfoGet': ['GET', '/api/app/appUserInfo'],
-  'app.apiAppLogoutPost': ['POST', '/api/app/logout']
+  'app_healthskill.apiApp_healthskillSynchealthskillPost': ['POST', '/api/app_healthskill/syncHealthskill'],
+  'appAuth.apiAppauthTestolddataPost': ['POST', '/api/appAuth/testolddata'],
+  'appAuth.apiAppauthLoginPost': ['POST', '/api/appAuth/login'],
+  'appAuth.apiAppauthGenimusersigUseridGet': ['GET', '/api/appAuth/genImUserSig/{userId}'],
+  'appAuth.apiAppauthLoginbyphonePost': ['POST', '/api/appAuth/loginByPhone'],
+  'appAuth.apiAppauthLoginbywechatPost': ['POST', '/api/appAuth/loginByWechat'],
+  'appAuth.apiAppauthAppuserinfoGet': ['GET', '/api/appAuth/appUserInfo'],
+  'appAuth.apiAppauthLogoutPost': ['POST', '/api/appAuth/logout'],
+  'appUser.apiAppuserRegisterPost': ['POST', '/api/appUser/register'],
+  'appUser.apiAppuserUserinfoPut': ['PUT', '/api/appUser/userInfo'],
+  'appUser.apiAppuserVerifyforgetpasswordcodePost': ['POST', '/api/appUser/verifyForgetPasswordCode'],
+  'appUser.apiAppuserResetpasswordPost': ['POST', '/api/appUser/resetPassword'],
+  'appUser.apiAppuserCheckmobileregisteredandsendcodeGet': ['GET', '/api/appUser/checkMobileRegisteredAndSendCode'],
+  'appUser.apiAppuserChangepasswordPost': ['POST', '/api/appUser/changePassword'],
+  'appUser.apiAppuserUploadavatarPost': ['POST', '/api/appUser/uploadAvatar'],
+  'appUser.apiAppuserSendsmscodeMobilePost': ['POST', '/api/appUser/sendSmsCode/{mobile}'],
+  'appUser.apiAppuserCheckusernameavailableUsernamePost': ['POST', '/api/appUser/checkUsernameAvailable/{username}'],
+  'appUser.apiAppuserCheckmobileavailableMobilePost': ['POST', '/api/appUser/checkMobileAvailable/{mobile}'],
+  'app_healthskill.apiApp_healthskillPagePost': ['POST', '/api/app_healthskill/page'],
+  'app_healthskill.apiApp_healthskillDetailGet': ['GET', '/api/app_healthskill/detail'],
+  'app_healthskill.apiApp_healthskillAddPost': ['POST', '/api/app_healthskill/add'],
+  'app_healthskill.apiApp_healthskillUpdatePost': ['POST', '/api/app_healthskill/update'],
+  'app_healthskill.apiApp_healthskillDeletePost': ['POST', '/api/app_healthskill/delete'],
+  'app_healthskill.apiApp_healthskillBatchdeletePost': ['POST', '/api/app_healthskill/batchDelete'],
+  'app_healthskill.apiApp_healthskillExportPost': ['POST', '/api/app_healthskill/export'],
+  'app_healthskill.apiApp_healthskillImportGet': ['GET', '/api/app_healthskill/import'],
+  'app_healthskill.apiApp_healthskillImportPost': ['POST', '/api/app_healthskill/import'],
+  'app_healthskill.apiApp_healthskillRandomGet': ['GET', '/api/app_healthskill/random']
 };

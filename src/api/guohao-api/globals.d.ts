@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * APP - version 1.0.0
+ * 国浩中医 - version 1.0.0
  *
  * &lt;br/&gt;&lt;u&gt;&lt;b&gt;&lt;font color&#x3D;&#x27;FF0000&#x27;&gt; 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！&lt;/font&gt;&lt;/b&gt;&lt;/u&gt;
  *
@@ -88,6 +88,78 @@ type Alova2Method<
       >
     : never;
 
+export interface AppLoginInput {
+  /**
+   * 用户名/手机号/邮箱
+   */
+  account: string;
+  /**
+   * 密码
+   */
+  password: string;
+  /**
+   * 登录渠道
+   */
+  loginFrom?: string | null;
+}
+export interface AppPhoneLoginInput {
+  /**
+   * 手机号码
+   */
+  mobile: string;
+  /**
+   * 验证码
+   */
+  code: string;
+  /**
+   * 登录渠道
+   */
+  loginFrom?: string | null;
+}
+export interface WxUserInfo {
+  /**
+   * 昵称
+   */
+  nickName?: string | null;
+  /**
+   * 头像
+   */
+  avatarUrl?: string | null;
+  /**
+   * 性别
+   */
+  gender?: number;
+  /**
+   * 国家
+   */
+  country?: string | null;
+  /**
+   * 省份
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+}
+export interface AppWxLoginInput {
+  /**
+   * 微信OpenId
+   */
+  openId: string;
+  /**
+   * 微信UnionId
+   */
+  unionId?: string | null;
+  /**
+   * 微信用户信息
+   */
+  userInfo?: WxUserInfo;
+  /**
+   * 登录渠道
+   */
+  loginFrom?: string | null;
+}
 export type GenderEnum = 0 | 1 | 2 | 9;
 export interface AppRegisterInput {
   /**
@@ -179,77 +251,115 @@ export interface AppChangePasswordInput {
    */
   newPassword: string;
 }
-export interface AppLoginInput {
+export interface Search {
   /**
-   * 用户名/手机号/邮箱
+   * 字段名称集合
    */
-  account: string;
+  fields?: string[] | null;
   /**
-   * 密码
+   * 关键字
    */
-  password: string;
-  /**
-   * 登录渠道
-   */
-  loginFrom?: string | null;
+  keyword?: string | null;
 }
-export interface AppPhoneLoginInput {
+export type FilterLogicEnum = 0 | 1 | 2;
+export type FilterOperatorEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export interface Filter {
   /**
-   * 手机号码
+   * 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
    */
-  mobile: string;
+  logic?: FilterLogicEnum;
   /**
-   * 验证码
+   * 筛选过滤条件子项
    */
-  code: string;
+  filters?: Filter[] | null;
   /**
-   * 登录渠道
+   * 字段名称
    */
-  loginFrom?: string | null;
+  field?: string | null;
+  /**
+   * 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+   */
+  operator?: FilterOperatorEnum;
+  /**
+   * 字段值
+   */
+  value?: null;
 }
-export interface WxUserInfo {
+export interface Pageapp_healthskillInput {
   /**
-   * 昵称
+   * 模糊查询条件
    */
-  nickName?: string | null;
+  search?: Search;
   /**
-   * 头像
+   * 模糊查询关键字
    */
-  avatarUrl?: string | null;
+  keyword?: string | null;
   /**
-   * 性别
+   * 筛选过滤条件
    */
-  gender?: number;
+  filter?: Filter;
   /**
-   * 国家
+   * 当前页码
    */
-  country?: string | null;
+  page?: number;
   /**
-   * 省份
+   * 页码容量
    */
-  province?: string | null;
+  pageSize?: number;
   /**
-   * 城市
+   * 排序字段
    */
-  city?: string | null;
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 健康症状
+   */
+  title?: string | null;
+  /**
+   * 内容
+   */
+  content?: string | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
 }
-export interface AppWxLoginInput {
+export interface Addapp_healthskillInput {
   /**
-   * 微信OpenId
+   * 健康症状
    */
-  openId: string;
+  title: string;
   /**
-   * 微信UnionId
+   * 内容
    */
-  unionId?: string | null;
+  content: string;
+}
+export interface Updateapp_healthskillInput {
   /**
-   * 微信用户信息
+   * 主键Id
    */
-  userInfo?: WxUserInfo;
+  id: number;
   /**
-   * 登录渠道
+   * 健康症状
    */
-  loginFrom?: string | null;
+  title: string;
+  /**
+   * 内容
+   */
+  content: string;
+}
+export interface Deleteapp_healthskillInput {
+  /**
+   * 主键Id
+   */
+  id: number;
 }
 export interface AdminResult_Object {
   /**
@@ -391,6 +501,54 @@ export interface AdminResult_AppUserInfo {
    */
   time?: string;
 }
+export interface AppLoginOutput {
+  /**
+   * 访问令牌
+   */
+  accessToken?: string | null;
+  /**
+   * 刷新令牌
+   */
+  refreshToken?: string | null;
+  /**
+   * 过期时间
+   */
+  expiresIn?: number;
+  /**
+   * APP用户信息
+   */
+  userInfo?: AppUserInfo;
+  /**
+   * 用户登录即时通信 IM 时使用的密码
+   */
+  userSig?: string | null;
+}
+export interface AdminResult_AppLoginOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * APP登录输出
+   */
+  result?: AppLoginOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
 export interface AdminResult_String {
   /**
    * 状态码
@@ -443,29 +601,79 @@ export interface AdminResult_Boolean {
    */
   time?: string;
 }
-export interface AppLoginOutput {
+export interface App_healthskillOutput {
   /**
-   * 访问令牌
+   * 主键Id
    */
-  accessToken?: string | null;
+  id?: number;
   /**
-   * 刷新令牌
+   * 健康症状
    */
-  refreshToken?: string | null;
+  title?: string | null;
   /**
-   * 过期时间
+   * 内容
    */
-  expiresIn?: number;
+  content?: string | null;
   /**
-   * APP用户信息
+   * 软删除
    */
-  userInfo?: AppUserInfo;
+  isDelete?: boolean;
   /**
-   * 用户登录即时通信 IM 时使用的密码
+   * 创建时间
    */
-  userSig?: string | null;
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
 }
-export interface AdminResult_AppLoginOutput {
+export interface SqlSugarPagedList_app_healthskillOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_healthskillOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_healthskillOutput {
   /**
    * 状态码
    */
@@ -479,9 +687,157 @@ export interface AdminResult_AppLoginOutput {
    */
   message?: string | null;
   /**
-   * APP登录输出
+   * 分页泛型集合
    */
-  result?: AppLoginOutput;
+  result?: SqlSugarPagedList_app_healthskillOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_healthskill {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 备  注:健康症状
+   * 默认值:
+   */
+  title?: string | null;
+  /**
+   * 备  注:内容
+   * 默认值:
+   */
+  content?: string | null;
+}
+export interface AdminResult_app_healthskill {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 健康小妙招
+   */
+  result?: App_healthskill;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Int64 {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: number;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Int32 {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: number;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_app_healthskillOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 健康小妙招输出参数
+   */
+  result?: App_healthskillOutput;
   /**
    * 附加数据
    */
@@ -493,582 +849,13 @@ export interface AdminResult_AppLoginOutput {
 }
 declare global {
   interface Apis {
-    app: {
+    app_healthskill: {
       /**
        * ---
        *
-       * [POST] APP用户注册 🔖
+       * [POST] 同步健康小妙招数据 🧩
        *
-       * **path:** /api/app/register
-       *
-       * ---
-       *
-       * **RequestBody**
-       * ```ts
-       * type RequestBody = {
-       *   // 用户名
-       *   username?: string | null
-       *   // 手机号码
-       *   mobile: string
-       *   // 验证码
-       *   code: string
-       *   // 密码
-       *   password: string
-       *   // 昵称
-       *   nickName?: string | null
-       *   // 邮箱
-       *   email?: string | null
-       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *   sex?: 0 | 1 | 2 | 9
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // APP用户信息
-       *   result?: {
-       *     // 用户ID
-       *     id?: number
-       *     // 用户名
-       *     username?: string | null
-       *     // 昵称
-       *     nickName?: string | null
-       *     // 头像
-       *     avatar?: string | null
-       *     // 手机号
-       *     mobile?: string | null
-       *     // 邮箱
-       *     email?: string | null
-       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *     sex?: 0 | 1 | 2 | 9
-       *     // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
-       *     accountType?: 666 | 777 | 888 | 999
-       *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
-       *     defaultRole?: 666 | 777 | 888 | 999
-       *     // 用户角色（JSON格式）
-       *     // [params1] start
-       *     // [items] start
-       *     // APP用户角色表
-       *     // [items] end
-       *     // [params1] end
-       *     role?: Array<{
-       *       // 雪花Id
-       *       id?: number
-       *       // 用户Id
-       *       userId?: number
-       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
-       *       role?: 666 | 777 | 888 | 999
-       *       // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
-       *       auditStatus?: 0 | 1
-       *       // 备注
-       *       remark?: string | null
-       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
-       *       status?: 1 | 2
-       *     }> | null
-       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
-       *     status?: 1 | 2
-       *     // 积分
-       *     score?: number
-       *     // 注册时间
-       *     registerDate?: string | null
-       *     // 最后登录时间
-       *     lastLoginTime?: string | null
-       *   }
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppRegisterPost<
-        Config extends Alova2MethodConfig<AdminResult_AppUserInfo> & {
-          data: AppRegisterInput;
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_AppUserInfo, 'app.apiAppRegisterPost', Config>;
-      /**
-       * ---
-       *
-       * [PUT] 更新APP用户信息 🔖
-       *
-       * **path:** /api/app/userInfo
-       *
-       * ---
-       *
-       * **RequestBody**
-       * ```ts
-       * type RequestBody = {
-       *   // 昵称
-       *   nickName?: string | null
-       *   // 头像
-       *   avatar?: string | null
-       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *   sex?: 0 | 1 | 2 | 9
-       *   // 出生日期
-       *   birthday?: string | null
-       *   // 地址
-       *   address?: string | null
-       *   // 个人简介
-       *   introduction?: string | null
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // APP用户信息
-       *   result?: {
-       *     // 用户ID
-       *     id?: number
-       *     // 用户名
-       *     username?: string | null
-       *     // 昵称
-       *     nickName?: string | null
-       *     // 头像
-       *     avatar?: string | null
-       *     // 手机号
-       *     mobile?: string | null
-       *     // 邮箱
-       *     email?: string | null
-       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *     sex?: 0 | 1 | 2 | 9
-       *     // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
-       *     accountType?: 666 | 777 | 888 | 999
-       *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
-       *     defaultRole?: 666 | 777 | 888 | 999
-       *     // 用户角色（JSON格式）
-       *     // [params1] start
-       *     // [items] start
-       *     // APP用户角色表
-       *     // [items] end
-       *     // [params1] end
-       *     role?: Array<{
-       *       // 雪花Id
-       *       id?: number
-       *       // 用户Id
-       *       userId?: number
-       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
-       *       role?: 666 | 777 | 888 | 999
-       *       // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
-       *       auditStatus?: 0 | 1
-       *       // 备注
-       *       remark?: string | null
-       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
-       *       status?: 1 | 2
-       *     }> | null
-       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
-       *     status?: 1 | 2
-       *     // 积分
-       *     score?: number
-       *     // 注册时间
-       *     registerDate?: string | null
-       *     // 最后登录时间
-       *     lastLoginTime?: string | null
-       *   }
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppUserinfoPut<
-        Config extends Alova2MethodConfig<AdminResult_AppUserInfo> & {
-          data: AppUpdateUserInfoInput;
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_AppUserInfo, 'app.apiAppUserinfoPut', Config>;
-      /**
-       * ---
-       *
-       * [POST] 校验忘记密码验证码 🔖
-       *
-       * **path:** /api/app/verifyForgetPasswordCode
-       *
-       * ---
-       *
-       * **RequestBody**
-       * ```ts
-       * type RequestBody = {
-       *   // 手机号码
-       *   mobile: string
-       *   // 验证码
-       *   code: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // 数据
-       *   result?: string | null
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppVerifyforgetpasswordcodePost<
-        Config extends Alova2MethodConfig<AdminResult_String> & {
-          data: AppVerifyForgetPasswordCodeInput;
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_String, 'app.apiAppVerifyforgetpasswordcodePost', Config>;
-      /**
-       * ---
-       *
-       * [POST] 重置密码（通过手机+resetToken）🔖
-       *
-       * **path:** /api/app/resetPassword
-       *
-       * ---
-       *
-       * **RequestBody**
-       * ```ts
-       * type RequestBody = {
-       *   // 手机号码
-       *   mobile: string
-       *   // 临时重置Token
-       *   resetToken: string
-       *   // 新密码
-       *   newPassword: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // 数据
-       *   result?: boolean
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppResetpasswordPost<
-        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
-          data: AppResetPasswordInput;
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_Boolean, 'app.apiAppResetpasswordPost', Config>;
-      /**
-       * ---
-       *
-       * [GET] 检查手机号已注册并发送验证码 🔖
-       *
-       * **path:** /api/app/checkMobileRegisteredAndSendCode
-       *
-       * ---
-       *
-       * **Query Parameters**
-       * ```ts
-       * type QueryParameters = {
-       *   mobile: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // 数据
-       *   result?: boolean
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppCheckmobileregisteredandsendcodeGet<
-        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
-          params: {
-            mobile: string;
-          };
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_Boolean, 'app.apiAppCheckmobileregisteredandsendcodeGet', Config>;
-      /**
-       * ---
-       *
-       * [POST] 修改APP用户密码 🔖
-       *
-       * **path:** /api/app/changePassword
-       *
-       * ---
-       *
-       * **RequestBody**
-       * ```ts
-       * type RequestBody = {
-       *   // 旧密码
-       *   oldPassword: string
-       *   // 新密码
-       *   newPassword: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // 数据
-       *   result?: boolean
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppChangepasswordPost<
-        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
-          data: AppChangePasswordInput;
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_Boolean, 'app.apiAppChangepasswordPost', Config>;
-      /**
-       * ---
-       *
-       * [POST] 上传APP用户头像 🔖
-       *
-       * **path:** /api/app/uploadAvatar
-       *
-       * ---
-       *
-       * **RequestBody**
-       * ```ts
-       * type RequestBody = {
-       *   file: Blob
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // 数据
-       *   result?: string | null
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppUploadavatarPost<
-        Config extends Alova2MethodConfig<AdminResult_String> & {
-          data: {
-            file: Blob;
-          };
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_String, 'app.apiAppUploadavatarPost', Config>;
-      /**
-       * ---
-       *
-       * [POST] 发送手机验证码 🔖
-       *
-       * **path:** /api/app/sendSmsCode/{mobile}
-       *
-       * ---
-       *
-       * **Path Parameters**
-       * ```ts
-       * type PathParameters = {
-       *   mobile: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // 数据
-       *   result?: boolean
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppSendsmscodeMobilePost<
-        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
-          pathParams: {
-            mobile: string;
-          };
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_Boolean, 'app.apiAppSendsmscodeMobilePost', Config>;
-      /**
-       * ---
-       *
-       * [POST] 检查用户名是否可用 🔖
-       *
-       * **path:** /api/app/checkUsernameAvailable/{username}
-       *
-       * ---
-       *
-       * **Path Parameters**
-       * ```ts
-       * type PathParameters = {
-       *   username: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // 数据
-       *   result?: boolean
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppCheckusernameavailableUsernamePost<
-        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
-          pathParams: {
-            username: string;
-          };
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_Boolean, 'app.apiAppCheckusernameavailableUsernamePost', Config>;
-      /**
-       * ---
-       *
-       * [POST] 检查手机号是否可用 🔖
-       *
-       * **path:** /api/app/checkMobileAvailable/{mobile}
-       *
-       * ---
-       *
-       * **Path Parameters**
-       * ```ts
-       * type PathParameters = {
-       *   mobile: string
-       * }
-       * ```
-       *
-       * ---
-       *
-       * **Response**
-       * ```ts
-       * type Response = {
-       *   // 状态码
-       *   code?: number
-       *   // 类型success、warning、error
-       *   type?: string | null
-       *   // 错误信息
-       *   message?: string | null
-       *   // 数据
-       *   result?: boolean
-       *   // 附加数据
-       *   extras?: null
-       *   // 时间
-       *   time?: string
-       * }
-       * ```
-       */
-      apiAppCheckmobileavailableMobilePost<
-        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
-          pathParams: {
-            mobile: string;
-          };
-        }
-      >(
-        config: Config
-      ): Alova2Method<AdminResult_Boolean, 'app.apiAppCheckmobileavailableMobilePost', Config>;
-      /**
-       * ---
-       *
-       * [POST] 测试旧版数据库
-       *
-       * **path:** /api/app/testolddata
+       * **path:** /api/app_healthskill/syncHealthskill
        *
        * ---
        *
@@ -1090,15 +877,612 @@ declare global {
        * }
        * ```
        */
-      apiAppTestolddataPost<Config extends Alova2MethodConfig<AdminResult_Object>>(
+      apiApp_healthskillSynchealthskillPost<Config extends Alova2MethodConfig<AdminResult_Object>>(
         config?: Config
-      ): Alova2Method<AdminResult_Object, 'app.apiAppTestolddataPost', Config>;
+      ): Alova2Method<AdminResult_Object, 'app_healthskill.apiApp_healthskillSynchealthskillPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 分页查询健康小妙招 🔖
+       *
+       * **path:** /api/app_healthskill/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 健康症状
+       *   title?: string | null
+       *   // 内容
+       *   content?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 健康小妙招输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 健康症状
+       *       title?: string | null
+       *       // 内容
+       *       content?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healthskillPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_healthskillOutput> & {
+          data: Pageapp_healthskillInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_healthskillOutput,
+        'app_healthskill.apiApp_healthskillPagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取健康小妙招详情 ℹ️
+       *
+       * **path:** /api/app_healthskill/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 健康小妙招
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 备  注:健康症状
+       *     // 默认值:
+       *     title?: string | null
+       *     // 备  注:内容
+       *     // 默认值:
+       *     content?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healthskillDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_healthskill> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_healthskill, 'app_healthskill.apiApp_healthskillDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 增加健康小妙招 ➕
+       *
+       * **path:** /api/app_healthskill/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 健康症状
+       *   title: string
+       *   // 内容
+       *   content: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healthskillAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_healthskillInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_healthskill.apiApp_healthskillAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新健康小妙招 ✏️
+       *
+       * **path:** /api/app_healthskill/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 健康症状
+       *   title: string
+       *   // 内容
+       *   content: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healthskillUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_healthskillInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_healthskill.apiApp_healthskillUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除健康小妙招 ❌
+       *
+       * **path:** /api/app_healthskill/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healthskillDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_healthskillInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_healthskill.apiApp_healthskillDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除健康小妙招 ❌
+       *
+       * **path:** /api/app_healthskill/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healthskillBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_healthskillInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_healthskill.apiApp_healthskillBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导出健康小妙招记录 🔖
+       *
+       * **path:** /api/app_healthskill/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 健康症状
+       *   title?: string | null
+       *   // 内容
+       *   content?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healthskillExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_healthskillInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_healthskill.apiApp_healthskillExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载健康小妙招数据导入模板 ⬇️
+       *
+       * **path:** /api/app_healthskill/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healthskillImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_healthskill.apiApp_healthskillImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入健康小妙招记录 💾
+       *
+       * **path:** /api/app_healthskill/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healthskillImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_healthskill.apiApp_healthskillImportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 随机获取一个健康小妙招 🎲
+       *
+       * **path:** /api/app_healthskill/random
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 可选，指定健康症状关键词
+       *   title?: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 健康小妙招输出参数
+       *   result?: {
+       *     // 主键Id
+       *     id?: number
+       *     // 健康症状
+       *     title?: string | null
+       *     // 内容
+       *     content?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 创建时间
+       *     createTime?: string | null
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healthskillRandomGet<
+        Config extends Alova2MethodConfig<AdminResult_app_healthskillOutput> & {
+          params: {
+            /**
+             * 可选，指定健康症状关键词
+             */
+            title?: string;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_healthskillOutput, 'app_healthskill.apiApp_healthskillRandomGet', Config>;
+    };
+    appAuth: {
+      /**
+       * ---
+       *
+       * [POST] 测试旧版数据库
+       *
+       * **path:** /api/appAuth/testolddata
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppauthTestolddataPost<Config extends Alova2MethodConfig<AdminResult_Object>>(
+        config?: Config
+      ): Alova2Method<AdminResult_Object, 'appAuth.apiAppauthTestolddataPost', Config>;
       /**
        * ---
        *
        * [POST] APP账号密码登录 🔖
        *
-       * **path:** /api/app/login
+       * **path:** /api/appAuth/login
        *
        * ---
        *
@@ -1192,19 +1576,19 @@ declare global {
        * }
        * ```
        */
-      apiAppLoginPost<
+      apiAppauthLoginPost<
         Config extends Alova2MethodConfig<AdminResult_AppLoginOutput> & {
           data: AppLoginInput;
         }
       >(
         config: Config
-      ): Alova2Method<AdminResult_AppLoginOutput, 'app.apiAppLoginPost', Config>;
+      ): Alova2Method<AdminResult_AppLoginOutput, 'appAuth.apiAppauthLoginPost', Config>;
       /**
        * ---
        *
        * [GET] 计算腾讯IM签名 🔖
        *
-       * **path:** /api/app/genImUserSig/{userId}
+       * **path:** /api/appAuth/genImUserSig/{userId}
        *
        * ---
        *
@@ -1235,7 +1619,7 @@ declare global {
        * }
        * ```
        */
-      apiAppGenimusersigUseridGet<
+      apiAppauthGenimusersigUseridGet<
         Config extends Alova2MethodConfig<AdminResult_String> & {
           pathParams: {
             userId: number;
@@ -1243,13 +1627,13 @@ declare global {
         }
       >(
         config: Config
-      ): Alova2Method<AdminResult_String, 'app.apiAppGenimusersigUseridGet', Config>;
+      ): Alova2Method<AdminResult_String, 'appAuth.apiAppauthGenimusersigUseridGet', Config>;
       /**
        * ---
        *
        * [POST] APP手机验证码登录 🔖
        *
-       * **path:** /api/app/loginByPhone
+       * **path:** /api/appAuth/loginByPhone
        *
        * ---
        *
@@ -1343,19 +1727,19 @@ declare global {
        * }
        * ```
        */
-      apiAppLoginbyphonePost<
+      apiAppauthLoginbyphonePost<
         Config extends Alova2MethodConfig<AdminResult_AppLoginOutput> & {
           data: AppPhoneLoginInput;
         }
       >(
         config: Config
-      ): Alova2Method<AdminResult_AppLoginOutput, 'app.apiAppLoginbyphonePost', Config>;
+      ): Alova2Method<AdminResult_AppLoginOutput, 'appAuth.apiAppauthLoginbyphonePost', Config>;
       /**
        * ---
        *
        * [POST] APP微信登录 🔖
        *
-       * **path:** /api/app/loginByWechat
+       * **path:** /api/appAuth/loginByWechat
        *
        * ---
        *
@@ -1464,19 +1848,19 @@ declare global {
        * }
        * ```
        */
-      apiAppLoginbywechatPost<
+      apiAppauthLoginbywechatPost<
         Config extends Alova2MethodConfig<AdminResult_AppLoginOutput> & {
           data: AppWxLoginInput;
         }
       >(
         config: Config
-      ): Alova2Method<AdminResult_AppLoginOutput, 'app.apiAppLoginbywechatPost', Config>;
+      ): Alova2Method<AdminResult_AppLoginOutput, 'appAuth.apiAppauthLoginbywechatPost', Config>;
       /**
        * ---
        *
        * [GET] 获取APP用户信息 🔖
        *
-       * **path:** /api/app/appUserInfo
+       * **path:** /api/appAuth/appUserInfo
        *
        * ---
        *
@@ -1545,15 +1929,15 @@ declare global {
        * }
        * ```
        */
-      apiAppAppuserinfoGet<Config extends Alova2MethodConfig<AdminResult_AppUserInfo>>(
+      apiAppauthAppuserinfoGet<Config extends Alova2MethodConfig<AdminResult_AppUserInfo>>(
         config?: Config
-      ): Alova2Method<AdminResult_AppUserInfo, 'app.apiAppAppuserinfoGet', Config>;
+      ): Alova2Method<AdminResult_AppUserInfo, 'appAuth.apiAppauthAppuserinfoGet', Config>;
       /**
        * ---
        *
        * [POST] APP退出登录 🔖
        *
-       * **path:** /api/app/logout
+       * **path:** /api/appAuth/logout
        *
        * ---
        *
@@ -1562,9 +1946,580 @@ declare global {
        * type Response = null
        * ```
        */
-      apiAppLogoutPost<Config extends Alova2MethodConfig<null>>(
+      apiAppauthLogoutPost<Config extends Alova2MethodConfig<null>>(
         config?: Config
-      ): Alova2Method<null, 'app.apiAppLogoutPost', Config>;
+      ): Alova2Method<null, 'appAuth.apiAppauthLogoutPost', Config>;
+    };
+    appUser: {
+      /**
+       * ---
+       *
+       * [POST] APP用户注册 🔖
+       *
+       * **path:** /api/appUser/register
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 用户名
+       *   username?: string | null
+       *   // 手机号码
+       *   mobile: string
+       *   // 验证码
+       *   code: string
+       *   // 密码
+       *   password: string
+       *   // 昵称
+       *   nickName?: string | null
+       *   // 邮箱
+       *   email?: string | null
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *   sex?: 0 | 1 | 2 | 9
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // APP用户信息
+       *   result?: {
+       *     // 用户ID
+       *     id?: number
+       *     // 用户名
+       *     username?: string | null
+       *     // 昵称
+       *     nickName?: string | null
+       *     // 头像
+       *     avatar?: string | null
+       *     // 手机号
+       *     mobile?: string | null
+       *     // 邮箱
+       *     email?: string | null
+       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *     sex?: 0 | 1 | 2 | 9
+       *     // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *     accountType?: 666 | 777 | 888 | 999
+       *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *     defaultRole?: 666 | 777 | 888 | 999
+       *     // 用户角色（JSON格式）
+       *     // [params1] start
+       *     // [items] start
+       *     // APP用户角色表
+       *     // [items] end
+       *     // [params1] end
+       *     role?: Array<{
+       *       // 雪花Id
+       *       id?: number
+       *       // 用户Id
+       *       userId?: number
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       role?: 666 | 777 | 888 | 999
+       *       // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *       auditStatus?: 0 | 1
+       *       // 备注
+       *       remark?: string | null
+       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *       status?: 1 | 2
+       *     }> | null
+       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *     status?: 1 | 2
+       *     // 积分
+       *     score?: number
+       *     // 注册时间
+       *     registerDate?: string | null
+       *     // 最后登录时间
+       *     lastLoginTime?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserRegisterPost<
+        Config extends Alova2MethodConfig<AdminResult_AppUserInfo> & {
+          data: AppRegisterInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_AppUserInfo, 'appUser.apiAppuserRegisterPost', Config>;
+      /**
+       * ---
+       *
+       * [PUT] 更新APP用户信息 🔖
+       *
+       * **path:** /api/appUser/userInfo
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 昵称
+       *   nickName?: string | null
+       *   // 头像
+       *   avatar?: string | null
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *   sex?: 0 | 1 | 2 | 9
+       *   // 出生日期
+       *   birthday?: string | null
+       *   // 地址
+       *   address?: string | null
+       *   // 个人简介
+       *   introduction?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // APP用户信息
+       *   result?: {
+       *     // 用户ID
+       *     id?: number
+       *     // 用户名
+       *     username?: string | null
+       *     // 昵称
+       *     nickName?: string | null
+       *     // 头像
+       *     avatar?: string | null
+       *     // 手机号
+       *     mobile?: string | null
+       *     // 邮箱
+       *     email?: string | null
+       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *     sex?: 0 | 1 | 2 | 9
+       *     // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *     accountType?: 666 | 777 | 888 | 999
+       *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *     defaultRole?: 666 | 777 | 888 | 999
+       *     // 用户角色（JSON格式）
+       *     // [params1] start
+       *     // [items] start
+       *     // APP用户角色表
+       *     // [items] end
+       *     // [params1] end
+       *     role?: Array<{
+       *       // 雪花Id
+       *       id?: number
+       *       // 用户Id
+       *       userId?: number
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       role?: 666 | 777 | 888 | 999
+       *       // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *       auditStatus?: 0 | 1
+       *       // 备注
+       *       remark?: string | null
+       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *       status?: 1 | 2
+       *     }> | null
+       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *     status?: 1 | 2
+       *     // 积分
+       *     score?: number
+       *     // 注册时间
+       *     registerDate?: string | null
+       *     // 最后登录时间
+       *     lastLoginTime?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserUserinfoPut<
+        Config extends Alova2MethodConfig<AdminResult_AppUserInfo> & {
+          data: AppUpdateUserInfoInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_AppUserInfo, 'appUser.apiAppuserUserinfoPut', Config>;
+      /**
+       * ---
+       *
+       * [POST] 校验忘记密码验证码 🔖
+       *
+       * **path:** /api/appUser/verifyForgetPasswordCode
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 手机号码
+       *   mobile: string
+       *   // 验证码
+       *   code: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: string | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserVerifyforgetpasswordcodePost<
+        Config extends Alova2MethodConfig<AdminResult_String> & {
+          data: AppVerifyForgetPasswordCodeInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_String, 'appUser.apiAppuserVerifyforgetpasswordcodePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 重置密码（通过手机+resetToken）🔖
+       *
+       * **path:** /api/appUser/resetPassword
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 手机号码
+       *   mobile: string
+       *   // 临时重置Token
+       *   resetToken: string
+       *   // 新密码
+       *   newPassword: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserResetpasswordPost<
+        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
+          data: AppResetPasswordInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserResetpasswordPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 检查手机号已注册并发送验证码 🔖
+       *
+       * **path:** /api/appUser/checkMobileRegisteredAndSendCode
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   mobile: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserCheckmobileregisteredandsendcodeGet<
+        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
+          params: {
+            mobile: string;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserCheckmobileregisteredandsendcodeGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 修改APP用户密码 🔖
+       *
+       * **path:** /api/appUser/changePassword
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 旧密码
+       *   oldPassword: string
+       *   // 新密码
+       *   newPassword: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserChangepasswordPost<
+        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
+          data: AppChangePasswordInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserChangepasswordPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 上传APP用户头像 🔖
+       *
+       * **path:** /api/appUser/uploadAvatar
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: string | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserUploadavatarPost<
+        Config extends Alova2MethodConfig<AdminResult_String> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_String, 'appUser.apiAppuserUploadavatarPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 发送手机验证码 🔖
+       *
+       * **path:** /api/appUser/sendSmsCode/{mobile}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   mobile: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserSendsmscodeMobilePost<
+        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
+          pathParams: {
+            mobile: string;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserSendsmscodeMobilePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 检查用户名是否可用 🔖
+       *
+       * **path:** /api/appUser/checkUsernameAvailable/{username}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   username: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserCheckusernameavailableUsernamePost<
+        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
+          pathParams: {
+            username: string;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserCheckusernameavailableUsernamePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 检查手机号是否可用 🔖
+       *
+       * **path:** /api/appUser/checkMobileAvailable/{mobile}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   mobile: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppuserCheckmobileavailableMobilePost<
+        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
+          pathParams: {
+            mobile: string;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserCheckmobileavailableMobilePost', Config>;
     };
   }
 

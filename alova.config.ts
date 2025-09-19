@@ -11,7 +11,7 @@ export default <Config>{
        * 1. openapi json 文件 URL
        * 2. 本地文件
        */
-      input: 'http://127.0.0.1:5005/swagger/APP/swagger.json',
+      input: 'http://127.0.0.1:5005/swagger/%E5%9B%BD%E6%B5%A9%E4%B8%AD%E5%8C%BB/swagger.json',
       /**
        * 输入文件平台。目前仅支持 swagger。
        * 当指定此参数时，input 字段只需指定文档地址，无需指定 openapi 文件
