@@ -97,7 +97,7 @@ function handleAdviceClick() {
           <!-- <span class="relative ml-[18rpx] mt-[10rpx] whitespace-pre text-[#333333] font-medium text-[24rpx] leading-[100%]">
             {{ isLoading ? '正在获取健康小妙招...' : currentAdviceTitle }}
           </span> -->
-          <span class="relative ml-[16rpx] mt-[22rpx] w-[270rpx] text-justify text-[#ababab] font-medium text-[24rpx] leading-[40rpx]">
+          <span class="relative ml-[16rpx] mt-[22rpx] w-[270rpx] text-justify text-[#ababab] font-medium line-clamp-4 text-[24rpx] leading-[40rpx]">
             {{ isLoading ? '请稍候...' : currentAdviceContent }}
           </span>
         </div>
