@@ -70,7 +70,7 @@ const { onAuthRequired, onResponseRefreshToken } = createServerTokenAuthenticati
         const userStore = useUserStore()
         if (isDoubleTokenMode && userStore.refreshToken) {
           // 使用 userStore 的 refreshTokenMethod 方法
-          await userStore.refreshTokenMethod()
+          // await userStore.refreshTokenMethod()
         }
         else {
           throw new Error('Token refresh failed')
@@ -108,7 +108,7 @@ export const alovaInstance = createAlova({
     const ignoreAuth = config.meta?.ignoreAuth !== true
 
     if (ignoreAuth) {
-      const token = userStore.validToken
+      const token = userStore.accessToken
       if (token) {
         // 根据后端要求设置 token 头部，这里使用 Authorization
         method.config.headers.Authorization = `Bearer ${token}`
