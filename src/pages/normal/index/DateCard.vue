@@ -126,14 +126,14 @@ function closeModal() {
       </div>
       <div class="relative ml-[16rpx] h-[84rpx] w-[244rpx] flex flex-row items-start -mt-[264rpx]">
         <div class="relative ml-0 mt-0 h-[80rpx] w-[112rpx] flex flex-col items-start">
-          <span class="relative ml-0 mt-0 whitespace-pre text-center text-[28rpx] text-[#999999] font-medium leading-[40rpx]">
+          <span class="relative ml-0 mt-0 whitespace-pre text-center text-[#999999] font-medium text-[28rpx] leading-[40rpx]">
             {{ dateInfo.lunarDate }}
           </span>
-          <span class="relative ml-0 mt-0 whitespace-pre text-center text-[28rpx] text-[#999999] font-medium leading-[40rpx]">
+          <span class="relative ml-0 mt-0 whitespace-pre text-center text-[#999999] font-medium text-[28rpx] leading-[40rpx]">
             {{ dateInfo.ganZhiYear }}
           </span>
         </div>
-        <div class="relative ml-[84rpx] mt-0 h-[84rpx] w-[48rpx] flex flex-col items-start rounded-[16rpx] bg-[rgba(40,107,171,0.48)] text-center text-[24rpx] text-white font-medium leading-[33.6rpx]">
+        <div class="relative ml-[84rpx] mt-0 h-[84rpx] w-[48rpx] flex flex-col items-start rounded-[16rpx] bg-[rgba(40,107,171,0.48)] text-center text-white font-medium text-[24rpx] leading-[33.6rpx]">
           <span
             class="relative ml-[12rpx] mt-[8rpx]"
             v-html="dateInfo.jieQi"
@@ -141,10 +141,10 @@ function closeModal() {
         </div>
       </div>
       <div class="relative ml-[16rpx] mt-[36rpx] h-[128rpx] w-[248rpx] flex flex-col items-start rounded-[10rpx] bg-white">
-        <span class="relative z-1 ml-[14rpx] mt-[9rpx] h-[30rpx] w-[72rpx] whitespace-pre text-center text-[25rpx] text-[#286bab] font-bold leading-[30rpx]">
+        <span class="relative z-1 ml-[14rpx] mt-[9rpx] h-[30rpx] w-[72rpx] whitespace-pre text-center text-[#286bab] font-bold text-[25rpx] leading-[30rpx]">
           {{ dateInfo.year }}
         </span>
-        <span class="relative z-0 ml-[20rpx] mt-[2rpx] h-[88rpx] whitespace-pre text-center text-[50rpx] text-[#286bab] font-bold leading-[88rpx] -mb-[19rpx]">
+        <span class="relative z-0 ml-[20rpx] mt-[2rpx] h-[88rpx] whitespace-pre text-center text-[#286bab] font-bold text-[50rpx] leading-[88rpx] -mb-[19rpx]">
           {{ dateInfo.month }} / {{ dateInfo.day }}
         </span>
       </div>
@@ -157,7 +157,7 @@ function closeModal() {
     position="bottom"
     :safe-area-inset-bottom="true"
     closable
-    custom-style="height: 80vh; border-radius: 24rpx 24rpx 0 0; background: #f5f7f4;"
+    custom-style="border-radius: 24rpx 24rpx 0 0; background: #f5f7f4;"
     @close="closeModal"
   >
     <!-- 弹窗头部 -->
