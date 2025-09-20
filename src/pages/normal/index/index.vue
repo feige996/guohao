@@ -155,14 +155,8 @@ const functionCards: FunctionCardItem[] = [
       </div>
 
       <!-- 体质卡片区域 -->
-      <div class="relative ml-[24rpx] h-[344rpx] w-[702rpx] flex flex-row items-start bg-white bg-cover bg-center bg-no-repeat -mt-[208rpx]">
+      <div class="relative ml-[24rpx] h-[344rpx] w-[702rpx] flex flex-row items-start rounded-[16rpx] bg-white bg-cover bg-center bg-no-repeat -mt-[208rpx]">
         <DateCard class="relative ml-[32rpx] mt-[32rpx] h-[280rpx] w-[282rpx]" />
-        <!-- <ConstitutionCard
-          class="ml-[22rpx] mt-[32rpx]"
-          @click="handleConstitutionCardClick"
-          @constitution-click="handleConstitutionClick"
-          @advice-click="handleAdviceClick"
-        /> -->
         <ConstitutionCard class="ml-[22rpx] mt-[32rpx]" />
       </div>
 
