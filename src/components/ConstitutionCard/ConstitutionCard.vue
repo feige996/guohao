@@ -25,12 +25,25 @@ const showModal = ref(false)
 async function fetchRandomHealthTip() {
   try {
     isLoading.value = true
+
+    // 添加时间戳和随机数防止缓存
+    const timestamp = Date.now()
+    const random = Math.random().toString(36).substring(2, 15)
+
     const response = await Apis.app_healthskill.apiApp_healthskillRandomGet({
       params: {
         title: undefined, // 或者传入具体的健康症状关键词
+        _t: timestamp, // 时间戳防缓存
+        _r: random, // 随机字符串防缓存
       },
       meta: {
         ignoreAuth: true,
+        // 添加请求头禁用缓存
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache',
+          'Expires': '0',
+        },
       },
     })
 
