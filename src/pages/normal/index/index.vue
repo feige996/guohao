@@ -157,20 +157,21 @@ const functionCards: FunctionCardItem[] = [
       <!-- 体质卡片区域 -->
       <div class="relative ml-[24rpx] h-[344rpx] w-[702rpx] flex flex-row items-start bg-white bg-cover bg-center bg-no-repeat -mt-[208rpx]">
         <DateCard class="relative ml-[32rpx] mt-[32rpx] h-[280rpx] w-[282rpx]" />
-        <ConstitutionCard
+        <!-- <ConstitutionCard
           class="ml-[22rpx] mt-[32rpx]"
           @click="handleConstitutionCardClick"
           @constitution-click="handleConstitutionClick"
           @advice-click="handleAdviceClick"
-        />
+        /> -->
+        <ConstitutionCard class="ml-[22rpx] mt-[32rpx]" />
       </div>
 
       <!-- 专属权益区域 -->
       <div class="relative ml-[24rpx] mt-[28rpx] h-[640rpx] w-[702rpx] flex flex-col items-start rounded-[16rpx] bg-white">
         <!-- 标题栏 -->
         <div class="relative ml-[24rpx] mt-[32rpx] h-[44rpx] w-[654rpx] flex flex-row items-start">
-          <span class="relative ml-0 mt-0 h-[44rpx] w-[192rpx] whitespace-pre text-[32rpx] text-[#333333] font-medium leading-[40rpx]"> 您的专属权益 </span>
-          <span class="relative ml-[382rpx] mt-[6rpx] h-[32rpx] w-[48rpx] whitespace-pre text-center text-[24rpx] text-[#999999] font-light leading-[32rpx]"> 设置 </span>
+          <span class="relative ml-0 mt-0 h-[44rpx] w-[192rpx] whitespace-pre text-[#333333] font-medium text-[32rpx] leading-[40rpx]"> 您的专属权益 </span>
+          <span class="relative ml-[382rpx] mt-[6rpx] h-[32rpx] w-[48rpx] whitespace-pre text-center text-[#999999] font-light text-[24rpx] leading-[32rpx]"> 设置 </span>
           <img
             class="relative ml-[8rpx] mt-[10rpx] h-[24rpx] w-[24rpx]"
             src="@img/homepage/settings-arrow.png"
