@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import SearchBar from '@/components/SearchBar'
+import { useRequest } from 'alova/client'
+import SearchBar from '@/components/SearchBar/SearchBar.vue'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({
@@ -12,139 +13,175 @@ definePage({
   excludeLoginPath: false,
 })
 
+// 定义文章类型接口
+interface HealthArticle {
+  id: number
+  title: string
+  summary: string
+  content?: string
+  coverImageUrl?: string
+  viewCount: number
+  likeCount: number
+  favoriteCount: number
+  commentCount: number
+  tags?: string[]
+  categoryId?: number
+  publishTime?: string
+  isPublished: boolean
+  isRecommend: boolean
+}
+
+// 定义分类接口
+interface HealthCategory {
+  id: number
+  name: string
+  description?: string
+  parentId?: number
+  orderNo: number
+}
+
 const current = ref<number>(0)
 
-// 修改tabs数据，对应图片中的四个tab
+// 分类数据
+const categories = ref<HealthCategory[]>([])
 const tabWithBadge = ref(0)
-const tabsWithBadge = ref([
-  {
-    title: '气节养生',
-  },
-  {
-    title: '中医新知',
-  },
-  {
-    title: '案例分享',
-  },
-  {
-    title: '视频课堂',
-  },
-])
 
-// 卡片数据，根据不同tab显示不同内容
-const cardData = ref({
-  0: [ // 气节养生
-    {
-      id: 1,
-      title: '雨水节气养生指南',
-      desc: '春捂下厚上且薄，调畅情志以养肝。雨水时节，天气变化无常，要注意保暖，同时调节情绪，保持心情舒畅。',
-      userAvatar: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
-      label: ['雨水', '春季养生', '情志调理'],
-      collectionCount: 128,
-      likeCount: 256,
+// 动态tabs数据，从后端获取分类
+const tabsWithBadge = ref<Array<{ title: string, categoryId: number | null }>>([])
+
+// 初始化时显示加载状态的tabs
+tabsWithBadge.value = [{ title: '加载中...', categoryId: null }]
+
+// 文章数据
+const articles = ref<HealthArticle[]>([])
+const currentPage = ref(1)
+const pageSize = ref(10)
+const total = ref(0)
+
+// 获取分类列表
+useRequest(
+  () => Apis.app_HealthArticleCategory.apiApp_healtharticlecategoryListGet({
+    params: {
+      Name: undefined,
+      ParentId: undefined,
     },
-    {
-      id: 2,
-      title: '清明时节养生要点',
-      desc: '广步于庭莫久卧，时令青蒿服之宜。清明时节，阳气生发，适合户外运动，可适当食用时令蔬菜。',
-      userAvatar: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=400&fit=crop&crop=center',
-      label: ['清明', '户外运动', '时令食材'],
-      collectionCount: 89,
-      likeCount: 167,
+    meta: {
+      allowAnonymous: true,
     },
-    {
-      id: 3,
-      title: '立夏养生保健法',
-      desc: '转眼运目好入眠，晨起清爽多接触。立夏后天气渐热，要注意养心安神，保证充足睡眠。',
-      userAvatar: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
-      label: ['立夏', '养心安神', '睡眠调理'],
-      collectionCount: 203,
-      likeCount: 445,
-    },
-  ],
-  1: [ // 中医新知
-    {
-      id: 4,
-      title: '中医阴阳五行理论详解',
-      desc: '深入了解中医基础理论，阴阳五行学说在现代养生中的应用，帮助您更好地理解中医养生原理。',
-      userAvatar: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=400&fit=crop&crop=center',
-      label: ['中医理论', '阴阳五行', '基础知识'],
-      collectionCount: 156,
-      likeCount: 289,
-    },
-    {
-      id: 5,
-      title: '人体经络穴位图解',
-      desc: '详细介绍人体十二经络分布，常用穴位的位置和功效，学会简单的穴位按摩保健方法。',
-      userAvatar: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=400&fit=crop&crop=center',
-      label: ['经络穴位', '按摩保健', '图解教学'],
-      collectionCount: 234,
-      likeCount: 378,
-    },
-    {
-      id: 6,
-      title: '现代中医诊断技术',
-      desc: '了解现代中医结合科技的诊断方法，包括舌诊、脉诊的现代化应用，提高诊断准确性。',
-      userAvatar: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=400&fit=crop&crop=center',
-      label: ['现代中医', '诊断技术', '科技应用'],
-      collectionCount: 67,
-      likeCount: 134,
-    },
-  ],
-  2: [ // 案例分享
-    {
-      id: 7,
-      title: '中医调理失眠成功案例',
-      desc: '分享一位长期失眠患者通过中药调理、穴位按摩、生活调节等综合方法，成功改善睡眠质量的真实案例。',
-      userAvatar: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center',
-      label: ['失眠调理', '成功案例', '综合治疗'],
-      collectionCount: 189,
-      likeCount: 356,
-    },
-    {
-      id: 8,
-      title: '脾胃虚弱的中医调理',
-      desc: '通过食疗、中药、穴位按摩等方法，帮助脾胃虚弱患者恢复消化功能，提高生活质量的案例分享。',
-      userAvatar: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=400&fit=crop&crop=center',
-      label: ['脾胃调理', '食疗', '消化健康'],
-      collectionCount: 145,
-      likeCount: 267,
-    },
-  ],
-  3: [ // 视频课堂
-    {
-      id: 9,
-      title: '八段锦养生功法教学',
-      desc: '跟随专业老师学习传统八段锦功法，通过视频详细讲解每个动作要领，适合初学者练习。',
-      userAvatar: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
-      label: ['八段锦', '养生功法', '视频教学'],
-      collectionCount: 312,
-      likeCount: 567,
-    },
-    {
-      id: 10,
-      title: '太极拳入门教程',
-      desc: '从基础站桩开始，逐步学习太极拳的基本动作，通过视频演示帮助您掌握太极拳的精髓。',
-      userAvatar: 'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop&crop=center',
-      label: ['太极拳', '入门教程', '基础动作'],
-      collectionCount: 278,
-      likeCount: 489,
-    },
-  ],
+  }),
+  {
+    immediate: true,
+  },
+).onSuccess((response: any) => {
+  categories.value = (response.data as HealthCategory[]) || []
+  console.log('分类数据:', categories.value)
+
+  // 动态生成tabs数据
+  if (categories.value.length > 0) {
+    // 添加"全部"tab作为第一个
+    const allTab = { title: '全部', categoryId: null }
+
+    // 将分类转换为tabs
+    const categoryTabs = categories.value
+      .sort((a, b) => a.orderNo - b.orderNo) // 按排序号排序
+      .map(cat => ({
+        title: cat.name,
+        categoryId: cat.id,
+      }))
+
+    // 组合tabs数据
+    tabsWithBadge.value = [allTab, ...categoryTabs]
+
+    console.log('生成的tabs:', tabsWithBadge.value)
+  }
+  else {
+    // 如果没有分类数据，只显示"全部"tab
+    tabsWithBadge.value = [{ title: '全部', categoryId: null }]
+  }
+
+  // 分类数据加载完成后，加载第一个tab的文章数据
+  nextTick(() => {
+    loadArticles()
+  })
 })
 
-// 选中的卡片ID集合
-const selectedCards = ref<Set<number>>(new Set())
+// 获取文章列表
+const {
+  loading: articlesLoading,
+  send: fetchArticles,
+} = useRequest(
+  (categoryId?: number, page = 1, size = 10, keyword?: string) => Apis.app_HealthArticle.apiApp_healtharticlePagePost({
+    data: {
+      page,
+      pageSize: size,
+      categoryId,
+      keyword,
+      isPublished: true, // 只获取已发布的文章
+      field: 'publishTime',
+      order: 'desc', // 按发布时间倒序
+    },
+    meta: {
+      allowAnonymous: true,
+    },
+  }),
+  {
+    immediate: false,
+  },
+).onSuccess((response: any) => {
+  console.log('文章数据原始响应:', response)
 
-// 当前显示的卡片列表
+  // 尝试从response.data中获取数据
+  const data = response.data.items || response
+  console.log('处理后的文章数据:', data)
+
+  if (data?.records) {
+    // 分页数据格式
+    articles.value = data || []
+    total.value = data.total || 0
+    console.log('设置文章列表:', articles.value)
+  }
+  else if (Array.isArray(data)) {
+    // 直接返回数组格式
+    articles.value = data
+    total.value = data.length
+    console.log('设置文章列表(数组):', articles.value)
+  }
+  else {
+    console.warn('未识别的文章数据格式:', data)
+    articles.value = []
+    total.value = 0
+  }
+})
+
+// 当前显示的文章列表
 const currentCards = computed(() => {
-  return cardData.value[tabWithBadge.value] || []
+  console.log('计算currentCards - articles.value:', articles.value)
+  console.log('计算currentCards - articles.value.length:', articles.value.length)
+
+  const cards = articles.value.map(article => ({
+    id: article.id,
+    title: article.title,
+    desc: article.summary,
+    userAvatar: article.coverImageUrl || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
+    label: article.tags || ['健康养生'],
+    collectionCount: article.favoriteCount || 0,
+    likeCount: article.likeCount || 0,
+    viewCount: article.viewCount || 0,
+    publishTime: article.publishTime,
+  }))
+
+  console.log('计算currentCards - 结果:', cards)
+  return cards
 })
+
+// 搜索关键词
+const searchKeyword = ref('')
 
 // 搜索栏事件处理
 function handleSearch() {
-  console.log('执行搜索')
-  // 在这里添加搜索逻辑
+  console.log('执行搜索:', searchKeyword.value)
+  // 重新加载当前分类的文章，带上搜索关键词
+  loadArticles()
 }
 
 function handleSearchBarClick() {
@@ -165,6 +202,21 @@ function onChange(e: any) {
 function handleChange(e: any) {
   console.log('切换tab:', e)
   tabWithBadge.value = e.index
+  // 切换tab时加载对应分类的文章
+  loadArticles()
+}
+
+// 加载文章数据
+function loadArticles() {
+  const currentTab = tabsWithBadge.value[tabWithBadge.value]
+  const categoryId = currentTab?.categoryId || undefined
+
+  console.log('加载文章 - 当前Tab:', currentTab)
+  console.log('加载文章 - 分类ID:', categoryId)
+  console.log('加载文章 - 页码:', currentPage.value)
+  console.log('加载文章 - 搜索词:', searchKeyword.value)
+
+  fetchArticles(categoryId, currentPage.value, pageSize.value, searchKeyword.value || undefined)
 }
 
 // 卡片点击事件
@@ -173,6 +225,16 @@ function handleCardClick(card: any) {
   // 这里可以添加跳转到详情页的逻辑
   // 例如：uni.navigateTo({ url: `/pages/detail/detail?id=${card.id}` })
 }
+
+// 页面加载完成后，加载第一个tab的数据
+onMounted(() => {
+  // 等待分类数据加载完成后再加载文章
+  nextTick(() => {
+    setTimeout(() => {
+      loadArticles()
+    }, 500) // 给分类数据一些加载时间
+  })
+})
 </script>
 
 <template root="uniKuRoot">
@@ -181,6 +243,8 @@ function handleCardClick(card: any) {
     <view class="header-fixed">
       <!-- 搜索栏 -->
       <SearchBar
+        v-model="searchKeyword"
+        placeholder="搜索养生文章、中医知识等"
         @search="handleSearch"
         @click="handleSearchBarClick"
       />
@@ -210,7 +274,18 @@ function handleCardClick(card: any) {
     <!-- 可滚动的卡片列表区域 -->
     <view class="content-scroll">
       <scroll-view scroll-y class="scroll-area" enable-back-to-top>
-        <view class="mb-[32rpx]">
+        <!-- 加载状态 -->
+        <view v-if="articlesLoading" class="flex flex-col items-center justify-center py-20">
+          <text class="text-base text-gray-400">加载中...</text>
+        </view>
+
+        <!-- 空状态提示 -->
+        <view v-else-if="currentCards.length === 0" class="flex flex-col items-center justify-center py-20">
+          <text class="text-base text-gray-400">暂无内容</text>
+        </view>
+
+        <!-- 文章列表 -->
+        <view v-else class="mb-[32rpx]">
           <block v-for="(item, index) in currentCards" :key="index">
             <view class="mx-[28rpx] mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx] shadow-[0_4rpx_20rpx_rgba(0,0,0,0.08)] transition-all duration-300 active:scale-[0.98] active:shadow-[0_2rpx_10rpx_rgba(0,0,0,0.12)]" @click="handleCardClick(item)">
               <view class="flex">
@@ -243,11 +318,6 @@ function handleCardClick(card: any) {
               </view>
             </view>
           </block>
-
-          <!-- 空状态提示 -->
-          <view v-if="currentCards.length === 0" class="flex flex-col items-center justify-center py-20">
-            <text class="text-base text-gray-400">暂无内容</text>
-          </view>
         </view>
       </scroll-view>
     </view>
