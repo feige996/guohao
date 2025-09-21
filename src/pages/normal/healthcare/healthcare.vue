@@ -256,70 +256,68 @@ onMounted(() => {
 
       <!-- Tabs -->
       <view class="px-[28rpx] pb-2 pt-4">
-        <wd-tabs
-          v-model="tabWithBadge"
-          auto-line-width
-          animated
-          slidable="always"
-          color="#8C2303"
-          inactive-color="#9FA9B5"
-          line-color="#8C2303"
-          @change="handleChange"
-        >
-          <wd-tab v-for="(item, index) in tabsWithBadge" :key="index" :title="item.title" />
+        <wd-tabs auto-line-width swipeable animated slidable="always" :slidable-num="5" :map-num="6" @change="handleChange">
+          <block v-for="(item, categoryId) in tabsWithBadge" :key="categoryId">
+            <wd-tab :title="item.title">
+              <!-- <view class="content">
+                <view class="h-[200rpx]" />
+                内容{{ item }}
+              </view> -->
+            </wd-tab>
+          </block>
         </wd-tabs>
       </view>
-    </view>
 
-    <!-- 可滚动的卡片列表区域 -->
-    <view class="content-scroll">
-      <scroll-view scroll-y class="scroll-area" enable-back-to-top>
-        <!-- 加载状态 -->
-        <view v-if="articlesLoading" class="flex flex-col items-center justify-center py-20">
-          <text class="text-base text-gray-400">加载中...</text>
-        </view>
+      <!-- 可滚动的卡片列表区域 -->
+      <view class="content-scroll">
+        <scroll-view scroll-y class="scroll-area" enable-back-to-top>
+          <!-- 加载状态 -->
+          <view v-if="articlesLoading" class="flex flex-col items-center justify-center py-20">
+            <text class="text-base text-gray-400">加载中...</text>
+          </view>
 
-        <!-- 空状态提示 -->
-        <view v-else-if="currentCards.length === 0" class="flex flex-col items-center justify-center py-20">
-          <text class="text-base text-gray-400">暂无内容</text>
-        </view>
+          <!-- 空状态提示 -->
+          <view v-else-if="currentCards.length === 0" class="flex flex-col items-center justify-center py-20">
+            <text class="text-base text-gray-400">暂无内容</text>
+          </view>
 
-        <!-- 文章列表 -->
-        <view v-else class="mb-[32rpx]">
-          <block v-for="(item, index) in currentCards" :key="index">
-            <view class="mx-[28rpx] mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx] shadow-[0_4rpx_20rpx_rgba(0,0,0,0.08)] transition-all duration-300 active:scale-[0.98] active:shadow-[0_2rpx_10rpx_rgba(0,0,0,0.12)]" @click="handleCardClick(item)">
-              <view class="flex">
-                <view class="m-[8rpx] w-full pt-[4rpx]">
-                  <view class="line-clamp-1 text-justify font-bold text-[32rpx]">
-                    <text class="">{{ item.title }}</text>
-                  </view>
-                  <view class="min-h-[90rpx] pt-[4rpx]">
-                    <text class="line-clamp-2 text-justify text-[#999999] text-[28rpx] leading-[1.5]">
-                      {{ item.desc }}
-                    </text>
-                  </view>
-                  <view class="mt-[8rpx] flex items-center justify-between">
-                    <view class="flex flex-1 flex-wrap items-center">
-                      <view class="mb-[6rpx] mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-white text-[20rpx] leading-[1.2]">
-                        <text class="mr-[2rpx] opacity-80">#</text>{{ item.label[0] }}
+          <!-- 文章列表 -->
+          <view v-else class="mb-[32rpx]">
+            <block v-for="(item, index) in currentCards" :key="index">
+              <view class="mx-[28rpx] mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx] shadow-[0_4rpx_20rpx_rgba(0,0,0,0.08)] transition-all duration-300 active:scale-[0.98] active:shadow-[0_2rpx_10rpx_rgba(0,0,0,0.12)]" @click="handleCardClick(item)">
+                <view class="flex">
+                  <view class="m-[8rpx] w-full pt-[4rpx]">
+                    <view class="line-clamp-1 text-justify font-bold text-[32rpx]">
+                      <text class="">{{ item.title }}</text>
+                    </view>
+                    <view class="min-h-[90rpx] pt-[4rpx]">
+                      <text class="line-clamp-2 text-justify text-[#999999] text-[28rpx] leading-[1.5]">
+                        {{ item.desc }}
+                      </text>
+                    </view>
+                    <view class="mt-[8rpx] flex items-center justify-between">
+                      <view class="flex flex-1 flex-wrap items-center">
+                        <view class="mb-[6rpx] mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-white text-[20rpx] leading-[1.2]">
+                          <text class="mr-[2rpx] opacity-80">#</text>{{ item.label[0] }}
+                        </view>
+                      </view>
+                      <view class="flex items-center pt-[5rpx] text-center text-[#999999]">
+                        <text class="pr-[5rpx] leading-none text-[28rpx]">🔥</text>
+                        <text class="pr-[8rpx] text-[28rpx]">{{ item.collectionCount }}</text>
+                        <text class="pr-[5rpx] leading-none text-[28rpx]">❤️</text>
+                        <text class="text-[28rpx]">{{ item.likeCount }}</text>
                       </view>
                     </view>
-                    <view class="flex items-center pt-[5rpx] text-center text-[#999999]">
-                      <text class="pr-[5rpx] leading-none text-[28rpx]">🔥</text>
-                      <text class="pr-[8rpx] text-[28rpx]">{{ item.collectionCount }}</text>
-                      <text class="pr-[5rpx] leading-none text-[28rpx]">❤️</text>
-                      <text class="text-[28rpx]">{{ item.likeCount }}</text>
-                    </view>
+                  </view>
+                  <view class="relative m-[8rpx] h-[160rpx] w-[240rpx] overflow-hidden rounded-[16rpx] bg-cover bg-center bg-no-repeat" :style="`background-image:url(${item.userAvatar})`">
+                    <view class="h-full w-full rounded-[16rpx] from-[rgba(140,35,3,0.1)] to-[rgba(184,68,31,0.1)] bg-gradient-to-br" />
                   </view>
                 </view>
-                <view class="relative m-[8rpx] h-[160rpx] w-[240rpx] overflow-hidden rounded-[16rpx] bg-cover bg-center bg-no-repeat" :style="`background-image:url(${item.userAvatar})`">
-                  <view class="h-full w-full rounded-[16rpx] from-[rgba(140,35,3,0.1)] to-[rgba(184,68,31,0.1)] bg-gradient-to-br" />
-                </view>
               </view>
-            </view>
-          </block>
-        </view>
-      </scroll-view>
+            </block>
+          </view>
+        </scroll-view>
+      </view>
     </view>
   </view>
 </template>
@@ -331,11 +329,25 @@ onMounted(() => {
   //   font-size: 30rpx;
   // }
 
+  /* 添加圆角 */
+  border-radius: 16rpx; /* 或者使用其他值，如 8rpx, 12rpx, 20rpx 等 */
+  // overflow: hidden; /* 确保内容不会超出圆角边界 */
+
   // 底部指示线样式
   .wd-tabs__line {
     background-color: #8c2303 !important;
     height: 3px !important;
     border-radius: 2px !important;
+  }
+
+  .uni-scroll-view {
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE 和 Edge */
+
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari 和 Opera */
+    }
   }
 }
 </style>
