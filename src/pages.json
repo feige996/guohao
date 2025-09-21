@@ -252,6 +252,16 @@
       }
     },
     {
+      "path": "pages/normal/healthcare/detail",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "文章详情",
+        "disableScroll": true
+      },
+      "excludeLoginPath": false
+    },
+    {
       "path": "pages/normal/healthcare/healthcare",
       "type": "page",
       "style": {

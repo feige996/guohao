@@ -222,8 +222,10 @@ function loadArticles() {
 // 卡片点击事件
 function handleCardClick(card: any) {
   console.log('点击卡片:', card)
-  // 这里可以添加跳转到详情页的逻辑
-  // 例如：uni.navigateTo({ url: `/pages/detail/detail?id=${card.id}` })
+  // 跳转到文章详情页
+  uni.navigateTo({
+    url: `/pages/normal/healthcare/detail?id=${card.id}`,
+  })
 }
 
 // 页面加载完成后，加载第一个tab的数据
