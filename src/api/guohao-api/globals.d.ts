@@ -285,6 +285,400 @@ export interface Filter {
    */
   value?: null;
 }
+export interface Pageapp_HealthArticleCategoryInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 分类名称
+   */
+  name?: string | null;
+  /**
+   * 父级分类Id
+   */
+  parentId?: number | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_HealthArticleCategoryInput {
+  /**
+   * 分类名称
+   */
+  name: string;
+  /**
+   * 父级分类Id
+   */
+  parentId?: number | null;
+  /**
+   * 排序
+   */
+  orderNo?: number | null;
+  /**
+   * 状态
+   */
+  status?: number | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+}
+export interface Updateapp_HealthArticleCategoryInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 分类名称
+   */
+  name: string;
+  /**
+   * 父级分类Id
+   */
+  parentId?: number | null;
+  /**
+   * 排序
+   */
+  orderNo?: number | null;
+  /**
+   * 状态
+   */
+  status?: number | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+}
+export interface Deleteapp_HealthArticleCategoryInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
+export interface Pageapp_HealthArticleTagInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 标签名称
+   */
+  name?: string | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_HealthArticleTagInput {
+  /**
+   * 标签名称
+   */
+  name?: string | null;
+}
+export interface Updateapp_HealthArticleTagInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 标签名称
+   */
+  name?: string | null;
+}
+export interface Deleteapp_HealthArticleTagInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
+export interface Pageapp_HealthArticleInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 标题
+   */
+  title?: string | null;
+  /**
+   * 摘要/简介
+   */
+  summary?: string | null;
+  /**
+   * 富文本内容
+   */
+  content?: string | null;
+  /**
+   * 分类Id
+   */
+  categoryId?: number | null;
+  /**
+   * 是否草稿
+   */
+  isDraft?: boolean | null;
+  /**
+   * 是否已发布
+   */
+  isPublished?: boolean | null;
+  /**
+   * 是否推荐
+   */
+  isRecommend?: boolean | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_HealthArticleInput {
+  /**
+   * 标题
+   */
+  title: string;
+  /**
+   * 摘要/简介
+   */
+  summary: string;
+  /**
+   * 富文本内容
+   */
+  content?: string | null;
+  /**
+   * 封面图片
+   */
+  coverImageUrl: string;
+  /**
+   * 图片集
+   */
+  imageUrls?: string | null;
+  /**
+   * 视频地址
+   */
+  videoUrl?: string | null;
+  /**
+   * 浏览量
+   */
+  viewCount: number;
+  /**
+   * 点赞数
+   */
+  likeCount: number;
+  /**
+   * 收藏数
+   */
+  favoriteCount: number;
+  /**
+   * 评论数
+   */
+  commentCount: number;
+  /**
+   * 标签
+   */
+  tags?: string[] | null;
+  /**
+   * 分类Id
+   */
+  categoryId?: number | null;
+  /**
+   * 作者Id
+   */
+  authorId: number;
+  /**
+   * 发布时间
+   */
+  publishTime?: string | null;
+  /**
+   * 是否草稿
+   */
+  isDraft: boolean;
+  /**
+   * 是否已发布
+   */
+  isPublished: boolean;
+  /**
+   * 排序
+   */
+  orderNo: number;
+  /**
+   * 是否推荐
+   */
+  isRecommend: boolean;
+}
+export interface Updateapp_HealthArticleInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 标题
+   */
+  title: string;
+  /**
+   * 摘要/简介
+   */
+  summary: string;
+  /**
+   * 富文本内容
+   */
+  content?: string | null;
+  /**
+   * 封面图片
+   */
+  coverImageUrl: string;
+  /**
+   * 图片集
+   */
+  imageUrls?: string | null;
+  /**
+   * 视频地址
+   */
+  videoUrl?: string | null;
+  /**
+   * 浏览量
+   */
+  viewCount: number;
+  /**
+   * 点赞数
+   */
+  likeCount: number;
+  /**
+   * 收藏数
+   */
+  favoriteCount: number;
+  /**
+   * 评论数
+   */
+  commentCount: number;
+  /**
+   * 标签
+   */
+  tags?: string[] | null;
+  /**
+   * 分类Id
+   */
+  categoryId?: number | null;
+  /**
+   * 作者Id
+   */
+  authorId: number;
+  /**
+   * 发布时间
+   */
+  publishTime?: string | null;
+  /**
+   * 是否草稿
+   */
+  isDraft: boolean;
+  /**
+   * 是否已发布
+   */
+  isPublished: boolean;
+  /**
+   * 排序
+   */
+  orderNo: number;
+  /**
+   * 是否推荐
+   */
+  isRecommend: boolean;
+}
+export interface Deleteapp_HealthArticleInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
+export interface DropdownDataapp_HealthArticleInput {
+  /**
+   * 是否用于分页查询
+   */
+  fromPage?: boolean;
+}
 export interface Pageapp_healthskillInput {
   /**
    * 模糊查询条件
@@ -501,6 +895,32 @@ export interface AdminResult_AppUserInfo {
    */
   time?: string;
 }
+export interface AdminResult_Boolean {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: boolean;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
 export interface AppLoginOutput {
   /**
    * 访问令牌
@@ -575,7 +995,117 @@ export interface AdminResult_String {
    */
   time?: string;
 }
-export interface AdminResult_Boolean {
+export interface App_HealthArticleCategoryOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 分类名称
+   */
+  name?: string | null;
+  /**
+   * 父级分类Id
+   */
+  parentId?: number | null;
+  /**
+   * 排序
+   */
+  orderNo?: number | null;
+  /**
+   * 状态
+   */
+  status?: number | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_HealthArticleCategoryOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_HealthArticleCategoryOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_HealthArticleCategoryOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_HealthArticleCategoryOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_List_app_HealthArticleCategoryOutput {
   /**
    * 状态码
    */
@@ -591,7 +1121,813 @@ export interface AdminResult_Boolean {
   /**
    * 数据
    */
-  result?: boolean;
+  result?: App_HealthArticleCategoryOutput[] | null;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_HealthArticleCategoryTreeOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 分类名称
+   */
+  name?: string | null;
+  /**
+   * 父级分类Id
+   */
+  parentId?: number | null;
+  /**
+   * 排序
+   */
+  orderNo?: number | null;
+  /**
+   * 状态
+   */
+  status?: number | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 子级
+   */
+  children?: App_HealthArticleCategoryTreeOutput[] | null;
+}
+export interface AdminResult_List_app_HealthArticleCategoryTreeOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: App_HealthArticleCategoryTreeOutput[] | null;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_HealthArticleCategory {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 分类名称
+   */
+  name?: string | null;
+  /**
+   * 父级分类Id
+   */
+  parentId?: number | null;
+  /**
+   * 排序
+   */
+  orderNo?: number | null;
+  /**
+   * 状态
+   */
+  status?: number | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+}
+export interface AdminResult_app_HealthArticleCategory {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 文章分类表
+   */
+  result?: App_HealthArticleCategory;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Int64 {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: number;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Int32 {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: number;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_HealthArticleTagOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 标签名称
+   */
+  name?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_HealthArticleTagOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_HealthArticleTagOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_HealthArticleTagOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_HealthArticleTagOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_HealthArticleTag {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 标签名称
+   */
+  name?: string | null;
+}
+export interface AdminResult_app_HealthArticleTag {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 文章标签表
+   */
+  result?: App_HealthArticleTag;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface SysFile {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 机构Id
+   */
+  orgId?: number;
+  /**
+   * 租户Id
+   */
+  tenantId?: number | null;
+  /**
+   * 提供者
+   */
+  provider?: string | null;
+  /**
+   * 仓储名称
+   */
+  bucketName?: string | null;
+  /**
+   * 文件名称（源文件名）
+   */
+  fileName?: string | null;
+  /**
+   * 文件后缀
+   */
+  suffix?: string | null;
+  /**
+   * 存储路径
+   */
+  filePath?: string | null;
+  /**
+   * 文件大小KB
+   */
+  sizeKb?: number;
+  /**
+   * 文件大小信息-计算后的
+   */
+  sizeInfo?: string | null;
+  /**
+   * 外链地址-OSS上传后生成外链地址方便前端预览
+   */
+  url?: string | null;
+  /**
+   * 文件MD5
+   */
+  fileMd5?: string | null;
+  /**
+   * 文件类别
+   */
+  fileType?: string | null;
+  /**
+   * 文件别名
+   */
+  fileAlias?: string | null;
+  /**
+   * 是否公开
+   */
+  isPublic?: boolean;
+  /**
+   * 业务数据Id
+   */
+  dataId?: number | null;
+}
+export interface App_HealthArticleOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 标题
+   */
+  title?: string | null;
+  /**
+   * 摘要/简介
+   */
+  summary?: string | null;
+  /**
+   * 富文本内容
+   */
+  content?: string | null;
+  /**
+   * 封面图片
+   */
+  coverImageUrl?: string | null;
+  /**
+   * 系统文件表
+   */
+  coverImageUrlAttachment?: SysFile;
+  /**
+   * 图片集
+   */
+  imageUrls?: string | null;
+  /**
+   * 系统文件表
+   */
+  imageUrlsAttachment?: SysFile;
+  /**
+   * 视频地址
+   */
+  videoUrl?: string | null;
+  /**
+   * 系统文件表
+   */
+  videoUrlAttachment?: SysFile;
+  /**
+   * 浏览量
+   */
+  viewCount?: number;
+  /**
+   * 点赞数
+   */
+  likeCount?: number;
+  /**
+   * 收藏数
+   */
+  favoriteCount?: number;
+  /**
+   * 评论数
+   */
+  commentCount?: number;
+  /**
+   * 标签
+   */
+  tags?: string[] | null;
+  /**
+   * 标签 描述
+   */
+  tagsFkDisplayName?: string | null;
+  /**
+   * 分类Id
+   */
+  categoryId?: number | null;
+  /**
+   * 分类Id 描述
+   */
+  categoryDisplayName?: string | null;
+  /**
+   * 作者Id
+   */
+  authorId?: number;
+  /**
+   * 作者Id 描述
+   */
+  authorFkDisplayName?: string | null;
+  /**
+   * 发布时间
+   */
+  publishTime?: string | null;
+  /**
+   * 是否草稿
+   */
+  isDraft?: boolean;
+  /**
+   * 是否已发布
+   */
+  isPublished?: boolean;
+  /**
+   * 排序
+   */
+  orderNo?: number;
+  /**
+   * 是否推荐
+   */
+  isRecommend?: boolean;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_HealthArticleOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_HealthArticleOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_HealthArticleOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_HealthArticleOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_HealthArticle {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 标题
+   */
+  title?: string | null;
+  /**
+   * 摘要/简介
+   */
+  summary?: string | null;
+  /**
+   * 富文本内容
+   */
+  content?: string | null;
+  /**
+   * 封面图片
+   */
+  coverImageUrl?: string | null;
+  /**
+   * 图片集（JSON数组）
+   */
+  imageUrls?: string | null;
+  /**
+   * 视频地址
+   */
+  videoUrl?: string | null;
+  /**
+   * 浏览量
+   */
+  viewCount?: number;
+  /**
+   * 点赞数
+   */
+  likeCount?: number;
+  /**
+   * 收藏数
+   */
+  favoriteCount?: number;
+  /**
+   * 评论数
+   */
+  commentCount?: number;
+  /**
+   * 标签（JSON数组）
+   */
+  tags?: string[] | null;
+  /**
+   * 分类Id
+   */
+  categoryId?: number | null;
+  /**
+   * 作者Id
+   */
+  authorId?: number;
+  /**
+   * 发布时间
+   */
+  publishTime?: string | null;
+  /**
+   * 是否草稿
+   */
+  isDraft?: boolean;
+  /**
+   * 是否已发布
+   */
+  isPublished?: boolean;
+  /**
+   * 排序
+   */
+  orderNo?: number;
+  /**
+   * 是否推荐
+   */
+  isRecommend?: boolean;
+}
+export interface AdminResult_app_HealthArticle {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 中医养生文章主表
+   */
+  result?: App_HealthArticle;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_SysFile {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 系统文件表
+   */
+  result?: SysFile;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Dictionary_StringObject {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: Record<string, unknown> | null;
   /**
    * 附加数据
    */
@@ -769,58 +2105,6 @@ export interface AdminResult_app_healthskill {
    */
   time?: string;
 }
-export interface AdminResult_Int64 {
-  /**
-   * 状态码
-   */
-  code?: number;
-  /**
-   * 类型success、warning、error
-   */
-  type?: string | null;
-  /**
-   * 错误信息
-   */
-  message?: string | null;
-  /**
-   * 数据
-   */
-  result?: number;
-  /**
-   * 附加数据
-   */
-  extras?: null;
-  /**
-   * 时间
-   */
-  time?: string;
-}
-export interface AdminResult_Int32 {
-  /**
-   * 状态码
-   */
-  code?: number;
-  /**
-   * 类型success、warning、error
-   */
-  type?: string | null;
-  /**
-   * 错误信息
-   */
-  message?: string | null;
-  /**
-   * 数据
-   */
-  result?: number;
-  /**
-   * 附加数据
-   */
-  extras?: null;
-  /**
-   * 时间
-   */
-  time?: string;
-}
 export interface AdminResult_app_healthskillOutput {
   /**
    * 状态码
@@ -847,8 +2131,1766 @@ export interface AdminResult_app_healthskillOutput {
    */
   time?: string;
 }
+export interface AdminResult_List_String {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: string[] | null;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
 declare global {
   interface Apis {
+    app_HealthArticleTag: {
+      /**
+       * ---
+       *
+       * [POST]
+       *
+       * **path:** /api/app_HealthArticleTag/processTags/{tagsJson}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   tagsJson: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Record<string, number>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   result?: string[] | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticletagProcesstagsTagsjsonPost<
+        Config extends Alova2MethodConfig<AdminResult_List_String> & {
+          pathParams: {
+            tagsJson: string;
+          };
+          data: Record<string, number>;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_List_String,
+        'app_HealthArticleTag.apiApp_healtharticletagProcesstagsTagsjsonPost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 分页查询文章标签表 🔖
+       *
+       * **path:** /api/app_HealthArticleTag/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 标签名称
+       *   name?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 文章标签表输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 标签名称
+       *       name?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticletagPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_HealthArticleTagOutput> & {
+          data: Pageapp_HealthArticleTagInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_HealthArticleTagOutput,
+        'app_HealthArticleTag.apiApp_healtharticletagPagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取文章标签表详情 ℹ️
+       *
+       * **path:** /api/app_HealthArticleTag/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 文章标签表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 标签名称
+       *     name?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticletagDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_HealthArticleTag> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_app_HealthArticleTag,
+        'app_HealthArticleTag.apiApp_healtharticletagDetailGet',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 增加文章标签表 ➕
+       *
+       * **path:** /api/app_HealthArticleTag/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 标签名称
+       *   name?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticletagAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_HealthArticleTagInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_HealthArticleTag.apiApp_healtharticletagAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 初始化文章标签 ➕
+       *
+       * **path:** /api/app_HealthArticleTag/initData
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticletagInitdataPost<Config extends Alova2MethodConfig<AdminResult_Boolean>>(
+        config?: Config
+      ): Alova2Method<AdminResult_Boolean, 'app_HealthArticleTag.apiApp_healtharticletagInitdataPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新文章标签表 ✏️
+       *
+       * **path:** /api/app_HealthArticleTag/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 标签名称
+       *   name?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticletagUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_HealthArticleTagInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticleTag.apiApp_healtharticletagUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除文章标签表 ❌
+       *
+       * **path:** /api/app_HealthArticleTag/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticletagDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_HealthArticleTagInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticleTag.apiApp_healtharticletagDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除文章标签表 ❌
+       *
+       * **path:** /api/app_HealthArticleTag/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticletagBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_HealthArticleTagInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_HealthArticleTag.apiApp_healtharticletagBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导出文章标签表记录 🔖
+       *
+       * **path:** /api/app_HealthArticleTag/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 标签名称
+       *   name?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticletagExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_HealthArticleTagInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticleTag.apiApp_healtharticletagExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载文章标签表数据导入模板 ⬇️
+       *
+       * **path:** /api/app_HealthArticleTag/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticletagImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_HealthArticleTag.apiApp_healtharticletagImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入文章标签表记录 💾
+       *
+       * **path:** /api/app_HealthArticleTag/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticletagImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticleTag.apiApp_healtharticletagImportPost', Config>;
+    };
+    app_HealthArticle: {
+      /**
+       * ---
+       *
+       * [POST] 同步旧APP文章数据 🧩
+       *
+       * **path:** /api/app_HealthArticle/syncOldData
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleSyncolddataPost<Config extends Alova2MethodConfig<AdminResult_Object>>(
+        config?: Config
+      ): Alova2Method<AdminResult_Object, 'app_HealthArticle.apiApp_healtharticleSyncolddataPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 分页查询养生文章 🔖
+       *
+       * **path:** /api/app_HealthArticle/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 标题
+       *   title?: string | null
+       *   // 摘要/简介
+       *   summary?: string | null
+       *   // 富文本内容
+       *   content?: string | null
+       *   // 分类Id
+       *   categoryId?: number | null
+       *   // 是否草稿
+       *   isDraft?: boolean | null
+       *   // 是否已发布
+       *   isPublished?: boolean | null
+       *   // 是否推荐
+       *   isRecommend?: boolean | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 养生文章输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 标题
+       *       title?: string | null
+       *       // 摘要/简介
+       *       summary?: string | null
+       *       // 富文本内容
+       *       content?: string | null
+       *       // 封面图片
+       *       coverImageUrl?: string | null
+       *       // 系统文件表
+       *       coverImageUrlAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 图片集
+       *       imageUrls?: string | null
+       *       // 系统文件表
+       *       imageUrlsAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 视频地址
+       *       videoUrl?: string | null
+       *       // 系统文件表
+       *       videoUrlAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 浏览量
+       *       viewCount?: number
+       *       // 点赞数
+       *       likeCount?: number
+       *       // 收藏数
+       *       favoriteCount?: number
+       *       // 评论数
+       *       commentCount?: number
+       *       // 标签
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       tags?: string[] | null
+       *       // 标签 描述
+       *       tagsFkDisplayName?: string | null
+       *       // 分类Id
+       *       categoryId?: number | null
+       *       // 分类Id 描述
+       *       categoryDisplayName?: string | null
+       *       // 作者Id
+       *       authorId?: number
+       *       // 作者Id 描述
+       *       authorFkDisplayName?: string | null
+       *       // 发布时间
+       *       publishTime?: string | null
+       *       // 是否草稿
+       *       isDraft?: boolean
+       *       // 是否已发布
+       *       isPublished?: boolean
+       *       // 排序
+       *       orderNo?: number
+       *       // 是否推荐
+       *       isRecommend?: boolean
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticlePagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_HealthArticleOutput> & {
+          data: Pageapp_HealthArticleInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_HealthArticleOutput,
+        'app_HealthArticle.apiApp_healtharticlePagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取养生文章详情 ℹ️
+       *
+       * **path:** /api/app_HealthArticle/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 中医养生文章主表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 标题
+       *     title?: string | null
+       *     // 摘要/简介
+       *     summary?: string | null
+       *     // 富文本内容
+       *     content?: string | null
+       *     // 封面图片
+       *     coverImageUrl?: string | null
+       *     // 图片集（JSON数组）
+       *     imageUrls?: string | null
+       *     // 视频地址
+       *     videoUrl?: string | null
+       *     // 浏览量
+       *     viewCount?: number
+       *     // 点赞数
+       *     likeCount?: number
+       *     // 收藏数
+       *     favoriteCount?: number
+       *     // 评论数
+       *     commentCount?: number
+       *     // 标签（JSON数组）
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     tags?: string[] | null
+       *     // 分类Id
+       *     categoryId?: number | null
+       *     // 作者Id
+       *     authorId?: number
+       *     // 发布时间
+       *     publishTime?: string | null
+       *     // 是否草稿
+       *     isDraft?: boolean
+       *     // 是否已发布
+       *     isPublished?: boolean
+       *     // 排序
+       *     orderNo?: number
+       *     // 是否推荐
+       *     isRecommend?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_HealthArticle> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_HealthArticle, 'app_HealthArticle.apiApp_healtharticleDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 增加养生文章 ➕
+       *
+       * **path:** /api/app_HealthArticle/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 标题
+       *   title: string
+       *   // 摘要/简介
+       *   summary: string
+       *   // 富文本内容
+       *   content?: string | null
+       *   // 封面图片
+       *   coverImageUrl: string
+       *   // 图片集
+       *   imageUrls?: string | null
+       *   // 视频地址
+       *   videoUrl?: string | null
+       *   // 浏览量
+       *   viewCount: number
+       *   // 点赞数
+       *   likeCount: number
+       *   // 收藏数
+       *   favoriteCount: number
+       *   // 评论数
+       *   commentCount: number
+       *   // 标签
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   tags?: string[] | null
+       *   // 分类Id
+       *   categoryId?: number | null
+       *   // 作者Id
+       *   authorId: number
+       *   // 发布时间
+       *   publishTime?: string | null
+       *   // 是否草稿
+       *   isDraft: boolean
+       *   // 是否已发布
+       *   isPublished: boolean
+       *   // 排序
+       *   orderNo: number
+       *   // 是否推荐
+       *   isRecommend: boolean
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_HealthArticleInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_HealthArticle.apiApp_healtharticleAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新养生文章 ✏️
+       *
+       * **path:** /api/app_HealthArticle/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 标题
+       *   title: string
+       *   // 摘要/简介
+       *   summary: string
+       *   // 富文本内容
+       *   content?: string | null
+       *   // 封面图片
+       *   coverImageUrl: string
+       *   // 图片集
+       *   imageUrls?: string | null
+       *   // 视频地址
+       *   videoUrl?: string | null
+       *   // 浏览量
+       *   viewCount: number
+       *   // 点赞数
+       *   likeCount: number
+       *   // 收藏数
+       *   favoriteCount: number
+       *   // 评论数
+       *   commentCount: number
+       *   // 标签
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   tags?: string[] | null
+       *   // 分类Id
+       *   categoryId?: number | null
+       *   // 作者Id
+       *   authorId: number
+       *   // 发布时间
+       *   publishTime?: string | null
+       *   // 是否草稿
+       *   isDraft: boolean
+       *   // 是否已发布
+       *   isPublished: boolean
+       *   // 排序
+       *   orderNo: number
+       *   // 是否推荐
+       *   isRecommend: boolean
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticleUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_HealthArticleInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticle.apiApp_healtharticleUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除养生文章 ❌
+       *
+       * **path:** /api/app_HealthArticle/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticleDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_HealthArticleInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticle.apiApp_healtharticleDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除养生文章 ❌
+       *
+       * **path:** /api/app_HealthArticle/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_HealthArticleInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_HealthArticle.apiApp_healtharticleBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 上传封面图片 ⬆️
+       *
+       * **path:** /api/app_HealthArticle/uploadCoverImageUrl
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleUploadcoverimageurlPost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SysFile, 'app_HealthArticle.apiApp_healtharticleUploadcoverimageurlPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 上传图片集 ⬆️
+       *
+       * **path:** /api/app_HealthArticle/uploadImageUrls
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleUploadimageurlsPost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SysFile, 'app_HealthArticle.apiApp_healtharticleUploadimageurlsPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 上传视频地址 ⬆️
+       *
+       * **path:** /api/app_HealthArticle/uploadVideoUrl
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleUploadvideourlPost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SysFile, 'app_HealthArticle.apiApp_healtharticleUploadvideourlPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 获取下拉列表数据 🔖
+       *
+       * **path:** /api/app_HealthArticle/dropdownData
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 是否用于分页查询
+       *   fromPage?: boolean
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: Record<string, unknown> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleDropdowndataPost<
+        Config extends Alova2MethodConfig<AdminResult_Dictionary_StringObject> & {
+          data: DropdownDataapp_HealthArticleInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_Dictionary_StringObject,
+        'app_HealthArticle.apiApp_healtharticleDropdowndataPost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 导出养生文章记录 🔖
+       *
+       * **path:** /api/app_HealthArticle/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 标题
+       *   title?: string | null
+       *   // 摘要/简介
+       *   summary?: string | null
+       *   // 富文本内容
+       *   content?: string | null
+       *   // 分类Id
+       *   categoryId?: number | null
+       *   // 是否草稿
+       *   isDraft?: boolean | null
+       *   // 是否已发布
+       *   isPublished?: boolean | null
+       *   // 是否推荐
+       *   isRecommend?: boolean | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticleExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_HealthArticleInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticle.apiApp_healtharticleExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载养生文章数据导入模板 ⬇️
+       *
+       * **path:** /api/app_HealthArticle/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticleImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_HealthArticle.apiApp_healtharticleImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入养生文章记录 💾
+       *
+       * **path:** /api/app_HealthArticle/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticleImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticle.apiApp_healtharticleImportPost', Config>;
+    };
     app_healthskill: {
       /**
        * ---
@@ -2520,6 +5562,708 @@ declare global {
       >(
         config: Config
       ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserCheckmobileavailableMobilePost', Config>;
+    };
+    app_HealthArticleCategory: {
+      /**
+       * ---
+       *
+       * [POST] 分页查询文章分类 🔖
+       *
+       * **path:** /api/app_HealthArticleCategory/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 分类名称
+       *   name?: string | null
+       *   // 父级分类Id
+       *   parentId?: number | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 文章分类输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 分类名称
+       *       name?: string | null
+       *       // 父级分类Id
+       *       parentId?: number | null
+       *       // 排序
+       *       orderNo?: number | null
+       *       // 状态
+       *       status?: number | null
+       *       // 备注
+       *       remark?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticlecategoryPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_HealthArticleCategoryOutput> & {
+          data: Pageapp_HealthArticleCategoryInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_HealthArticleCategoryOutput,
+        'app_HealthArticleCategory.apiApp_healtharticlecategoryPagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取文章分类列表 🔖
+       *
+       * **path:** /api/app_HealthArticleCategory/list
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 分类名称
+       *   Name?: string
+       *   // 父级分类Id
+       *   ParentId?: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   // [params1] start
+       *   // [items] start
+       *   // 文章分类输出参数
+       *   // [items] end
+       *   // [params1] end
+       *   result?: Array<{
+       *     // 主键Id
+       *     id?: number
+       *     // 分类名称
+       *     name?: string | null
+       *     // 父级分类Id
+       *     parentId?: number | null
+       *     // 排序
+       *     orderNo?: number | null
+       *     // 状态
+       *     status?: number | null
+       *     // 备注
+       *     remark?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 创建时间
+       *     createTime?: string | null
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *   }> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticlecategoryListGet<
+        Config extends Alova2MethodConfig<AdminResult_List_app_HealthArticleCategoryOutput> & {
+          params: {
+            /**
+             * 分类名称
+             */
+            Name?: string;
+            /**
+             * 父级分类Id
+             */
+            ParentId?: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_List_app_HealthArticleCategoryOutput,
+        'app_HealthArticleCategory.apiApp_healtharticlecategoryListGet',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取文章分类树 🔖
+       *
+       * **path:** /api/app_HealthArticleCategory/tree
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 分类名称
+       *   Name?: string
+       *   // 父级分类Id
+       *   ParentId?: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   // [params1] start
+       *   // [items] start
+       *   // 文章分类树输出参数
+       *   // [items] end
+       *   // [params1] end
+       *   result?: Array<{
+       *     // 主键Id
+       *     id?: number
+       *     // 分类名称
+       *     name?: string | null
+       *     // 父级分类Id
+       *     parentId?: number | null
+       *     // 排序
+       *     orderNo?: number | null
+       *     // 状态
+       *     status?: number | null
+       *     // 备注
+       *     remark?: string | null
+       *     // 子级
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.result.[]
+       *     // [items] end
+       *     // [params1] end
+       *     children?: App_HealthArticleCategoryTreeOutput[] | null
+       *   }> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticlecategoryTreeGet<
+        Config extends Alova2MethodConfig<AdminResult_List_app_HealthArticleCategoryTreeOutput> & {
+          params: {
+            /**
+             * 分类名称
+             */
+            Name?: string;
+            /**
+             * 父级分类Id
+             */
+            ParentId?: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_List_app_HealthArticleCategoryTreeOutput,
+        'app_HealthArticleCategory.apiApp_healtharticlecategoryTreeGet',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取文章分类详情 ℹ️
+       *
+       * **path:** /api/app_HealthArticleCategory/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 文章分类表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 分类名称
+       *     name?: string | null
+       *     // 父级分类Id
+       *     parentId?: number | null
+       *     // 排序
+       *     orderNo?: number | null
+       *     // 状态
+       *     status?: number | null
+       *     // 备注
+       *     remark?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticlecategoryDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_HealthArticleCategory> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_app_HealthArticleCategory,
+        'app_HealthArticleCategory.apiApp_healtharticlecategoryDetailGet',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 增加文章分类 ➕
+       *
+       * **path:** /api/app_HealthArticleCategory/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 分类名称
+       *   name: string
+       *   // 父级分类Id
+       *   parentId?: number | null
+       *   // 排序
+       *   orderNo?: number | null
+       *   // 状态
+       *   status?: number | null
+       *   // 备注
+       *   remark?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticlecategoryAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_HealthArticleCategoryInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_HealthArticleCategory.apiApp_healtharticlecategoryAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新文章分类 ✏️
+       *
+       * **path:** /api/app_HealthArticleCategory/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 分类名称
+       *   name: string
+       *   // 父级分类Id
+       *   parentId?: number | null
+       *   // 排序
+       *   orderNo?: number | null
+       *   // 状态
+       *   status?: number | null
+       *   // 备注
+       *   remark?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticlecategoryUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_HealthArticleCategoryInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticleCategory.apiApp_healtharticlecategoryUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除文章分类 ❌
+       *
+       * **path:** /api/app_HealthArticleCategory/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticlecategoryDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_HealthArticleCategoryInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticleCategory.apiApp_healtharticlecategoryDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除文章分类 ❌
+       *
+       * **path:** /api/app_HealthArticleCategory/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticlecategoryBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_HealthArticleCategoryInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_Int32,
+        'app_HealthArticleCategory.apiApp_healtharticlecategoryBatchdeletePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 导出文章分类记录 🔖
+       *
+       * **path:** /api/app_HealthArticleCategory/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 分类名称
+       *   name?: string | null
+       *   // 父级分类Id
+       *   parentId?: number | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticlecategoryExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_HealthArticleCategoryInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticleCategory.apiApp_healtharticlecategoryExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载文章分类数据导入模板 ⬇️
+       *
+       * **path:** /api/app_HealthArticleCategory/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticlecategoryImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_HealthArticleCategory.apiApp_healtharticlecategoryImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入文章分类记录 💾
+       *
+       * **path:** /api/app_HealthArticleCategory/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_healtharticlecategoryImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_HealthArticleCategory.apiApp_healtharticlecategoryImportPost', Config>;
     };
   }
 

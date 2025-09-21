@@ -16,6 +16,11 @@
  * **Do not edit the file manually.**
  */
 export default {
+  'app_HealthArticleTag.apiApp_healtharticletagProcesstagsTagsjsonPost': [
+    'POST',
+    '/api/app_HealthArticleTag/processTags/{tagsJson}'
+  ],
+  'app_HealthArticle.apiApp_healtharticleSyncolddataPost': ['POST', '/api/app_HealthArticle/syncOldData'],
   'app_healthskill.apiApp_healthskillSynchealthskillPost': ['POST', '/api/app_healthskill/syncHealthskill'],
   'appAuth.apiAppauthTestolddataPost': ['POST', '/api/appAuth/testolddata'],
   'appAuth.apiAppauthLoginPost': ['POST', '/api/appAuth/login'],
@@ -34,6 +39,46 @@ export default {
   'appUser.apiAppuserSendsmscodeMobilePost': ['POST', '/api/appUser/sendSmsCode/{mobile}'],
   'appUser.apiAppuserCheckusernameavailableUsernamePost': ['POST', '/api/appUser/checkUsernameAvailable/{username}'],
   'appUser.apiAppuserCheckmobileavailableMobilePost': ['POST', '/api/appUser/checkMobileAvailable/{mobile}'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryPagePost': ['POST', '/api/app_HealthArticleCategory/page'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryListGet': ['GET', '/api/app_HealthArticleCategory/list'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryTreeGet': ['GET', '/api/app_HealthArticleCategory/tree'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryDetailGet': ['GET', '/api/app_HealthArticleCategory/detail'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryAddPost': ['POST', '/api/app_HealthArticleCategory/add'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryUpdatePost': ['POST', '/api/app_HealthArticleCategory/update'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryDeletePost': ['POST', '/api/app_HealthArticleCategory/delete'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryBatchdeletePost': [
+    'POST',
+    '/api/app_HealthArticleCategory/batchDelete'
+  ],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryExportPost': ['POST', '/api/app_HealthArticleCategory/export'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryImportGet': ['GET', '/api/app_HealthArticleCategory/import'],
+  'app_HealthArticleCategory.apiApp_healtharticlecategoryImportPost': ['POST', '/api/app_HealthArticleCategory/import'],
+  'app_HealthArticleTag.apiApp_healtharticletagPagePost': ['POST', '/api/app_HealthArticleTag/page'],
+  'app_HealthArticleTag.apiApp_healtharticletagDetailGet': ['GET', '/api/app_HealthArticleTag/detail'],
+  'app_HealthArticleTag.apiApp_healtharticletagAddPost': ['POST', '/api/app_HealthArticleTag/add'],
+  'app_HealthArticleTag.apiApp_healtharticletagInitdataPost': ['POST', '/api/app_HealthArticleTag/initData'],
+  'app_HealthArticleTag.apiApp_healtharticletagUpdatePost': ['POST', '/api/app_HealthArticleTag/update'],
+  'app_HealthArticleTag.apiApp_healtharticletagDeletePost': ['POST', '/api/app_HealthArticleTag/delete'],
+  'app_HealthArticleTag.apiApp_healtharticletagBatchdeletePost': ['POST', '/api/app_HealthArticleTag/batchDelete'],
+  'app_HealthArticleTag.apiApp_healtharticletagExportPost': ['POST', '/api/app_HealthArticleTag/export'],
+  'app_HealthArticleTag.apiApp_healtharticletagImportGet': ['GET', '/api/app_HealthArticleTag/import'],
+  'app_HealthArticleTag.apiApp_healtharticletagImportPost': ['POST', '/api/app_HealthArticleTag/import'],
+  'app_HealthArticle.apiApp_healtharticlePagePost': ['POST', '/api/app_HealthArticle/page'],
+  'app_HealthArticle.apiApp_healtharticleDetailGet': ['GET', '/api/app_HealthArticle/detail'],
+  'app_HealthArticle.apiApp_healtharticleAddPost': ['POST', '/api/app_HealthArticle/add'],
+  'app_HealthArticle.apiApp_healtharticleUpdatePost': ['POST', '/api/app_HealthArticle/update'],
+  'app_HealthArticle.apiApp_healtharticleDeletePost': ['POST', '/api/app_HealthArticle/delete'],
+  'app_HealthArticle.apiApp_healtharticleBatchdeletePost': ['POST', '/api/app_HealthArticle/batchDelete'],
+  'app_HealthArticle.apiApp_healtharticleUploadcoverimageurlPost': [
+    'POST',
+    '/api/app_HealthArticle/uploadCoverImageUrl'
+  ],
+  'app_HealthArticle.apiApp_healtharticleUploadimageurlsPost': ['POST', '/api/app_HealthArticle/uploadImageUrls'],
+  'app_HealthArticle.apiApp_healtharticleUploadvideourlPost': ['POST', '/api/app_HealthArticle/uploadVideoUrl'],
+  'app_HealthArticle.apiApp_healtharticleDropdowndataPost': ['POST', '/api/app_HealthArticle/dropdownData'],
+  'app_HealthArticle.apiApp_healtharticleExportPost': ['POST', '/api/app_HealthArticle/export'],
+  'app_HealthArticle.apiApp_healtharticleImportGet': ['GET', '/api/app_HealthArticle/import'],
+  'app_HealthArticle.apiApp_healtharticleImportPost': ['POST', '/api/app_HealthArticle/import'],
   'app_healthskill.apiApp_healthskillPagePost': ['POST', '/api/app_healthskill/page'],
   'app_healthskill.apiApp_healthskillDetailGet': ['GET', '/api/app_healthskill/detail'],
   'app_healthskill.apiApp_healthskillAddPost': ['POST', '/api/app_healthskill/add'],

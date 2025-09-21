@@ -215,24 +215,24 @@ function handleCardClick(card: any) {
             <view class="mx-[28rpx] mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx] shadow-[0_4rpx_20rpx_rgba(0,0,0,0.08)] transition-all duration-300 active:scale-[0.98] active:shadow-[0_2rpx_10rpx_rgba(0,0,0,0.12)]" @click="handleCardClick(item)">
               <view class="flex">
                 <view class="m-[8rpx] w-full pt-[4rpx]">
-                  <view class="line-clamp-1 text-justify text-[32rpx] font-bold">
+                  <view class="line-clamp-1 text-justify font-bold text-[32rpx]">
                     <text class="">{{ item.title }}</text>
                   </view>
                   <view class="min-h-[90rpx] pt-[4rpx]">
-                    <text class="line-clamp-2 text-justify text-[28rpx] text-[#999999] leading-[1.5]">
+                    <text class="line-clamp-2 text-justify text-[#999999] text-[28rpx] leading-[1.5]">
                       {{ item.desc }}
                     </text>
                   </view>
                   <view class="mt-[8rpx] flex items-center justify-between">
                     <view class="flex flex-1 flex-wrap items-center">
-                      <view class="mb-[6rpx] mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-[20rpx] text-white leading-[1.2]">
+                      <view class="mb-[6rpx] mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-white text-[20rpx] leading-[1.2]">
                         <text class="mr-[2rpx] opacity-80">#</text>{{ item.label[0] }}
                       </view>
                     </view>
                     <view class="flex items-center pt-[5rpx] text-center text-[#999999]">
-                      <text class="pr-[5rpx] text-[28rpx] leading-none">🔥</text>
+                      <text class="pr-[5rpx] leading-none text-[28rpx]">🔥</text>
                       <text class="pr-[8rpx] text-[28rpx]">{{ item.collectionCount }}</text>
-                      <text class="pr-[5rpx] text-[28rpx] leading-none">❤️</text>
+                      <text class="pr-[5rpx] leading-none text-[28rpx]">❤️</text>
                       <text class="text-[28rpx]">{{ item.likeCount }}</text>
                     </view>
                   </view>
