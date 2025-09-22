@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { App_HealthArticle } from '@/api/guohao-api/globals.d'
 import { useRequest } from 'alova/client'
 import SearchBar from '@/components/SearchBar/SearchBar.vue'
 import { safeAreaInsets } from '@/utils/systemInfo'
@@ -14,22 +15,22 @@ definePage({
 })
 
 // 定义文章类型接口
-interface HealthArticle {
-  id: number
-  title: string
-  summary: string
-  content?: string
-  coverImageUrl?: string
-  viewCount: number
-  likeCount: number
-  favoriteCount: number
-  commentCount: number
-  tags?: string[]
-  categoryId?: number
-  publishTime?: string
-  isPublished: boolean
-  isRecommend: boolean
-}
+// interface HealthArticle {
+//   id: number
+//   title: string
+//   summary: string
+//   content?: string
+//   coverImageUrl?: string
+//   viewCount: number
+//   likeCount: number
+//   favoriteCount: number
+//   commentCount: number
+//   tags?: string[]
+//   categoryId?: number
+//   publishTime?: string
+//   isPublished: boolean
+//   isRecommend: boolean
+// }
 
 // 定义分类接口
 interface HealthCategory {
@@ -53,7 +54,7 @@ const tabsWithBadge = ref<Array<{ title: string, categoryId: number | null }>>([
 tabsWithBadge.value = [{ title: '加载中...', categoryId: null }]
 
 // 文章数据
-const articles = ref<HealthArticle[]>([])
+const articles = ref<App_HealthArticle[]>([])
 const currentPage = ref(1)
 const pageSize = ref(10)
 const total = ref(0)
@@ -164,7 +165,7 @@ const currentCards = computed(() => {
     desc: article.summary,
     userAvatar: article.coverImageUrl || 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
     label: article.tags || ['健康养生'],
-    collectionCount: article.favoriteCount || 0,
+    favoriteCount: article.favoriteCount || 0,
     likeCount: article.likeCount || 0,
     viewCount: article.viewCount || 0,
     publishTime: article.publishTime,
@@ -304,10 +305,15 @@ onMounted(() => {
                         </view>
                       </view>
                       <view class="flex items-center pt-[5rpx] text-center text-[#999999]">
+                        <!-- 浏览量 -->
                         <text class="pr-[5rpx] leading-none text-[28rpx]">🔥</text>
-                        <text class="pr-[8rpx] text-[28rpx]">{{ item.collectionCount }}</text>
+                        <text class="pr-[8rpx] text-[28rpx]">{{ item.viewCount }}</text>
+                        <!-- 点赞数 -->
                         <text class="pr-[5rpx] leading-none text-[28rpx]">❤️</text>
                         <text class="text-[28rpx]">{{ item.likeCount }}</text>
+                        <!-- 收藏数 -->
+                        <text class="pr-[5rpx] leading-none text-[28rpx]">❤️</text>
+                        <text class="text-[28rpx]">{{ item.favoriteCount }}</text>
                       </view>
                     </view>
                   </view>
