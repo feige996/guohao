@@ -306,14 +306,14 @@ onMounted(() => {
                       </view>
                       <view class="flex items-center pt-[5rpx] text-center text-[#999999]">
                         <!-- 浏览量 -->
-                        <text class="pr-[5rpx] leading-none text-[28rpx]">🔥</text>
-                        <text class="pr-[8rpx] text-[28rpx]">{{ item.viewCount }}</text>
+                        <wd-icon name="view" size="40rpx" />
+                        <text class="pr-[10rpx] text-[28rpx]">{{ item.viewCount }}</text>
                         <!-- 点赞数 -->
-                        <text class="pr-[5rpx] leading-none text-[28rpx]">❤️</text>
-                        <text class="text-[28rpx]">{{ item.likeCount }}</text>
+                        <wd-icon name="pointing-hand" size="40rpx" />
+                        <text class="pr-[10rpx] text-[28rpx]">{{ item.likeCount }}</text>
                         <!-- 收藏数 -->
-                        <text class="pr-[5rpx] leading-none text-[28rpx]">❤️</text>
-                        <text class="text-[28rpx]">{{ item.favoriteCount }}</text>
+                        <wd-icon name="star" size="40rpx" />
+                        <text class="pr-[10rpx] text-[28rpx]">{{ item.favoriteCount }}</text>
                       </view>
                     </view>
                   </view>
