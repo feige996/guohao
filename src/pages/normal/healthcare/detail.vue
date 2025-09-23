@@ -297,30 +297,30 @@ function formatPublishTime(time?: string) {
       <view class="flex items-center justify-between">
         <view class="flex items-center space-x-6">
           <!-- 点赞 -->
-          <view class="flex items-center" @click="handleLike">
+          <!-- <view class="flex items-center" @click="handleLike">
             <text class="mr-1 text-xl" :class="[isLiked ? 'text-red-500' : 'text-gray-400']">
               {{ isLiked ? '❤️' : '🤍' }}
             </text>
             <text class="text-sm" :class="[isLiked ? 'text-red-500' : 'text-gray-600']">
               {{ articleDetail.likeCount || 0 }}
             </text>
-          </view>
+          </view> -->
 
           <!-- 收藏 -->
-          <view class="flex items-center" @click="handleFavorite">
+          <!-- <view class="flex items-center" @click="handleFavorite">
             <text class="mr-1 text-xl" :class="[isFavorited ? 'text-yellow-500' : 'text-gray-400']">
               {{ isFavorited ? '⭐' : '☆' }}
             </text>
             <text class="text-sm" :class="[isFavorited ? 'text-yellow-500' : 'text-gray-600']">
               {{ articleDetail.favoriteCount || 0 }}
             </text>
-          </view>
+          </view> -->
 
           <!-- 分享 -->
-          <view class="flex items-center" @click="handleShare">
+          <!-- <view class="flex items-center" @click="handleShare">
             <text class="mr-1 text-xl text-gray-400">📤</text>
             <text class="text-sm text-gray-600">分享</text>
-          </view>
+          </view> -->
         </view>
       </view>
     </view>
