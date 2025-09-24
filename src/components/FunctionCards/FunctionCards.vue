@@ -60,7 +60,7 @@ function handleAllFunctionClick() {
       <div
         v-for="(card, cardIndex) in group"
         :key="card.id"
-        class="relative h-[156rpx] w-[328rpx] flex flex-col cursor-pointer items-start whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]"
+        class="relative h-[156rpx] w-[328rpx] flex flex-col cursor-pointer items-start whitespace-pre text-[#333333] font-medium text-[26rpx] leading-[38rpx]"
         :class="[
           {
             'ml-0': cardIndex === 0,
@@ -97,7 +97,7 @@ function handleAllFunctionClick() {
     </div>
 
     <!-- 全部功能卡片 -->
-    <div
+    <!-- <div
       v-if="showAllFunction"
       class="relative ml-[16rpx] mt-[12rpx] h-[156rpx] w-[328rpx] flex flex-row cursor-pointer items-start"
       @click="handleAllFunctionClick"
@@ -105,13 +105,13 @@ function handleAllFunctionClick() {
       <div class="relative ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start">
         <div class="relative ml-0 mt-0 h-[156rpx] w-[328rpx] flex flex-row items-start rounded-[8rpx] from-[#f1f6ff] to-[#e3eafe] bg-gradient-to-br">
           <div class="relative ml-[24rpx] mt-[32rpx] h-[92rpx] w-[104rpx] flex flex-col items-start">
-            <span class="relative mb-[-7rpx] ml-0 mt-0 h-[38rpx] whitespace-pre text-[26rpx] text-[#333333] font-medium leading-[38rpx]">
+            <span class="relative mb-[-7rpx] ml-0 mt-0 h-[38rpx] whitespace-pre text-[#333333] font-medium text-[26rpx] leading-[38rpx]">
               {{ allFunctionCard.title }}
             </span>
-            <span class="relative ml-0 mt-[16rpx] whitespace-pre text-[20rpx] text-[#aca7c3] font-medium leading-[24rpx]">
+            <span class="relative ml-0 mt-[16rpx] whitespace-pre text-[#aca7c3] font-medium text-[20rpx] leading-[24rpx]">
               {{ allFunctionCard.subtitle1 }}
             </span>
-            <span class="relative ml-0 mt-[4rpx] whitespace-pre text-[20rpx] text-[#aca7c3] font-medium leading-[24rpx]">
+            <span class="relative ml-0 mt-[4rpx] whitespace-pre text-[#aca7c3] font-medium text-[20rpx] leading-[24rpx]">
               {{ allFunctionCard.subtitle2 }}
             </span>
           </div>
@@ -132,7 +132,7 @@ function handleAllFunctionClick() {
         :src="allFunctionCard.decorationIcon"
         alt="装饰图标"
       >
-    </div>
+    </div> -->
   </div>
 </template>
 
