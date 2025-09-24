@@ -287,7 +287,7 @@ onMounted(() => {
           <!-- 文章列表 -->
           <view v-else class="mb-[32rpx]">
             <block v-for="(item, index) in currentCards" :key="index">
-              <view class="mx-[28rpx] mb-[24rpx] rounded-[6rpx] bg-white p-[32rpx] shadow-[0_4rpx_20rpx_rgba(0,0,0,0.08)] transition-all duration-300 active:scale-[0.98] active:shadow-[0_2rpx_10rpx_rgba(0,0,0,0.12)]" @click="handleCardClick(item)">
+              <view class="mx-[28rpx] mb-[24rpx] rounded-[6rpx] bg-white p-[32rpx] transition-all duration-300 active:scale-[0.98]" @click="handleCardClick(item)">
                 <!-- 上部分：标题、描述和图片 -->
                 <view class="mb-[16rpx] flex">
                   <view class="flex-1 pr-[16rpx]">
@@ -312,9 +312,9 @@ onMounted(() => {
                 <view class="flex items-center justify-between border-t border-gray-100 pt-[16rpx]">
                   <!-- 标签区域（靠左） -->
                   <view class="flex flex-wrap items-center">
-                    <!-- <view class="mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-white text-[20rpx] leading-[1.2]">
+                    <view class="mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-white text-[20rpx] leading-[1.2]">
                       <text class="mr-[2rpx] opacity-80">#</text>{{ item.label[0] }}
-                    </view> -->
+                    </view>
                   </view>
 
                   <!-- 统计信息（靠右） -->
