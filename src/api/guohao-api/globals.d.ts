@@ -3890,6 +3890,100 @@ declare global {
       >(
         config: Config
       ): Alova2Method<null, 'app_HealthArticle.apiApp_healtharticleImportPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 文章收藏/取消收藏
+       *
+       * **path:** /api/app_HealthArticle/favorite/{articleId}/{userId}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   articleId: number
+       *   userId: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleFavoriteArticleidUseridPost<
+        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
+          pathParams: {
+            articleId: number;
+            userId: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Boolean, 'app_HealthArticle.apiApp_healtharticleFavoriteArticleidUseridPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 文章点赞/取消点赞
+       *
+       * **path:** /api/app_HealthArticle/like/{articleId}/{userId}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   articleId: number
+       *   userId: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: boolean
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleLikeArticleidUseridPost<
+        Config extends Alova2MethodConfig<AdminResult_Boolean> & {
+          pathParams: {
+            articleId: number;
+            userId: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Boolean, 'app_HealthArticle.apiApp_healtharticleLikeArticleidUseridPost', Config>;
     };
     app_healthskill: {
       /**

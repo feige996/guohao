@@ -188,7 +188,7 @@ export const useUserStore = defineStore('user', () => {
     loginFrom?: string
   }) => {
     try {
-      const res = await Apis.app.apiAppLoginPost({
+      const res = await Apis.appAuth.apiAppauthLoginPost({
         data: credentials,
       })
       return res
@@ -208,7 +208,7 @@ export const useUserStore = defineStore('user', () => {
    */
   const logout = async () => {
     try {
-      await Apis.app.apiAppLogoutPost({})
+      await Apis.appAuth.apiAppauthLogoutPost({})
     }
     catch (error) {
       console.error('退出登录失败:', error)

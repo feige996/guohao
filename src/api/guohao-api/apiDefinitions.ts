@@ -79,6 +79,14 @@ export default {
   'app_HealthArticle.apiApp_healtharticleExportPost': ['POST', '/api/app_HealthArticle/export'],
   'app_HealthArticle.apiApp_healtharticleImportGet': ['GET', '/api/app_HealthArticle/import'],
   'app_HealthArticle.apiApp_healtharticleImportPost': ['POST', '/api/app_HealthArticle/import'],
+  'app_HealthArticle.apiApp_healtharticleFavoriteArticleidUseridPost': [
+    'POST',
+    '/api/app_HealthArticle/favorite/{articleId}/{userId}'
+  ],
+  'app_HealthArticle.apiApp_healtharticleLikeArticleidUseridPost': [
+    'POST',
+    '/api/app_HealthArticle/like/{articleId}/{userId}'
+  ],
   'app_healthskill.apiApp_healthskillPagePost': ['POST', '/api/app_healthskill/page'],
   'app_healthskill.apiApp_healthskillDetailGet': ['GET', '/api/app_healthskill/detail'],
   'app_healthskill.apiApp_healthskillAddPost': ['POST', '/api/app_healthskill/add'],

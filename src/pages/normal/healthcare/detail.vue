@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { onLoad } from '@dcloudio/uni-app'
 import { useRequest } from 'alova/client'
+import { LOGIN_PAGE } from '@/router/config'
+import { useUserStore } from '@/store/userStore'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({
@@ -35,6 +37,9 @@ interface HealthArticleDetail {
 // 获取页面参数
 const articleId = ref<number>(0)
 
+// 用户store
+const userStore = useUserStore()
+
 // 文章详情数据
 const articleDetail = ref<HealthArticleDetail | null>(null)
 const isLiked = ref(false)
@@ -64,7 +69,28 @@ const {
   if (articleDetail.value) {
     articleDetail.value.viewCount = (articleDetail.value.viewCount || 0) + 1
   }
+
+  // 如果用户已登录，获取用户的点赞和收藏状态
+  if (userStore.isLoggedIn) {
+    fetchUserInteractionStatus()
+  }
 })
+
+// 获取用户的点赞和收藏状态
+// 注意：由于后端API设计，我们需要通过本地存储或其他方式来记录用户状态
+// 这里先使用简单的本地存储方案
+function fetchUserInteractionStatus() {
+  if (!userStore.userInfo?.id || !articleId.value)
+    return
+
+  const userId = userStore.userInfo.id
+  const likeKey = `article_like_${articleId.value}_${userId}`
+  const favoriteKey = `article_favorite_${articleId.value}_${userId}`
+
+  // 从本地存储获取状态
+  isLiked.value = uni.getStorageSync(likeKey) === 'true'
+  isFavorited.value = uni.getStorageSync(favoriteKey) === 'true'
+}
 
 // 在onLoad中获取参数
 onLoad((options: any) => {
@@ -93,38 +119,142 @@ function goBack() {
   uni.navigateBack()
 }
 
+// 检查登录状态
+function checkLoginStatus(): boolean {
+  if (!userStore.isLoggedIn) {
+    uni.showModal({
+      title: '提示',
+      content: '请先登录后再进行操作',
+      confirmText: '去登录',
+      cancelText: '取消',
+      success: (res) => {
+        if (res.confirm) {
+          const currentUrl = `/pages/normal/healthcare/detail?id=${articleId.value}`
+          uni.navigateTo({
+            url: `${LOGIN_PAGE}?redirect=${encodeURIComponent(currentUrl)}`,
+          })
+        }
+      },
+    })
+    return false
+  }
+  return true
+}
+
+// 点赞API请求
+const {
+  loading: likeLoading,
+  send: performLike,
+} = useRequest(
+  () => Apis.app_HealthArticle.apiApp_healtharticleLikeArticleidUseridPost({
+    pathParams: {
+      articleId: articleId.value,
+      userId: userStore.userInfo?.id || 0,
+    },
+  }),
+  {
+    immediate: false,
+  },
+).onSuccess((response: any) => {
+  console.log('点赞操作成功:', response)
+  // 切换点赞状态
+  isLiked.value = !isLiked.value
+  if (articleDetail.value) {
+    if (isLiked.value) {
+      articleDetail.value.likeCount = (articleDetail.value.likeCount || 0) + 1
+    }
+    else {
+      articleDetail.value.likeCount = Math.max((articleDetail.value.likeCount || 0) - 1, 0)
+    }
+  }
+
+  // 保存状态到本地存储
+  if (userStore.userInfo?.id) {
+    const likeKey = `article_like_${articleId.value}_${userStore.userInfo.id}`
+    uni.setStorageSync(likeKey, isLiked.value.toString())
+  }
+
+  uni.showToast({
+    title: isLiked.value ? '点赞成功' : '取消点赞',
+    icon: 'success',
+  })
+}).onError((error: any) => {
+  console.error('点赞操作失败:', error)
+  uni.showToast({
+    title: '操作失败，请重试',
+    icon: 'none',
+  })
+})
+
 // 点赞功能
 function handleLike() {
-  if (!articleDetail.value)
+  if (!articleDetail.value || likeLoading.value)
     return
 
-  isLiked.value = !isLiked.value
-  if (isLiked.value) {
-    articleDetail.value.likeCount = (articleDetail.value.likeCount || 0) + 1
-  }
-  else {
-    articleDetail.value.likeCount = Math.max((articleDetail.value.likeCount || 0) - 1, 0)
+  // 检查登录状态
+  if (!checkLoginStatus())
+    return
+
+  // 调用点赞API
+  performLike()
+}
+
+// 收藏API请求
+const {
+  loading: favoriteLoading,
+  send: performFavorite,
+} = useRequest(
+  () => Apis.app_HealthArticle.apiApp_healtharticleFavoriteArticleidUseridPost({
+    pathParams: {
+      articleId: articleId.value,
+      userId: userStore.userInfo?.id || 0,
+    },
+  }),
+  {
+    immediate: false,
+  },
+).onSuccess((response: any) => {
+  console.log('收藏操作成功:', response)
+  // 切换收藏状态
+  isFavorited.value = !isFavorited.value
+  if (articleDetail.value) {
+    if (isFavorited.value) {
+      articleDetail.value.favoriteCount = (articleDetail.value.favoriteCount || 0) + 1
+    }
+    else {
+      articleDetail.value.favoriteCount = Math.max((articleDetail.value.favoriteCount || 0) - 1, 0)
+    }
   }
 
-  // 这里可以调用API更新点赞状态
-  console.log('点赞状态:', isLiked.value)
-}
+  // 保存状态到本地存储
+  if (userStore.userInfo?.id) {
+    const favoriteKey = `article_favorite_${articleId.value}_${userStore.userInfo.id}`
+    uni.setStorageSync(favoriteKey, isFavorited.value.toString())
+  }
+
+  uni.showToast({
+    title: isFavorited.value ? '收藏成功' : '取消收藏',
+    icon: 'success',
+  })
+}).onError((error: any) => {
+  console.error('收藏操作失败:', error)
+  uni.showToast({
+    title: '操作失败，请重试',
+    icon: 'none',
+  })
+})
 
 // 收藏功能
 function handleFavorite() {
-  if (!articleDetail.value)
+  if (!articleDetail.value || favoriteLoading.value)
     return
 
-  isFavorited.value = !isFavorited.value
-  if (isFavorited.value) {
-    articleDetail.value.favoriteCount = (articleDetail.value.favoriteCount || 0) + 1
-  }
-  else {
-    articleDetail.value.favoriteCount = Math.max((articleDetail.value.favoriteCount || 0) - 1, 0)
-  }
+  // 检查登录状态
+  if (!checkLoginStatus())
+    return
 
-  // 这里可以调用API更新收藏状态
-  console.log('收藏状态:', isFavorited.value)
+  // 调用收藏API
+  performFavorite()
 }
 
 // 分享功能
@@ -293,28 +423,36 @@ function formatPublishTime(time?: string) {
     </view>
 
     <!-- 底部操作栏 -->
-    <view v-if="articleDetail" class="safe-area-inset-bottom fixed bottom-0 left-0 right-0 border-t border-gray-200 bg-white px-4 py-3">
+    <view v-if="articleDetail" class="safe-area-inset-bottom fixed bottom-0 left-0 right-0 h-[100rpx] border-t border-gray-200 bg-[#FD6302] px-4 py-3">
       <view class="flex items-center justify-between">
         <view class="flex items-center space-x-6">
           <!-- 点赞 -->
-          <!-- <view class="flex items-center" @click="handleLike">
-            <text class="mr-1 text-xl" :class="[isLiked ? 'text-red-500' : 'text-gray-400']">
-              {{ isLiked ? '❤️' : '🤍' }}
+          <view
+            class="flex items-center"
+            :class="[likeLoading ? 'opacity-50' : '']"
+            @click="handleLike"
+          >
+            <text class="mr-1 text-xl" :class="[isLiked ? 'text-red-500' : 'text-white']">
+              {{ likeLoading ? '⏳' : (isLiked ? '❤️' : '🤍') }}
             </text>
-            <text class="text-sm" :class="[isLiked ? 'text-red-500' : 'text-gray-600']">
+            <text class="text-sm" :class="[isLiked ? 'text-red-500' : 'text-white']">
               {{ articleDetail.likeCount || 0 }}
             </text>
-          </view> -->
+          </view>
 
           <!-- 收藏 -->
-          <!-- <view class="flex items-center" @click="handleFavorite">
-            <text class="mr-1 text-xl" :class="[isFavorited ? 'text-yellow-500' : 'text-gray-400']">
-              {{ isFavorited ? '⭐' : '☆' }}
+          <view
+            class="flex items-center"
+            :class="[favoriteLoading ? 'opacity-50' : '']"
+            @click="handleFavorite"
+          >
+            <text class="mr-1 text-xl" :class="[isFavorited ? 'text-yellow-500' : 'text-white']">
+              {{ favoriteLoading ? '⏳' : (isFavorited ? '⭐' : '☆') }}
             </text>
-            <text class="text-sm" :class="[isFavorited ? 'text-yellow-500' : 'text-gray-600']">
+            <text class="text-sm" :class="[isFavorited ? 'text-yellow-500' : 'text-white']">
               {{ articleDetail.favoriteCount || 0 }}
             </text>
-          </view> -->
+          </view>
 
           <!-- 分享 -->
           <!-- <view class="flex items-center" @click="handleShare">

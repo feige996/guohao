@@ -128,7 +128,7 @@ const {
   loading: sendCodeLoading,
   send: checkMobileAndSendCode,
 } = useRequest(
-  (mobile: string) => Apis.app.apiAppCheckmobileregisteredandsendcodeGet({
+  (mobile: string) => Apis.appUser.apiAppuserCheckmobileregisteredandsendcodeGet({
     params: { mobile },
     meta: {
       ignoreAuth: true,
@@ -148,7 +148,7 @@ const {
   loading: verifyCodeLoading,
   send: verifyForgetPasswordCode,
 } = useRequest(
-  (mobile: string, code: string) => Apis.app.apiAppVerifyforgetpasswordcodePost({
+  (mobile: string, code: string) => Apis.appUser.apiAppuserVerifyforgetpasswordcodePost({
     data: { mobile, code },
     meta: {
       ignoreAuth: true,
@@ -177,7 +177,7 @@ const {
   loading: resetPasswordLoading,
   send: resetPassword,
 } = useRequest(
-  (mobile: string, resetToken: string, newPassword: string) => Apis.app.apiAppResetpasswordPost({
+  (mobile: string, resetToken: string, newPassword: string) => Apis.appUser.apiAppuserResetpasswordPost({
     data: { mobile, resetToken, newPassword },
     meta: {
       ignoreAuth: true,

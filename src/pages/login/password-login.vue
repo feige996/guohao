@@ -98,7 +98,7 @@ const {
   error: _loginError,
   send: performLogin,
 } = useRequest(
-  (account: string, password: string) => Apis.app.apiAppLoginPost({
+  (account: string, password: string) => Apis.appAuth.apiAppauthLoginPost({
     data: {
       account,
       password,
