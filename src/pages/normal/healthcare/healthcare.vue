@@ -241,7 +241,7 @@ onMounted(() => {
 </script>
 
 <template root="uniKuRoot">
-  <view class="min-h-screen flex flex-col from-[#f6e2d3] to-transparent bg-gradient-to-b" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <view class="min-h-screen flex flex-col from-[#F2F2F5] to-[#FAFAFC] bg-gradient-to-b" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 固定头部区域 -->
     <view class="header-fixed">
       <!-- 搜索栏 -->
@@ -287,7 +287,7 @@ onMounted(() => {
           <!-- 文章列表 -->
           <view v-else class="mb-[32rpx]">
             <block v-for="(item, index) in currentCards" :key="index">
-              <view class="mx-[28rpx] mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx] shadow-[0_4rpx_20rpx_rgba(0,0,0,0.08)] transition-all duration-300 active:scale-[0.98] active:shadow-[0_2rpx_10rpx_rgba(0,0,0,0.12)]" @click="handleCardClick(item)">
+              <view class="mx-[28rpx] mb-[24rpx] rounded-[6rpx] bg-white p-[32rpx] shadow-[0_4rpx_20rpx_rgba(0,0,0,0.08)] transition-all duration-300 active:scale-[0.98] active:shadow-[0_2rpx_10rpx_rgba(0,0,0,0.12)]" @click="handleCardClick(item)">
                 <!-- 上部分：标题、描述和图片 -->
                 <view class="mb-[16rpx] flex">
                   <view class="flex-1 pr-[16rpx]">
@@ -372,5 +372,9 @@ onMounted(() => {
       display: none; /* Chrome, Safari 和 Opera */
     }
   }
+}
+
+.bg-fade-top-third {
+  background: linear-gradient(to bottom, #f6e2d3 0%, #f6e2d3 33%, transparent 100%);
 }
 </style>
