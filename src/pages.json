@@ -262,6 +262,16 @@
       "excludeLoginPath": false
     },
     {
+      "path": "pages/normal/healthcare/favorites",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "我的收藏",
+        "disableScroll": true
+      },
+      "excludeLoginPath": true
+    },
+    {
       "path": "pages/normal/healthcare/healthcare",
       "type": "page",
       "style": {

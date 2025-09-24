@@ -71,6 +71,9 @@ function handleFunctionCardClick(item: FunctionCardItem) {
       break
     case 'collection':
       console.log('跳转到养生收藏')
+      uni.navigateTo({
+        url: '/pages/normal/healthcare/favorites',
+      })
       break
     case 'product':
       console.log('跳转到关注商品')
