@@ -423,33 +423,41 @@ function formatPublishTime(time?: string) {
     </view>
 
     <!-- 底部操作栏 -->
-    <view v-if="articleDetail" class="safe-area-inset-bottom fixed bottom-0 left-0 right-0 h-[100rpx] border-t border-gray-200 bg-[#FD6302] px-4 py-3">
+    <view v-if="articleDetail" class="safe-area-inset-bottom fixed bottom-0 left-0 right-0 h-[100rpx] border-t border-gray-200 bg-[#F2F2F5] px-4 py-3">
       <view class="flex items-center justify-between">
         <view class="flex items-center space-x-6">
           <!-- 点赞 -->
           <view
-            class="flex items-center"
+            class="flex items-center transition-all duration-300 active:scale-95"
             :class="[likeLoading ? 'opacity-50' : '']"
             @click="handleLike"
           >
-            <text class="mr-1 text-xl" :class="[isLiked ? 'text-red-500' : 'text-white']">
-              {{ likeLoading ? '⏳' : (isLiked ? '❤️' : '🤍') }}
-            </text>
-            <text class="text-sm" :class="[isLiked ? 'text-red-500' : 'text-white']">
+            <view class="mr-2 h-[60rpx] w-[60rpx] flex items-center justify-center rounded-full" :class="[isLiked ? 'bg-yellow-50' : 'bg-gray-100']">
+              <wd-icon
+                :name="likeLoading ? 'loading' : (isLiked ? 'pointing-hand' : 'pointing-hand')"
+                size="48rpx"
+                :color="isLiked ? '#ff4757' : '#666666'"
+              />
+            </view>
+            <text class="font-medium text-[28rpx]" :class="[isLiked ? 'text-red-500' : 'text-gray-600']">
               {{ articleDetail.likeCount || 0 }}
             </text>
           </view>
 
           <!-- 收藏 -->
           <view
-            class="flex items-center"
+            class="flex items-center transition-all duration-300 active:scale-95"
             :class="[favoriteLoading ? 'opacity-50' : '']"
             @click="handleFavorite"
           >
-            <text class="mr-1 text-xl" :class="[isFavorited ? 'text-yellow-500' : 'text-white']">
-              {{ favoriteLoading ? '⏳' : (isFavorited ? '⭐' : '☆') }}
-            </text>
-            <text class="text-sm" :class="[isFavorited ? 'text-yellow-500' : 'text-white']">
+            <view class="mr-2 h-[60rpx] w-[60rpx] flex items-center justify-center rounded-full" :class="[isFavorited ? 'bg-yellow-50' : 'bg-gray-100']">
+              <wd-icon
+                :name="favoriteLoading ? 'loading' : (isFavorited ? 'star-on' : 'star')"
+                size="30rpx"
+                :color="isFavorited ? '#ffa502' : '#666666'"
+              />
+            </view>
+            <text class="font-medium text-[28rpx]" :class="[isFavorited ? 'text-yellow-500' : 'text-gray-600']">
               {{ articleDetail.favoriteCount || 0 }}
             </text>
           </view>
