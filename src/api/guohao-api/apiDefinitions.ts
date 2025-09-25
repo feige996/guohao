@@ -87,6 +87,11 @@ export default {
     'POST',
     '/api/app_HealthArticle/like/{articleId}/{userId}'
   ],
+  'app_HealthArticle.apiApp_healtharticleGetuserfavoritesUseridGet': [
+    'GET',
+    '/api/app_HealthArticle/getUserFavorites/{userId}'
+  ],
+  'app_HealthArticle.apiApp_healtharticleUpdatetagstonamesPost': ['POST', '/api/app_HealthArticle/updateTagsToNames'],
   'app_healthskill.apiApp_healthskillPagePost': ['POST', '/api/app_healthskill/page'],
   'app_healthskill.apiApp_healthskillDetailGet': ['GET', '/api/app_healthskill/detail'],
   'app_healthskill.apiApp_healthskillAddPost': ['POST', '/api/app_healthskill/add'],

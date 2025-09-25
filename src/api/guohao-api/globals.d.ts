@@ -921,6 +921,32 @@ export interface AdminResult_Boolean {
    */
   time?: string;
 }
+export interface AdminResult_Int32 {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: number;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
 export interface AppLoginOutput {
   /**
    * 访问令牌
@@ -1268,32 +1294,6 @@ export interface AdminResult_app_HealthArticleCategory {
   time?: string;
 }
 export interface AdminResult_Int64 {
-  /**
-   * 状态码
-   */
-  code?: number;
-  /**
-   * 类型success、warning、error
-   */
-  type?: string | null;
-  /**
-   * 错误信息
-   */
-  message?: string | null;
-  /**
-   * 数据
-   */
-  result?: number;
-  /**
-   * 附加数据
-   */
-  extras?: null;
-  /**
-   * 时间
-   */
-  time?: string;
-}
-export interface AdminResult_Int32 {
   /**
    * 状态码
    */
@@ -1928,6 +1928,32 @@ export interface AdminResult_Dictionary_StringObject {
    * 数据
    */
   result?: Record<string, unknown> | null;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_List_app_HealthArticleOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: App_HealthArticleOutput[] | null;
   /**
    * 附加数据
    */
@@ -3984,6 +4010,294 @@ declare global {
       >(
         config: Config
       ): Alova2Method<AdminResult_Boolean, 'app_HealthArticle.apiApp_healtharticleLikeArticleidUseridPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 获取用户收藏的文章列表
+       *
+       * **path:** /api/app_HealthArticle/getUserFavorites/{userId}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   userId: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   // [params1] start
+       *   // [items] start
+       *   // 养生文章输出参数
+       *   // [items] end
+       *   // [params1] end
+       *   result?: Array<{
+       *     // 主键Id
+       *     id?: number
+       *     // 标题
+       *     title?: string | null
+       *     // 摘要/简介
+       *     summary?: string | null
+       *     // 富文本内容
+       *     content?: string | null
+       *     // 封面图片
+       *     coverImageUrl?: string | null
+       *     // 系统文件表
+       *     coverImageUrlAttachment?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 机构Id
+       *       orgId?: number
+       *       // 租户Id
+       *       tenantId?: number | null
+       *       // 提供者
+       *       provider?: string | null
+       *       // 仓储名称
+       *       bucketName?: string | null
+       *       // 文件名称（源文件名）
+       *       fileName?: string | null
+       *       // 文件后缀
+       *       suffix?: string | null
+       *       // 存储路径
+       *       filePath?: string | null
+       *       // 文件大小KB
+       *       sizeKb?: number
+       *       // 文件大小信息-计算后的
+       *       sizeInfo?: string | null
+       *       // 外链地址-OSS上传后生成外链地址方便前端预览
+       *       url?: string | null
+       *       // 文件MD5
+       *       fileMd5?: string | null
+       *       // 文件类别
+       *       fileType?: string | null
+       *       // 文件别名
+       *       fileAlias?: string | null
+       *       // 是否公开
+       *       isPublic?: boolean
+       *       // 业务数据Id
+       *       dataId?: number | null
+       *     }
+       *     // 图片集
+       *     imageUrls?: string | null
+       *     // 系统文件表
+       *     imageUrlsAttachment?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 机构Id
+       *       orgId?: number
+       *       // 租户Id
+       *       tenantId?: number | null
+       *       // 提供者
+       *       provider?: string | null
+       *       // 仓储名称
+       *       bucketName?: string | null
+       *       // 文件名称（源文件名）
+       *       fileName?: string | null
+       *       // 文件后缀
+       *       suffix?: string | null
+       *       // 存储路径
+       *       filePath?: string | null
+       *       // 文件大小KB
+       *       sizeKb?: number
+       *       // 文件大小信息-计算后的
+       *       sizeInfo?: string | null
+       *       // 外链地址-OSS上传后生成外链地址方便前端预览
+       *       url?: string | null
+       *       // 文件MD5
+       *       fileMd5?: string | null
+       *       // 文件类别
+       *       fileType?: string | null
+       *       // 文件别名
+       *       fileAlias?: string | null
+       *       // 是否公开
+       *       isPublic?: boolean
+       *       // 业务数据Id
+       *       dataId?: number | null
+       *     }
+       *     // 视频地址
+       *     videoUrl?: string | null
+       *     // 系统文件表
+       *     videoUrlAttachment?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 机构Id
+       *       orgId?: number
+       *       // 租户Id
+       *       tenantId?: number | null
+       *       // 提供者
+       *       provider?: string | null
+       *       // 仓储名称
+       *       bucketName?: string | null
+       *       // 文件名称（源文件名）
+       *       fileName?: string | null
+       *       // 文件后缀
+       *       suffix?: string | null
+       *       // 存储路径
+       *       filePath?: string | null
+       *       // 文件大小KB
+       *       sizeKb?: number
+       *       // 文件大小信息-计算后的
+       *       sizeInfo?: string | null
+       *       // 外链地址-OSS上传后生成外链地址方便前端预览
+       *       url?: string | null
+       *       // 文件MD5
+       *       fileMd5?: string | null
+       *       // 文件类别
+       *       fileType?: string | null
+       *       // 文件别名
+       *       fileAlias?: string | null
+       *       // 是否公开
+       *       isPublic?: boolean
+       *       // 业务数据Id
+       *       dataId?: number | null
+       *     }
+       *     // 浏览量
+       *     viewCount?: number
+       *     // 点赞数
+       *     likeCount?: number
+       *     // 收藏数
+       *     favoriteCount?: number
+       *     // 评论数
+       *     commentCount?: number
+       *     // 标签
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     tags?: string[] | null
+       *     // 标签 描述
+       *     tagsFkDisplayName?: string | null
+       *     // 分类Id
+       *     categoryId?: number | null
+       *     // 分类Id 描述
+       *     categoryDisplayName?: string | null
+       *     // 作者Id
+       *     authorId?: number
+       *     // 作者Id 描述
+       *     authorFkDisplayName?: string | null
+       *     // 发布时间
+       *     publishTime?: string | null
+       *     // 是否草稿
+       *     isDraft?: boolean
+       *     // 是否已发布
+       *     isPublished?: boolean
+       *     // 排序
+       *     orderNo?: number
+       *     // 是否推荐
+       *     isRecommend?: boolean
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 创建时间
+       *     createTime?: string | null
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *   }> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleGetuserfavoritesUseridGet<
+        Config extends Alova2MethodConfig<AdminResult_List_app_HealthArticleOutput> & {
+          pathParams: {
+            userId: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_List_app_HealthArticleOutput,
+        'app_HealthArticle.apiApp_healtharticleGetuserfavoritesUseridGet',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 批量更新文章Tags为标签名称
+       *
+       * **path:** /api/app_HealthArticle/updateTagsToNames
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_healtharticleUpdatetagstonamesPost<Config extends Alova2MethodConfig<AdminResult_Int32>>(
+        config?: Config
+      ): Alova2Method<AdminResult_Int32, 'app_HealthArticle.apiApp_healtharticleUpdatetagstonamesPost', Config>;
     };
     app_healthskill: {
       /**

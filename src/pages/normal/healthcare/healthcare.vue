@@ -312,8 +312,12 @@ onMounted(() => {
                 <view class="flex items-center justify-between border-t border-gray-100 pt-[16rpx]">
                   <!-- 标签区域（靠左） -->
                   <view class="flex flex-wrap items-center">
-                    <view class="mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-white text-[20rpx] leading-[1.2]">
-                      <text class="mr-[2rpx] opacity-80">#</text>{{ item.label[0] }}
+                    <view
+                      v-for="(tag, tagIndex) in item.label"
+                      :key="tagIndex"
+                      class="mb-[4rpx] mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-white text-[20rpx] leading-[1.2]"
+                    >
+                      <text class="mr-[2rpx] opacity-80" />{{ tag }}
                     </view>
                   </view>
 
