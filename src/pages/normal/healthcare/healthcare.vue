@@ -192,6 +192,7 @@ function handleSearchBarClick() {
 
 const swiperList = ref([
   '/static/swiper/Swiper01.png',
+  '/static/swiper/Swiper02.png',
 ])
 function handleClick(e: any) {
   console.log(e)
