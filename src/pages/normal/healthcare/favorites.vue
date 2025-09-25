@@ -291,29 +291,29 @@ onShow(() => {
 </script>
 
 <template root="uniKuRoot">
-  <view class="page-container" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <view class="min-h-screen flex flex-col from-[#F2F2F5] to-[#FAFAFC] bg-gradient-to-b" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 固定头部区域 -->
-    <view class="header-section">
+    <view class="header-fixed">
       <!-- 自定义导航栏 -->
-      <view class="nav-bar">
+      <view class="nav-bar mb-4 flex items-center justify-between px-[28rpx] py-4">
         <view class="nav-left" @click="goBack">
-          <view class="back-btn">
+          <view class="back-btn h-[80rpx] w-[80rpx] flex items-center justify-center rounded-[40rpx] bg-white shadow-sm">
             <wd-icon name="arrow-left" size="20px" color="#333" />
           </view>
         </view>
-        <view class="nav-center">
-          <text class="nav-title">我的收藏</text>
-          <text class="nav-subtitle">{{ currentCards.length }} 篇文章</text>
+        <view class="nav-center flex-1 text-center">
+          <text class="nav-title block text-[#333] font-semibold text-[36rpx]">我的收藏</text>
+          <text class="nav-subtitle mt-1 block text-[#999] text-[24rpx]">{{ currentCards.length }} 篇文章</text>
         </view>
         <view class="nav-right" @click="refreshFavorites">
-          <view class="refresh-btn" :class="{ loading: articlesLoading }">
+          <view class="refresh-btn h-[80rpx] w-[80rpx] flex items-center justify-center rounded-[40rpx] bg-white shadow-sm" :class="{ loading: articlesLoading }">
             <wd-icon name="refresh" size="18px" color="#666" />
           </view>
         </view>
       </view>
 
       <!-- 搜索栏 -->
-      <!-- <view class="search-section">
+      <!-- <view class="search-section px-[28rpx] pb-4">
         <SearchBar
           v-model="searchKeyword"
           placeholder="搜索收藏的文章..."
@@ -323,81 +323,93 @@ onShow(() => {
       </view> -->
     </view>
 
-    <!-- 主内容区域 -->
-    <view class="main-content">
-      <scroll-view scroll-y class="scroll-container" enable-back-to-top @scrolltolower="loadMoreArticles">
+    <!-- 可滚动的卡片列表区域 -->
+    <view class="content-scroll">
+      <scroll-view scroll-y class="scroll-area" enable-back-to-top @scrolltolower="loadMoreArticles">
         <!-- 加载状态 -->
-        <view v-if="articlesLoading && currentCards.length === 0" class="loading-state">
-          <view class="loading-animation">
-            <wd-icon name="loading" size="32px" color="#ff6b35" />
-          </view>
-          <text class="loading-text">正在加载收藏文章...</text>
+        <view v-if="articlesLoading && currentCards.length === 0" class="flex flex-col items-center justify-center py-20">
+          <text class="text-base text-gray-400">加载中...</text>
         </view>
 
         <!-- 空状态提示 -->
-        <view v-else-if="currentCards.length === 0" class="empty-state">
-          <view class="empty-icon">
+        <view v-else-if="currentCards.length === 0" class="flex flex-col items-center justify-center py-20">
+          <view class="empty-icon mb-8">
             <wd-icon name="star" size="64px" color="#ddd" />
           </view>
-          <text class="empty-title">暂无收藏的文章</text>
-          <text class="empty-desc">快去收藏一些感兴趣的文章吧</text>
-          <view class="empty-action" @click="goToArticleList">
-            <text class="action-text">去看看文章</text>
+          <text class="mb-4 text-[#333] font-semibold text-[36rpx]">暂无收藏的文章</text>
+          <text class="mb-12 text-[#999] text-[28rpx]">快去收藏一些感兴趣的文章吧</text>
+          <view class="rounded-[50rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-12 py-6 shadow-lg" @click="goToArticleList">
+            <text class="text-white font-medium text-[28rpx]">去看看文章</text>
           </view>
         </view>
 
         <!-- 文章列表 -->
-        <view v-else class="article-list">
-          <view v-for="(item, index) in currentCards" :key="index" class="article-card" @click="handleCardClick(item)">
-            <!-- 文章封面 -->
-            <view class="card-cover">
-              <image :src="item.userAvatar" class="cover-image" mode="aspectFill" />
-              <view class="cover-gradient" />
-            </view>
-
-            <!-- 文章内容 -->
-            <view class="card-content">
-              <!-- 标题 -->
-              <view class="article-title">
-                <text>{{ item.title }}</text>
-              </view>
-
-              <!-- 描述 -->
-              <view class="article-desc">
-                <text>{{ item.desc }}</text>
-              </view>
-
-              <!-- 底部信息 -->
-              <view class="card-footer">
-                <!-- 统计信息 -->
-                <view class="stats-info">
-                  <view class="stat-item">
-                    <wd-icon name="view" size="14px" color="#999" />
-                    <text class="stat-text">{{ item.viewCount }}</text>
+        <view v-else class="mb-[32rpx]">
+          <block v-for="(item, index) in currentCards" :key="index">
+            <view class="mx-[28rpx] mb-[24rpx] rounded-[6rpx] bg-white p-[32rpx] transition-all duration-300 active:scale-[0.98]" @click="handleCardClick(item)">
+              <!-- 上部分：标题、描述和图片 -->
+              <view class="mb-[16rpx] flex">
+                <view class="flex-1 pr-[16rpx]">
+                  <!-- 标题 -->
+                  <view class="mb-[8rpx] line-clamp-1 text-justify font-bold text-[32rpx]">
+                    <text>{{ item.title }}</text>
                   </view>
-                  <view class="stat-item">
-                    <wd-icon name="like" size="14px" color="#999" />
-                    <text class="stat-text">{{ item.likeCount }}</text>
+                  <!-- 描述 -->
+                  <view class="min-h-[90rpx]">
+                    <text class="line-clamp-2 text-justify text-[#999999] text-[28rpx] leading-[1.5]">
+                      {{ item.desc }}
+                    </text>
+                  </view>
+                </view>
+                <!-- 图片 -->
+                <view class="relative h-[160rpx] w-[240rpx] flex-shrink-0 overflow-hidden rounded-[16rpx] bg-cover bg-center bg-no-repeat" :style="`background-image:url(${item.userAvatar})`">
+                  <view class="h-full w-full rounded-[16rpx] from-[rgba(140,35,3,0.1)] to-[rgba(184,68,31,0.1)] bg-gradient-to-br" />
+                </view>
+              </view>
+
+              <!-- 下部分：标签和统计信息 -->
+              <view class="flex items-center justify-between border-t border-gray-100 pt-[16rpx]">
+                <!-- 标签区域（靠左） -->
+                <view class="flex flex-wrap items-center">
+                  <view
+                    v-for="(tag, tagIndex) in item.label"
+                    :key="tagIndex"
+                    class="mb-[4rpx] mr-[8rpx] inline-block rounded-[12rpx] from-[#8c2303] to-[#b8441f] bg-gradient-to-br px-[10rpx] py-[4rpx] text-white text-[20rpx] leading-[1.2]"
+                  >
+                    <text class="mr-[2rpx] opacity-80" />{{ tag }}
                   </view>
                 </view>
 
-                <!-- 取消收藏按钮 -->
-                <view
-                  class="unfavorite-btn"
-                  :class="{ loading: unfavoriteLoading }"
-                  @click="(e: Event) => handleUnfavorite(favoriteArticles.find(a => a.id === item.id)!, e)"
-                >
-                  <wd-icon :name="unfavoriteLoading ? 'loading' : 'star-on'" size="16px" color="#ff6b35" />
-                  <text class="btn-text">{{ unfavoriteLoading ? '处理中' : '取消收藏' }}</text>
+                <!-- 统计信息和取消收藏按钮（靠右） -->
+                <view class="flex items-center space-x-[16rpx]">
+                  <!-- 浏览量 -->
+                  <view class="flex items-center text-[#999999]">
+                    <wd-icon name="view" size="32rpx" />
+                    <text class="ml-[4rpx] text-[24rpx]">{{ item.viewCount }}</text>
+                  </view>
+                  <!-- 点赞数 -->
+                  <view class="flex items-center text-[#999999]">
+                    <wd-icon name="pointing-hand" size="32rpx" />
+                    <text class="ml-[4rpx] text-[24rpx]">{{ item.likeCount }}</text>
+                  </view>
+                  <!-- 取消收藏按钮 -->
+                  <view
+                    class="flex items-center text-[#ff6b35] transition-all duration-300 active:scale-[0.95]"
+                    :class="{ 'opacity-60': unfavoriteLoading }"
+                    @click="(e: Event) => handleUnfavorite(favoriteArticles.find(a => a.id === item.id)!, e)"
+                  >
+                    <wd-icon :name="unfavoriteLoading && currentUnfavoriteArticleId === item.id ? 'loading' : 'star-on'" size="32rpx" />
+                    <text class="ml-[4rpx] text-[24rpx]">{{ unfavoriteLoading && currentUnfavoriteArticleId === item.id ? '处理中' : item.favoriteCount }}</text>
+                  </view>
                 </view>
               </view>
             </view>
-          </view>
+          </block>
 
           <!-- 加载更多提示 -->
-          <view v-if="articlesLoading && currentCards.length > 0" class="load-more">
-            <wd-icon name="loading" size="20px" color="#ff6b35" />
-            <text class="load-text">加载中...</text>
+          <view v-if="articlesLoading && currentCards.length > 0" class="flex items-center justify-center py-8">
+            <wd-icon name="loading" size="20px" color="#8c2303" />
+            <text class="ml-2 text-[#666] text-[28rpx]">加载中...</text>
           </view>
         </view>
       </scroll-view>
@@ -406,315 +418,30 @@ onShow(() => {
 </template>
 
 <style lang="scss" scoped>
-// 页面容器
-.page-container {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  position: relative;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(255, 154, 0, 0.05) 100%);
-    pointer-events: none;
-  }
-}
-
-// 头部区域
-.header-section {
-  position: fixed;
+// 头部固定区域
+.header-fixed {
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   z-index: 100;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-// 导航栏
-.nav-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 32rpx 40rpx;
-
-  .nav-left,
-  .nav-right {
-    width: 120rpx;
-    display: flex;
-    justify-content: center;
-  }
-
-  .back-btn,
-  .refresh-btn {
-    width: 80rpx;
-    height: 80rpx;
-    border-radius: 40rpx;
-    background: rgba(255, 107, 53, 0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-
-    &:active {
-      transform: scale(0.95);
-      background: rgba(255, 107, 53, 0.2);
-    }
-  }
-
-  .refresh-btn.loading {
-    animation: rotate 1s linear infinite;
-  }
-
-  .nav-center {
-    flex: 1;
-    text-align: center;
-
-    .nav-title {
-      font-size: 36rpx;
-      font-weight: 600;
-      color: #333;
-      display: block;
-    }
-
-    .nav-subtitle {
-      font-size: 24rpx;
-      color: #999;
-      margin-top: 4rpx;
-      display: block;
-    }
-  }
-}
-
-// 搜索区域
-.search-section {
-  padding: 0 40rpx 32rpx;
-}
-
-// 主内容区域
-.main-content {
-  // margin-top: 200rpx;
-  padding-bottom: 40rpx;
-}
-
-.scroll-container {
-  height: calc(100vh - 200rpx);
-}
-
-// 加载状态
-.loading-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 20px;
-
-  .loading-animation {
-    margin-bottom: 32rpx;
-    animation: pulse 1.5s ease-in-out infinite;
-  }
-
-  .loading-text {
-    font-size: 28rpx;
-    color: #666;
-  }
-}
-
-// 空状态
-.empty-state {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 80px 20px;
-
-  .empty-icon {
-    margin-bottom: 40rpx;
-    opacity: 0.5;
-  }
-
-  .empty-title {
-    font-size: 36rpx;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 16rpx;
-  }
-
-  .empty-desc {
-    font-size: 28rpx;
-    color: #999;
-    margin-bottom: 48rpx;
-  }
-
-  .empty-action {
-    background: linear-gradient(135deg, #ff6b35 0%, #ff9a00 100%);
-    padding: 24rpx 48rpx;
-    border-radius: 50rpx;
-    box-shadow: 0 8rpx 30rpx rgba(255, 107, 53, 0.3);
-
-    .action-text {
-      color: white;
-      font-size: 28rpx;
-      font-weight: 500;
-    }
-
-    &:active {
-      transform: scale(0.98);
-    }
-  }
-}
-
-// 文章列表
-.article-list {
-  padding: 0 32rpx;
-}
-
-// 文章卡片
-.article-card {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 40rpx;
-  margin-bottom: 32rpx;
+// 可滚动内容区域
+.content-scroll {
+  margin-top: 30rpx;
+  flex: 1;
   overflow: hidden;
-  box-shadow: 0 16rpx 64rpx rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(20rpx);
-  border: 2rpx solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-
-  &:active {
-    transform: translateY(-4rpx);
-    box-shadow: 0 24rpx 80rpx rgba(0, 0, 0, 0.15);
-  }
 }
 
-// 封面区域
-.card-cover {
-  position: relative;
-  height: 400rpx;
-  overflow: hidden;
-
-  .cover-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .cover-gradient {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 120rpx;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
-  }
+.scroll-area {
+  height: 100%;
 }
 
-// 内容区域
-.card-content {
-  padding: 40rpx;
-}
-
-// 文章标题
-.article-title {
-  margin-bottom: 24rpx;
-
-  text {
-    font-size: 36rpx;
-    font-weight: 600;
-    color: #333;
-    line-height: 1.4;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    overflow: hidden;
-  }
-}
-
-// 文章描述
-.article-desc {
-  margin-bottom: 32rpx;
-
-  text {
-    font-size: 28rpx;
-    color: #666;
-    line-height: 1.6;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-  }
-}
-
-// 卡片底部
-.card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 32rpx;
-  border-top: 2rpx solid rgba(0, 0, 0, 0.05);
-}
-
-// 统计信息
-.stats-info {
-  display: flex;
-  align-items: center;
-  gap: 32rpx;
-
-  .stat-item {
-    display: flex;
-    align-items: center;
-    gap: 8rpx;
-
-    .stat-text {
-      font-size: 24rpx;
-      color: #999;
-    }
-  }
-}
-
-// 取消收藏按钮
-.unfavorite-btn {
-  display: flex;
-  align-items: center;
-  gap: 12rpx;
-  padding: 16rpx 32rpx;
-  background: rgba(255, 107, 53, 0.1);
-  border-radius: 40rpx;
-  transition: all 0.3s ease;
-
-  .btn-text {
-    font-size: 24rpx;
-    color: #ff6b35;
-    font-weight: 500;
-  }
-
-  &:active {
-    transform: scale(0.95);
-    background: rgba(255, 107, 53, 0.2);
-  }
-
-  &.loading {
-    opacity: 0.6;
-    pointer-events: none;
-  }
-}
-
-// 加载更多
-.load-more {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16rpx;
-  padding: 40rpx;
-
-  .load-text {
-    font-size: 28rpx;
-    color: #666;
-  }
+// 刷新按钮旋转动画
+.refresh-btn.loading {
+  animation: rotate 1s linear infinite;
 }
 
 // 动画
@@ -727,18 +454,6 @@ onShow(() => {
   }
 }
 
-@keyframes pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.05);
-  }
-}
-
 // 隐藏滚动条
 .uni-scroll-view {
   scrollbar-width: none;
@@ -747,5 +462,10 @@ onShow(() => {
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+// 背景渐变优化
+.bg-fade-top-third {
+  background: linear-gradient(to bottom, #f6e2d3 0%, #f6e2d3 33%, transparent 100%);
 }
 </style>
