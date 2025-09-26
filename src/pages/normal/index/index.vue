@@ -68,6 +68,9 @@ function handleFunctionCardClick(item: FunctionCardItem) {
       break
     case 'message':
       console.log('跳转到我的消息')
+      uni.navigateTo({
+        url: '/pages/normal/message/message',
+      })
       break
     case 'collection':
       console.log('跳转到养生收藏')

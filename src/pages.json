@@ -148,13 +148,6 @@
       }
     },
     {
-      "path": "pages/normal/index/index copy",
-      "type": "home",
-      "style": {
-        "navigationBarTitleText": "普通用户首页"
-      }
-    },
-    {
       "path": "pages/login/forget-password",
       "type": "page",
       "name": "forget-password",
@@ -286,6 +279,13 @@
       "type": "page"
     },
     {
+      "path": "pages/normal/index/indexcopy",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "普通用户首页"
+      }
+    },
+    {
       "path": "pages/normal/me/me copy",
       "type": "page",
       "style": {
@@ -299,6 +299,16 @@
         "navigationStyle": "custom",
         "navigationBarTitleText": "个人中心"
       }
+    },
+    {
+      "path": "pages/normal/message/message",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "我的消息",
+        "disableScroll": true
+      },
+      "excludeLoginPath": true
     }
   ]
 }
