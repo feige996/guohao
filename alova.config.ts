@@ -73,10 +73,13 @@ export default <Config>{
    * 仅限扩展
    * 是否自动更新接口，默认启用，每 5 分钟检查一次，设置为 `false` 时关闭
    */
-  autoUpdate: {
-    // 编辑器启动时更新
-    launchEditor: true,
-    // 每 5 分钟检查一次更新
-    interval: 5 * 60 * 1000,
-  },
+  // autoUpdate: {
+  //   // 编辑器启动时更新
+  //   launchEditor: false,
+  //   // 保存文件时更新
+  //   saveFile: false,
+  //   // 每 5 分钟检查一次更新
+  //   interval: 5 * 60 * 1000,
+  // },
+  autoUpdate: false,
 }
