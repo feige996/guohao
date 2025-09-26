@@ -101,5 +101,16 @@ export default {
   'app_healthskill.apiApp_healthskillExportPost': ['POST', '/api/app_healthskill/export'],
   'app_healthskill.apiApp_healthskillImportGet': ['GET', '/api/app_healthskill/import'],
   'app_healthskill.apiApp_healthskillImportPost': ['POST', '/api/app_healthskill/import'],
-  'app_healthskill.apiApp_healthskillRandomGet': ['GET', '/api/app_healthskill/random']
+  'app_healthskill.apiApp_healthskillRandomGet': ['GET', '/api/app_healthskill/random'],
+  'app_Message.apiApp_messagePagePost': ['POST', '/api/app_Message/page'],
+  'app_Message.apiApp_messageDetailGet': ['GET', '/api/app_Message/detail'],
+  'app_Message.apiApp_messageAddPost': ['POST', '/api/app_Message/add'],
+  'app_Message.apiApp_messageUpdatePost': ['POST', '/api/app_Message/update'],
+  'app_Message.apiApp_messageDeletePost': ['POST', '/api/app_Message/delete'],
+  'app_Message.apiApp_messageBatchdeletePost': ['POST', '/api/app_Message/batchDelete'],
+  'app_Message.apiApp_messageDropdowndataPost': ['POST', '/api/app_Message/dropdownData'],
+  'app_Message.apiApp_messageExportPost': ['POST', '/api/app_Message/export'],
+  'app_Message.apiApp_messageImportGet': ['GET', '/api/app_Message/import'],
+  'app_Message.apiApp_messageImportPost': ['POST', '/api/app_Message/import'],
+  'app_Message.apiApp_messageMarkasreadMessageidPost': ['POST', '/api/app_Message/markAsRead/{messageId}']
 };

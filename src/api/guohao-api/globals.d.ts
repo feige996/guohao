@@ -755,6 +755,113 @@ export interface Deleteapp_healthskillInput {
    */
   id: number;
 }
+export type AppMessageEnum = 1 | 2;
+export interface Pageapp_MessageInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 消息标题
+   */
+  title?: string | null;
+  /**
+   * 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+   */
+  messageType?: AppMessageEnum;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_MessageInput {
+  /**
+   * 消息标题
+   */
+  title: string;
+  /**
+   * 消息内容
+   */
+  content: string;
+  /**
+   * 用户Id
+   */
+  userId: number;
+  /**
+   * 是否已读
+   */
+  isRead: boolean;
+  /**
+   * 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+   */
+  messageType: AppMessageEnum;
+}
+export interface Updateapp_MessageInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 消息标题
+   */
+  title: string;
+  /**
+   * 消息内容
+   */
+  content: string;
+  /**
+   * 用户Id
+   */
+  userId: number;
+  /**
+   * 是否已读
+   */
+  isRead: boolean;
+  /**
+   * 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+   */
+  messageType: AppMessageEnum;
+}
+export interface Deleteapp_MessageInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
+export interface DropdownDataapp_MessageInput {
+  /**
+   * 是否用于分页查询
+   */
+  fromPage?: boolean;
+}
 export interface AdminResult_Object {
   /**
    * 状态码
@@ -2148,6 +2255,200 @@ export interface AdminResult_app_healthskillOutput {
    * 健康小妙招输出参数
    */
   result?: App_healthskillOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_MessageOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 消息标题
+   */
+  title?: string | null;
+  /**
+   * 消息内容
+   */
+  content?: string | null;
+  /**
+   * 用户Id
+   */
+  userId?: number;
+  /**
+   * 用户Id 描述
+   */
+  userFkDisplayName?: string | null;
+  /**
+   * 是否已读
+   */
+  isRead?: boolean;
+  /**
+   * 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+   */
+  messageType?: AppMessageEnum;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_MessageOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_MessageOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_MessageOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_MessageOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_Message {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 消息标题
+   */
+  title?: string | null;
+  /**
+   * 消息内容
+   */
+  content?: string | null;
+  /**
+   * 用户Id
+   */
+  userId?: number;
+  /**
+   * 是否已读
+   */
+  isRead?: boolean;
+  /**
+   * 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+   */
+  messageType?: AppMessageEnum;
+}
+export interface AdminResult_app_Message {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 我的消息实体
+   */
+  result?: App_Message;
   /**
    * 附加数据
    */
@@ -6672,6 +6973,599 @@ declare global {
       >(
         config: Config
       ): Alova2Method<null, 'app_HealthArticleCategory.apiApp_healtharticlecategoryImportPost', Config>;
+    };
+    app_Message: {
+      /**
+       * ---
+       *
+       * [POST] 分页查询系统消息 🔖
+       *
+       * **path:** /api/app_Message/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 消息标题
+       *   title?: string | null
+       *   // 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+       *   messageType?: 1 | 2
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 系统消息输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 消息标题
+       *       title?: string | null
+       *       // 消息内容
+       *       content?: string | null
+       *       // 用户Id
+       *       userId?: number
+       *       // 用户Id 描述
+       *       userFkDisplayName?: string | null
+       *       // 是否已读
+       *       isRead?: boolean
+       *       // 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+       *       messageType?: 1 | 2
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_messagePagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_MessageOutput> & {
+          data: Pageapp_MessageInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SqlSugarPagedList_app_MessageOutput, 'app_Message.apiApp_messagePagePost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 获取系统消息详情 ℹ️
+       *
+       * **path:** /api/app_Message/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 我的消息实体
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 消息标题
+       *     title?: string | null
+       *     // 消息内容
+       *     content?: string | null
+       *     // 用户Id
+       *     userId?: number
+       *     // 是否已读
+       *     isRead?: boolean
+       *     // 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+       *     messageType?: 1 | 2
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_messageDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_Message> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_Message, 'app_Message.apiApp_messageDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 增加系统消息 ➕
+       *
+       * **path:** /api/app_Message/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 消息标题
+       *   title: string
+       *   // 消息内容
+       *   content: string
+       *   // 用户Id
+       *   userId: number
+       *   // 是否已读
+       *   isRead: boolean
+       *   // 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+       *   messageType: 1 | 2
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_messageAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_MessageInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_Message.apiApp_messageAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新系统消息 ✏️
+       *
+       * **path:** /api/app_Message/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 消息标题
+       *   title: string
+       *   // 消息内容
+       *   content: string
+       *   // 用户Id
+       *   userId: number
+       *   // 是否已读
+       *   isRead: boolean
+       *   // 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+       *   messageType: 1 | 2
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_messageUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_MessageInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Message.apiApp_messageUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除系统消息 ❌
+       *
+       * **path:** /api/app_Message/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_messageDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_MessageInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Message.apiApp_messageDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除系统消息 ❌
+       *
+       * **path:** /api/app_Message/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_messageBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_MessageInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_Message.apiApp_messageBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 获取下拉列表数据 🔖
+       *
+       * **path:** /api/app_Message/dropdownData
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 是否用于分页查询
+       *   fromPage?: boolean
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: Record<string, unknown> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_messageDropdowndataPost<
+        Config extends Alova2MethodConfig<AdminResult_Dictionary_StringObject> & {
+          data: DropdownDataapp_MessageInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Dictionary_StringObject, 'app_Message.apiApp_messageDropdowndataPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导出系统消息记录 🔖
+       *
+       * **path:** /api/app_Message/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 消息标题
+       *   title?: string | null
+       *   // 系统消息类型<br />&nbsp;服务提醒 ServiceNotification = 1<br />&nbsp;系统提醒 SystemNotification = 2<br />
+       *   messageType?: 1 | 2
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_messageExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_MessageInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Message.apiApp_messageExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载系统消息数据导入模板 ⬇️
+       *
+       * **path:** /api/app_Message/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_messageImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_Message.apiApp_messageImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入系统消息记录 💾
+       *
+       * **path:** /api/app_Message/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_messageImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Message.apiApp_messageImportPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 标记消息为已读
+       *
+       * **path:** /api/app_Message/markAsRead/{messageId}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   messageId: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_messageMarkasreadMessageidPost<
+        Config extends Alova2MethodConfig<null> & {
+          pathParams: {
+            messageId: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Message.apiApp_messageMarkasreadMessageidPost', Config>;
     };
   }
 
