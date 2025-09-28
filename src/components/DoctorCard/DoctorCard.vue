@@ -72,14 +72,14 @@ function handleClick() {
       </view>
 
       <!-- 擅长描述 -->
-      <text class="absolute left-0 top-118rpx line-clamp-2 mt-4 w-full overflow-hidden text-22rpx text-[#89a2be] font-500 leading-36rpx">
+      <text class="absolute left-0 top-118rpx mt-4 w-full line-clamp-2 overflow-hidden text-22rpx text-[#89a2be] font-500 leading-36rpx">
         擅长：{{ config.specialty }}
       </text>
     </view>
 
     <!-- 右侧头像 -->
     <image
-      class="absolute right-0 top-0 h-282rpx w-304rpx"
+      class="absolute right-0 top-1/2 h-282rpx w-304rpx p-2 -translate-y-1/2"
       :src="config.avatar"
       mode="aspectFill"
     />
