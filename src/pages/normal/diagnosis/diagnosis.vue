@@ -140,7 +140,7 @@ const doctorCards = computed(() => {
     const userName = doctor.appUser?.nickName || doctor.appUser?.username || '医生'
 
     return {
-      id: doctor.id?.toString() || `doctor_${index}`,
+      id: doctor.appUser?.id?.toString() || `doctor_${index}`,
       name: userName,
       title: doctor.job_title || '主治医师',
       department: doctor.fields && doctor.fields.length > 0
