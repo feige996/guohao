@@ -34,11 +34,11 @@ function handleClick() {
       </view>
 
       <!-- 科室和医院标签 -->
-      <view class="relative mt-16rpx w-400rpx flex flex-row items-start">
+      <view class="relative mt-20rpx w-400rpx flex flex-row items-start">
         <!-- 科室标签 -->
         <view class="relative flex flex-wrap items-start gap-8rpx">
           <view
-            v-for="(dept, index) in (Array.isArray(config.department) ? config.department : [config.department])"
+            v-for="(dept, index) in (Array.isArray(config.department) ? config.department.slice(0, 4) : [config.department])"
             :key="index"
             class="h-36rpx min-w-88rpx flex flex-col items-start"
           >
@@ -59,7 +59,7 @@ function handleClick() {
       </view>
 
       <!-- 接诊量和好评率 -->
-      <view class="relative h-34rpx w-326rpx flex flex-row items-start">
+      <view class="relative mt-10rpx h-34rpx w-326rpx flex flex-row items-start">
         <text class="absolute left-0 top-12rpx text-20rpx text-[#999999] font-500 leading-24rpx">
           好评：
         </text>
@@ -76,7 +76,7 @@ function handleClick() {
       </view>
 
       <!-- 简介描述 -->
-      <text class="left-0 mt-4 w-full line-clamp-2 overflow-hidden text-22rpx text-[#89a2be] font-500 leading-36rpx">
+      <text class="left-0 mt-20rpx w-full line-clamp-2 overflow-hidden text-22rpx text-[#89a2be] font-500 leading-36rpx">
         {{ config.specialty }}
       </text>
     </view>
