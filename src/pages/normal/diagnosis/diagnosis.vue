@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { App_DoctorAuditing } from '@/api/guohao-api/globals.d'
+import type { App_DoctorAuditing, SysDictData } from '@/api/guohao-api/globals.d'
 import type { DoctorCardConfig } from '@/components/DoctorCard'
 import type { HealthcareCardConfig } from '@/components/HealthcareCard'
 import type { MedicalServiceCardConfig } from '@/components/MedicalServiceCards'
@@ -35,6 +35,57 @@ const isLoading = ref(false)
 
 // 搜索关键词
 const searchKeyword = ref('')
+
+// 字典数据
+const departmentDict = ref<SysDictData[]>([])
+const departmentMap = ref<Record<string, string>>({})
+
+// 获取科室字典数据
+const {
+  loading: dictLoading,
+  send: fetchDepartmentDict,
+} = useRequest(
+  () => Apis.appSysDictData.apiAppsysdictdataDatalistCodeGet({
+    pathParams: {
+      code: 'AppDepartmentEnum',
+    },
+  }),
+  {
+    immediate: false,
+  },
+).onSuccess((response: any) => {
+  console.log('科室字典数据响应:', response)
+
+  const dictData = response.data?.result || response.result || response.data || []
+  console.log('处理后的字典数据:', dictData)
+
+  if (Array.isArray(dictData)) {
+    departmentDict.value = dictData
+
+    // 创建字典映射表: value -> label
+    const mapping: Record<string, string> = {}
+    dictData.forEach((item) => {
+      if (item.value && item.label) {
+        mapping[item.value] = item.label
+      }
+    })
+    departmentMap.value = mapping
+
+    console.log('科室字典映射:', mapping)
+  }
+}).onError((error: any) => {
+  console.error('获取科室字典失败:', error)
+  // 失败时使用默认映射
+  departmentMap.value = {
+    1: '内科',
+    2: '外科',
+    3: '妇科',
+    4: '儿科',
+    5: '中医科',
+    6: '康复科',
+    7: '营养科',
+  }
+})
 
 // 获取推荐医生列表
 const {
@@ -94,17 +145,8 @@ const doctorCards = computed(() => {
       title: doctor.job_title || '主治医师',
       department: doctor.fields && doctor.fields.length > 0
         ? doctor.fields.map((field) => {
-            // 将枚举值转换为可读的科室名称
-            const departmentMap: Record<number, string> = {
-              1: '内科',
-              2: '外科',
-              3: '妇科',
-              4: '儿科',
-              5: '中医科',
-              6: '康复科',
-              7: '营养科',
-            }
-            return departmentMap[field] || `科室${field}`
+            // 使用从API获取的字典数据转换枚举值
+            return departmentMap.value[field.toString()] || `科室${field}`
           })
         : ['中医科'],
       hospital: doctor.position || '国浩中医医院',
@@ -210,10 +252,25 @@ function refreshDoctors() {
 }
 
 // 页面初始化
-onMounted(() => {
+onMounted(async () => {
   // 开始加载推荐医生数据
   isLoading.value = true
-  fetchRecommendedDoctors(1, pageSize.value)
+
+  try {
+    // 先获取字典数据
+    await fetchDepartmentDict()
+
+    // 再获取医生数据
+    await fetchRecommendedDoctors(1, pageSize.value)
+  }
+  catch (error) {
+    console.error('页面初始化失败:', error)
+    // 即使字典获取失败，仍尝试获取医生数据
+    fetchRecommendedDoctors(1, pageSize.value)
+  }
+  finally {
+    isLoading.value = false
+  }
 })
 </script>
 
