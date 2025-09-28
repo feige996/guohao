@@ -18,11 +18,11 @@ function handleClick() {
 
 <template>
   <view
-    class="relative h-310rpx w-702rpx flex flex-row items-start rounded-16rpx bg-white"
+    class="relative h-280rpx w-702rpx flex flex-row items-start rounded-16rpx bg-white"
     @click="handleClick"
   >
     <!-- 左侧内容区域 -->
-    <view class="relative ml-32rpx mt-24rpx h-264rpx w-364rpx flex flex-col items-start">
+    <view class="relative ml-32rpx mt-24rpx h-260rpx w-400rpx flex flex-col items-start">
       <!-- 医生姓名和职称 -->
       <view class="relative h-32rpx w-full flex flex-row items-center">
         <text class="flex-shrink-0 text-30rpx text-[#333333] font-500 leading-32rpx">
@@ -36,22 +36,28 @@ function handleClick() {
       <!-- 科室和医院标签 -->
       <view class="relative mt-16rpx h-36rpx w-364rpx flex flex-row items-start">
         <!-- 科室标签 -->
-        <view class="relative h-36rpx w-128rpx flex flex-col items-start">
-          <view class="absolute left-0 top-0 h-full w-full flex flex-col items-start rounded-8rpx bg-[#e7f0ff]">
-            <text class="absolute left-24rpx top-8rpx text-20rpx text-[#69b0f7] font-500 leading-20rpx">
-              {{ config.department }}
-            </text>
+        <view class="relative h-36rpx flex flex-wrap items-start gap-8rpx">
+          <view
+            v-for="(dept, index) in (Array.isArray(config.department) ? config.department : [config.department])"
+            :key="index"
+            class="h-36rpx min-w-88rpx flex flex-col items-start"
+          >
+            <view class="h-full w-full flex flex-col items-center justify-center rounded-8rpx bg-[#e7f0ff] px-12rpx">
+              <text class="text-20rpx text-[#69b0f7] font-500 leading-20rpx">
+                {{ dept }}
+              </text>
+            </view>
           </view>
         </view>
 
         <!-- 医院标签 -->
-        <view class="relative ml-8rpx h-36rpx w-228rpx flex flex-col items-start">
+        <!-- <view class="relative ml-8rpx h-36rpx w-228rpx flex flex-col items-start">
           <view class="absolute left-0 top-0 h-full w-full flex flex-col items-start rounded-8rpx bg-[#efedfa]">
             <text class="absolute left-24rpx top-8rpx text-20rpx text-[#9f80ef] font-500 leading-20rpx">
               {{ config.hospital }}
             </text>
           </view>
-        </view>
+        </view> -->
       </view>
 
       <!-- 接诊量和好评率 -->
@@ -71,14 +77,14 @@ function handleClick() {
         </text>
       </view>
 
-      <!-- 擅长描述 -->
+      <!-- 简介描述 -->
       <text class="absolute left-0 top-118rpx mt-4 w-full line-clamp-2 overflow-hidden text-22rpx text-[#89a2be] font-500 leading-36rpx">
-        擅长：{{ config.specialty }}
+        {{ config.specialty }}
       </text>
     </view>
 
     <!-- 右侧头像容器 -->
-    <view class="absolute right-0 top-1/2 h-282rpx w-260rpx p-2 -translate-y-1/2">
+    <view class="absolute right-0 top-1/2 h-220rpx w-220rpx p-2 -translate-y-1/2">
       <image
         class="h-full w-full rounded-8rpx"
         :src="config.avatar"

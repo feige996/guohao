@@ -2,7 +2,7 @@ export interface DoctorCardConfig {
   id: string
   name: string
   title: string
-  department: string
+  department: string | string[]
   hospital: string
   consultationCount: number
   rating: number

@@ -88,6 +88,87 @@ type Alova2Method<
       >
     : never;
 
+export type StatusEnum = 1 | 2;
+export interface Search {
+  /**
+   * 字段名称集合
+   */
+  fields?: string[] | null;
+  /**
+   * 关键字
+   */
+  keyword?: string | null;
+}
+export type FilterLogicEnum = 0 | 1 | 2;
+export type FilterOperatorEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export interface Filter {
+  /**
+   * 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+   */
+  logic?: FilterLogicEnum;
+  /**
+   * 筛选过滤条件子项
+   */
+  filters?: Filter[] | null;
+  /**
+   * 字段名称
+   */
+  field?: string | null;
+  /**
+   * 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+   */
+  operator?: FilterOperatorEnum;
+  /**
+   * 字段值
+   */
+  value?: null;
+}
+export interface PageDictDataInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 字典类型Id
+   */
+  dictTypeId?: number;
+  /**
+   * 文本
+   */
+  label?: string | null;
+  /**
+   * 编码
+   */
+  code?: string | null;
+}
 export interface AppLoginInput {
   /**
    * 用户名/手机号/邮箱
@@ -250,40 +331,6 @@ export interface AppChangePasswordInput {
    * 新密码
    */
   newPassword: string;
-}
-export interface Search {
-  /**
-   * 字段名称集合
-   */
-  fields?: string[] | null;
-  /**
-   * 关键字
-   */
-  keyword?: string | null;
-}
-export type FilterLogicEnum = 0 | 1 | 2;
-export type FilterOperatorEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-export interface Filter {
-  /**
-   * 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
-   */
-  logic?: FilterLogicEnum;
-  /**
-   * 筛选过滤条件子项
-   */
-  filters?: Filter[] | null;
-  /**
-   * 字段名称
-   */
-  field?: string | null;
-  /**
-   * 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
-   */
-  operator?: FilterOperatorEnum;
-  /**
-   * 字段值
-   */
-  value?: null;
 }
 export type AppAccountTypeEnum = 666 | 777 | 888 | 999;
 export type AppDepartmentEnum =
@@ -1483,7 +1530,6 @@ export interface Pageapp_UserInput {
 export type CardTypeEnum = 0 | 1 | 2 | 3 | 4 | 5;
 export type CultureLevelEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type PlatformTypeEnum = 1 | 2 | 3 | 4 | 5 | 6;
-export type StatusEnum = 1 | 2;
 export interface Addapp_UserInput {
   /**
    * 用户名
@@ -2224,6 +2270,192 @@ export interface AdminResult_Int32 {
    * 数据
    */
   result?: number;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface SysDictData {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 字典类型Id
+   */
+  dictTypeId?: number;
+  /**
+   * 显示文本
+   */
+  label: string;
+  /**
+   * 值
+   */
+  value: string;
+  /**
+   * 编码
+   */
+  code?: string | null;
+  /**
+   * 名称
+   */
+  name?: string | null;
+  /**
+   * 显示样式-标签颜色
+   */
+  tagType?: string | null;
+  /**
+   * 显示样式-Style(控制显示样式)
+   */
+  styleSetting?: string | null;
+  /**
+   * 显示样式-Class(控制显示样式)
+   */
+  classSetting?: string | null;
+  /**
+   * 排序
+   */
+  orderNo?: number;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 拓展数据(保存业务功能的配置项)
+   */
+  extData?: string | null;
+  /**
+   * 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+   */
+  status?: StatusEnum;
+}
+export interface SqlSugarPagedList_SysDictData {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: SysDictData[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_SysDictData {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_SysDictData;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_List_SysDictData {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: SysDictData[] | null;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_SysDictData {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 系统字典值表
+   */
+  result?: SysDictData;
   /**
    * 附加数据
    */
@@ -7527,6 +7759,531 @@ declare global {
       >(
         config: Config
       ): Alova2Method<AdminResult_app_healthskillOutput, 'app_healthskill.apiApp_healthskillRandomGet', Config>;
+    };
+    appSysDictData: {
+      /**
+       * ---
+       *
+       * [POST] 获取字典值分页列表 🔖
+       *
+       * **path:** /api/appSysDictData/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 字典类型Id
+       *   dictTypeId?: number
+       *   // 文本
+       *   label?: string | null
+       *   // 编码
+       *   code?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 系统字典值表
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 字典类型Id
+       *       dictTypeId?: number
+       *       // 显示文本
+       *       label: string
+       *       // 值
+       *       value: string
+       *       // 编码
+       *       code?: string | null
+       *       // 名称
+       *       name?: string | null
+       *       // 显示样式-标签颜色
+       *       tagType?: string | null
+       *       // 显示样式-Style(控制显示样式)
+       *       styleSetting?: string | null
+       *       // 显示样式-Class(控制显示样式)
+       *       classSetting?: string | null
+       *       // 排序
+       *       orderNo?: number
+       *       // 备注
+       *       remark?: string | null
+       *       // 拓展数据(保存业务功能的配置项)
+       *       extData?: string | null
+       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *       status?: 1 | 2
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppsysdictdataPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_SysDictData> & {
+          data: PageDictDataInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SqlSugarPagedList_SysDictData, 'appSysDictData.apiAppsysdictdataPagePost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 获取字典值列表 🔖
+       *
+       * **path:** /api/appSysDictData/list
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 字典类型Id
+       *   DictTypeId: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   // [params1] start
+       *   // [items] start
+       *   // 系统字典值表
+       *   // [items] end
+       *   // [params1] end
+       *   result?: Array<{
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 字典类型Id
+       *     dictTypeId?: number
+       *     // 显示文本
+       *     label: string
+       *     // 值
+       *     value: string
+       *     // 编码
+       *     code?: string | null
+       *     // 名称
+       *     name?: string | null
+       *     // 显示样式-标签颜色
+       *     tagType?: string | null
+       *     // 显示样式-Style(控制显示样式)
+       *     styleSetting?: string | null
+       *     // 显示样式-Class(控制显示样式)
+       *     classSetting?: string | null
+       *     // 排序
+       *     orderNo?: number
+       *     // 备注
+       *     remark?: string | null
+       *     // 拓展数据(保存业务功能的配置项)
+       *     extData?: string | null
+       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *     status?: 1 | 2
+       *   }> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppsysdictdataListGet<
+        Config extends Alova2MethodConfig<AdminResult_List_SysDictData> & {
+          params: {
+            /**
+             * 字典类型Id
+             */
+            DictTypeId: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_List_SysDictData, 'appSysDictData.apiAppsysdictdataListGet', Config>;
+      /**
+       * ---
+       *
+       * [GET] 获取字典值详情 🔖
+       *
+       * **path:** /api/appSysDictData/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 状态
+       *   Status?: 1 | 2
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统字典值表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 字典类型Id
+       *     dictTypeId?: number
+       *     // 显示文本
+       *     label: string
+       *     // 值
+       *     value: string
+       *     // 编码
+       *     code?: string | null
+       *     // 名称
+       *     name?: string | null
+       *     // 显示样式-标签颜色
+       *     tagType?: string | null
+       *     // 显示样式-Style(控制显示样式)
+       *     styleSetting?: string | null
+       *     // 显示样式-Class(控制显示样式)
+       *     classSetting?: string | null
+       *     // 排序
+       *     orderNo?: number
+       *     // 备注
+       *     remark?: string | null
+       *     // 拓展数据(保存业务功能的配置项)
+       *     extData?: string | null
+       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *     status?: 1 | 2
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppsysdictdataDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_SysDictData> & {
+          params: {
+            /**
+             * 状态
+             */
+            Status?: StatusEnum;
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SysDictData, 'appSysDictData.apiAppsysdictdataDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [GET] 根据字典类型编码获取字典值集合 🔖
+       *
+       * **path:** /api/appSysDictData/dataList/{code}
+       *
+       * ---
+       *
+       * **Path Parameters**
+       * ```ts
+       * type PathParameters = {
+       *   code: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   // [params1] start
+       *   // [items] start
+       *   // 系统字典值表
+       *   // [items] end
+       *   // [params1] end
+       *   result?: Array<{
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 字典类型Id
+       *     dictTypeId?: number
+       *     // 显示文本
+       *     label: string
+       *     // 值
+       *     value: string
+       *     // 编码
+       *     code?: string | null
+       *     // 名称
+       *     name?: string | null
+       *     // 显示样式-标签颜色
+       *     tagType?: string | null
+       *     // 显示样式-Style(控制显示样式)
+       *     styleSetting?: string | null
+       *     // 显示样式-Class(控制显示样式)
+       *     classSetting?: string | null
+       *     // 排序
+       *     orderNo?: number
+       *     // 备注
+       *     remark?: string | null
+       *     // 拓展数据(保存业务功能的配置项)
+       *     extData?: string | null
+       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *     status?: 1 | 2
+       *   }> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppsysdictdataDatalistCodeGet<
+        Config extends Alova2MethodConfig<AdminResult_List_SysDictData> & {
+          pathParams: {
+            code: string;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_List_SysDictData, 'appSysDictData.apiAppsysdictdataDatalistCodeGet', Config>;
+      /**
+       * ---
+       *
+       * [GET] 根据查询条件获取字典值集合 🔖
+       *
+       * **path:** /api/appSysDictData/dataList
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 字典值
+       *   Value: string
+       *   // 状态
+       *   Status?: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   // [params1] start
+       *   // [items] start
+       *   // 系统字典值表
+       *   // [items] end
+       *   // [params1] end
+       *   result?: Array<{
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 字典类型Id
+       *     dictTypeId?: number
+       *     // 显示文本
+       *     label: string
+       *     // 值
+       *     value: string
+       *     // 编码
+       *     code?: string | null
+       *     // 名称
+       *     name?: string | null
+       *     // 显示样式-标签颜色
+       *     tagType?: string | null
+       *     // 显示样式-Style(控制显示样式)
+       *     styleSetting?: string | null
+       *     // 显示样式-Class(控制显示样式)
+       *     classSetting?: string | null
+       *     // 排序
+       *     orderNo?: number
+       *     // 备注
+       *     remark?: string | null
+       *     // 拓展数据(保存业务功能的配置项)
+       *     extData?: string | null
+       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *     status?: 1 | 2
+       *   }> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiAppsysdictdataDatalistGet<
+        Config extends Alova2MethodConfig<AdminResult_List_SysDictData> & {
+          params: {
+            /**
+             * 字典值
+             */
+            Value: string;
+            /**
+             * 状态
+             */
+            Status?: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_List_SysDictData, 'appSysDictData.apiAppsysdictdataDatalistGet', Config>;
     };
     appAuth: {
       /**

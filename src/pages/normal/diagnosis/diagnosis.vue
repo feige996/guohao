@@ -92,7 +92,21 @@ const doctorCards = computed(() => {
       id: doctor.id?.toString() || `doctor_${index}`,
       name: userName,
       title: doctor.job_title || '主治医师',
-      department: doctor.department || '中医科',
+      department: doctor.fields && doctor.fields.length > 0
+        ? doctor.fields.map((field) => {
+            // 将枚举值转换为可读的科室名称
+            const departmentMap: Record<number, string> = {
+              1: '内科',
+              2: '外科',
+              3: '妇科',
+              4: '儿科',
+              5: '中医科',
+              6: '康复科',
+              7: '营养科',
+            }
+            return departmentMap[field] || `科室${field}`
+          })
+        : ['中医科'],
       hospital: doctor.position || '国浩中医医院',
       consultationCount: Math.floor(Math.random() * 1000) + 100, // 暂时使用随机数
       rating: doctor.avg_rating_score || (4.5 + Math.random() * 0.5), // 使用真实评分或随机评分
