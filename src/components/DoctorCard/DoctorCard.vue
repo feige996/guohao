@@ -77,11 +77,13 @@ function handleClick() {
       </text>
     </view>
 
-    <!-- 右侧头像 -->
-    <image
-      class="absolute right-0 top-1/2 h-282rpx w-304rpx p-2 -translate-y-1/2"
-      :src="config.avatar"
-      mode="aspectFill"
-    />
+    <!-- 右侧头像容器 -->
+    <view class="absolute right-0 top-1/2 h-282rpx w-260rpx p-2 -translate-y-1/2">
+      <image
+        class="h-full w-full rounded-8rpx"
+        :src="config.avatar"
+        mode="aspectFill"
+      />
+    </view>
   </view>
 </template>
