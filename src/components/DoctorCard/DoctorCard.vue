@@ -82,7 +82,7 @@ function handleClick() {
     </view>
 
     <!-- 右侧头像容器 -->
-    <view class="absolute right-0 top-1/2 h-220rpx w-220rpx p-2 -translate-y-1/2">
+    <view class="absolute right-0 top-1/2 h-220rpx w-210rpx p-28rpx -translate-y-1/2">
       <image
         class="h-full w-full rounded-8rpx"
         :src="config.avatar"
