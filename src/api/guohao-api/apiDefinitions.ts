@@ -39,6 +39,48 @@ export default {
   'appUser.apiAppuserSendsmscodeMobilePost': ['POST', '/api/appUser/sendSmsCode/{mobile}'],
   'appUser.apiAppuserCheckusernameavailableUsernamePost': ['POST', '/api/appUser/checkUsernameAvailable/{username}'],
   'appUser.apiAppuserCheckmobileavailableMobilePost': ['POST', '/api/appUser/checkMobileAvailable/{mobile}'],
+  'app_DoctorAuditing.apiApp_doctorauditingPagePost': ['POST', '/api/app_DoctorAuditing/page'],
+  'app_DoctorAuditing.apiApp_doctorauditingDetailGet': ['GET', '/api/app_DoctorAuditing/detail'],
+  'app_DoctorAuditing.apiApp_doctorauditingAddPost': ['POST', '/api/app_DoctorAuditing/add'],
+  'app_DoctorAuditing.apiApp_doctorauditingUpdatePost': ['POST', '/api/app_DoctorAuditing/update'],
+  'app_DoctorAuditing.apiApp_doctorauditingDeletePost': ['POST', '/api/app_DoctorAuditing/delete'],
+  'app_DoctorAuditing.apiApp_doctorauditingBatchdeletePost': ['POST', '/api/app_DoctorAuditing/batchDelete'],
+  'app_DoctorAuditing.apiApp_doctorauditingUploadidcard_front_imagePost': [
+    'POST',
+    '/api/app_DoctorAuditing/uploadIdcard_front_image'
+  ],
+  'app_DoctorAuditing.apiApp_doctorauditingUploadidcard_back_imagePost': [
+    'POST',
+    '/api/app_DoctorAuditing/uploadIdcard_back_image'
+  ],
+  'app_DoctorAuditing.apiApp_doctorauditingUploadidcard_handheld_imagePost': [
+    'POST',
+    '/api/app_DoctorAuditing/uploadIdcard_handheld_image'
+  ],
+  'app_DoctorAuditing.apiApp_doctorauditingUploaddoctor_qualification_imagesPost': [
+    'POST',
+    '/api/app_DoctorAuditing/uploadDoctor_qualification_images'
+  ],
+  'app_DoctorAuditing.apiApp_doctorauditingUploadchn_medicine_qualification_imagesPost': [
+    'POST',
+    '/api/app_DoctorAuditing/uploadChn_medicine_qualification_images'
+  ],
+  'app_DoctorAuditing.apiApp_doctorauditingDropdowndataPost': ['POST', '/api/app_DoctorAuditing/dropdownData'],
+  'app_DoctorAuditing.apiApp_doctorauditingExportPost': ['POST', '/api/app_DoctorAuditing/export'],
+  'app_DoctorAuditing.apiApp_doctorauditingImportGet': ['GET', '/api/app_DoctorAuditing/import'],
+  'app_DoctorAuditing.apiApp_doctorauditingImportPost': ['POST', '/api/app_DoctorAuditing/import'],
+  'app_DoctorAuditing.apiApp_doctorauditingMigratefromtdoctorauditingPost': [
+    'POST',
+    '/api/app_DoctorAuditing/migrateFromTDoctorAuditing'
+  ],
+  'app_DoctorAuditing.apiApp_doctorauditingMigratefromtconsultantauditingPost': [
+    'POST',
+    '/api/app_DoctorAuditing/migrateFromTConsultantAuditing'
+  ],
+  'app_DoctorAuditing.apiApp_doctorauditingGetrecommendeddoctorsPost': [
+    'POST',
+    '/api/app_DoctorAuditing/getRecommendedDoctors'
+  ],
   'app_HealthArticleCategory.apiApp_healtharticlecategoryPagePost': ['POST', '/api/app_HealthArticleCategory/page'],
   'app_HealthArticleCategory.apiApp_healtharticlecategoryListGet': ['GET', '/api/app_HealthArticleCategory/list'],
   'app_HealthArticleCategory.apiApp_healtharticlecategoryTreeGet': ['GET', '/api/app_HealthArticleCategory/tree'],
@@ -112,5 +154,16 @@ export default {
   'app_Message.apiApp_messageExportPost': ['POST', '/api/app_Message/export'],
   'app_Message.apiApp_messageImportGet': ['GET', '/api/app_Message/import'],
   'app_Message.apiApp_messageImportPost': ['POST', '/api/app_Message/import'],
-  'app_Message.apiApp_messageMarkasreadMessageidPost': ['POST', '/api/app_Message/markAsRead/{messageId}']
+  'app_Message.apiApp_messageMarkasreadMessageidPost': ['POST', '/api/app_Message/markAsRead/{messageId}'],
+  'app_User.apiApp_userPagePost': ['POST', '/api/app_User/page'],
+  'app_User.apiApp_userDetailGet': ['GET', '/api/app_User/detail'],
+  'app_User.apiApp_userAddPost': ['POST', '/api/app_User/add'],
+  'app_User.apiApp_userUpdatePost': ['POST', '/api/app_User/update'],
+  'app_User.apiApp_userDeletePost': ['POST', '/api/app_User/delete'],
+  'app_User.apiApp_userBatchdeletePost': ['POST', '/api/app_User/batchDelete'],
+  'app_User.apiApp_userSetstatusPost': ['POST', '/api/app_User/setStatus'],
+  'app_User.apiApp_userUploadavatarPost': ['POST', '/api/app_User/uploadAvatar'],
+  'app_User.apiApp_userExportPost': ['POST', '/api/app_User/export'],
+  'app_User.apiApp_userImportGet': ['GET', '/api/app_User/import'],
+  'app_User.apiApp_userImportPost': ['POST', '/api/app_User/import']
 };

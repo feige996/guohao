@@ -285,6 +285,557 @@ export interface Filter {
    */
   value?: null;
 }
+export type AppAccountTypeEnum = 666 | 777 | 888 | 999;
+export type AppDepartmentEnum =
+  | 1
+  | 2
+  | 3
+  | 4
+  | 5
+  | 6
+  | 7
+  | 8
+  | 9
+  | 10
+  | 11
+  | 12
+  | 13
+  | 14
+  | 15
+  | 16
+  | 17
+  | 18
+  | 19
+  | 20
+  | 21
+  | 22
+  | 23
+  | 24
+  | 25
+  | 61
+  | 62
+  | 63
+  | 64
+  | 65
+  | 66;
+export type DoctorAuditingStatusEnum = 0 | 1 | 2 | 3;
+export type AppConsultantTypeEnum = 1 | 2 | 3;
+export interface Pageapp_DoctorAuditingInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+   */
+  auditing_types?: AppAccountTypeEnum;
+  /**
+   * 用户
+   */
+  userId?: number | null;
+  /**
+   * 推荐人手机号
+   */
+  referrer_telephone?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 地区
+   */
+  district?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 部门
+   */
+  department?: string | null;
+  /**
+   * 职称
+   */
+  job_title?: string | null;
+  /**
+   * 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+   */
+  fields?: AppDepartmentEnum;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 咨询费用
+   */
+  inquiry_fee?: number | null;
+  /**
+   * 推荐
+   */
+  recommend?: boolean | null;
+  /**
+   * 评价平均分
+   */
+  avg_rating_score?: number | null;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  avatar_auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 论文数
+   */
+  paper_count?: number | null;
+  /**
+   * 审核原因
+   */
+  auditing_reason?: string | null;
+  /**
+   * 是否是特诊医生
+   */
+  is_special_diagnosis?: boolean | null;
+  /**
+   * 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+   */
+  consultant_type?: AppConsultantTypeEnum;
+  /**
+   * 顾问证书编号
+   */
+  consultant_certificate_no?: string | null;
+  /**
+   * 顾问证书图片
+   */
+  consultant_certificate_image?: string | null;
+  /**
+   * 顾问资格说明
+   */
+  consultant_qualification_desc?: string | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_DoctorAuditingInput {
+  /**
+   * APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+   */
+  auditing_types: AppAccountTypeEnum;
+  /**
+   * 用户
+   */
+  userId: number;
+  /**
+   * 头像
+   */
+  avatar?: string | null;
+  /**
+   * 推荐人手机号
+   */
+  referrer_telephone?: string | null;
+  /**
+   * 位置
+   */
+  position?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 地区
+   */
+  district?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 参加工作时间
+   */
+  employment_date?: string | null;
+  /**
+   * 部门
+   */
+  department?: string | null;
+  /**
+   * 职称
+   */
+  job_title?: string | null;
+  /**
+   * 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+   */
+  fields?: AppDepartmentEnum;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 咨询费用
+   */
+  inquiry_fee?: number | null;
+  /**
+   * 身份证正面
+   */
+  idcard_front_image?: string | null;
+  /**
+   * 身份证反面
+   */
+  idcard_back_image?: string | null;
+  /**
+   * 手持证件照
+   */
+  idcard_handheld_image?: string | null;
+  /**
+   * 医生资格照(多张)
+   */
+  doctor_qualification_images?: string | null;
+  /**
+   * 中医资质证明(多张)
+   */
+  chn_medicine_qualification_images?: string | null;
+  /**
+   * 担保人名称
+   */
+  guarantor_name?: string | null;
+  /**
+   * 担保人身份正面
+   */
+  guarantor_idcard_front_image?: string | null;
+  /**
+   * 担保人身份反面
+   */
+  guarantor_idcard_back_image?: string | null;
+  /**
+   * 担保人手持身份证照
+   */
+  guarantor_idcard_handheld_image?: string | null;
+  /**
+   * 推荐
+   */
+  recommend?: boolean | null;
+  /**
+   * 评价平均分
+   */
+  avg_rating_score?: number | null;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  avatar_auditing_status: DoctorAuditingStatusEnum;
+  /**
+   * 论文数
+   */
+  paper_count?: number | null;
+  /**
+   * 审核人
+   */
+  auditing_operator?: number | null;
+  /**
+   * 审核时间
+   */
+  auditing_at?: string | null;
+  /**
+   * 审核原因
+   */
+  auditing_reason?: string | null;
+  /**
+   * 是否是特诊医生
+   */
+  is_special_diagnosis?: boolean | null;
+  /**
+   * 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+   */
+  consultant_type?: AppConsultantTypeEnum;
+  /**
+   * 顾问证书编号
+   */
+  consultant_certificate_no?: string | null;
+  /**
+   * 顾问证书图片
+   */
+  consultant_certificate_image?: string | null;
+  /**
+   * 顾问资格说明
+   */
+  consultant_qualification_desc?: string | null;
+}
+export interface Updateapp_DoctorAuditingInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+   */
+  auditing_types: AppAccountTypeEnum;
+  /**
+   * 用户
+   */
+  userId: number;
+  /**
+   * 头像
+   */
+  avatar?: string | null;
+  /**
+   * 推荐人手机号
+   */
+  referrer_telephone?: string | null;
+  /**
+   * 位置
+   */
+  position?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 地区
+   */
+  district?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 参加工作时间
+   */
+  employment_date?: string | null;
+  /**
+   * 部门
+   */
+  department?: string | null;
+  /**
+   * 职称
+   */
+  job_title?: string | null;
+  /**
+   * 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+   */
+  fields?: AppDepartmentEnum;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 咨询费用
+   */
+  inquiry_fee?: number | null;
+  /**
+   * 身份证正面
+   */
+  idcard_front_image?: string | null;
+  /**
+   * 身份证反面
+   */
+  idcard_back_image?: string | null;
+  /**
+   * 手持证件照
+   */
+  idcard_handheld_image?: string | null;
+  /**
+   * 医生资格照(多张)
+   */
+  doctor_qualification_images?: string | null;
+  /**
+   * 中医资质证明(多张)
+   */
+  chn_medicine_qualification_images?: string | null;
+  /**
+   * 担保人名称
+   */
+  guarantor_name?: string | null;
+  /**
+   * 担保人身份正面
+   */
+  guarantor_idcard_front_image?: string | null;
+  /**
+   * 担保人身份反面
+   */
+  guarantor_idcard_back_image?: string | null;
+  /**
+   * 担保人手持身份证照
+   */
+  guarantor_idcard_handheld_image?: string | null;
+  /**
+   * 推荐
+   */
+  recommend?: boolean | null;
+  /**
+   * 评价平均分
+   */
+  avg_rating_score?: number | null;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  avatar_auditing_status: DoctorAuditingStatusEnum;
+  /**
+   * 论文数
+   */
+  paper_count?: number | null;
+  /**
+   * 审核人
+   */
+  auditing_operator?: number | null;
+  /**
+   * 审核时间
+   */
+  auditing_at?: string | null;
+  /**
+   * 审核原因
+   */
+  auditing_reason?: string | null;
+  /**
+   * 是否是特诊医生
+   */
+  is_special_diagnosis?: boolean | null;
+  /**
+   * 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+   */
+  consultant_type?: AppConsultantTypeEnum;
+  /**
+   * 顾问证书编号
+   */
+  consultant_certificate_no?: string | null;
+  /**
+   * 顾问证书图片
+   */
+  consultant_certificate_image?: string | null;
+  /**
+   * 顾问资格说明
+   */
+  consultant_qualification_desc?: string | null;
+}
+export interface Deleteapp_DoctorAuditingInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
+export interface DropdownDataapp_DoctorAuditingInput {
+  /**
+   * 是否用于分页查询
+   */
+  fromPage?: boolean;
+}
+export interface RecommendedDoctorsInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 地区
+   */
+  district?: string | null;
+  /**
+   * 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+   */
+  fields?: AppDepartmentEnum;
+  /**
+   * 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+   */
+  consultant_type?: AppConsultantTypeEnum;
+  /**
+   * 是否是特诊医生
+   */
+  is_special_diagnosis?: boolean | null;
+  /**
+   * 最低评价分数
+   */
+  minRatingScore?: number | null;
+  /**
+   * 最高咨询费用
+   */
+  maxInquiryFee?: number | null;
+  /**
+   * 排序类型：1-评价分数降序，2-咨询费用升序，3-咨询费用降序，4-推荐优先
+   */
+  sortType?: number | null;
+}
 export interface Pageapp_HealthArticleCategoryInput {
   /**
    * 模糊查询条件
@@ -862,6 +1413,637 @@ export interface DropdownDataapp_MessageInput {
    */
   fromPage?: boolean;
 }
+export type AppRoleEnum = 666 | 777 | 888 | 999;
+export interface Pageapp_UserInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 主键Id
+   */
+  id?: number | null;
+  /**
+   * 用户名
+   */
+  username?: string | null;
+  /**
+   * 用户昵称
+   */
+  nickName?: string | null;
+  /**
+   * 手机号码
+   */
+  mobile?: string | null;
+  /**
+   * 手机号验证状态
+   */
+  mobileConfirmed?: number | null;
+  /**
+   * 身份证号
+   */
+  idCardNum?: string | null;
+  /**
+   * APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+   */
+  defaultRole?: AppRoleEnum;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export type CardTypeEnum = 0 | 1 | 2 | 3 | 4 | 5;
+export type CultureLevelEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+export type PlatformTypeEnum = 1 | 2 | 3 | 4 | 5 | 6;
+export type StatusEnum = 1 | 2;
+export interface Addapp_UserInput {
+  /**
+   * 用户名
+   */
+  username?: string | null;
+  /**
+   * 用户昵称
+   */
+  nickName?: string | null;
+  /**
+   * 头像地址
+   */
+  avatar?: string | null;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   */
+  sex: GenderEnum;
+  /**
+   * 年龄
+   */
+  age: number;
+  /**
+   * 出生日期
+   */
+  birthday?: string | null;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 用户标签
+   */
+  tags?: string | null;
+  /**
+   * 用户积分
+   */
+  score: number;
+  /**
+   * 手机号码
+   */
+  mobile?: string | null;
+  /**
+   * 手机号验证状态
+   */
+  mobileConfirmed: number;
+  /**
+   * 邮箱地址
+   */
+  email?: string | null;
+  /**
+   * 邮箱验证状态
+   */
+  emailConfirmed: number;
+  /**
+   * 办公电话
+   */
+  officePhone?: string | null;
+  /**
+   * 国家
+   */
+  country?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 语言
+   */
+  language?: string | null;
+  /**
+   * 民族
+   */
+  nation?: string | null;
+  /**
+   * 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+   */
+  cardType: CardTypeEnum;
+  /**
+   * 身份证号
+   */
+  idCardNum?: string | null;
+  /**
+   * 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+   */
+  cultureLevel: CultureLevelEnum;
+  /**
+   * 政治面貌
+   */
+  politicalOutlook?: string | null;
+  /**
+   * 毕业院校
+   */
+  college?: string | null;
+  /**
+   * 实名认证信息
+   */
+  realnameAuth?: string | null;
+  /**
+   * 紧急联系人
+   */
+  emergencyContact?: string | null;
+  /**
+   * 紧急联系人电话
+   */
+  emergencyPhone?: string | null;
+  /**
+   * 紧急联系人地址
+   */
+  emergencyAddress?: string | null;
+  /**
+   * 登录密码
+   */
+  password?: string | null;
+  /**
+   * 密码版本
+   */
+  passwordSecretVersion: number;
+  /**
+   * 支付密码
+   */
+  payPassword?: string | null;
+  /**
+   * 微信各平台openid
+   */
+  wxOpenId?: string | null;
+  /**
+   * 微信unionid
+   */
+  wxUnionId?: string | null;
+  /**
+   * 支付宝平台openid
+   */
+  aliOpenId?: string | null;
+  /**
+   * 苹果登录openid
+   */
+  appleOpenId?: string | null;
+  /**
+   * QQ各平台openid
+   */
+  qqOpenId?: string | null;
+  /**
+   * QQ unionid
+   */
+  qqUnionId?: string | null;
+  /**
+   * 华为openid
+   */
+  huaweiOpenId?: string | null;
+  /**
+   * 华为unionid
+   */
+  huaweiUnionId?: string | null;
+  /**
+   * 三方平台凭证
+   */
+  thirdParty?: string | null;
+  /**
+   * 三方平台身份信息
+   */
+  identities?: string | null;
+  /**
+   * 会话密钥
+   */
+  sessionKey?: string | null;
+  /**
+   * 用户角色
+   */
+  role?: string | null;
+  /**
+   * 部门ID
+   */
+  departmentId?: string | null;
+  /**
+   * 允许登录的客户端appid列表
+   */
+  dcloudAppId?: string | null;
+  /**
+   * APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+   */
+  accountType: AppAccountTypeEnum;
+  /**
+   * 用户自身邀请码
+   */
+  myInviteCode?: string | null;
+  /**
+   * 邀请人Id
+   */
+  invitedUserId?: number | null;
+  /**
+   * 用户全部上级邀请者
+   */
+  inviterUid?: string | null;
+  /**
+   * 受邀时间
+   */
+  inviteTime?: string | null;
+  /**
+   * 注册时间
+   */
+  registerDate?: string | null;
+  /**
+   * 注册时IP地址
+   */
+  registerIp?: string | null;
+  /**
+   * 最后登录时间
+   */
+  lastLoginTime?: string | null;
+  /**
+   * 最后登录时IP地址
+   */
+  lastLoginIp?: string | null;
+  /**
+   * 最后登录地点
+   */
+  lastLoginAddress?: string | null;
+  /**
+   * 最后登录设备
+   */
+  lastLoginDevice?: string | null;
+  /**
+   * 最后登录渠道
+   */
+  lastLoginFrom?: string | null;
+  /**
+   * AccessToken
+   */
+  accessToken?: string | null;
+  /**
+   * RefreshToken
+   */
+  refreshToken?: string | null;
+  /**
+   * 过期时间
+   */
+  expiresIn?: number | null;
+  /**
+   * 用户token
+   */
+  token?: string | null;
+  /**
+   * 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+   */
+  platformType: PlatformTypeEnum;
+  /**
+   * 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+   */
+  status: StatusEnum;
+  /**
+   * 排序
+   */
+  orderNo: number;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+   */
+  defaultRole: AppRoleEnum;
+}
+export interface Updateapp_UserInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 用户名
+   */
+  username?: string | null;
+  /**
+   * 用户昵称
+   */
+  nickName?: string | null;
+  /**
+   * 头像地址
+   */
+  avatar?: string | null;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   */
+  sex: GenderEnum;
+  /**
+   * 年龄
+   */
+  age: number;
+  /**
+   * 出生日期
+   */
+  birthday?: string | null;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 用户标签
+   */
+  tags?: string | null;
+  /**
+   * 用户积分
+   */
+  score: number;
+  /**
+   * 手机号码
+   */
+  mobile?: string | null;
+  /**
+   * 手机号验证状态
+   */
+  mobileConfirmed: number;
+  /**
+   * 邮箱地址
+   */
+  email?: string | null;
+  /**
+   * 邮箱验证状态
+   */
+  emailConfirmed: number;
+  /**
+   * 办公电话
+   */
+  officePhone?: string | null;
+  /**
+   * 国家
+   */
+  country?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 语言
+   */
+  language?: string | null;
+  /**
+   * 民族
+   */
+  nation?: string | null;
+  /**
+   * 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+   */
+  cardType: CardTypeEnum;
+  /**
+   * 身份证号
+   */
+  idCardNum?: string | null;
+  /**
+   * 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+   */
+  cultureLevel: CultureLevelEnum;
+  /**
+   * 政治面貌
+   */
+  politicalOutlook?: string | null;
+  /**
+   * 毕业院校
+   */
+  college?: string | null;
+  /**
+   * 实名认证信息
+   */
+  realnameAuth?: string | null;
+  /**
+   * 紧急联系人
+   */
+  emergencyContact?: string | null;
+  /**
+   * 紧急联系人电话
+   */
+  emergencyPhone?: string | null;
+  /**
+   * 紧急联系人地址
+   */
+  emergencyAddress?: string | null;
+  /**
+   * 登录密码
+   */
+  password?: string | null;
+  /**
+   * 密码版本
+   */
+  passwordSecretVersion: number;
+  /**
+   * 支付密码
+   */
+  payPassword?: string | null;
+  /**
+   * 微信各平台openid
+   */
+  wxOpenId?: string | null;
+  /**
+   * 微信unionid
+   */
+  wxUnionId?: string | null;
+  /**
+   * 支付宝平台openid
+   */
+  aliOpenId?: string | null;
+  /**
+   * 苹果登录openid
+   */
+  appleOpenId?: string | null;
+  /**
+   * QQ各平台openid
+   */
+  qqOpenId?: string | null;
+  /**
+   * QQ unionid
+   */
+  qqUnionId?: string | null;
+  /**
+   * 华为openid
+   */
+  huaweiOpenId?: string | null;
+  /**
+   * 华为unionid
+   */
+  huaweiUnionId?: string | null;
+  /**
+   * 三方平台凭证
+   */
+  thirdParty?: string | null;
+  /**
+   * 三方平台身份信息
+   */
+  identities?: string | null;
+  /**
+   * 会话密钥
+   */
+  sessionKey?: string | null;
+  /**
+   * 用户角色
+   */
+  role?: string | null;
+  /**
+   * 部门ID
+   */
+  departmentId?: string | null;
+  /**
+   * 允许登录的客户端appid列表
+   */
+  dcloudAppId?: string | null;
+  /**
+   * APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+   */
+  accountType: AppAccountTypeEnum;
+  /**
+   * 用户自身邀请码
+   */
+  myInviteCode?: string | null;
+  /**
+   * 邀请人Id
+   */
+  invitedUserId?: number | null;
+  /**
+   * 用户全部上级邀请者
+   */
+  inviterUid?: string | null;
+  /**
+   * 受邀时间
+   */
+  inviteTime?: string | null;
+  /**
+   * 注册时间
+   */
+  registerDate?: string | null;
+  /**
+   * 注册时IP地址
+   */
+  registerIp?: string | null;
+  /**
+   * 最后登录时间
+   */
+  lastLoginTime?: string | null;
+  /**
+   * 最后登录时IP地址
+   */
+  lastLoginIp?: string | null;
+  /**
+   * 最后登录地点
+   */
+  lastLoginAddress?: string | null;
+  /**
+   * 最后登录设备
+   */
+  lastLoginDevice?: string | null;
+  /**
+   * 最后登录渠道
+   */
+  lastLoginFrom?: string | null;
+  /**
+   * AccessToken
+   */
+  accessToken?: string | null;
+  /**
+   * RefreshToken
+   */
+  refreshToken?: string | null;
+  /**
+   * 过期时间
+   */
+  expiresIn?: number | null;
+  /**
+   * 用户token
+   */
+  token?: string | null;
+  /**
+   * 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+   */
+  platformType: PlatformTypeEnum;
+  /**
+   * 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+   */
+  status: StatusEnum;
+  /**
+   * 排序
+   */
+  orderNo: number;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+   */
+  defaultRole: AppRoleEnum;
+}
+export interface Deleteapp_UserInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
+export interface Setapp_UserStatusInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+   */
+  status?: StatusEnum;
+}
 export interface AdminResult_Object {
   /**
    * 状态码
@@ -888,10 +2070,7 @@ export interface AdminResult_Object {
    */
   time?: string;
 }
-export type AppAccountTypeEnum = 666 | 777 | 888 | 999;
-export type AppRoleEnum = 666 | 777 | 888 | 999;
 export type AuditEnum = 0 | 1;
-export type StatusEnum = 1 | 2;
 export interface App_UserRole {
   /**
    * 雪花Id
@@ -1119,6 +2298,938 @@ export interface AdminResult_String {
    * 数据
    */
   result?: string | null;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_User {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 用户名，不允许重复
+   */
+  username?: string | null;
+  /**
+   * 用户昵称
+   */
+  nickName?: string | null;
+  /**
+   * 头像地址
+   */
+  avatar?: string | null;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   */
+  sex?: GenderEnum;
+  /**
+   * 年龄
+   */
+  age?: number;
+  /**
+   * 出生日期
+   */
+  birthday?: string | null;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 用户标签
+   */
+  tags?: string | null;
+  /**
+   * 用户积分
+   */
+  score?: number;
+  /**
+   * 手机号码
+   */
+  mobile?: string | null;
+  /**
+   * 手机号验证状态：0 未验证 1 已验证
+   */
+  mobileConfirmed?: number;
+  /**
+   * 邮箱地址
+   */
+  email?: string | null;
+  /**
+   * 邮箱验证状态：0 未验证 1 已验证
+   */
+  emailConfirmed?: number;
+  /**
+   * 办公电话
+   */
+  officePhone?: string | null;
+  /**
+   * 国家
+   */
+  country?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 语言
+   */
+  language?: string | null;
+  /**
+   * 民族
+   */
+  nation?: string | null;
+  /**
+   * 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+   */
+  cardType?: CardTypeEnum;
+  /**
+   * 身份证号
+   */
+  idCardNum?: string | null;
+  /**
+   * 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+   */
+  cultureLevel?: CultureLevelEnum;
+  /**
+   * 政治面貌
+   */
+  politicalOutlook?: string | null;
+  /**
+   * 毕业院校
+   */
+  college?: string | null;
+  /**
+   * 实名认证信息（JSON格式）
+   */
+  realnameAuth?: string | null;
+  /**
+   * 紧急联系人
+   */
+  emergencyContact?: string | null;
+  /**
+   * 紧急联系人电话
+   */
+  emergencyPhone?: string | null;
+  /**
+   * 紧急联系人地址
+   */
+  emergencyAddress?: string | null;
+  /**
+   * 密码使用的passwordSecret版本
+   */
+  passwordSecretVersion?: number;
+  /**
+   * 微信各平台openid（JSON格式）
+   */
+  wxOpenId?: string | null;
+  /**
+   * 微信unionid
+   */
+  wxUnionId?: string | null;
+  /**
+   * 支付宝平台openid
+   */
+  aliOpenId?: string | null;
+  /**
+   * 苹果登录openid
+   */
+  appleOpenId?: string | null;
+  /**
+   * QQ各平台openid（JSON格式）
+   */
+  qqOpenId?: string | null;
+  /**
+   * QQ unionid
+   */
+  qqUnionId?: string | null;
+  /**
+   * 华为openid
+   */
+  huaweiOpenId?: string | null;
+  /**
+   * 华为unionid
+   */
+  huaweiUnionId?: string | null;
+  /**
+   * 三方平台身份信息（JSON格式）
+   */
+  identities?: string | null;
+  /**
+   * 会话密钥
+   */
+  sessionKey?: string | null;
+  /**
+   * 用户角色（JSON格式）
+   */
+  role?: App_UserRole[] | null;
+  /**
+   * 部门ID（JSON格式）
+   */
+  departmentId?: string | null;
+  /**
+   * 允许登录的客户端的appid列表（JSON格式）
+   */
+  dcloudAppId?: string | null;
+  /**
+   * APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+   */
+  accountType?: AppAccountTypeEnum;
+  /**
+   * APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+   */
+  defaultRole?: AppRoleEnum;
+  /**
+   * 用户自身邀请码
+   */
+  myInviteCode?: string | null;
+  /**
+   * 邀请人Id
+   */
+  invitedUserId?: number | null;
+  /**
+   * 用户全部上级邀请者（JSON格式）
+   */
+  inviterUid?: string | null;
+  /**
+   * 受邀时间
+   */
+  inviteTime?: string | null;
+  /**
+   * 注册时间
+   */
+  registerDate?: string | null;
+  /**
+   * 注册时IP地址
+   */
+  registerIp?: string | null;
+  /**
+   * 最后登录时间
+   */
+  lastLoginTime?: string | null;
+  /**
+   * 最后登录时IP地址
+   */
+  lastLoginIp?: string | null;
+  /**
+   * 最后登录地点
+   */
+  lastLoginAddress?: string | null;
+  /**
+   * 最后登录设备
+   */
+  lastLoginDevice?: string | null;
+  /**
+   * 最后登录渠道
+   */
+  lastLoginFrom?: string | null;
+  /**
+   * AccessToken
+   */
+  accessToken?: string | null;
+  /**
+   * RefreshToken
+   */
+  refreshToken?: string | null;
+  /**
+   * 过期时间
+   */
+  expiresIn?: number | null;
+  /**
+   * 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+   */
+  platformType?: PlatformTypeEnum;
+  /**
+   * 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+   */
+  status?: StatusEnum;
+  /**
+   * 排序
+   */
+  orderNo?: number;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+}
+export interface SysFile {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 机构Id
+   */
+  orgId?: number;
+  /**
+   * 租户Id
+   */
+  tenantId?: number | null;
+  /**
+   * 提供者
+   */
+  provider?: string | null;
+  /**
+   * 仓储名称
+   */
+  bucketName?: string | null;
+  /**
+   * 文件名称（源文件名）
+   */
+  fileName?: string | null;
+  /**
+   * 文件后缀
+   */
+  suffix?: string | null;
+  /**
+   * 存储路径
+   */
+  filePath?: string | null;
+  /**
+   * 文件大小KB
+   */
+  sizeKb?: number;
+  /**
+   * 文件大小信息-计算后的
+   */
+  sizeInfo?: string | null;
+  /**
+   * 外链地址-OSS上传后生成外链地址方便前端预览
+   */
+  url?: string | null;
+  /**
+   * 文件MD5
+   */
+  fileMd5?: string | null;
+  /**
+   * 文件类别
+   */
+  fileType?: string | null;
+  /**
+   * 文件别名
+   */
+  fileAlias?: string | null;
+  /**
+   * 是否公开
+   */
+  isPublic?: boolean;
+  /**
+   * 业务数据Id
+   */
+  dataId?: number | null;
+}
+export interface App_DoctorAuditingOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 审核类型
+   */
+  auditing_types?: AppRoleEnum[] | null;
+  /**
+   * 用户
+   */
+  userId?: number;
+  /**
+   * APP用户信息表
+   */
+  appUser?: App_User;
+  /**
+   * 用户 描述
+   */
+  userFkDisplayName?: string | null;
+  /**
+   * 头像
+   */
+  avatar?: string | null;
+  /**
+   * 推荐人手机号
+   */
+  referrer_telephone?: string | null;
+  /**
+   * 位置
+   */
+  position?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 地区
+   */
+  district?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 参加工作时间
+   */
+  employment_date?: string | null;
+  /**
+   * 部门
+   */
+  department?: string | null;
+  /**
+   * 职称
+   */
+  job_title?: string | null;
+  /**
+   * 擅长领域
+   */
+  fields?: AppDepartmentEnum[] | null;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 咨询费用
+   */
+  inquiry_fee?: number | null;
+  /**
+   * 身份证正面
+   */
+  idcard_front_image?: string | null;
+  /**
+   * 系统文件表
+   */
+  idcard_front_imageAttachment?: SysFile;
+  /**
+   * 身份证反面
+   */
+  idcard_back_image?: string | null;
+  /**
+   * 系统文件表
+   */
+  idcard_back_imageAttachment?: SysFile;
+  /**
+   * 手持证件照
+   */
+  idcard_handheld_image?: string | null;
+  /**
+   * 系统文件表
+   */
+  idcard_handheld_imageAttachment?: SysFile;
+  /**
+   * 医生资格照(多张)
+   */
+  doctor_qualification_images?: string[] | null;
+  /**
+   * 系统文件表
+   */
+  doctor_qualification_imagesAttachment?: SysFile;
+  /**
+   * 中医资质证明(多张)
+   */
+  chn_medicine_qualification_images?: string[] | null;
+  /**
+   * 系统文件表
+   */
+  chn_medicine_qualification_imagesAttachment?: SysFile;
+  /**
+   * 担保人名称
+   */
+  guarantor_name?: string | null;
+  /**
+   * 担保人身份正面
+   */
+  guarantor_idcard_front_image?: string | null;
+  /**
+   * 担保人身份反面
+   */
+  guarantor_idcard_back_image?: string | null;
+  /**
+   * 担保人手持身份证照
+   */
+  guarantor_idcard_handheld_image?: string | null;
+  /**
+   * 推荐
+   */
+  recommend?: boolean | null;
+  /**
+   * 评价平均分
+   */
+  avg_rating_score?: number | null;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  avatar_auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 论文数
+   */
+  paper_count?: number | null;
+  /**
+   * 审核人
+   */
+  auditing_operator?: number | null;
+  /**
+   * 审核时间
+   */
+  auditing_at?: string | null;
+  /**
+   * 审核原因
+   */
+  auditing_reason?: string | null;
+  /**
+   * 是否是特诊医生
+   */
+  is_special_diagnosis?: boolean | null;
+  /**
+   * 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+   */
+  consultant_type?: AppConsultantTypeEnum;
+  /**
+   * 顾问证书编号
+   */
+  consultant_certificate_no?: string | null;
+  /**
+   * 顾问证书图片
+   */
+  consultant_certificate_image?: string[] | null;
+  /**
+   * 顾问资格说明
+   */
+  consultant_qualification_desc?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_DoctorAuditingOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_DoctorAuditingOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_DoctorAuditingOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_DoctorAuditingOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_DoctorAuditing {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 审核类型(多选)
+   */
+  auditing_types?: AppRoleEnum[] | null;
+  /**
+   * 用户ID
+   */
+  userId?: number;
+  /**
+   * APP用户信息表
+   */
+  appUser?: App_User;
+  /**
+   * 头像
+   */
+  avatar?: string | null;
+  /**
+   * 推荐人手机号
+   */
+  referrer_telephone?: string | null;
+  /**
+   * 位置
+   */
+  position?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 地区
+   */
+  district?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 参加工作时间
+   */
+  employment_date?: string | null;
+  /**
+   * 部门
+   */
+  department?: string | null;
+  /**
+   * 职称
+   */
+  job_title?: string | null;
+  /**
+   * 擅长领域
+   */
+  fields?: AppDepartmentEnum[] | null;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 咨询费用
+   */
+  inquiry_fee?: number | null;
+  /**
+   * 身份证正面
+   */
+  idcard_front_image?: string | null;
+  /**
+   * 身份证反面
+   */
+  idcard_back_image?: string | null;
+  /**
+   * 手持证件照
+   */
+  idcard_handheld_image?: string | null;
+  /**
+   * 医生资格照(多张)
+   */
+  doctor_qualification_images?: string[] | null;
+  /**
+   * 中医资质证明(多张)
+   */
+  chn_medicine_qualification_images?: string[] | null;
+  /**
+   * 担保人名称
+   */
+  guarantor_name?: string | null;
+  /**
+   * 担保人身份正面
+   */
+  guarantor_idcard_front_image?: string | null;
+  /**
+   * 担保人身份反面
+   */
+  guarantor_idcard_back_image?: string | null;
+  /**
+   * 担保人手持身份证照
+   */
+  guarantor_idcard_handheld_image?: string | null;
+  /**
+   * 推荐
+   */
+  recommend?: boolean | null;
+  /**
+   * 评价平均分
+   */
+  avg_rating_score?: number | null;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  avatar_auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 论文数
+   */
+  paper_count?: number | null;
+  /**
+   * 审核人
+   */
+  auditing_operator?: number | null;
+  /**
+   * 审核时间
+   */
+  auditing_at?: string | null;
+  /**
+   * 审核原因
+   */
+  auditing_reason?: string | null;
+  /**
+   * 是否是特诊医生
+   */
+  is_special_diagnosis?: boolean | null;
+  /**
+   * 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+   */
+  consultant_type?: AppConsultantTypeEnum;
+  /**
+   * 顾问证书编号
+   */
+  consultant_certificate_no?: string | null;
+  /**
+   * 顾问证书图片
+   */
+  consultant_certificate_image?: string[] | null;
+  /**
+   * 顾问资格说明
+   */
+  consultant_qualification_desc?: string | null;
+}
+export interface AdminResult_app_DoctorAuditing {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 医生/顾问审核表
+   */
+  result?: App_DoctorAuditing;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Int64 {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: number;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_SysFile {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 系统文件表
+   */
+  result?: SysFile;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Dictionary_StringObject {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: Record<string, unknown> | null;
   /**
    * 附加数据
    */
@@ -1400,32 +3511,6 @@ export interface AdminResult_app_HealthArticleCategory {
    */
   time?: string;
 }
-export interface AdminResult_Int64 {
-  /**
-   * 状态码
-   */
-  code?: number;
-  /**
-   * 类型success、warning、error
-   */
-  type?: string | null;
-  /**
-   * 错误信息
-   */
-  message?: string | null;
-  /**
-   * 数据
-   */
-  result?: number;
-  /**
-   * 附加数据
-   */
-  extras?: null;
-  /**
-   * 时间
-   */
-  time?: string;
-}
 export interface App_HealthArticleTagOutput {
   /**
    * 主键Id
@@ -1583,96 +3668,6 @@ export interface AdminResult_app_HealthArticleTag {
    * 时间
    */
   time?: string;
-}
-export interface SysFile {
-  /**
-   * 雪花Id
-   */
-  id?: number;
-  /**
-   * 创建时间
-   */
-  createTime?: string;
-  /**
-   * 更新时间
-   */
-  updateTime?: string | null;
-  /**
-   * 创建者Id
-   */
-  createUserId?: number | null;
-  /**
-   * 创建者姓名
-   */
-  createUserName?: string | null;
-  /**
-   * 修改者Id
-   */
-  updateUserId?: number | null;
-  /**
-   * 修改者姓名
-   */
-  updateUserName?: string | null;
-  /**
-   * 机构Id
-   */
-  orgId?: number;
-  /**
-   * 租户Id
-   */
-  tenantId?: number | null;
-  /**
-   * 提供者
-   */
-  provider?: string | null;
-  /**
-   * 仓储名称
-   */
-  bucketName?: string | null;
-  /**
-   * 文件名称（源文件名）
-   */
-  fileName?: string | null;
-  /**
-   * 文件后缀
-   */
-  suffix?: string | null;
-  /**
-   * 存储路径
-   */
-  filePath?: string | null;
-  /**
-   * 文件大小KB
-   */
-  sizeKb?: number;
-  /**
-   * 文件大小信息-计算后的
-   */
-  sizeInfo?: string | null;
-  /**
-   * 外链地址-OSS上传后生成外链地址方便前端预览
-   */
-  url?: string | null;
-  /**
-   * 文件MD5
-   */
-  fileMd5?: string | null;
-  /**
-   * 文件类别
-   */
-  fileType?: string | null;
-  /**
-   * 文件别名
-   */
-  fileAlias?: string | null;
-  /**
-   * 是否公开
-   */
-  isPublic?: boolean;
-  /**
-   * 业务数据Id
-   */
-  dataId?: number | null;
 }
 export interface App_HealthArticleOutput {
   /**
@@ -1983,58 +3978,6 @@ export interface AdminResult_app_HealthArticle {
    * 中医养生文章主表
    */
   result?: App_HealthArticle;
-  /**
-   * 附加数据
-   */
-  extras?: null;
-  /**
-   * 时间
-   */
-  time?: string;
-}
-export interface AdminResult_SysFile {
-  /**
-   * 状态码
-   */
-  code?: number;
-  /**
-   * 类型success、warning、error
-   */
-  type?: string | null;
-  /**
-   * 错误信息
-   */
-  message?: string | null;
-  /**
-   * 系统文件表
-   */
-  result?: SysFile;
-  /**
-   * 附加数据
-   */
-  extras?: null;
-  /**
-   * 时间
-   */
-  time?: string;
-}
-export interface AdminResult_Dictionary_StringObject {
-  /**
-   * 状态码
-   */
-  code?: number;
-  /**
-   * 类型success、warning、error
-   */
-  type?: string | null;
-  /**
-   * 错误信息
-   */
-  message?: string | null;
-  /**
-   * 数据
-   */
-  result?: Record<string, unknown> | null;
   /**
    * 附加数据
    */
@@ -2449,6 +4392,394 @@ export interface AdminResult_app_Message {
    * 我的消息实体
    */
   result?: App_Message;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_UserOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 用户名
+   */
+  username?: string | null;
+  /**
+   * 用户昵称
+   */
+  nickName?: string | null;
+  /**
+   * 头像地址
+   */
+  avatar?: string | null;
+  /**
+   * 系统文件表
+   */
+  avatarAttachment?: SysFile;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   */
+  sex?: GenderEnum;
+  /**
+   * 年龄
+   */
+  age?: number;
+  /**
+   * 出生日期
+   */
+  birthday?: string | null;
+  /**
+   * 个人简介
+   */
+  introduction?: string | null;
+  /**
+   * 用户标签
+   */
+  tags?: string | null;
+  /**
+   * 用户积分
+   */
+  score?: number;
+  /**
+   * 手机号码
+   */
+  mobile?: string | null;
+  /**
+   * 手机号验证状态
+   */
+  mobileConfirmed?: number;
+  /**
+   * 邮箱地址
+   */
+  email?: string | null;
+  /**
+   * 邮箱验证状态
+   */
+  emailConfirmed?: number;
+  /**
+   * 办公电话
+   */
+  officePhone?: string | null;
+  /**
+   * 国家
+   */
+  country?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 语言
+   */
+  language?: string | null;
+  /**
+   * 民族
+   */
+  nation?: string | null;
+  /**
+   * 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+   */
+  cardType?: CardTypeEnum;
+  /**
+   * 身份证号
+   */
+  idCardNum?: string | null;
+  /**
+   * 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+   */
+  cultureLevel?: CultureLevelEnum;
+  /**
+   * 政治面貌
+   */
+  politicalOutlook?: string | null;
+  /**
+   * 毕业院校
+   */
+  college?: string | null;
+  /**
+   * 实名认证信息
+   */
+  realnameAuth?: string | null;
+  /**
+   * 紧急联系人
+   */
+  emergencyContact?: string | null;
+  /**
+   * 紧急联系人电话
+   */
+  emergencyPhone?: string | null;
+  /**
+   * 紧急联系人地址
+   */
+  emergencyAddress?: string | null;
+  /**
+   * 登录密码
+   */
+  password?: string | null;
+  /**
+   * 密码版本
+   */
+  passwordSecretVersion?: number;
+  /**
+   * 支付密码
+   */
+  payPassword?: string | null;
+  /**
+   * 微信各平台openid
+   */
+  wxOpenId?: string | null;
+  /**
+   * 微信unionid
+   */
+  wxUnionId?: string | null;
+  /**
+   * 支付宝平台openid
+   */
+  aliOpenId?: string | null;
+  /**
+   * 苹果登录openid
+   */
+  appleOpenId?: string | null;
+  /**
+   * QQ各平台openid
+   */
+  qqOpenId?: string | null;
+  /**
+   * QQ unionid
+   */
+  qqUnionId?: string | null;
+  /**
+   * 华为openid
+   */
+  huaweiOpenId?: string | null;
+  /**
+   * 华为unionid
+   */
+  huaweiUnionId?: string | null;
+  /**
+   * 三方平台凭证
+   */
+  thirdParty?: string | null;
+  /**
+   * 三方平台身份信息
+   */
+  identities?: string | null;
+  /**
+   * 会话密钥
+   */
+  sessionKey?: string | null;
+  /**
+   * 用户角色
+   */
+  role?: string | null;
+  /**
+   * 部门ID
+   */
+  departmentId?: string | null;
+  /**
+   * 允许登录的客户端appid列表
+   */
+  dcloudAppId?: string | null;
+  /**
+   * APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+   */
+  accountType?: AppAccountTypeEnum;
+  /**
+   * 用户自身邀请码
+   */
+  myInviteCode?: string | null;
+  /**
+   * 邀请人Id
+   */
+  invitedUserId?: number | null;
+  /**
+   * 用户全部上级邀请者
+   */
+  inviterUid?: string | null;
+  /**
+   * 受邀时间
+   */
+  inviteTime?: string | null;
+  /**
+   * 注册时间
+   */
+  registerDate?: string | null;
+  /**
+   * 注册时IP地址
+   */
+  registerIp?: string | null;
+  /**
+   * 最后登录时间
+   */
+  lastLoginTime?: string | null;
+  /**
+   * 最后登录时IP地址
+   */
+  lastLoginIp?: string | null;
+  /**
+   * 最后登录地点
+   */
+  lastLoginAddress?: string | null;
+  /**
+   * 最后登录设备
+   */
+  lastLoginDevice?: string | null;
+  /**
+   * 最后登录渠道
+   */
+  lastLoginFrom?: string | null;
+  /**
+   * AccessToken
+   */
+  accessToken?: string | null;
+  /**
+   * RefreshToken
+   */
+  refreshToken?: string | null;
+  /**
+   * 过期时间
+   */
+  expiresIn?: number | null;
+  /**
+   * 用户token
+   */
+  token?: string | null;
+  /**
+   * 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+   */
+  platformType?: PlatformTypeEnum;
+  /**
+   * 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+   */
+  status?: StatusEnum;
+  /**
+   * 排序
+   */
+  orderNo?: number;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+   */
+  defaultRole?: AppRoleEnum;
+}
+export interface SqlSugarPagedList_app_UserOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_UserOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_UserOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_UserOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_app_User {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * APP用户信息表
+   */
+  result?: App_User;
   /**
    * 附加数据
    */
@@ -6272,6 +8603,2953 @@ declare global {
         config: Config
       ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserCheckmobileavailableMobilePost', Config>;
     };
+    app_DoctorAuditing: {
+      /**
+       * ---
+       *
+       * [POST] 分页查询医生顾问审核 🔖
+       *
+       * **path:** /api/app_DoctorAuditing/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *   auditing_types?: 666 | 777 | 888 | 999
+       *   // 用户
+       *   userId?: number | null
+       *   // 推荐人手机号
+       *   referrer_telephone?: string | null
+       *   // 省
+       *   province?: string | null
+       *   // 城市
+       *   city?: string | null
+       *   // 地区
+       *   district?: string | null
+       *   // 详细地址
+       *   address?: string | null
+       *   // 部门
+       *   department?: string | null
+       *   // 职称
+       *   job_title?: string | null
+       *   // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *   fields?:
+       *     | 1
+       *     | 2
+       *     | 3
+       *     | 4
+       *     | 5
+       *     | 6
+       *     | 7
+       *     | 8
+       *     | 9
+       *     | 10
+       *     | 11
+       *     | 12
+       *     | 13
+       *     | 14
+       *     | 15
+       *     | 16
+       *     | 17
+       *     | 18
+       *     | 19
+       *     | 20
+       *     | 21
+       *     | 22
+       *     | 23
+       *     | 24
+       *     | 25
+       *     | 61
+       *     | 62
+       *     | 63
+       *     | 64
+       *     | 65
+       *     | 66
+       *   // 个人简介
+       *   introduction?: string | null
+       *   // 咨询费用
+       *   inquiry_fee?: number | null
+       *   // 推荐
+       *   recommend?: boolean | null
+       *   // 评价平均分
+       *   avg_rating_score?: number | null
+       *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *   auditing_status?: 0 | 1 | 2 | 3
+       *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *   avatar_auditing_status?: 0 | 1 | 2 | 3
+       *   // 论文数
+       *   paper_count?: number | null
+       *   // 审核原因
+       *   auditing_reason?: string | null
+       *   // 是否是特诊医生
+       *   is_special_diagnosis?: boolean | null
+       *   // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *   consultant_type?: 1 | 2 | 3
+       *   // 顾问证书编号
+       *   consultant_certificate_no?: string | null
+       *   // 顾问证书图片
+       *   consultant_certificate_image?: string | null
+       *   // 顾问资格说明
+       *   consultant_qualification_desc?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 医生顾问审核输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 审核类型
+       *       // [params1] start
+       *       // [items] start
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       // [items] end
+       *       // [params1] end
+       *       auditing_types?: (666 | 777 | 888 | 999)[] | null
+       *       // 用户
+       *       userId?: number
+       *       // APP用户信息表
+       *       appUser?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 软删除
+       *         isDelete?: boolean
+       *         // 用户名，不允许重复
+       *         username?: string | null
+       *         // 用户昵称
+       *         nickName?: string | null
+       *         // 头像地址
+       *         avatar?: string | null
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *         sex?: 0 | 1 | 2 | 9
+       *         // 年龄
+       *         age?: number
+       *         // 出生日期
+       *         birthday?: string | null
+       *         // 个人简介
+       *         introduction?: string | null
+       *         // 用户标签
+       *         tags?: string | null
+       *         // 用户积分
+       *         score?: number
+       *         // 手机号码
+       *         mobile?: string | null
+       *         // 手机号验证状态：0 未验证 1 已验证
+       *         mobileConfirmed?: number
+       *         // 邮箱地址
+       *         email?: string | null
+       *         // 邮箱验证状态：0 未验证 1 已验证
+       *         emailConfirmed?: number
+       *         // 办公电话
+       *         officePhone?: string | null
+       *         // 国家
+       *         country?: string | null
+       *         // 省
+       *         province?: string | null
+       *         // 城市
+       *         city?: string | null
+       *         // 详细地址
+       *         address?: string | null
+       *         // 语言
+       *         language?: string | null
+       *         // 民族
+       *         nation?: string | null
+       *         // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *         cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *         // 身份证号
+       *         idCardNum?: string | null
+       *         // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *         cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *         // 政治面貌
+       *         politicalOutlook?: string | null
+       *         // 毕业院校
+       *         college?: string | null
+       *         // 实名认证信息（JSON格式）
+       *         realnameAuth?: string | null
+       *         // 紧急联系人
+       *         emergencyContact?: string | null
+       *         // 紧急联系人电话
+       *         emergencyPhone?: string | null
+       *         // 紧急联系人地址
+       *         emergencyAddress?: string | null
+       *         // 密码使用的passwordSecret版本
+       *         passwordSecretVersion?: number
+       *         // 微信各平台openid（JSON格式）
+       *         wxOpenId?: string | null
+       *         // 微信unionid
+       *         wxUnionId?: string | null
+       *         // 支付宝平台openid
+       *         aliOpenId?: string | null
+       *         // 苹果登录openid
+       *         appleOpenId?: string | null
+       *         // QQ各平台openid（JSON格式）
+       *         qqOpenId?: string | null
+       *         // QQ unionid
+       *         qqUnionId?: string | null
+       *         // 华为openid
+       *         huaweiOpenId?: string | null
+       *         // 华为unionid
+       *         huaweiUnionId?: string | null
+       *         // 三方平台身份信息（JSON格式）
+       *         identities?: string | null
+       *         // 会话密钥
+       *         sessionKey?: string | null
+       *         // 用户角色（JSON格式）
+       *         // [params1] start
+       *         // [items] start
+       *         // APP用户角色表
+       *         // [items] end
+       *         // [params1] end
+       *         role?: Array<{
+       *           // 雪花Id
+       *           id?: number
+       *           // 用户Id
+       *           userId?: number
+       *           // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *           role?: 666 | 777 | 888 | 999
+       *           // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *           auditStatus?: 0 | 1
+       *           // 备注
+       *           remark?: string | null
+       *           // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *           status?: 1 | 2
+       *         }> | null
+       *         // 部门ID（JSON格式）
+       *         departmentId?: string | null
+       *         // 允许登录的客户端的appid列表（JSON格式）
+       *         dcloudAppId?: string | null
+       *         // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *         accountType?: 666 | 777 | 888 | 999
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         defaultRole?: 666 | 777 | 888 | 999
+       *         // 用户自身邀请码
+       *         myInviteCode?: string | null
+       *         // 邀请人Id
+       *         invitedUserId?: number | null
+       *         // 用户全部上级邀请者（JSON格式）
+       *         inviterUid?: string | null
+       *         // 受邀时间
+       *         inviteTime?: string | null
+       *         // 注册时间
+       *         registerDate?: string | null
+       *         // 注册时IP地址
+       *         registerIp?: string | null
+       *         // 最后登录时间
+       *         lastLoginTime?: string | null
+       *         // 最后登录时IP地址
+       *         lastLoginIp?: string | null
+       *         // 最后登录地点
+       *         lastLoginAddress?: string | null
+       *         // 最后登录设备
+       *         lastLoginDevice?: string | null
+       *         // 最后登录渠道
+       *         lastLoginFrom?: string | null
+       *         // AccessToken
+       *         accessToken?: string | null
+       *         // RefreshToken
+       *         refreshToken?: string | null
+       *         // 过期时间
+       *         expiresIn?: number | null
+       *         // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *         platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *         // 排序
+       *         orderNo?: number
+       *         // 备注
+       *         remark?: string | null
+       *       }
+       *       // 用户 描述
+       *       userFkDisplayName?: string | null
+       *       // 头像
+       *       avatar?: string | null
+       *       // 推荐人手机号
+       *       referrer_telephone?: string | null
+       *       // 位置
+       *       position?: string | null
+       *       // 省
+       *       province?: string | null
+       *       // 城市
+       *       city?: string | null
+       *       // 地区
+       *       district?: string | null
+       *       // 详细地址
+       *       address?: string | null
+       *       // 参加工作时间
+       *       employment_date?: string | null
+       *       // 部门
+       *       department?: string | null
+       *       // 职称
+       *       job_title?: string | null
+       *       // 擅长领域
+       *       // [params1] start
+       *       // [items] start
+       *       // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *       // [items] end
+       *       // [params1] end
+       *       fields?:
+       *         | (
+       *             | 1
+       *             | 2
+       *             | 3
+       *             | 4
+       *             | 5
+       *             | 6
+       *             | 7
+       *             | 8
+       *             | 9
+       *             | 10
+       *             | 11
+       *             | 12
+       *             | 13
+       *             | 14
+       *             | 15
+       *             | 16
+       *             | 17
+       *             | 18
+       *             | 19
+       *             | 20
+       *             | 21
+       *             | 22
+       *             | 23
+       *             | 24
+       *             | 25
+       *             | 61
+       *             | 62
+       *             | 63
+       *             | 64
+       *             | 65
+       *             | 66
+       *           )[]
+       *         | null
+       *       // 个人简介
+       *       introduction?: string | null
+       *       // 咨询费用
+       *       inquiry_fee?: number | null
+       *       // 身份证正面
+       *       idcard_front_image?: string | null
+       *       // 系统文件表
+       *       idcard_front_imageAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 身份证反面
+       *       idcard_back_image?: string | null
+       *       // 系统文件表
+       *       idcard_back_imageAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 手持证件照
+       *       idcard_handheld_image?: string | null
+       *       // 系统文件表
+       *       idcard_handheld_imageAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 医生资格照(多张)
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       doctor_qualification_images?: string[] | null
+       *       // 系统文件表
+       *       doctor_qualification_imagesAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 中医资质证明(多张)
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       chn_medicine_qualification_images?: string[] | null
+       *       // 系统文件表
+       *       chn_medicine_qualification_imagesAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 担保人名称
+       *       guarantor_name?: string | null
+       *       // 担保人身份正面
+       *       guarantor_idcard_front_image?: string | null
+       *       // 担保人身份反面
+       *       guarantor_idcard_back_image?: string | null
+       *       // 担保人手持身份证照
+       *       guarantor_idcard_handheld_image?: string | null
+       *       // 推荐
+       *       recommend?: boolean | null
+       *       // 评价平均分
+       *       avg_rating_score?: number | null
+       *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *       auditing_status?: 0 | 1 | 2 | 3
+       *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *       avatar_auditing_status?: 0 | 1 | 2 | 3
+       *       // 论文数
+       *       paper_count?: number | null
+       *       // 审核人
+       *       auditing_operator?: number | null
+       *       // 审核时间
+       *       auditing_at?: string | null
+       *       // 审核原因
+       *       auditing_reason?: string | null
+       *       // 是否是特诊医生
+       *       is_special_diagnosis?: boolean | null
+       *       // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *       consultant_type?: 1 | 2 | 3
+       *       // 顾问证书编号
+       *       consultant_certificate_no?: string | null
+       *       // 顾问证书图片
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       consultant_certificate_image?: string[] | null
+       *       // 顾问资格说明
+       *       consultant_qualification_desc?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_DoctorAuditingOutput> & {
+          data: Pageapp_DoctorAuditingInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_DoctorAuditingOutput,
+        'app_DoctorAuditing.apiApp_doctorauditingPagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取医生顾问审核详情 ℹ️
+       *
+       * **path:** /api/app_DoctorAuditing/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 医生/顾问审核表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 审核类型(多选)
+       *     // [params1] start
+       *     // [items] start
+       *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *     // [items] end
+       *     // [params1] end
+       *     auditing_types?: (666 | 777 | 888 | 999)[] | null
+       *     // 用户ID
+       *     userId?: number
+       *     // APP用户信息表
+       *     appUser?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 用户名，不允许重复
+       *       username?: string | null
+       *       // 用户昵称
+       *       nickName?: string | null
+       *       // 头像地址
+       *       avatar?: string | null
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *       sex?: 0 | 1 | 2 | 9
+       *       // 年龄
+       *       age?: number
+       *       // 出生日期
+       *       birthday?: string | null
+       *       // 个人简介
+       *       introduction?: string | null
+       *       // 用户标签
+       *       tags?: string | null
+       *       // 用户积分
+       *       score?: number
+       *       // 手机号码
+       *       mobile?: string | null
+       *       // 手机号验证状态：0 未验证 1 已验证
+       *       mobileConfirmed?: number
+       *       // 邮箱地址
+       *       email?: string | null
+       *       // 邮箱验证状态：0 未验证 1 已验证
+       *       emailConfirmed?: number
+       *       // 办公电话
+       *       officePhone?: string | null
+       *       // 国家
+       *       country?: string | null
+       *       // 省
+       *       province?: string | null
+       *       // 城市
+       *       city?: string | null
+       *       // 详细地址
+       *       address?: string | null
+       *       // 语言
+       *       language?: string | null
+       *       // 民族
+       *       nation?: string | null
+       *       // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *       cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *       // 身份证号
+       *       idCardNum?: string | null
+       *       // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *       cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *       // 政治面貌
+       *       politicalOutlook?: string | null
+       *       // 毕业院校
+       *       college?: string | null
+       *       // 实名认证信息（JSON格式）
+       *       realnameAuth?: string | null
+       *       // 紧急联系人
+       *       emergencyContact?: string | null
+       *       // 紧急联系人电话
+       *       emergencyPhone?: string | null
+       *       // 紧急联系人地址
+       *       emergencyAddress?: string | null
+       *       // 密码使用的passwordSecret版本
+       *       passwordSecretVersion?: number
+       *       // 微信各平台openid（JSON格式）
+       *       wxOpenId?: string | null
+       *       // 微信unionid
+       *       wxUnionId?: string | null
+       *       // 支付宝平台openid
+       *       aliOpenId?: string | null
+       *       // 苹果登录openid
+       *       appleOpenId?: string | null
+       *       // QQ各平台openid（JSON格式）
+       *       qqOpenId?: string | null
+       *       // QQ unionid
+       *       qqUnionId?: string | null
+       *       // 华为openid
+       *       huaweiOpenId?: string | null
+       *       // 华为unionid
+       *       huaweiUnionId?: string | null
+       *       // 三方平台身份信息（JSON格式）
+       *       identities?: string | null
+       *       // 会话密钥
+       *       sessionKey?: string | null
+       *       // 用户角色（JSON格式）
+       *       // [params1] start
+       *       // [items] start
+       *       // APP用户角色表
+       *       // [items] end
+       *       // [params1] end
+       *       role?: Array<{
+       *         // 雪花Id
+       *         id?: number
+       *         // 用户Id
+       *         userId?: number
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         role?: 666 | 777 | 888 | 999
+       *         // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *         auditStatus?: 0 | 1
+       *         // 备注
+       *         remark?: string | null
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *       }> | null
+       *       // 部门ID（JSON格式）
+       *       departmentId?: string | null
+       *       // 允许登录的客户端的appid列表（JSON格式）
+       *       dcloudAppId?: string | null
+       *       // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *       accountType?: 666 | 777 | 888 | 999
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       defaultRole?: 666 | 777 | 888 | 999
+       *       // 用户自身邀请码
+       *       myInviteCode?: string | null
+       *       // 邀请人Id
+       *       invitedUserId?: number | null
+       *       // 用户全部上级邀请者（JSON格式）
+       *       inviterUid?: string | null
+       *       // 受邀时间
+       *       inviteTime?: string | null
+       *       // 注册时间
+       *       registerDate?: string | null
+       *       // 注册时IP地址
+       *       registerIp?: string | null
+       *       // 最后登录时间
+       *       lastLoginTime?: string | null
+       *       // 最后登录时IP地址
+       *       lastLoginIp?: string | null
+       *       // 最后登录地点
+       *       lastLoginAddress?: string | null
+       *       // 最后登录设备
+       *       lastLoginDevice?: string | null
+       *       // 最后登录渠道
+       *       lastLoginFrom?: string | null
+       *       // AccessToken
+       *       accessToken?: string | null
+       *       // RefreshToken
+       *       refreshToken?: string | null
+       *       // 过期时间
+       *       expiresIn?: number | null
+       *       // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *       platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *       status?: 1 | 2
+       *       // 排序
+       *       orderNo?: number
+       *       // 备注
+       *       remark?: string | null
+       *     }
+       *     // 头像
+       *     avatar?: string | null
+       *     // 推荐人手机号
+       *     referrer_telephone?: string | null
+       *     // 位置
+       *     position?: string | null
+       *     // 省
+       *     province?: string | null
+       *     // 城市
+       *     city?: string | null
+       *     // 地区
+       *     district?: string | null
+       *     // 详细地址
+       *     address?: string | null
+       *     // 参加工作时间
+       *     employment_date?: string | null
+       *     // 部门
+       *     department?: string | null
+       *     // 职称
+       *     job_title?: string | null
+       *     // 擅长领域
+       *     // [params1] start
+       *     // [items] start
+       *     // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *     // [items] end
+       *     // [params1] end
+       *     fields?:
+       *       | (
+       *           | 1
+       *           | 2
+       *           | 3
+       *           | 4
+       *           | 5
+       *           | 6
+       *           | 7
+       *           | 8
+       *           | 9
+       *           | 10
+       *           | 11
+       *           | 12
+       *           | 13
+       *           | 14
+       *           | 15
+       *           | 16
+       *           | 17
+       *           | 18
+       *           | 19
+       *           | 20
+       *           | 21
+       *           | 22
+       *           | 23
+       *           | 24
+       *           | 25
+       *           | 61
+       *           | 62
+       *           | 63
+       *           | 64
+       *           | 65
+       *           | 66
+       *         )[]
+       *       | null
+       *     // 个人简介
+       *     introduction?: string | null
+       *     // 咨询费用
+       *     inquiry_fee?: number | null
+       *     // 身份证正面
+       *     idcard_front_image?: string | null
+       *     // 身份证反面
+       *     idcard_back_image?: string | null
+       *     // 手持证件照
+       *     idcard_handheld_image?: string | null
+       *     // 医生资格照(多张)
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     doctor_qualification_images?: string[] | null
+       *     // 中医资质证明(多张)
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     chn_medicine_qualification_images?: string[] | null
+       *     // 担保人名称
+       *     guarantor_name?: string | null
+       *     // 担保人身份正面
+       *     guarantor_idcard_front_image?: string | null
+       *     // 担保人身份反面
+       *     guarantor_idcard_back_image?: string | null
+       *     // 担保人手持身份证照
+       *     guarantor_idcard_handheld_image?: string | null
+       *     // 推荐
+       *     recommend?: boolean | null
+       *     // 评价平均分
+       *     avg_rating_score?: number | null
+       *     // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *     auditing_status?: 0 | 1 | 2 | 3
+       *     // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *     avatar_auditing_status?: 0 | 1 | 2 | 3
+       *     // 论文数
+       *     paper_count?: number | null
+       *     // 审核人
+       *     auditing_operator?: number | null
+       *     // 审核时间
+       *     auditing_at?: string | null
+       *     // 审核原因
+       *     auditing_reason?: string | null
+       *     // 是否是特诊医生
+       *     is_special_diagnosis?: boolean | null
+       *     // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *     consultant_type?: 1 | 2 | 3
+       *     // 顾问证书编号
+       *     consultant_certificate_no?: string | null
+       *     // 顾问证书图片
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     consultant_certificate_image?: string[] | null
+       *     // 顾问资格说明
+       *     consultant_qualification_desc?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_DoctorAuditing> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_DoctorAuditing, 'app_DoctorAuditing.apiApp_doctorauditingDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 增加医生顾问审核 ➕
+       *
+       * **path:** /api/app_DoctorAuditing/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *   auditing_types: 666 | 777 | 888 | 999
+       *   // 用户
+       *   userId: number
+       *   // 头像
+       *   avatar?: string | null
+       *   // 推荐人手机号
+       *   referrer_telephone?: string | null
+       *   // 位置
+       *   position?: string | null
+       *   // 省
+       *   province?: string | null
+       *   // 城市
+       *   city?: string | null
+       *   // 地区
+       *   district?: string | null
+       *   // 详细地址
+       *   address?: string | null
+       *   // 参加工作时间
+       *   employment_date?: string | null
+       *   // 部门
+       *   department?: string | null
+       *   // 职称
+       *   job_title?: string | null
+       *   // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *   fields?:
+       *     | 1
+       *     | 2
+       *     | 3
+       *     | 4
+       *     | 5
+       *     | 6
+       *     | 7
+       *     | 8
+       *     | 9
+       *     | 10
+       *     | 11
+       *     | 12
+       *     | 13
+       *     | 14
+       *     | 15
+       *     | 16
+       *     | 17
+       *     | 18
+       *     | 19
+       *     | 20
+       *     | 21
+       *     | 22
+       *     | 23
+       *     | 24
+       *     | 25
+       *     | 61
+       *     | 62
+       *     | 63
+       *     | 64
+       *     | 65
+       *     | 66
+       *   // 个人简介
+       *   introduction?: string | null
+       *   // 咨询费用
+       *   inquiry_fee?: number | null
+       *   // 身份证正面
+       *   idcard_front_image?: string | null
+       *   // 身份证反面
+       *   idcard_back_image?: string | null
+       *   // 手持证件照
+       *   idcard_handheld_image?: string | null
+       *   // 医生资格照(多张)
+       *   doctor_qualification_images?: string | null
+       *   // 中医资质证明(多张)
+       *   chn_medicine_qualification_images?: string | null
+       *   // 担保人名称
+       *   guarantor_name?: string | null
+       *   // 担保人身份正面
+       *   guarantor_idcard_front_image?: string | null
+       *   // 担保人身份反面
+       *   guarantor_idcard_back_image?: string | null
+       *   // 担保人手持身份证照
+       *   guarantor_idcard_handheld_image?: string | null
+       *   // 推荐
+       *   recommend?: boolean | null
+       *   // 评价平均分
+       *   avg_rating_score?: number | null
+       *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *   auditing_status?: 0 | 1 | 2 | 3
+       *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *   avatar_auditing_status: 0 | 1 | 2 | 3
+       *   // 论文数
+       *   paper_count?: number | null
+       *   // 审核人
+       *   auditing_operator?: number | null
+       *   // 审核时间
+       *   auditing_at?: string | null
+       *   // 审核原因
+       *   auditing_reason?: string | null
+       *   // 是否是特诊医生
+       *   is_special_diagnosis?: boolean | null
+       *   // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *   consultant_type?: 1 | 2 | 3
+       *   // 顾问证书编号
+       *   consultant_certificate_no?: string | null
+       *   // 顾问证书图片
+       *   consultant_certificate_image?: string | null
+       *   // 顾问资格说明
+       *   consultant_qualification_desc?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_DoctorAuditingInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_DoctorAuditing.apiApp_doctorauditingAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新医生顾问审核 ✏️
+       *
+       * **path:** /api/app_DoctorAuditing/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *   auditing_types: 666 | 777 | 888 | 999
+       *   // 用户
+       *   userId: number
+       *   // 头像
+       *   avatar?: string | null
+       *   // 推荐人手机号
+       *   referrer_telephone?: string | null
+       *   // 位置
+       *   position?: string | null
+       *   // 省
+       *   province?: string | null
+       *   // 城市
+       *   city?: string | null
+       *   // 地区
+       *   district?: string | null
+       *   // 详细地址
+       *   address?: string | null
+       *   // 参加工作时间
+       *   employment_date?: string | null
+       *   // 部门
+       *   department?: string | null
+       *   // 职称
+       *   job_title?: string | null
+       *   // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *   fields?:
+       *     | 1
+       *     | 2
+       *     | 3
+       *     | 4
+       *     | 5
+       *     | 6
+       *     | 7
+       *     | 8
+       *     | 9
+       *     | 10
+       *     | 11
+       *     | 12
+       *     | 13
+       *     | 14
+       *     | 15
+       *     | 16
+       *     | 17
+       *     | 18
+       *     | 19
+       *     | 20
+       *     | 21
+       *     | 22
+       *     | 23
+       *     | 24
+       *     | 25
+       *     | 61
+       *     | 62
+       *     | 63
+       *     | 64
+       *     | 65
+       *     | 66
+       *   // 个人简介
+       *   introduction?: string | null
+       *   // 咨询费用
+       *   inquiry_fee?: number | null
+       *   // 身份证正面
+       *   idcard_front_image?: string | null
+       *   // 身份证反面
+       *   idcard_back_image?: string | null
+       *   // 手持证件照
+       *   idcard_handheld_image?: string | null
+       *   // 医生资格照(多张)
+       *   doctor_qualification_images?: string | null
+       *   // 中医资质证明(多张)
+       *   chn_medicine_qualification_images?: string | null
+       *   // 担保人名称
+       *   guarantor_name?: string | null
+       *   // 担保人身份正面
+       *   guarantor_idcard_front_image?: string | null
+       *   // 担保人身份反面
+       *   guarantor_idcard_back_image?: string | null
+       *   // 担保人手持身份证照
+       *   guarantor_idcard_handheld_image?: string | null
+       *   // 推荐
+       *   recommend?: boolean | null
+       *   // 评价平均分
+       *   avg_rating_score?: number | null
+       *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *   auditing_status?: 0 | 1 | 2 | 3
+       *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *   avatar_auditing_status: 0 | 1 | 2 | 3
+       *   // 论文数
+       *   paper_count?: number | null
+       *   // 审核人
+       *   auditing_operator?: number | null
+       *   // 审核时间
+       *   auditing_at?: string | null
+       *   // 审核原因
+       *   auditing_reason?: string | null
+       *   // 是否是特诊医生
+       *   is_special_diagnosis?: boolean | null
+       *   // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *   consultant_type?: 1 | 2 | 3
+       *   // 顾问证书编号
+       *   consultant_certificate_no?: string | null
+       *   // 顾问证书图片
+       *   consultant_certificate_image?: string | null
+       *   // 顾问资格说明
+       *   consultant_qualification_desc?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_doctorauditingUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_DoctorAuditingInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_DoctorAuditing.apiApp_doctorauditingUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除医生顾问审核 ❌
+       *
+       * **path:** /api/app_DoctorAuditing/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_doctorauditingDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_DoctorAuditingInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_DoctorAuditing.apiApp_doctorauditingDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除医生顾问审核 ❌
+       *
+       * **path:** /api/app_DoctorAuditing/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_DoctorAuditingInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_DoctorAuditing.apiApp_doctorauditingBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 上传身份证正面 ⬆️
+       *
+       * **path:** /api/app_DoctorAuditing/uploadIdcard_front_image
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingUploadidcard_front_imagePost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SysFile,
+        'app_DoctorAuditing.apiApp_doctorauditingUploadidcard_front_imagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 上传身份证反面 ⬆️
+       *
+       * **path:** /api/app_DoctorAuditing/uploadIdcard_back_image
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingUploadidcard_back_imagePost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SysFile,
+        'app_DoctorAuditing.apiApp_doctorauditingUploadidcard_back_imagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 上传手持证件照 ⬆️
+       *
+       * **path:** /api/app_DoctorAuditing/uploadIdcard_handheld_image
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingUploadidcard_handheld_imagePost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SysFile,
+        'app_DoctorAuditing.apiApp_doctorauditingUploadidcard_handheld_imagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 上传医生资格照(多张) ⬆️
+       *
+       * **path:** /api/app_DoctorAuditing/uploadDoctor_qualification_images
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingUploaddoctor_qualification_imagesPost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SysFile,
+        'app_DoctorAuditing.apiApp_doctorauditingUploaddoctor_qualification_imagesPost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 上传中医资质证明(多张) ⬆️
+       *
+       * **path:** /api/app_DoctorAuditing/uploadChn_medicine_qualification_images
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingUploadchn_medicine_qualification_imagesPost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SysFile,
+        'app_DoctorAuditing.apiApp_doctorauditingUploadchn_medicine_qualification_imagesPost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 获取下拉列表数据 🔖
+       *
+       * **path:** /api/app_DoctorAuditing/dropdownData
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 是否用于分页查询
+       *   fromPage?: boolean
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: Record<string, unknown> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingDropdowndataPost<
+        Config extends Alova2MethodConfig<AdminResult_Dictionary_StringObject> & {
+          data: DropdownDataapp_DoctorAuditingInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_Dictionary_StringObject,
+        'app_DoctorAuditing.apiApp_doctorauditingDropdowndataPost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 导出医生顾问审核记录 🔖
+       *
+       * **path:** /api/app_DoctorAuditing/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *   auditing_types?: 666 | 777 | 888 | 999
+       *   // 用户
+       *   userId?: number | null
+       *   // 推荐人手机号
+       *   referrer_telephone?: string | null
+       *   // 省
+       *   province?: string | null
+       *   // 城市
+       *   city?: string | null
+       *   // 地区
+       *   district?: string | null
+       *   // 详细地址
+       *   address?: string | null
+       *   // 部门
+       *   department?: string | null
+       *   // 职称
+       *   job_title?: string | null
+       *   // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *   fields?:
+       *     | 1
+       *     | 2
+       *     | 3
+       *     | 4
+       *     | 5
+       *     | 6
+       *     | 7
+       *     | 8
+       *     | 9
+       *     | 10
+       *     | 11
+       *     | 12
+       *     | 13
+       *     | 14
+       *     | 15
+       *     | 16
+       *     | 17
+       *     | 18
+       *     | 19
+       *     | 20
+       *     | 21
+       *     | 22
+       *     | 23
+       *     | 24
+       *     | 25
+       *     | 61
+       *     | 62
+       *     | 63
+       *     | 64
+       *     | 65
+       *     | 66
+       *   // 个人简介
+       *   introduction?: string | null
+       *   // 咨询费用
+       *   inquiry_fee?: number | null
+       *   // 推荐
+       *   recommend?: boolean | null
+       *   // 评价平均分
+       *   avg_rating_score?: number | null
+       *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *   auditing_status?: 0 | 1 | 2 | 3
+       *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *   avatar_auditing_status?: 0 | 1 | 2 | 3
+       *   // 论文数
+       *   paper_count?: number | null
+       *   // 审核原因
+       *   auditing_reason?: string | null
+       *   // 是否是特诊医生
+       *   is_special_diagnosis?: boolean | null
+       *   // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *   consultant_type?: 1 | 2 | 3
+       *   // 顾问证书编号
+       *   consultant_certificate_no?: string | null
+       *   // 顾问证书图片
+       *   consultant_certificate_image?: string | null
+       *   // 顾问资格说明
+       *   consultant_qualification_desc?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_doctorauditingExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_DoctorAuditingInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_DoctorAuditing.apiApp_doctorauditingExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载医生顾问审核数据导入模板 ⬇️
+       *
+       * **path:** /api/app_DoctorAuditing/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_doctorauditingImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_DoctorAuditing.apiApp_doctorauditingImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入医生顾问审核记录 💾
+       *
+       * **path:** /api/app_DoctorAuditing/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_doctorauditingImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_DoctorAuditing.apiApp_doctorauditingImportPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 从T_doctor_auditing迁移数据到app_DoctorAuditing 🔄
+       *
+       * **path:** /api/app_DoctorAuditing/migrateFromTDoctorAuditing
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingMigratefromtdoctorauditingPost<Config extends Alova2MethodConfig<AdminResult_Object>>(
+        config?: Config
+      ): Alova2Method<
+        AdminResult_Object,
+        'app_DoctorAuditing.apiApp_doctorauditingMigratefromtdoctorauditingPost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 从T_consultant_auditing迁移数据到app_DoctorAuditing 🔄
+       *
+       * **path:** /api/app_DoctorAuditing/migrateFromTConsultantAuditing
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingMigratefromtconsultantauditingPost<Config extends Alova2MethodConfig<AdminResult_Object>>(
+        config?: Config
+      ): Alova2Method<
+        AdminResult_Object,
+        'app_DoctorAuditing.apiApp_doctorauditingMigratefromtconsultantauditingPost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 获取推荐医生顾问列表 🌟
+       *
+       * **path:** /api/app_DoctorAuditing/getRecommendedDoctors
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 省
+       *   province?: string | null
+       *   // 城市
+       *   city?: string | null
+       *   // 地区
+       *   district?: string | null
+       *   // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *   fields?:
+       *     | 1
+       *     | 2
+       *     | 3
+       *     | 4
+       *     | 5
+       *     | 6
+       *     | 7
+       *     | 8
+       *     | 9
+       *     | 10
+       *     | 11
+       *     | 12
+       *     | 13
+       *     | 14
+       *     | 15
+       *     | 16
+       *     | 17
+       *     | 18
+       *     | 19
+       *     | 20
+       *     | 21
+       *     | 22
+       *     | 23
+       *     | 24
+       *     | 25
+       *     | 61
+       *     | 62
+       *     | 63
+       *     | 64
+       *     | 65
+       *     | 66
+       *   // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *   consultant_type?: 1 | 2 | 3
+       *   // 是否是特诊医生
+       *   is_special_diagnosis?: boolean | null
+       *   // 最低评价分数
+       *   minRatingScore?: number | null
+       *   // 最高咨询费用
+       *   maxInquiryFee?: number | null
+       *   // 排序类型：1-评价分数降序，2-咨询费用升序，3-咨询费用降序，4-推荐优先
+       *   sortType?: number | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 医生顾问审核输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 审核类型
+       *       // [params1] start
+       *       // [items] start
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       // [items] end
+       *       // [params1] end
+       *       auditing_types?: (666 | 777 | 888 | 999)[] | null
+       *       // 用户
+       *       userId?: number
+       *       // APP用户信息表
+       *       appUser?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 软删除
+       *         isDelete?: boolean
+       *         // 用户名，不允许重复
+       *         username?: string | null
+       *         // 用户昵称
+       *         nickName?: string | null
+       *         // 头像地址
+       *         avatar?: string | null
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *         sex?: 0 | 1 | 2 | 9
+       *         // 年龄
+       *         age?: number
+       *         // 出生日期
+       *         birthday?: string | null
+       *         // 个人简介
+       *         introduction?: string | null
+       *         // 用户标签
+       *         tags?: string | null
+       *         // 用户积分
+       *         score?: number
+       *         // 手机号码
+       *         mobile?: string | null
+       *         // 手机号验证状态：0 未验证 1 已验证
+       *         mobileConfirmed?: number
+       *         // 邮箱地址
+       *         email?: string | null
+       *         // 邮箱验证状态：0 未验证 1 已验证
+       *         emailConfirmed?: number
+       *         // 办公电话
+       *         officePhone?: string | null
+       *         // 国家
+       *         country?: string | null
+       *         // 省
+       *         province?: string | null
+       *         // 城市
+       *         city?: string | null
+       *         // 详细地址
+       *         address?: string | null
+       *         // 语言
+       *         language?: string | null
+       *         // 民族
+       *         nation?: string | null
+       *         // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *         cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *         // 身份证号
+       *         idCardNum?: string | null
+       *         // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *         cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *         // 政治面貌
+       *         politicalOutlook?: string | null
+       *         // 毕业院校
+       *         college?: string | null
+       *         // 实名认证信息（JSON格式）
+       *         realnameAuth?: string | null
+       *         // 紧急联系人
+       *         emergencyContact?: string | null
+       *         // 紧急联系人电话
+       *         emergencyPhone?: string | null
+       *         // 紧急联系人地址
+       *         emergencyAddress?: string | null
+       *         // 密码使用的passwordSecret版本
+       *         passwordSecretVersion?: number
+       *         // 微信各平台openid（JSON格式）
+       *         wxOpenId?: string | null
+       *         // 微信unionid
+       *         wxUnionId?: string | null
+       *         // 支付宝平台openid
+       *         aliOpenId?: string | null
+       *         // 苹果登录openid
+       *         appleOpenId?: string | null
+       *         // QQ各平台openid（JSON格式）
+       *         qqOpenId?: string | null
+       *         // QQ unionid
+       *         qqUnionId?: string | null
+       *         // 华为openid
+       *         huaweiOpenId?: string | null
+       *         // 华为unionid
+       *         huaweiUnionId?: string | null
+       *         // 三方平台身份信息（JSON格式）
+       *         identities?: string | null
+       *         // 会话密钥
+       *         sessionKey?: string | null
+       *         // 用户角色（JSON格式）
+       *         // [params1] start
+       *         // [items] start
+       *         // APP用户角色表
+       *         // [items] end
+       *         // [params1] end
+       *         role?: Array<{
+       *           // 雪花Id
+       *           id?: number
+       *           // 用户Id
+       *           userId?: number
+       *           // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *           role?: 666 | 777 | 888 | 999
+       *           // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *           auditStatus?: 0 | 1
+       *           // 备注
+       *           remark?: string | null
+       *           // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *           status?: 1 | 2
+       *         }> | null
+       *         // 部门ID（JSON格式）
+       *         departmentId?: string | null
+       *         // 允许登录的客户端的appid列表（JSON格式）
+       *         dcloudAppId?: string | null
+       *         // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *         accountType?: 666 | 777 | 888 | 999
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         defaultRole?: 666 | 777 | 888 | 999
+       *         // 用户自身邀请码
+       *         myInviteCode?: string | null
+       *         // 邀请人Id
+       *         invitedUserId?: number | null
+       *         // 用户全部上级邀请者（JSON格式）
+       *         inviterUid?: string | null
+       *         // 受邀时间
+       *         inviteTime?: string | null
+       *         // 注册时间
+       *         registerDate?: string | null
+       *         // 注册时IP地址
+       *         registerIp?: string | null
+       *         // 最后登录时间
+       *         lastLoginTime?: string | null
+       *         // 最后登录时IP地址
+       *         lastLoginIp?: string | null
+       *         // 最后登录地点
+       *         lastLoginAddress?: string | null
+       *         // 最后登录设备
+       *         lastLoginDevice?: string | null
+       *         // 最后登录渠道
+       *         lastLoginFrom?: string | null
+       *         // AccessToken
+       *         accessToken?: string | null
+       *         // RefreshToken
+       *         refreshToken?: string | null
+       *         // 过期时间
+       *         expiresIn?: number | null
+       *         // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *         platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *         // 排序
+       *         orderNo?: number
+       *         // 备注
+       *         remark?: string | null
+       *       }
+       *       // 用户 描述
+       *       userFkDisplayName?: string | null
+       *       // 头像
+       *       avatar?: string | null
+       *       // 推荐人手机号
+       *       referrer_telephone?: string | null
+       *       // 位置
+       *       position?: string | null
+       *       // 省
+       *       province?: string | null
+       *       // 城市
+       *       city?: string | null
+       *       // 地区
+       *       district?: string | null
+       *       // 详细地址
+       *       address?: string | null
+       *       // 参加工作时间
+       *       employment_date?: string | null
+       *       // 部门
+       *       department?: string | null
+       *       // 职称
+       *       job_title?: string | null
+       *       // 擅长领域
+       *       // [params1] start
+       *       // [items] start
+       *       // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *       // [items] end
+       *       // [params1] end
+       *       fields?:
+       *         | (
+       *             | 1
+       *             | 2
+       *             | 3
+       *             | 4
+       *             | 5
+       *             | 6
+       *             | 7
+       *             | 8
+       *             | 9
+       *             | 10
+       *             | 11
+       *             | 12
+       *             | 13
+       *             | 14
+       *             | 15
+       *             | 16
+       *             | 17
+       *             | 18
+       *             | 19
+       *             | 20
+       *             | 21
+       *             | 22
+       *             | 23
+       *             | 24
+       *             | 25
+       *             | 61
+       *             | 62
+       *             | 63
+       *             | 64
+       *             | 65
+       *             | 66
+       *           )[]
+       *         | null
+       *       // 个人简介
+       *       introduction?: string | null
+       *       // 咨询费用
+       *       inquiry_fee?: number | null
+       *       // 身份证正面
+       *       idcard_front_image?: string | null
+       *       // 系统文件表
+       *       idcard_front_imageAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 身份证反面
+       *       idcard_back_image?: string | null
+       *       // 系统文件表
+       *       idcard_back_imageAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 手持证件照
+       *       idcard_handheld_image?: string | null
+       *       // 系统文件表
+       *       idcard_handheld_imageAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 医生资格照(多张)
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       doctor_qualification_images?: string[] | null
+       *       // 系统文件表
+       *       doctor_qualification_imagesAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 中医资质证明(多张)
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       chn_medicine_qualification_images?: string[] | null
+       *       // 系统文件表
+       *       chn_medicine_qualification_imagesAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 担保人名称
+       *       guarantor_name?: string | null
+       *       // 担保人身份正面
+       *       guarantor_idcard_front_image?: string | null
+       *       // 担保人身份反面
+       *       guarantor_idcard_back_image?: string | null
+       *       // 担保人手持身份证照
+       *       guarantor_idcard_handheld_image?: string | null
+       *       // 推荐
+       *       recommend?: boolean | null
+       *       // 评价平均分
+       *       avg_rating_score?: number | null
+       *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *       auditing_status?: 0 | 1 | 2 | 3
+       *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *       avatar_auditing_status?: 0 | 1 | 2 | 3
+       *       // 论文数
+       *       paper_count?: number | null
+       *       // 审核人
+       *       auditing_operator?: number | null
+       *       // 审核时间
+       *       auditing_at?: string | null
+       *       // 审核原因
+       *       auditing_reason?: string | null
+       *       // 是否是特诊医生
+       *       is_special_diagnosis?: boolean | null
+       *       // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *       consultant_type?: 1 | 2 | 3
+       *       // 顾问证书编号
+       *       consultant_certificate_no?: string | null
+       *       // 顾问证书图片
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       consultant_certificate_image?: string[] | null
+       *       // 顾问资格说明
+       *       consultant_qualification_desc?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_doctorauditingGetrecommendeddoctorsPost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_DoctorAuditingOutput> & {
+          data: RecommendedDoctorsInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_DoctorAuditingOutput,
+        'app_DoctorAuditing.apiApp_doctorauditingGetrecommendeddoctorsPost',
+        Config
+      >;
+    };
     app_HealthArticleCategory: {
       /**
        * ---
@@ -7566,6 +12844,1217 @@ declare global {
       >(
         config: Config
       ): Alova2Method<null, 'app_Message.apiApp_messageMarkasreadMessageidPost', Config>;
+    };
+    app_User: {
+      /**
+       * ---
+       *
+       * [POST] 分页查询用户列表 🔖
+       *
+       * **path:** /api/app_User/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 主键Id
+       *   id?: number | null
+       *   // 用户名
+       *   username?: string | null
+       *   // 用户昵称
+       *   nickName?: string | null
+       *   // 手机号码
+       *   mobile?: string | null
+       *   // 手机号验证状态
+       *   mobileConfirmed?: number | null
+       *   // 身份证号
+       *   idCardNum?: string | null
+       *   // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *   defaultRole?: 666 | 777 | 888 | 999
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 用户列表输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 用户名
+       *       username?: string | null
+       *       // 用户昵称
+       *       nickName?: string | null
+       *       // 头像地址
+       *       avatar?: string | null
+       *       // 系统文件表
+       *       avatarAttachment?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 机构Id
+       *         orgId?: number
+       *         // 租户Id
+       *         tenantId?: number | null
+       *         // 提供者
+       *         provider?: string | null
+       *         // 仓储名称
+       *         bucketName?: string | null
+       *         // 文件名称（源文件名）
+       *         fileName?: string | null
+       *         // 文件后缀
+       *         suffix?: string | null
+       *         // 存储路径
+       *         filePath?: string | null
+       *         // 文件大小KB
+       *         sizeKb?: number
+       *         // 文件大小信息-计算后的
+       *         sizeInfo?: string | null
+       *         // 外链地址-OSS上传后生成外链地址方便前端预览
+       *         url?: string | null
+       *         // 文件MD5
+       *         fileMd5?: string | null
+       *         // 文件类别
+       *         fileType?: string | null
+       *         // 文件别名
+       *         fileAlias?: string | null
+       *         // 是否公开
+       *         isPublic?: boolean
+       *         // 业务数据Id
+       *         dataId?: number | null
+       *       }
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *       sex?: 0 | 1 | 2 | 9
+       *       // 年龄
+       *       age?: number
+       *       // 出生日期
+       *       birthday?: string | null
+       *       // 个人简介
+       *       introduction?: string | null
+       *       // 用户标签
+       *       tags?: string | null
+       *       // 用户积分
+       *       score?: number
+       *       // 手机号码
+       *       mobile?: string | null
+       *       // 手机号验证状态
+       *       mobileConfirmed?: number
+       *       // 邮箱地址
+       *       email?: string | null
+       *       // 邮箱验证状态
+       *       emailConfirmed?: number
+       *       // 办公电话
+       *       officePhone?: string | null
+       *       // 国家
+       *       country?: string | null
+       *       // 省
+       *       province?: string | null
+       *       // 城市
+       *       city?: string | null
+       *       // 详细地址
+       *       address?: string | null
+       *       // 语言
+       *       language?: string | null
+       *       // 民族
+       *       nation?: string | null
+       *       // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *       cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *       // 身份证号
+       *       idCardNum?: string | null
+       *       // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *       cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *       // 政治面貌
+       *       politicalOutlook?: string | null
+       *       // 毕业院校
+       *       college?: string | null
+       *       // 实名认证信息
+       *       realnameAuth?: string | null
+       *       // 紧急联系人
+       *       emergencyContact?: string | null
+       *       // 紧急联系人电话
+       *       emergencyPhone?: string | null
+       *       // 紧急联系人地址
+       *       emergencyAddress?: string | null
+       *       // 登录密码
+       *       password?: string | null
+       *       // 密码版本
+       *       passwordSecretVersion?: number
+       *       // 支付密码
+       *       payPassword?: string | null
+       *       // 微信各平台openid
+       *       wxOpenId?: string | null
+       *       // 微信unionid
+       *       wxUnionId?: string | null
+       *       // 支付宝平台openid
+       *       aliOpenId?: string | null
+       *       // 苹果登录openid
+       *       appleOpenId?: string | null
+       *       // QQ各平台openid
+       *       qqOpenId?: string | null
+       *       // QQ unionid
+       *       qqUnionId?: string | null
+       *       // 华为openid
+       *       huaweiOpenId?: string | null
+       *       // 华为unionid
+       *       huaweiUnionId?: string | null
+       *       // 三方平台凭证
+       *       thirdParty?: string | null
+       *       // 三方平台身份信息
+       *       identities?: string | null
+       *       // 会话密钥
+       *       sessionKey?: string | null
+       *       // 用户角色
+       *       role?: string | null
+       *       // 部门ID
+       *       departmentId?: string | null
+       *       // 允许登录的客户端appid列表
+       *       dcloudAppId?: string | null
+       *       // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *       accountType?: 666 | 777 | 888 | 999
+       *       // 用户自身邀请码
+       *       myInviteCode?: string | null
+       *       // 邀请人Id
+       *       invitedUserId?: number | null
+       *       // 用户全部上级邀请者
+       *       inviterUid?: string | null
+       *       // 受邀时间
+       *       inviteTime?: string | null
+       *       // 注册时间
+       *       registerDate?: string | null
+       *       // 注册时IP地址
+       *       registerIp?: string | null
+       *       // 最后登录时间
+       *       lastLoginTime?: string | null
+       *       // 最后登录时IP地址
+       *       lastLoginIp?: string | null
+       *       // 最后登录地点
+       *       lastLoginAddress?: string | null
+       *       // 最后登录设备
+       *       lastLoginDevice?: string | null
+       *       // 最后登录渠道
+       *       lastLoginFrom?: string | null
+       *       // AccessToken
+       *       accessToken?: string | null
+       *       // RefreshToken
+       *       refreshToken?: string | null
+       *       // 过期时间
+       *       expiresIn?: number | null
+       *       // 用户token
+       *       token?: string | null
+       *       // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *       platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *       status?: 1 | 2
+       *       // 排序
+       *       orderNo?: number
+       *       // 备注
+       *       remark?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       defaultRole?: 666 | 777 | 888 | 999
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_userPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_UserOutput> & {
+          data: Pageapp_UserInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SqlSugarPagedList_app_UserOutput, 'app_User.apiApp_userPagePost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 获取用户列表详情 ℹ️
+       *
+       * **path:** /api/app_User/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // APP用户信息表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 用户名，不允许重复
+       *     username?: string | null
+       *     // 用户昵称
+       *     nickName?: string | null
+       *     // 头像地址
+       *     avatar?: string | null
+       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *     sex?: 0 | 1 | 2 | 9
+       *     // 年龄
+       *     age?: number
+       *     // 出生日期
+       *     birthday?: string | null
+       *     // 个人简介
+       *     introduction?: string | null
+       *     // 用户标签
+       *     tags?: string | null
+       *     // 用户积分
+       *     score?: number
+       *     // 手机号码
+       *     mobile?: string | null
+       *     // 手机号验证状态：0 未验证 1 已验证
+       *     mobileConfirmed?: number
+       *     // 邮箱地址
+       *     email?: string | null
+       *     // 邮箱验证状态：0 未验证 1 已验证
+       *     emailConfirmed?: number
+       *     // 办公电话
+       *     officePhone?: string | null
+       *     // 国家
+       *     country?: string | null
+       *     // 省
+       *     province?: string | null
+       *     // 城市
+       *     city?: string | null
+       *     // 详细地址
+       *     address?: string | null
+       *     // 语言
+       *     language?: string | null
+       *     // 民族
+       *     nation?: string | null
+       *     // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *     cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *     // 身份证号
+       *     idCardNum?: string | null
+       *     // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *     cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *     // 政治面貌
+       *     politicalOutlook?: string | null
+       *     // 毕业院校
+       *     college?: string | null
+       *     // 实名认证信息（JSON格式）
+       *     realnameAuth?: string | null
+       *     // 紧急联系人
+       *     emergencyContact?: string | null
+       *     // 紧急联系人电话
+       *     emergencyPhone?: string | null
+       *     // 紧急联系人地址
+       *     emergencyAddress?: string | null
+       *     // 密码使用的passwordSecret版本
+       *     passwordSecretVersion?: number
+       *     // 微信各平台openid（JSON格式）
+       *     wxOpenId?: string | null
+       *     // 微信unionid
+       *     wxUnionId?: string | null
+       *     // 支付宝平台openid
+       *     aliOpenId?: string | null
+       *     // 苹果登录openid
+       *     appleOpenId?: string | null
+       *     // QQ各平台openid（JSON格式）
+       *     qqOpenId?: string | null
+       *     // QQ unionid
+       *     qqUnionId?: string | null
+       *     // 华为openid
+       *     huaweiOpenId?: string | null
+       *     // 华为unionid
+       *     huaweiUnionId?: string | null
+       *     // 三方平台身份信息（JSON格式）
+       *     identities?: string | null
+       *     // 会话密钥
+       *     sessionKey?: string | null
+       *     // 用户角色（JSON格式）
+       *     // [params1] start
+       *     // [items] start
+       *     // APP用户角色表
+       *     // [items] end
+       *     // [params1] end
+       *     role?: Array<{
+       *       // 雪花Id
+       *       id?: number
+       *       // 用户Id
+       *       userId?: number
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       role?: 666 | 777 | 888 | 999
+       *       // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *       auditStatus?: 0 | 1
+       *       // 备注
+       *       remark?: string | null
+       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *       status?: 1 | 2
+       *     }> | null
+       *     // 部门ID（JSON格式）
+       *     departmentId?: string | null
+       *     // 允许登录的客户端的appid列表（JSON格式）
+       *     dcloudAppId?: string | null
+       *     // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *     accountType?: 666 | 777 | 888 | 999
+       *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *     defaultRole?: 666 | 777 | 888 | 999
+       *     // 用户自身邀请码
+       *     myInviteCode?: string | null
+       *     // 邀请人Id
+       *     invitedUserId?: number | null
+       *     // 用户全部上级邀请者（JSON格式）
+       *     inviterUid?: string | null
+       *     // 受邀时间
+       *     inviteTime?: string | null
+       *     // 注册时间
+       *     registerDate?: string | null
+       *     // 注册时IP地址
+       *     registerIp?: string | null
+       *     // 最后登录时间
+       *     lastLoginTime?: string | null
+       *     // 最后登录时IP地址
+       *     lastLoginIp?: string | null
+       *     // 最后登录地点
+       *     lastLoginAddress?: string | null
+       *     // 最后登录设备
+       *     lastLoginDevice?: string | null
+       *     // 最后登录渠道
+       *     lastLoginFrom?: string | null
+       *     // AccessToken
+       *     accessToken?: string | null
+       *     // RefreshToken
+       *     refreshToken?: string | null
+       *     // 过期时间
+       *     expiresIn?: number | null
+       *     // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *     platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *     // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *     status?: 1 | 2
+       *     // 排序
+       *     orderNo?: number
+       *     // 备注
+       *     remark?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_userDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_User> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_User, 'app_User.apiApp_userDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 增加用户列表 ➕
+       *
+       * **path:** /api/app_User/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 用户名
+       *   username?: string | null
+       *   // 用户昵称
+       *   nickName?: string | null
+       *   // 头像地址
+       *   avatar?: string | null
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *   sex: 0 | 1 | 2 | 9
+       *   // 年龄
+       *   age: number
+       *   // 出生日期
+       *   birthday?: string | null
+       *   // 个人简介
+       *   introduction?: string | null
+       *   // 用户标签
+       *   tags?: string | null
+       *   // 用户积分
+       *   score: number
+       *   // 手机号码
+       *   mobile?: string | null
+       *   // 手机号验证状态
+       *   mobileConfirmed: number
+       *   // 邮箱地址
+       *   email?: string | null
+       *   // 邮箱验证状态
+       *   emailConfirmed: number
+       *   // 办公电话
+       *   officePhone?: string | null
+       *   // 国家
+       *   country?: string | null
+       *   // 省
+       *   province?: string | null
+       *   // 城市
+       *   city?: string | null
+       *   // 详细地址
+       *   address?: string | null
+       *   // 语言
+       *   language?: string | null
+       *   // 民族
+       *   nation?: string | null
+       *   // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *   cardType: 0 | 1 | 2 | 3 | 4 | 5
+       *   // 身份证号
+       *   idCardNum?: string | null
+       *   // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *   cultureLevel: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *   // 政治面貌
+       *   politicalOutlook?: string | null
+       *   // 毕业院校
+       *   college?: string | null
+       *   // 实名认证信息
+       *   realnameAuth?: string | null
+       *   // 紧急联系人
+       *   emergencyContact?: string | null
+       *   // 紧急联系人电话
+       *   emergencyPhone?: string | null
+       *   // 紧急联系人地址
+       *   emergencyAddress?: string | null
+       *   // 登录密码
+       *   password?: string | null
+       *   // 密码版本
+       *   passwordSecretVersion: number
+       *   // 支付密码
+       *   payPassword?: string | null
+       *   // 微信各平台openid
+       *   wxOpenId?: string | null
+       *   // 微信unionid
+       *   wxUnionId?: string | null
+       *   // 支付宝平台openid
+       *   aliOpenId?: string | null
+       *   // 苹果登录openid
+       *   appleOpenId?: string | null
+       *   // QQ各平台openid
+       *   qqOpenId?: string | null
+       *   // QQ unionid
+       *   qqUnionId?: string | null
+       *   // 华为openid
+       *   huaweiOpenId?: string | null
+       *   // 华为unionid
+       *   huaweiUnionId?: string | null
+       *   // 三方平台凭证
+       *   thirdParty?: string | null
+       *   // 三方平台身份信息
+       *   identities?: string | null
+       *   // 会话密钥
+       *   sessionKey?: string | null
+       *   // 用户角色
+       *   role?: string | null
+       *   // 部门ID
+       *   departmentId?: string | null
+       *   // 允许登录的客户端appid列表
+       *   dcloudAppId?: string | null
+       *   // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *   accountType: 666 | 777 | 888 | 999
+       *   // 用户自身邀请码
+       *   myInviteCode?: string | null
+       *   // 邀请人Id
+       *   invitedUserId?: number | null
+       *   // 用户全部上级邀请者
+       *   inviterUid?: string | null
+       *   // 受邀时间
+       *   inviteTime?: string | null
+       *   // 注册时间
+       *   registerDate?: string | null
+       *   // 注册时IP地址
+       *   registerIp?: string | null
+       *   // 最后登录时间
+       *   lastLoginTime?: string | null
+       *   // 最后登录时IP地址
+       *   lastLoginIp?: string | null
+       *   // 最后登录地点
+       *   lastLoginAddress?: string | null
+       *   // 最后登录设备
+       *   lastLoginDevice?: string | null
+       *   // 最后登录渠道
+       *   lastLoginFrom?: string | null
+       *   // AccessToken
+       *   accessToken?: string | null
+       *   // RefreshToken
+       *   refreshToken?: string | null
+       *   // 过期时间
+       *   expiresIn?: number | null
+       *   // 用户token
+       *   token?: string | null
+       *   // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *   platformType: 1 | 2 | 3 | 4 | 5 | 6
+       *   // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *   status: 1 | 2
+       *   // 排序
+       *   orderNo: number
+       *   // 备注
+       *   remark?: string | null
+       *   // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *   defaultRole: 666 | 777 | 888 | 999
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_userAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_UserInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_User.apiApp_userAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新用户列表 ✏️
+       *
+       * **path:** /api/app_User/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 用户名
+       *   username?: string | null
+       *   // 用户昵称
+       *   nickName?: string | null
+       *   // 头像地址
+       *   avatar?: string | null
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+       *   sex: 0 | 1 | 2 | 9
+       *   // 年龄
+       *   age: number
+       *   // 出生日期
+       *   birthday?: string | null
+       *   // 个人简介
+       *   introduction?: string | null
+       *   // 用户标签
+       *   tags?: string | null
+       *   // 用户积分
+       *   score: number
+       *   // 手机号码
+       *   mobile?: string | null
+       *   // 手机号验证状态
+       *   mobileConfirmed: number
+       *   // 邮箱地址
+       *   email?: string | null
+       *   // 邮箱验证状态
+       *   emailConfirmed: number
+       *   // 办公电话
+       *   officePhone?: string | null
+       *   // 国家
+       *   country?: string | null
+       *   // 省
+       *   province?: string | null
+       *   // 城市
+       *   city?: string | null
+       *   // 详细地址
+       *   address?: string | null
+       *   // 语言
+       *   language?: string | null
+       *   // 民族
+       *   nation?: string | null
+       *   // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *   cardType: 0 | 1 | 2 | 3 | 4 | 5
+       *   // 身份证号
+       *   idCardNum?: string | null
+       *   // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *   cultureLevel: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *   // 政治面貌
+       *   politicalOutlook?: string | null
+       *   // 毕业院校
+       *   college?: string | null
+       *   // 实名认证信息
+       *   realnameAuth?: string | null
+       *   // 紧急联系人
+       *   emergencyContact?: string | null
+       *   // 紧急联系人电话
+       *   emergencyPhone?: string | null
+       *   // 紧急联系人地址
+       *   emergencyAddress?: string | null
+       *   // 登录密码
+       *   password?: string | null
+       *   // 密码版本
+       *   passwordSecretVersion: number
+       *   // 支付密码
+       *   payPassword?: string | null
+       *   // 微信各平台openid
+       *   wxOpenId?: string | null
+       *   // 微信unionid
+       *   wxUnionId?: string | null
+       *   // 支付宝平台openid
+       *   aliOpenId?: string | null
+       *   // 苹果登录openid
+       *   appleOpenId?: string | null
+       *   // QQ各平台openid
+       *   qqOpenId?: string | null
+       *   // QQ unionid
+       *   qqUnionId?: string | null
+       *   // 华为openid
+       *   huaweiOpenId?: string | null
+       *   // 华为unionid
+       *   huaweiUnionId?: string | null
+       *   // 三方平台凭证
+       *   thirdParty?: string | null
+       *   // 三方平台身份信息
+       *   identities?: string | null
+       *   // 会话密钥
+       *   sessionKey?: string | null
+       *   // 用户角色
+       *   role?: string | null
+       *   // 部门ID
+       *   departmentId?: string | null
+       *   // 允许登录的客户端appid列表
+       *   dcloudAppId?: string | null
+       *   // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *   accountType: 666 | 777 | 888 | 999
+       *   // 用户自身邀请码
+       *   myInviteCode?: string | null
+       *   // 邀请人Id
+       *   invitedUserId?: number | null
+       *   // 用户全部上级邀请者
+       *   inviterUid?: string | null
+       *   // 受邀时间
+       *   inviteTime?: string | null
+       *   // 注册时间
+       *   registerDate?: string | null
+       *   // 注册时IP地址
+       *   registerIp?: string | null
+       *   // 最后登录时间
+       *   lastLoginTime?: string | null
+       *   // 最后登录时IP地址
+       *   lastLoginIp?: string | null
+       *   // 最后登录地点
+       *   lastLoginAddress?: string | null
+       *   // 最后登录设备
+       *   lastLoginDevice?: string | null
+       *   // 最后登录渠道
+       *   lastLoginFrom?: string | null
+       *   // AccessToken
+       *   accessToken?: string | null
+       *   // RefreshToken
+       *   refreshToken?: string | null
+       *   // 过期时间
+       *   expiresIn?: number | null
+       *   // 用户token
+       *   token?: string | null
+       *   // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *   platformType: 1 | 2 | 3 | 4 | 5 | 6
+       *   // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *   status: 1 | 2
+       *   // 排序
+       *   orderNo: number
+       *   // 备注
+       *   remark?: string | null
+       *   // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *   defaultRole: 666 | 777 | 888 | 999
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_userUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_UserInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_User.apiApp_userUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除用户列表 ❌
+       *
+       * **path:** /api/app_User/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_userDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_UserInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_User.apiApp_userDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除用户列表 ❌
+       *
+       * **path:** /api/app_User/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_userBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_UserInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_User.apiApp_userBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 设置用户列表状态 🚫
+       *
+       * **path:** /api/app_User/setStatus
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *   status?: 1 | 2
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_userSetstatusPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Setapp_UserStatusInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_User.apiApp_userSetstatusPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 上传头像地址 ⬆️
+       *
+       * **path:** /api/app_User/uploadAvatar
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 系统文件表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 机构Id
+       *     orgId?: number
+       *     // 租户Id
+       *     tenantId?: number | null
+       *     // 提供者
+       *     provider?: string | null
+       *     // 仓储名称
+       *     bucketName?: string | null
+       *     // 文件名称（源文件名）
+       *     fileName?: string | null
+       *     // 文件后缀
+       *     suffix?: string | null
+       *     // 存储路径
+       *     filePath?: string | null
+       *     // 文件大小KB
+       *     sizeKb?: number
+       *     // 文件大小信息-计算后的
+       *     sizeInfo?: string | null
+       *     // 外链地址-OSS上传后生成外链地址方便前端预览
+       *     url?: string | null
+       *     // 文件MD5
+       *     fileMd5?: string | null
+       *     // 文件类别
+       *     fileType?: string | null
+       *     // 文件别名
+       *     fileAlias?: string | null
+       *     // 是否公开
+       *     isPublic?: boolean
+       *     // 业务数据Id
+       *     dataId?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_userUploadavatarPost<
+        Config extends Alova2MethodConfig<AdminResult_SysFile> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SysFile, 'app_User.apiApp_userUploadavatarPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导出用户列表记录 🔖
+       *
+       * **path:** /api/app_User/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 主键Id
+       *   id?: number | null
+       *   // 用户名
+       *   username?: string | null
+       *   // 用户昵称
+       *   nickName?: string | null
+       *   // 手机号码
+       *   mobile?: string | null
+       *   // 手机号验证状态
+       *   mobileConfirmed?: number | null
+       *   // 身份证号
+       *   idCardNum?: string | null
+       *   // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *   defaultRole?: 666 | 777 | 888 | 999
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_userExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_UserInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_User.apiApp_userExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载用户列表数据导入模板 ⬇️
+       *
+       * **path:** /api/app_User/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_userImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_User.apiApp_userImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入用户列表记录 💾
+       *
+       * **path:** /api/app_User/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_userImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_User.apiApp_userImportPost', Config>;
     };
   }
 
