@@ -76,12 +76,12 @@ const {
   }
 })
 
-// 获取所有医生列表（使用分页接口）
+// 获取所有医生列表（使用APP专用分页接口）
 const {
   loading: doctorsLoading,
   send: fetchAllDoctors,
 } = useRequest(
-  (page = 1, size = 20, keyword?: string) => Apis.app_DoctorAuditing.apiApp_doctorauditingPagePost({
+  (page = 1, size = 20, keyword?: string) => Apis.app_DoctorAuditing.apiApp_doctorauditingApppagePost({
     data: {
       page,
       pageSize: size,
@@ -94,7 +94,7 @@ const {
     immediate: false,
   },
 ).onSuccess((response: any) => {
-  console.log('所有医生数据原始响应:', response)
+  console.log('APP专用分页医生数据原始响应:', response)
 
   const result = response.data?.result || response.result || response.data
   console.log('处理后的医生数据:', result)
@@ -104,7 +104,7 @@ const {
   }
 
   if (result?.items && Array.isArray(result.items)) {
-    // 分页接口返回的数据在items字段中
+    // APP专用分页接口返回的数据在items字段中
     allDoctors.value = [...allDoctors.value, ...result.items]
     total.value = result.total || 0
   }
