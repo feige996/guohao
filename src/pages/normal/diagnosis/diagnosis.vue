@@ -233,8 +233,8 @@ function handleDoctorCardClick(doctor: DoctorCardConfig) {
 function handleViewAllDoctors() {
   console.log('查看所有医生')
   // 跳转到所有医生页面
-  uni.navigateTo({ 
-    url: '/pages/normal/alldoctor/alldoctor'
+  uni.navigateTo({
+    url: '/pages/normal/alldoctor/alldoctor',
   })
 }
 

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import type { App_DoctorAuditing, SysDictData } from '@/api/guohao-api/globals.d'
+import type { App_DoctorAuditingOutput, SysDictData } from '@/api/guohao-api/globals.d'
 import type { DoctorCardConfig } from '@/components/DoctorCard'
 import { useRequest } from 'alova/client'
 import { DoctorCardList } from '@/components/DoctorCard'
@@ -15,8 +15,8 @@ definePage({
   },
 })
 
-// 推荐医生数据
-const recommendedDoctors = ref<App_DoctorAuditing[]>([])
+// 所有医生数据
+const allDoctors = ref<App_DoctorAuditingOutput[]>([])
 const currentPage = ref(1)
 const pageSize = ref(20)
 const total = ref(0)
@@ -76,12 +76,12 @@ const {
   }
 })
 
-// 获取所有医生列表
+// 获取所有医生列表（使用分页接口）
 const {
   loading: doctorsLoading,
   send: fetchAllDoctors,
 } = useRequest(
-  (page = 1, size = 20, keyword?: string) => Apis.app_DoctorAuditing.apiApp_doctorauditingGetrecommendeddoctorsPost({
+  (page = 1, size = 20, keyword?: string) => Apis.app_DoctorAuditing.apiApp_doctorauditingPagePost({
     data: {
       page,
       pageSize: size,
@@ -96,23 +96,24 @@ const {
 ).onSuccess((response: any) => {
   console.log('所有医生数据原始响应:', response)
 
-  const data = response.data?.items || response.data || response
-  console.log('处理后的医生数据:', data)
+  const result = response.data?.result || response.result || response.data
+  console.log('处理后的医生数据:', result)
 
   if (currentPage.value === 1) {
-    recommendedDoctors.value = []
+    allDoctors.value = []
   }
 
-  if (data?.records) {
-    recommendedDoctors.value = [...recommendedDoctors.value, ...data.records]
-    total.value = data.total || 0
+  if (result?.items && Array.isArray(result.items)) {
+    // 分页接口返回的数据在items字段中
+    allDoctors.value = [...allDoctors.value, ...result.items]
+    total.value = result.total || 0
   }
-  else if (Array.isArray(data)) {
-    recommendedDoctors.value = [...recommendedDoctors.value, ...data]
-    total.value = data.length
+  else if (Array.isArray(result)) {
+    allDoctors.value = [...allDoctors.value, ...result]
+    total.value = result.length
   }
   else {
-    console.warn('未识别的医生数据格式:', data)
+    console.warn('未识别的医生数据格式:', result)
   }
 }).onError((error: any) => {
   console.error('获取所有医生失败:', error)
@@ -124,7 +125,7 @@ const {
 
 // 将API数据转换为DoctorCard组件需要的格式
 const doctorCards = computed(() => {
-  return recommendedDoctors.value.map((doctor, index) => {
+  return allDoctors.value.map((doctor, index) => {
     // 从关联的用户信息中获取姓名
     const userName = doctor.appUser?.nickName || doctor.appUser?.username || '医生'
 
