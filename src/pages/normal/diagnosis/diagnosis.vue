@@ -232,8 +232,10 @@ function handleDoctorCardClick(doctor: DoctorCardConfig) {
 // 查看所有医生
 function handleViewAllDoctors() {
   console.log('查看所有医生')
-  // 这里可以添加跳转到医生列表页面的逻辑
-  // uni.navigateTo({ url: '/pages/doctor/list' })
+  // 跳转到所有医生页面
+  uni.navigateTo({ 
+    url: '/pages/normal/alldoctor/alldoctor'
+  })
 }
 
 // 加载更多医生

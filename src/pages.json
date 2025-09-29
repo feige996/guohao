@@ -237,6 +237,15 @@
       "excludeLoginPath": false
     },
     {
+      "path": "pages/normal/alldoctor/alldoctor",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "所有医生",
+        "disableScroll": true
+      }
+    },
+    {
       "path": "pages/normal/diagnosis/diagnosis",
       "type": "page",
       "style": {
