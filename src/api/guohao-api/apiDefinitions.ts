@@ -45,6 +45,7 @@ export default {
   'appUser.apiAppuserCheckusernameavailableUsernamePost': ['POST', '/api/appUser/checkUsernameAvailable/{username}'],
   'appUser.apiAppuserCheckmobileavailableMobilePost': ['POST', '/api/appUser/checkMobileAvailable/{mobile}'],
   'app_DoctorAuditing.apiApp_doctorauditingPagePost': ['POST', '/api/app_DoctorAuditing/page'],
+  'app_DoctorAuditing.apiApp_doctorauditingApppagePost': ['POST', '/api/app_DoctorAuditing/appPage'],
   'app_DoctorAuditing.apiApp_doctorauditingDetailGet': ['GET', '/api/app_DoctorAuditing/detail'],
   'app_DoctorAuditing.apiApp_doctorauditingAddPost': ['POST', '/api/app_DoctorAuditing/add'],
   'app_DoctorAuditing.apiApp_doctorauditingUpdatePost': ['POST', '/api/app_DoctorAuditing/update'],
