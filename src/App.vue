@@ -10,10 +10,12 @@ onLaunch((options) => {
   const userStore = useUserStore()
   // console.log('App Launch', options)
   // console.log('检查令牌 accessToken 是否过期 : ', userStore.isTokenExpired)
+  
+  // 检查token是否过期，如果过期则清除用户信息
   if (userStore.isTokenExpired) {
-    // userStore.logout()
+    console.log('Token已过期，清除用户信息')
     userStore.clearUserInfo()
-    // uni.switchTab({ url: userStore.userDefaultIndexPage })
+    // 跳转将由路由拦截器处理
   }
 
   // 动态导入并初始化 TUIKit

@@ -93,7 +93,7 @@ export const alovaInstance = createAlova({
   timeout: 10000, // 10秒超时
   statesHook: VueHook,
 
-  beforeRequest: onAuthRequired((method) => {
+  beforeRequest: onAuthRequired(async (method) => {
     const userStore = useUserStore()
 
     // 设置默认 Content-Type
@@ -114,7 +114,10 @@ export const alovaInstance = createAlova({
         method.config.headers.Authorization = `Bearer ${token}`
       }
       else if (!config.meta?.allowAnonymous) {
-        // 如果没有 token 且不允许匿名访问，抛出错误
+        // 如果没有 token 且不允许匿名访问，清除用户信息并抛出错误
+        await userStore.clearUserInfo()
+        // 立即跳转到登录页
+        uni.reLaunch({ url: LOGIN_PAGE })
         throw new Error('[请求错误]：未登录')
       }
     }
@@ -144,6 +147,14 @@ export const alovaInstance = createAlova({
       const errorMessage = getErrorMessage(statusCode)
       console.error('HTTP错误===>', errorMessage, errMsg)
 
+      // 处理401未授权错误，清除用户信息
+      if (statusCode === ResultEnum.Unauthorized) {
+        const userStore = useUserStore()
+        await userStore.clearUserInfo()
+        // 立即跳转到登录页
+        uni.reLaunch({ url: LOGIN_PAGE })
+      }
+
       // 根据配置决定是否显示错误提示
       if (config.meta?.hideErrorToast !== true) {
         uni.showToast({
@@ -163,6 +174,14 @@ export const alovaInstance = createAlova({
 
       // 处理其他业务错误
       if (code !== ResultEnum.Success) {
+        // 处理业务层面的401未授权错误，清除用户信息
+        if (code === ResultEnum.Unauthorized) {
+          const userStore = useUserStore()
+          await userStore.clearUserInfo()
+          // 立即跳转到登录页
+          uni.reLaunch({ url: LOGIN_PAGE })
+        }
+
         if (config.meta?.hideErrorToast !== true) {
           uni.showToast({
             title: message || '请求失败',
