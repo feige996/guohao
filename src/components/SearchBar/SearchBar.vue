@@ -83,7 +83,7 @@ function handleInputClick() {
           class="mr-[4rpx] h-[54rpx] w-[100rpx] flex cursor-pointer items-center justify-center rounded-[100rpx] bg-[#97493d]"
           @click="handleSearch"
         >
-          <span class="text-center text-[24rpx] text-white font-normal">
+          <span class="text-center text-white font-normal text-[24rpx]">
             {{ props.buttonText }}
           </span>
         </div>

@@ -87,7 +87,7 @@ const {
       pageSize: size,
       keyword,
       // 获取所有审核通过的医生 (Approved = 2)
-      auditing_status: 2,
+      // auditing_status: 2,
     },
   }),
   {
@@ -240,7 +240,7 @@ onMounted(async () => {
       </view>
 
       <!-- 搜索栏 -->
-      <view class="search-section px-[28rpx] pb-4">
+      <view class="pb-4">
         <SearchBar
           v-model="searchKeyword"
           placeholder="搜索医生姓名或专业..."
