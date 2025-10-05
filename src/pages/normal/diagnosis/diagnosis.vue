@@ -49,6 +49,9 @@ const {
     pathParams: {
       code: 'AppDepartmentEnum',
     },
+    meta: {
+      ignoreAuth: true,
+    },
   }),
   {
     immediate: false,
@@ -99,6 +102,9 @@ const {
       keyword,
       // 只获取审核通过的医生 (Approved = 2)
       auditing_status: 2,
+    },
+    meta: {
+      ignoreAuth: true,
     },
   }),
   {
