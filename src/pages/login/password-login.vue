@@ -24,7 +24,7 @@ definePage({
 // 表单数据
 const formData = reactive({
   account: '13927292525',
-  password: '801672',
+  password: '314115',
   pactChecked: true,
 })
 
@@ -211,7 +211,7 @@ async function handleLogin() {
       : formData.password
 
     // 调用登录API
-    await performLogin(formData.account, encryptedPassword)
+    await performLogin(formData.account, formData.password)
   }
   catch (error: any) {
     // 登录失败处理
