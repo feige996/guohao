@@ -164,14 +164,10 @@ function handleSearchBarClick() {
 function handleDoctorCardClick(doctor: DoctorCardConfig) {
   console.log('点击了医生卡片:', doctor.id, doctor.name)
 
-  // 显示提示
-  uni.showToast({
-    title: `点击了${doctor.name}医生`,
-    icon: 'none',
+  // 跳转到问诊预约页面
+  uni.navigateTo({
+    url: `/pages/normal/consultation-booking/consultation-booking?id=${doctor.id}&name=${encodeURIComponent(doctor.name)}`,
   })
-
-  // 这里可以添加跳转到医生详情页面的逻辑
-  // uni.navigateTo({ url: `/pages/doctor/detail?id=${doctor.id}` })
 }
 
 // 加载更多医生
