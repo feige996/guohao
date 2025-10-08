@@ -248,10 +248,8 @@
     {
       "path": "pages/normal/consultation-booking/consultation-booking",
       "type": "page",
-      "style": {
-        "navigationStyle": "custom",
-        "navigationBarTitleText": "问诊预约"
-      }
+      "navigationBarTitleText": "问诊预约",
+      "navigationStyle": "default"
     },
     {
       "path": "pages/normal/diagnosis/diagnosis",
