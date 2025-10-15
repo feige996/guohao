@@ -107,6 +107,9 @@ export const alovaInstance = createAlova({
     const { config } = method
     const ignoreAuth = config.meta?.ignoreAuth !== true
 
+    console.log('ignoreAuth', ignoreAuth)
+    console.log('allowAnonymous', config.meta?.allowAnonymous)
+
     if (ignoreAuth) {
       const token = userStore.accessToken
       if (token) {

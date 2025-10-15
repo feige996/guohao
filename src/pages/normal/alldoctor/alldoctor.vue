@@ -89,8 +89,14 @@ const {
       // 获取所有审核通过的医生 (Approved = 2)
       // auditing_status: 2,
     },
+    meta: {
+      ignoreAuth: true,
+      allowAnonymous: true,
+    },
   }),
   {
+    // 组件挂载时不会自动请求 - 需要手动控制请求时机
+    // 如果改成 immediate: true，组件一挂载就会立即发起请求，可能不符合业务需求
     immediate: false,
   },
 ).onSuccess((response: any) => {
@@ -197,7 +203,7 @@ onMounted(async () => {
 
   try {
     // 先获取字典数据
-    await fetchDepartmentDict()
+    // await fetchDepartmentDict()
 
     // 再获取医生数据
     await fetchAllDoctors(1, pageSize.value)
