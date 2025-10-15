@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { onLoad } from '@dcloudio/uni-app'
 import { ref } from 'vue'
+import { safeAreaInsets } from '@/utils/systemInfo'
 
 // 定义页面元数据
 definePage({
-  navigationBarTitleText: '问诊预约',
-  navigationStyle: 'default',
+  type: 'page',
+  style: {
+    navigationStyle: 'custom',
+    navigationBarTitleText: '问诊预约',
+  },
 })
 
 // 医生信息接口
@@ -89,18 +93,9 @@ function handleBack() {
 </script>
 
 <template>
-  <view class="consultation-booking-page">
+  <view class="min-h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 自定义导航栏 -->
-    <view class="custom-navbar">
-      <view class="navbar-content">
-        <view class="back-button" @click="handleBack">
-          <text class="back-icon">&#xe608;</text>
-        </view>
-        <view class="navbar-title">
-          问诊预约
-        </view>
-      </view>
-    </view>
+    <wd-navbar title="问诊预约" left-text="返回" left-arrow @click-left="handleBack" />
 
     <!-- 主内容区域 -->
     <scroll-view class="scroll-content" scroll-y>
