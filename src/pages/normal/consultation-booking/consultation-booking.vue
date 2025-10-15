@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import type { App_DoctorAuditingOutput, SysDictData } from '@/api/guohao-api/globals.d'
 import { onLoad } from '@dcloudio/uni-app'
+import { useRequest } from 'alova/client'
 import { ref } from 'vue'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
@@ -38,11 +40,127 @@ const doctorInfo = ref<DoctorInfo>({
   responseSpeed: '较快',
 })
 
+// 原始医生数据（从API获取）
+const doctorData = ref<App_DoctorAuditingOutput | null>(null)
+
+// 字典数据
+const departmentDict = ref<SysDictData[]>([])
+const departmentMap = ref<Record<string, string>>({})
+
+// 获取科室字典数据
+const {
+  send: fetchDepartmentDict,
+} = useRequest(
+  () => Apis.appSysDictData.apiAppsysdictdataDatalistCodeGet({
+    pathParams: {
+      code: 'AppDepartmentEnum',
+    },
+    meta: {
+      ignoreAuth: true,
+      allowAnonymous: true,
+    },
+  }),
+  {
+    immediate: false,
+  },
+).onSuccess((response: any) => {
+  console.log('科室字典数据响应:', response)
+
+  const dictData = response.data?.result || response.result || response.data || []
+  console.log('处理后的字典数据:', dictData)
+
+  if (Array.isArray(dictData)) {
+    departmentDict.value = dictData
+
+    // 创建字典映射表: value -> label
+    const mapping: Record<string, string> = {}
+    dictData.forEach((item) => {
+      if (item.value && item.label) {
+        mapping[item.value] = item.label
+      }
+    })
+    departmentMap.value = mapping
+
+    console.log('科室字典映射:', mapping)
+  }
+}).onError((error: any) => {
+  console.error('获取科室字典失败:', error)
+  // 失败时使用默认映射
+  departmentMap.value = {
+    1: '内科',
+    2: '外科',
+    3: '妇科',
+    4: '儿科',
+    5: '中医科',
+    6: '康复科',
+    7: '营养科',
+  }
+})
+
+// 获取医生详情
+const {
+  loading: doctorLoading,
+  send: fetchDoctorDetail,
+} = useRequest(
+  (doctorId: number) => Apis.app_DoctorAuditing.apiApp_doctorauditingDetailGet({
+    params: {
+      Id: doctorId,
+    },
+    meta: {
+      ignoreAuth: true,
+      allowAnonymous: true,
+    },
+  }),
+  {
+    immediate: false,
+  },
+).onSuccess((response: any) => {
+  console.log('医生详情数据响应:', response)
+
+  const result = response.data?.result || response.result || response.data || response
+  console.log('处理后的医生数据:', result)
+
+  if (result) {
+    doctorData.value = result
+
+    // 转换为页面展示格式
+    const userName = result.appUser?.nickName || result.appUser?.username || '医生'
+    const userAvatar = result.avatar || result.appUser?.avatar || '/static/images/default-avatar.png'
+
+    // 处理科室信息
+    let specialtyText = '中医科'
+    if (result.fields && result.fields.length > 0) {
+      const fieldLabels = result.fields.map((field: number) => {
+        return departmentMap.value[field.toString()] || `科室${field}`
+      })
+      specialtyText = fieldLabels.join('、')
+    }
+
+    doctorInfo.value = {
+      id: result.appUser?.id?.toString() || doctorInfo.value.id,
+      name: userName,
+      avatar: userAvatar,
+      title: result.job_title || '主治医师',
+      specialty: specialtyText,
+      introduction: result.introduction || '暂无简介',
+      consultationCount: result.consultation_count || 0,
+      satisfactionRate: result.avg_rating_score || 0,
+      responseSpeed: result.avg_response_speed || '—',
+    }
+  }
+}).onError((error: any) => {
+  console.error('获取医生详情失败:', error)
+  uni.showToast({
+    title: '获取医生信息失败',
+    icon: 'none',
+  })
+})
+
 // 页面加载时获取医生ID
-onLoad((options: any) => {
+onLoad(async (options: any) => {
   if (options.id) {
     doctorInfo.value.id = options.id
-    loadDoctorInfo(options.id)
+    await loadDoctorInfo(options.id)
   }
   if (options.name) {
     doctorInfo.value.name = decodeURIComponent(options.name)
@@ -52,10 +170,13 @@ onLoad((options: any) => {
 // 加载医生信息
 async function loadDoctorInfo(doctorId: string) {
   try {
-    // TODO: 调用API获取医生详细信息
     console.log('加载医生信息:', doctorId)
-    // const response = await Apis.doctor.getDoctorDetail({ params: { id: doctorId } })
-    // doctorInfo.value = response
+
+    // 先获取字典数据
+    await fetchDepartmentDict()
+
+    // 再获取医生详情
+    await fetchDoctorDetail(Number(doctorId))
   }
   catch (error) {
     console.error('加载医生信息失败:', error)
@@ -99,7 +220,12 @@ function handleBack() {
 
     <!-- 主内容区域 -->
     <scroll-view class="flex-1" scroll-y>
-      <view class="p-[24rpx]">
+      <!-- 加载状态 -->
+      <view v-if="doctorLoading" class="flex flex-col items-center justify-center py-20">
+        <text class="text-base text-gray-400">加载中...</text>
+      </view>
+
+      <view v-else class="p-[24rpx]">
         <!-- 医生信息卡片 -->
         <view class="mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx]">
           <view class="mb-[24rpx] flex">
@@ -120,20 +246,20 @@ function handleBack() {
           <!-- 统计信息 -->
           <view class="flex items-center justify-around border-t border-[#f0f0f0] pt-[24rpx]">
             <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-              <text class="text-[#999] text-[24rpx]">暂无</text>
-              <text class="text-[#333] font-semibold text-[40rpx]">{{ doctorInfo.consultationCount }}</text>
+              <text v-if="doctorInfo.consultationCount > 0" class="text-[#333] font-semibold text-[40rpx]">{{ doctorInfo.consultationCount }}</text>
+              <text v-else class="text-[#999] text-[32rpx]">—</text>
               <text class="text-[#999] text-[24rpx]">接诊人次</text>
             </view>
             <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
             <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-              <text class="text-[#999] text-[24rpx]">暂无</text>
-              <text class="text-[#999] text-[32rpx]">—</text>
+              <text v-if="doctorInfo.satisfactionRate > 0" class="text-[#333] font-semibold text-[40rpx]">{{ (doctorInfo.satisfactionRate * 100).toFixed(0) }}%</text>
+              <text v-else class="text-[#999] text-[32rpx]">—</text>
               <text class="text-[#999] text-[24rpx]">满意度</text>
             </view>
             <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
             <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-              <text class="text-[#999] text-[24rpx]">{{ doctorInfo.responseSpeed }}</text>
-              <text class="text-[#999] text-[32rpx]">—</text>
+              <text v-if="doctorInfo.responseSpeed && doctorInfo.responseSpeed !== '—'" class="text-[#333] font-semibold text-[32rpx]">{{ doctorInfo.responseSpeed }}</text>
+              <text v-else class="text-[#999] text-[32rpx]">—</text>
               <text class="text-[#999] text-[24rpx]">接诊速度</text>
             </view>
           </view>
