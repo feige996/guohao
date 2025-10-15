@@ -93,104 +93,104 @@ function handleBack() {
 </script>
 
 <template>
-  <view class="min-h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <view class="min-h-screen flex flex-col bg-[#f5f5f5]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 自定义导航栏 -->
     <wd-navbar title="问诊预约" left-text="返回" left-arrow @click-left="handleBack" />
 
     <!-- 主内容区域 -->
-    <scroll-view class="scroll-content" scroll-y>
+    <scroll-view class="flex-1 p-[24rpx]" scroll-y>
       <!-- 医生信息卡片 -->
-      <view class="doctor-card">
-        <view class="doctor-header">
-          <image class="doctor-avatar" :src="doctorInfo.avatar" mode="aspectFill" />
-          <view class="doctor-info">
-            <view class="doctor-name-row">
-              <text class="doctor-name">{{ doctorInfo.name }}</text>
-              <text class="doctor-title">{{ doctorInfo.title }}</text>
-              <text class="doctor-specialty">{{ doctorInfo.specialty }}</text>
+      <view class="mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx]">
+        <view class="mb-[24rpx] flex">
+          <image class="mr-[24rpx] h-[96rpx] w-[96rpx] rounded-full bg-[#f0f0f0]" :src="doctorInfo.avatar" mode="aspectFill" />
+          <view class="flex-1">
+            <view class="flex flex-wrap items-center gap-[16rpx]">
+              <text class="text-[#333] font-semibold text-[36rpx]">{{ doctorInfo.name }}</text>
+              <text class="text-[#666] text-[28rpx]">{{ doctorInfo.title }}</text>
+              <text class="text-[#666] text-[28rpx]">{{ doctorInfo.specialty }}</text>
             </view>
           </view>
         </view>
 
-        <view class="doctor-description">
+        <view class="mb-[32rpx] whitespace-pre-line text-[#666] text-[28rpx] leading-[44rpx]">
           {{ doctorInfo.introduction }}
         </view>
 
         <!-- 统计信息 -->
-        <view class="doctor-stats">
-          <view class="stat-item">
-            <text class="stat-label">暂无</text>
-            <text class="stat-value">{{ doctorInfo.consultationCount }}</text>
-            <text class="stat-desc">接诊人次</text>
+        <view class="flex items-center justify-around border-t border-[#f0f0f0] pt-[24rpx]">
+          <view class="flex flex-1 flex-col items-center gap-[8rpx]">
+            <text class="text-[#999] text-[24rpx]">暂无</text>
+            <text class="text-[#333] font-semibold text-[40rpx]">{{ doctorInfo.consultationCount }}</text>
+            <text class="text-[#999] text-[24rpx]">接诊人次</text>
           </view>
-          <view class="stat-divider" />
-          <view class="stat-item">
-            <text class="stat-label">暂无</text>
-            <text class="stat-value empty">—</text>
-            <text class="stat-desc">满意度</text>
+          <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
+          <view class="flex flex-1 flex-col items-center gap-[8rpx]">
+            <text class="text-[#999] text-[24rpx]">暂无</text>
+            <text class="text-[#999] text-[32rpx]">—</text>
+            <text class="text-[#999] text-[24rpx]">满意度</text>
           </view>
-          <view class="stat-divider" />
-          <view class="stat-item">
-            <text class="stat-label">{{ doctorInfo.responseSpeed }}</text>
-            <text class="stat-value empty">—</text>
-            <text class="stat-desc">接诊速度</text>
+          <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
+          <view class="flex flex-1 flex-col items-center gap-[8rpx]">
+            <text class="text-[#999] text-[24rpx]">{{ doctorInfo.responseSpeed }}</text>
+            <text class="text-[#999] text-[32rpx]">—</text>
+            <text class="text-[#999] text-[24rpx]">接诊速度</text>
           </view>
         </view>
       </view>
 
       <!-- 视频挂号 -->
-      <view class="service-section">
-        <view class="section-title">
+      <view class="mb-[24rpx]">
+        <view class="mb-[16rpx] text-[#333] font-semibold text-[32rpx]">
           视频挂号
         </view>
-        <view class="video-register-card">
-          <view class="video-register-info">
-            <text class="register-title">灵活视频时间</text>
-            <text class="register-subtitle">您购买后医生将为您安排视频时间</text>
+        <view class="relative flex items-center rounded-[24rpx] bg-white p-[32rpx]">
+          <view class="flex flex-1 flex-col gap-[8rpx]">
+            <text class="text-[#333] font-medium text-[32rpx]">灵活视频时间</text>
+            <text class="text-[#999] text-[24rpx]">您购买后医生将为您安排视频时间</text>
           </view>
-          <view class="price-tag">
+          <view class="mx-[24rpx] text-[#ff6b35] font-semibold text-[32rpx]">
             ¥20
           </view>
-          <view class="register-button" @click="handleRegister">
-            <text class="button-text">去挂号</text>
+          <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleRegister">
+            <text class="text-white font-medium text-[28rpx]">去挂号</text>
           </view>
         </view>
       </view>
 
       <!-- 图文问诊 -->
-      <view class="consultation-item">
-        <view class="consultation-icon-wrapper text-consultation">
-          <text class="consultation-icon">💬</text>
+      <view class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
+        <view class="mr-[24rpx] h-[88rpx] w-[88rpx] flex items-center justify-center rounded-full bg-[#e3f2fd]">
+          <text class="text-[48rpx]">💬</text>
         </view>
-        <view class="consultation-info">
-          <view class="consultation-title-row">
-            <text class="consultation-title">图文问诊</text>
-            <text class="consultation-price">¥20/次</text>
+        <view class="flex-1">
+          <view class="mb-[8rpx] flex items-center gap-[12rpx]">
+            <text class="text-[#333] font-medium text-[32rpx]">图文问诊</text>
+            <text class="text-[#ff6b35] font-medium text-[28rpx]">¥20/次</text>
           </view>
-          <text class="consultation-desc">图文多轮沟通</text>
+          <text class="text-[#999] text-[24rpx]">图文多轮沟通</text>
         </view>
-        <view class="consultation-action" @click="handleTextConsultation">
-          <text class="action-text">去问诊</text>
+        <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleTextConsultation">
+          <text class="text-white font-medium text-[28rpx]">去问诊</text>
         </view>
       </view>
 
       <!-- 电话问诊 -->
-      <view class="consultation-item">
-        <view class="consultation-icon-wrapper phone-consultation">
-          <text class="consultation-icon">📞</text>
+      <view class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
+        <view class="mr-[24rpx] h-[88rpx] w-[88rpx] flex items-center justify-center rounded-full bg-[#e8f5e9]">
+          <text class="text-[48rpx]">📞</text>
         </view>
-        <view class="consultation-info">
-          <view class="consultation-title-row">
-            <text class="consultation-title">电话问诊</text>
-            <text class="consultation-price">¥20/10分钟</text>
-            <view class="discount-badge">
+        <view class="flex-1">
+          <view class="mb-[8rpx] flex items-center gap-[12rpx]">
+            <text class="text-[#333] font-medium text-[32rpx]">电话问诊</text>
+            <text class="text-[#ff6b35] font-medium text-[28rpx]">¥20/10分钟</text>
+            <view class="rounded-[8rpx] bg-[#bbdefb] px-[12rpx] py-[4rpx] text-[#1976d2] text-[20rpx]">
               首单少
             </view>
           </view>
-          <text class="consultation-desc">1对1电话交流，今日剩3个号</text>
+          <text class="text-[#999] text-[24rpx]">1对1电话交流，今日剩3个号</text>
         </view>
-        <view class="consultation-action phone-action" @click="handlePhoneConsultation">
-          <text class="action-text">去通话</text>
+        <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handlePhoneConsultation">
+          <text class="text-white font-medium text-[28rpx]">去通话</text>
         </view>
       </view>
     </scroll-view>
@@ -198,302 +198,6 @@ function handleBack() {
 </template>
 
 <style lang="scss" scoped>
-.consultation-booking-page {
-  width: 100%;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-}
-
-// 自定义导航栏
-.custom-navbar {
-  background-color: #fff;
-  padding-top: var(--status-bar-height, 0);
-  border-bottom: 1rpx solid #f0f0f0;
-
-  .navbar-content {
-    height: 88rpx;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 0 32rpx;
-
-    .back-button {
-      position: absolute;
-      left: 32rpx;
-      width: 48rpx;
-      height: 48rpx;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      .back-icon {
-        font-size: 40rpx;
-        color: #333;
-      }
-    }
-
-    .navbar-title {
-      font-size: 36rpx;
-      font-weight: 600;
-      color: #333;
-    }
-  }
-}
-
-// 滚动内容区域
-.scroll-content {
-  flex: 1;
-  padding: 24rpx;
-}
-
-// 医生信息卡片
-.doctor-card {
-  background-color: #fff;
-  border-radius: 24rpx;
-  padding: 32rpx;
-  margin-bottom: 24rpx;
-
-  .doctor-header {
-    display: flex;
-    margin-bottom: 24rpx;
-
-    .doctor-avatar {
-      width: 96rpx;
-      height: 96rpx;
-      border-radius: 50%;
-      margin-right: 24rpx;
-      background-color: #f0f0f0;
-    }
-
-    .doctor-info {
-      flex: 1;
-
-      .doctor-name-row {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 16rpx;
-
-        .doctor-name {
-          font-size: 36rpx;
-          font-weight: 600;
-          color: #333;
-        }
-
-        .doctor-title {
-          font-size: 28rpx;
-          color: #666;
-        }
-
-        .doctor-specialty {
-          font-size: 28rpx;
-          color: #666;
-        }
-      }
-    }
-  }
-
-  .doctor-description {
-    font-size: 28rpx;
-    line-height: 44rpx;
-    color: #666;
-    margin-bottom: 32rpx;
-    white-space: pre-line;
-  }
-
-  .doctor-stats {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-top: 24rpx;
-    border-top: 1rpx solid #f0f0f0;
-
-    .stat-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8rpx;
-
-      .stat-label {
-        font-size: 24rpx;
-        color: #999;
-      }
-
-      .stat-value {
-        font-size: 40rpx;
-        font-weight: 600;
-        color: #333;
-
-        &.empty {
-          font-size: 32rpx;
-          color: #999;
-        }
-      }
-
-      .stat-desc {
-        font-size: 24rpx;
-        color: #999;
-      }
-    }
-
-    .stat-divider {
-      width: 1rpx;
-      height: 80rpx;
-      background-color: #f0f0f0;
-    }
-  }
-}
-
-// 服务区域
-.service-section {
-  margin-bottom: 24rpx;
-
-  .section-title {
-    font-size: 32rpx;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 16rpx;
-  }
-
-  .video-register-card {
-    background-color: #fff;
-    border-radius: 24rpx;
-    padding: 32rpx;
-    display: flex;
-    align-items: center;
-    position: relative;
-
-    .video-register-info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8rpx;
-
-      .register-title {
-        font-size: 32rpx;
-        font-weight: 500;
-        color: #333;
-      }
-
-      .register-subtitle {
-        font-size: 24rpx;
-        color: #999;
-      }
-    }
-
-    .price-tag {
-      font-size: 32rpx;
-      font-weight: 600;
-      color: #ff6b35;
-      margin: 0 24rpx;
-    }
-
-    .register-button {
-      background: linear-gradient(135deg, #ff8a65 0%, #ff6b35 100%);
-      border-radius: 48rpx;
-      padding: 16rpx 32rpx;
-
-      .button-text {
-        font-size: 28rpx;
-        color: #fff;
-        font-weight: 500;
-      }
-    }
-  }
-}
-
-// 问诊项
-.consultation-item {
-  background-color: #fff;
-  border-radius: 24rpx;
-  padding: 32rpx;
-  margin-bottom: 24rpx;
-  display: flex;
-  align-items: center;
-
-  .consultation-icon-wrapper {
-    width: 88rpx;
-    height: 88rpx;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 24rpx;
-
-    &.text-consultation {
-      background-color: #e3f2fd;
-    }
-
-    &.phone-consultation {
-      background-color: #e8f5e9;
-    }
-
-    .consultation-icon {
-      font-size: 48rpx;
-    }
-  }
-
-  .consultation-info {
-    flex: 1;
-
-    .consultation-title-row {
-      display: flex;
-      align-items: center;
-      gap: 12rpx;
-      margin-bottom: 8rpx;
-
-      .consultation-title {
-        font-size: 32rpx;
-        font-weight: 500;
-        color: #333;
-      }
-
-      .consultation-price {
-        font-size: 28rpx;
-        color: #ff6b35;
-        font-weight: 500;
-      }
-
-      .discount-badge {
-        background-color: #bbdefb;
-        color: #1976d2;
-        font-size: 20rpx;
-        padding: 4rpx 12rpx;
-        border-radius: 8rpx;
-      }
-    }
-
-    .consultation-desc {
-      font-size: 24rpx;
-      color: #999;
-    }
-  }
-
-  .consultation-action {
-    background: linear-gradient(135deg, #ff8a65 0%, #ff6b35 100%);
-    border-radius: 48rpx;
-    padding: 16rpx 32rpx;
-
-    .action-text {
-      font-size: 28rpx;
-      color: #fff;
-      font-weight: 500;
-    }
-
-    &.phone-action {
-      background: linear-gradient(135deg, #ff8a65 0%, #ff6b35 100%);
-    }
-  }
-}
-
-// 底部间距
-.scroll-content::after {
-  content: '';
-  display: block;
-  height: 24rpx;
-}
+// 所有样式已使用 UnoCSS 原子类实现
+// 仅保留必要的全局样式覆盖
 </style>
