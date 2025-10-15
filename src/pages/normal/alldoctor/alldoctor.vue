@@ -38,6 +38,10 @@ const {
     pathParams: {
       code: 'AppDepartmentEnum',
     },
+    meta: {
+      ignoreAuth: true,
+      allowAnonymous: true,
+    },
   }),
   {
     immediate: false,
@@ -203,7 +207,7 @@ onMounted(async () => {
 
   try {
     // 先获取字典数据
-    // await fetchDepartmentDict()
+    await fetchDepartmentDict()
 
     // 再获取医生数据
     await fetchAllDoctors(1, pageSize.value)
@@ -224,9 +228,9 @@ onMounted(async () => {
     <!-- 固定头部区域 -->
     <view class="header-fixed">
       <!-- 自定义导航栏 -->
-      <view class="nav-bar mb-4 flex items-center justify-between px-[28rpx] py-4">
+      <view class="nav-bar flex items-center justify-between px-[28rpx] py-4">
         <view class="nav-left" @click="goBack">
-          <view class="back-btn h-[80rpx] w-[80rpx] flex items-center justify-center rounded-[40rpx] bg-white shadow-sm">
+          <view class="back-btn w-[80rpx] flex items-center justify-center rounded-[40rpx] bg-white shadow-sm">
             <wd-icon name="arrow-left" size="20px" color="#333" />
           </view>
         </view>
@@ -235,7 +239,7 @@ onMounted(async () => {
           <text class="nav-subtitle mt-1 block text-[#999] text-[24rpx]">共 {{ total }} 位医生</text>
         </view>
         <view class="nav-right" @click="refreshDoctors">
-          <view class="refresh-btn h-[80rpx] w-[80rpx] flex items-center justify-center rounded-[40rpx] bg-white shadow-sm" :class="{ loading: doctorsLoading }">
+          <view class="refresh-btn w-[80rpx] flex items-center justify-center rounded-[40rpx] bg-white shadow-sm" :class="{ loading: doctorsLoading }">
             <wd-icon name="refresh" size="18px" color="#666" />
           </view>
         </view>
@@ -246,6 +250,7 @@ onMounted(async () => {
         <SearchBar
           v-model="searchKeyword"
           placeholder="搜索医生姓名或专业..."
+          margin-top="0"
           @search="handleSearch"
           @click="handleSearchBarClick"
         />
@@ -308,7 +313,7 @@ onMounted(async () => {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 1);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }

@@ -22,7 +22,7 @@ const props = withDefaults(defineProps<Props>(), {
   width: '702rpx',
   height: '80rpx',
   marginLeft: '24rpx',
-  marginTop: '104rpx',
+  marginTop: '0rpx',
   modelValue: '',
 })
 
