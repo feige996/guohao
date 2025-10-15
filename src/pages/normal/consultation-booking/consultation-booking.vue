@@ -93,104 +93,106 @@ function handleBack() {
 </script>
 
 <template>
-  <view class="min-h-screen flex flex-col bg-[#f5f5f5]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <view class="h-screen w-full flex flex-col bg-[#f5f5f5]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 自定义导航栏 -->
     <wd-navbar title="问诊预约" left-text="返回" left-arrow @click-left="handleBack" />
 
     <!-- 主内容区域 -->
-    <scroll-view class="flex-1 p-[24rpx]" scroll-y>
-      <!-- 医生信息卡片 -->
-      <view class="mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx]">
-        <view class="mb-[24rpx] flex">
-          <image class="mr-[24rpx] h-[96rpx] w-[96rpx] rounded-full bg-[#f0f0f0]" :src="doctorInfo.avatar" mode="aspectFill" />
+    <scroll-view class="flex-1" scroll-y>
+      <view class="p-[24rpx]">
+        <!-- 医生信息卡片 -->
+        <view class="mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx]">
+          <view class="mb-[24rpx] flex">
+            <image class="mr-[24rpx] h-[96rpx] w-[96rpx] rounded-full bg-[#f0f0f0]" :src="doctorInfo.avatar" mode="aspectFill" />
+            <view class="flex-1">
+              <view class="flex flex-wrap items-center gap-[16rpx]">
+                <text class="text-[#333] font-semibold text-[36rpx]">{{ doctorInfo.name }}</text>
+                <text class="text-[#666] text-[28rpx]">{{ doctorInfo.title }}</text>
+                <text class="text-[#666] text-[28rpx]">{{ doctorInfo.specialty }}</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="mb-[32rpx] whitespace-pre-line text-[#666] text-[28rpx] leading-[44rpx]">
+            {{ doctorInfo.introduction }}
+          </view>
+
+          <!-- 统计信息 -->
+          <view class="flex items-center justify-around border-t border-[#f0f0f0] pt-[24rpx]">
+            <view class="flex flex-1 flex-col items-center gap-[8rpx]">
+              <text class="text-[#999] text-[24rpx]">暂无</text>
+              <text class="text-[#333] font-semibold text-[40rpx]">{{ doctorInfo.consultationCount }}</text>
+              <text class="text-[#999] text-[24rpx]">接诊人次</text>
+            </view>
+            <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
+            <view class="flex flex-1 flex-col items-center gap-[8rpx]">
+              <text class="text-[#999] text-[24rpx]">暂无</text>
+              <text class="text-[#999] text-[32rpx]">—</text>
+              <text class="text-[#999] text-[24rpx]">满意度</text>
+            </view>
+            <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
+            <view class="flex flex-1 flex-col items-center gap-[8rpx]">
+              <text class="text-[#999] text-[24rpx]">{{ doctorInfo.responseSpeed }}</text>
+              <text class="text-[#999] text-[32rpx]">—</text>
+              <text class="text-[#999] text-[24rpx]">接诊速度</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 视频挂号 -->
+        <view class="mb-[24rpx]">
+          <view class="mb-[16rpx] text-[#333] font-semibold text-[32rpx]">
+            视频挂号
+          </view>
+          <view class="relative flex items-center rounded-[24rpx] bg-white p-[32rpx]">
+            <view class="flex flex-1 flex-col gap-[8rpx]">
+              <text class="text-[#333] font-medium text-[32rpx]">灵活视频时间</text>
+              <text class="text-[#999] text-[24rpx]">您购买后医生将为您安排视频时间</text>
+            </view>
+            <view class="mx-[24rpx] flex items-center text-[#ff6b35] font-semibold text-[32rpx]">
+              ¥20
+            </view>
+            <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleRegister">
+              <text class="text-white font-medium text-[28rpx]">去挂号</text>
+            </view>
+          </view>
+        </view>
+
+        <!-- 图文问诊 -->
+        <view class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
+          <view class="mr-[24rpx] h-[88rpx] w-[88rpx] flex items-center justify-center rounded-full bg-[#e3f2fd]">
+            <text class="text-[48rpx]">💬</text>
+          </view>
           <view class="flex-1">
-            <view class="flex flex-wrap items-center gap-[16rpx]">
-              <text class="text-[#333] font-semibold text-[36rpx]">{{ doctorInfo.name }}</text>
-              <text class="text-[#666] text-[28rpx]">{{ doctorInfo.title }}</text>
-              <text class="text-[#666] text-[28rpx]">{{ doctorInfo.specialty }}</text>
+            <view class="mb-[8rpx] flex items-center gap-[12rpx]">
+              <text class="text-[#333] font-medium text-[32rpx]">图文问诊</text>
+              <text class="text-[#ff6b35] font-medium text-[28rpx]">¥20/次</text>
             </view>
+            <text class="text-[#999] text-[24rpx]">图文多轮沟通</text>
+          </view>
+          <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleTextConsultation">
+            <text class="text-white font-medium text-[28rpx]">去问诊</text>
           </view>
         </view>
 
-        <view class="mb-[32rpx] whitespace-pre-line text-[#666] text-[28rpx] leading-[44rpx]">
-          {{ doctorInfo.introduction }}
-        </view>
-
-        <!-- 统计信息 -->
-        <view class="flex items-center justify-around border-t border-[#f0f0f0] pt-[24rpx]">
-          <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-            <text class="text-[#999] text-[24rpx]">暂无</text>
-            <text class="text-[#333] font-semibold text-[40rpx]">{{ doctorInfo.consultationCount }}</text>
-            <text class="text-[#999] text-[24rpx]">接诊人次</text>
+        <!-- 电话问诊 -->
+        <view class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
+          <view class="mr-[24rpx] h-[88rpx] w-[88rpx] flex items-center justify-center rounded-full bg-[#e8f5e9]">
+            <text class="text-[48rpx]">📞</text>
           </view>
-          <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
-          <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-            <text class="text-[#999] text-[24rpx]">暂无</text>
-            <text class="text-[#999] text-[32rpx]">—</text>
-            <text class="text-[#999] text-[24rpx]">满意度</text>
-          </view>
-          <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
-          <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-            <text class="text-[#999] text-[24rpx]">{{ doctorInfo.responseSpeed }}</text>
-            <text class="text-[#999] text-[32rpx]">—</text>
-            <text class="text-[#999] text-[24rpx]">接诊速度</text>
-          </view>
-        </view>
-      </view>
-
-      <!-- 视频挂号 -->
-      <view class="mb-[24rpx]">
-        <view class="mb-[16rpx] text-[#333] font-semibold text-[32rpx]">
-          视频挂号
-        </view>
-        <view class="relative flex items-center rounded-[24rpx] bg-white p-[32rpx]">
-          <view class="flex flex-1 flex-col gap-[8rpx]">
-            <text class="text-[#333] font-medium text-[32rpx]">灵活视频时间</text>
-            <text class="text-[#999] text-[24rpx]">您购买后医生将为您安排视频时间</text>
-          </view>
-          <view class="mx-[24rpx] text-[#ff6b35] font-semibold text-[32rpx]">
-            ¥20
-          </view>
-          <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleRegister">
-            <text class="text-white font-medium text-[28rpx]">去挂号</text>
-          </view>
-        </view>
-      </view>
-
-      <!-- 图文问诊 -->
-      <view class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
-        <view class="mr-[24rpx] h-[88rpx] w-[88rpx] flex items-center justify-center rounded-full bg-[#e3f2fd]">
-          <text class="text-[48rpx]">💬</text>
-        </view>
-        <view class="flex-1">
-          <view class="mb-[8rpx] flex items-center gap-[12rpx]">
-            <text class="text-[#333] font-medium text-[32rpx]">图文问诊</text>
-            <text class="text-[#ff6b35] font-medium text-[28rpx]">¥20/次</text>
-          </view>
-          <text class="text-[#999] text-[24rpx]">图文多轮沟通</text>
-        </view>
-        <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleTextConsultation">
-          <text class="text-white font-medium text-[28rpx]">去问诊</text>
-        </view>
-      </view>
-
-      <!-- 电话问诊 -->
-      <view class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
-        <view class="mr-[24rpx] h-[88rpx] w-[88rpx] flex items-center justify-center rounded-full bg-[#e8f5e9]">
-          <text class="text-[48rpx]">📞</text>
-        </view>
-        <view class="flex-1">
-          <view class="mb-[8rpx] flex items-center gap-[12rpx]">
-            <text class="text-[#333] font-medium text-[32rpx]">电话问诊</text>
-            <text class="text-[#ff6b35] font-medium text-[28rpx]">¥20/10分钟</text>
-            <view class="rounded-[8rpx] bg-[#bbdefb] px-[12rpx] py-[4rpx] text-[#1976d2] text-[20rpx]">
-              首单少
+          <view class="flex-1">
+            <view class="mb-[8rpx] flex items-center gap-[12rpx]">
+              <text class="text-[#333] font-medium text-[32rpx]">电话问诊</text>
+              <text class="text-[#ff6b35] font-medium text-[28rpx]">¥20/10分钟</text>
+              <view class="inline-flex items-center rounded-[8rpx] bg-[#bbdefb] px-[12rpx] py-[4rpx] text-[#1976d2] text-[20rpx]">
+                首单少
+              </view>
             </view>
+            <text class="text-[#999] text-[24rpx]">1对1电话交流，今日剩3个号</text>
           </view>
-          <text class="text-[#999] text-[24rpx]">1对1电话交流，今日剩3个号</text>
-        </view>
-        <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handlePhoneConsultation">
-          <text class="text-white font-medium text-[28rpx]">去通话</text>
+          <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handlePhoneConsultation">
+            <text class="text-white font-medium text-[28rpx]">去通话</text>
+          </view>
         </view>
       </view>
     </scroll-view>
