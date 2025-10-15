@@ -241,7 +241,7 @@ export interface AppWxLoginInput {
    */
   loginFrom?: string | null;
 }
-export type GenderEnum = 0 | 1 | 2 | 9;
+export type GenderEnum = 0 | 1 | 2;
 export interface AppRegisterInput {
   /**
    * 用户名
@@ -268,7 +268,7 @@ export interface AppRegisterInput {
    */
   email?: string | null;
   /**
-   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
    */
   sex?: GenderEnum;
 }
@@ -282,7 +282,7 @@ export interface AppUpdateUserInfoInput {
    */
   avatar?: string | null;
   /**
-   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
    */
   sex?: GenderEnum;
   /**
@@ -331,6 +331,223 @@ export interface AppChangePasswordInput {
    * 新密码
    */
   newPassword: string;
+}
+export type AppOintmentTypeEnum = 1 | 2 | 3;
+export type AppOintmentStatusEnum = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+export type AppPrescriptionStatusEnum = 1 | 2 | 3 | 4 | 5;
+export interface Pageapp_AppointmentInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 预约编号
+   */
+  appointmentNo?: string | null;
+  /**
+   * 关联处方
+   */
+  prescriptionId?: number | null;
+  /**
+   * 患者ID
+   */
+  patientId?: number | null;
+  /**
+   * 医生ID
+   */
+  doctorId?: number | null;
+  /**
+   * 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+   */
+  appointmentType?: AppOintmentTypeEnum;
+  /**
+   * 预约日期范围
+   */
+  appointmentDateRange?: (string | null)[] | null;
+  /**
+   * 预约时间段
+   */
+  appointmentTime?: string | null;
+  /**
+   * 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+   */
+  reservationStatus?: AppOintmentStatusEnum;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  prescriptionStatus?: AppPrescriptionStatusEnum;
+  /**
+   * 问诊价格
+   */
+  amount?: number | null;
+  /**
+   * 问诊优惠金额
+   */
+  discountAmount?: number | null;
+  /**
+   * 问诊实付金额
+   */
+  actualAmount?: number | null;
+  /**
+   * 服务时长
+   */
+  serviceDuration?: string | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_AppointmentInput {
+  /**
+   * 预约编号
+   */
+  appointmentNo: string;
+  /**
+   * 关联处方
+   */
+  prescriptionId?: number | null;
+  /**
+   * 患者ID
+   */
+  patientId: number;
+  /**
+   * 医生ID
+   */
+  doctorId: number;
+  /**
+   * 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+   */
+  appointmentType: AppOintmentTypeEnum;
+  /**
+   * 预约日期
+   */
+  appointmentDate?: string | null;
+  /**
+   * 预约时间段
+   */
+  appointmentTime?: string | null;
+  /**
+   * 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+   */
+  reservationStatus: AppOintmentStatusEnum;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  prescriptionStatus: AppPrescriptionStatusEnum;
+  /**
+   * 问诊价格
+   */
+  amount: number;
+  /**
+   * 问诊优惠金额
+   */
+  discountAmount: number;
+  /**
+   * 问诊实付金额
+   */
+  actualAmount: number;
+  /**
+   * 服务时长
+   */
+  serviceDuration?: string | null;
+}
+export interface Updateapp_AppointmentInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 预约编号
+   */
+  appointmentNo: string;
+  /**
+   * 关联处方
+   */
+  prescriptionId?: number | null;
+  /**
+   * 患者ID
+   */
+  patientId: number;
+  /**
+   * 医生ID
+   */
+  doctorId: number;
+  /**
+   * 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+   */
+  appointmentType: AppOintmentTypeEnum;
+  /**
+   * 预约日期
+   */
+  appointmentDate?: string | null;
+  /**
+   * 预约时间段
+   */
+  appointmentTime?: string | null;
+  /**
+   * 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+   */
+  reservationStatus: AppOintmentStatusEnum;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  prescriptionStatus: AppPrescriptionStatusEnum;
+  /**
+   * 问诊价格
+   */
+  amount: number;
+  /**
+   * 问诊优惠金额
+   */
+  discountAmount: number;
+  /**
+   * 问诊实付金额
+   */
+  actualAmount: number;
+  /**
+   * 服务时长
+   */
+  serviceDuration?: string | null;
+}
+export interface Deleteapp_AppointmentInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
+export interface DropdownDataapp_AppointmentInput {
+  /**
+   * 是否用于分页查询
+   */
+  fromPage?: boolean;
 }
 export type AppAccountTypeEnum = 666 | 777 | 888 | 999;
 export type AppDepartmentEnum =
@@ -1353,6 +1570,127 @@ export interface Deleteapp_healthskillInput {
    */
   id: number;
 }
+export type AppMedicineEnum = 1 | 2;
+export interface Pageapp_MedicineInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 药材名称
+   */
+  name?: string | null;
+  /**
+   * 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+   */
+  type?: AppMedicineEnum;
+  /**
+   * 编码
+   */
+  code?: string | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_MedicineInput {
+  /**
+   * 药材名称
+   */
+  name: string;
+  /**
+   * 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+   */
+  type: AppMedicineEnum;
+  /**
+   * 编码
+   */
+  code?: string | null;
+  /**
+   * 单价
+   */
+  price: number;
+  /**
+   * 单价
+   */
+  costPrice: number;
+  /**
+   * 库存
+   */
+  stock: number;
+  /**
+   * 单位
+   */
+  unit: string;
+}
+export interface Updateapp_MedicineInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 药材名称
+   */
+  name: string;
+  /**
+   * 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+   */
+  type: AppMedicineEnum;
+  /**
+   * 编码
+   */
+  code?: string | null;
+  /**
+   * 单价
+   */
+  price: number;
+  /**
+   * 单价
+   */
+  costPrice: number;
+  /**
+   * 库存
+   */
+  stock: number;
+  /**
+   * 单位
+   */
+  unit: string;
+}
+export interface Deleteapp_MedicineInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
 export type AppMessageEnum = 1 | 2;
 export interface Pageapp_MessageInput {
   /**
@@ -1460,6 +1798,881 @@ export interface DropdownDataapp_MessageInput {
    */
   fromPage?: boolean;
 }
+export type PaymentTransactionTypeEnum = 1 | 2;
+export type WayCodeEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20;
+export type DivisionModeEnum = 0 | 1 | 2;
+export interface Pageapp_PaymentTransactionInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+   */
+  transactionType?: PaymentTransactionTypeEnum;
+  /**
+   * 关联用户ID
+   */
+  userId?: number | null;
+  /**
+   * 商户号
+   */
+  mchNo?: string | null;
+  /**
+   * 应用ID
+   */
+  appId?: string | null;
+  /**
+   * 支付订单号
+   */
+  payOrderId?: string | null;
+  /**
+   * 商户订单号
+   */
+  mchOrderNo?: string | null;
+  /**
+   * 支付接口编码
+   */
+  ifCode?: string | null;
+  /**
+   * 支付方式代码
+   */
+  wayCode?: string | null;
+  /**
+   * Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+   */
+  wayCodeEnum?: WayCodeEnum;
+  /**
+   * 订单金额
+   */
+  amount?: number | null;
+  /**
+   * 实际支付金额
+   */
+  actualAmount?: number | null;
+  /**
+   * 货币代码
+   */
+  currency?: string | null;
+  /**
+   * 退款订单号
+   */
+  refundOrderId?: string | null;
+  /**
+   * 商户退款单号
+   */
+  mchRefundNo?: string | null;
+  /**
+   * 退款金额
+   */
+  refundAmount?: number | null;
+  /**
+   * 退款原因
+   */
+  refundReason?: string | null;
+  /**
+   * 交易状态
+   */
+  state?: number | null;
+  /**
+   * 商品标题
+   */
+  subject?: string | null;
+  /**
+   * 商品描述
+   */
+  body?: string | null;
+  /**
+   * 渠道订单号
+   */
+  channelOrderNo?: string | null;
+  /**
+   * 渠道用户标识
+   */
+  channelUser?: string | null;
+  /**
+   * 渠道错误码
+   */
+  channelErrCode?: string | null;
+  /**
+   * 渠道错误描述
+   */
+  channelErrMsg?: string | null;
+  /**
+   * 订单创建时间范围
+   */
+  orderCreateTimeRange?: (string | null)[] | null;
+  /**
+   * 支付成功时间范围
+   */
+  successTimeRange?: (string | null)[] | null;
+  /**
+   * 订单失效时间范围
+   */
+  expiredTimeRange?: (string | null)[] | null;
+  /**
+   * 业务类型
+   */
+  businessType?: string | null;
+  /**
+   * 业务订单号
+   */
+  businessOrderNo?: string | null;
+  /**
+   * 门店编号
+   */
+  storeId?: number | null;
+  /**
+   * 码牌ID
+   */
+  qrcId?: number | null;
+  /**
+   * 客户端IP
+   */
+  clientIp?: string | null;
+  /**
+   * 异步通知地址
+   */
+  notifyUrl?: string | null;
+  /**
+   * 跳转通知地址
+   */
+  returnUrl?: string | null;
+  /**
+   * 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+   */
+  divisionMode?: DivisionModeEnum;
+  /**
+   * 渠道额外参数
+   */
+  channelExtra?: string | null;
+  /**
+   * 扩展参数
+   */
+  extParam?: string | null;
+  /**
+   * 设备信息
+   */
+  deviceInfo?: string | null;
+  /**
+   * 回调通知次数
+   */
+  notifyCount?: number | null;
+  /**
+   * 最后通知时间范围
+   */
+  lastNotifyTimeRange?: (string | null)[] | null;
+  /**
+   * 通知处理状态
+   */
+  notifyHandleState?: number | null;
+  /**
+   * 通知处理结果
+   */
+  notifyHandleResult?: string | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 操作日志
+   */
+  operationLog?: string | null;
+  /**
+   * 软删除时间范围
+   */
+  deleteTimeRange?: (string | null)[] | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_PaymentTransactionInput {
+  /**
+   * 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+   */
+  transactionType: PaymentTransactionTypeEnum;
+  /**
+   * 关联用户ID
+   */
+  userId?: number | null;
+  /**
+   * 商户号
+   */
+  mchNo?: string | null;
+  /**
+   * 应用ID
+   */
+  appId?: string | null;
+  /**
+   * 支付订单号
+   */
+  payOrderId?: string | null;
+  /**
+   * 商户订单号
+   */
+  mchOrderNo: string;
+  /**
+   * 支付接口编码
+   */
+  ifCode?: string | null;
+  /**
+   * 支付方式代码
+   */
+  wayCode?: string | null;
+  /**
+   * Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+   */
+  wayCodeEnum?: WayCodeEnum;
+  /**
+   * 订单金额
+   */
+  amount: number;
+  /**
+   * 实际支付金额
+   */
+  actualAmount?: number | null;
+  /**
+   * 货币代码
+   */
+  currency: string;
+  /**
+   * 退款订单号
+   */
+  refundOrderId?: string | null;
+  /**
+   * 商户退款单号
+   */
+  mchRefundNo?: string | null;
+  /**
+   * 退款金额
+   */
+  refundAmount?: number | null;
+  /**
+   * 退款原因
+   */
+  refundReason?: string | null;
+  /**
+   * 交易状态
+   */
+  state: number;
+  /**
+   * 商品标题
+   */
+  subject?: string | null;
+  /**
+   * 商品描述
+   */
+  body?: string | null;
+  /**
+   * 渠道订单号
+   */
+  channelOrderNo?: string | null;
+  /**
+   * 渠道用户标识
+   */
+  channelUser?: string | null;
+  /**
+   * 渠道错误码
+   */
+  channelErrCode?: string | null;
+  /**
+   * 渠道错误描述
+   */
+  channelErrMsg?: string | null;
+  /**
+   * 订单创建时间
+   */
+  orderCreateTime?: string | null;
+  /**
+   * 支付成功时间
+   */
+  successTime?: string | null;
+  /**
+   * 订单失效时间
+   */
+  expiredTime?: string | null;
+  /**
+   * 业务类型
+   */
+  businessType?: string | null;
+  /**
+   * 业务订单号
+   */
+  businessOrderNo?: string | null;
+  /**
+   * 门店编号
+   */
+  storeId?: number | null;
+  /**
+   * 码牌ID
+   */
+  qrcId?: number | null;
+  /**
+   * 客户端IP
+   */
+  clientIp?: string | null;
+  /**
+   * 异步通知地址
+   */
+  notifyUrl?: string | null;
+  /**
+   * 跳转通知地址
+   */
+  returnUrl?: string | null;
+  /**
+   * 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+   */
+  divisionMode?: DivisionModeEnum;
+  /**
+   * 渠道额外参数
+   */
+  channelExtra?: string | null;
+  /**
+   * 扩展参数
+   */
+  extParam?: string | null;
+  /**
+   * 设备信息
+   */
+  deviceInfo?: string | null;
+  /**
+   * 回调通知次数
+   */
+  notifyCount: number;
+  /**
+   * 最后通知时间
+   */
+  lastNotifyTime?: string | null;
+  /**
+   * 通知处理状态
+   */
+  notifyHandleState: number;
+  /**
+   * 通知处理结果
+   */
+  notifyHandleResult?: string | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 操作日志
+   */
+  operationLog?: string | null;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+}
+export interface Updateapp_PaymentTransactionInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+   */
+  transactionType: PaymentTransactionTypeEnum;
+  /**
+   * 关联用户ID
+   */
+  userId?: number | null;
+  /**
+   * 商户号
+   */
+  mchNo?: string | null;
+  /**
+   * 应用ID
+   */
+  appId?: string | null;
+  /**
+   * 支付订单号
+   */
+  payOrderId?: string | null;
+  /**
+   * 商户订单号
+   */
+  mchOrderNo: string;
+  /**
+   * 支付接口编码
+   */
+  ifCode?: string | null;
+  /**
+   * 支付方式代码
+   */
+  wayCode?: string | null;
+  /**
+   * Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+   */
+  wayCodeEnum?: WayCodeEnum;
+  /**
+   * 订单金额
+   */
+  amount: number;
+  /**
+   * 实际支付金额
+   */
+  actualAmount?: number | null;
+  /**
+   * 货币代码
+   */
+  currency: string;
+  /**
+   * 退款订单号
+   */
+  refundOrderId?: string | null;
+  /**
+   * 商户退款单号
+   */
+  mchRefundNo?: string | null;
+  /**
+   * 退款金额
+   */
+  refundAmount?: number | null;
+  /**
+   * 退款原因
+   */
+  refundReason?: string | null;
+  /**
+   * 交易状态
+   */
+  state: number;
+  /**
+   * 商品标题
+   */
+  subject?: string | null;
+  /**
+   * 商品描述
+   */
+  body?: string | null;
+  /**
+   * 渠道订单号
+   */
+  channelOrderNo?: string | null;
+  /**
+   * 渠道用户标识
+   */
+  channelUser?: string | null;
+  /**
+   * 渠道错误码
+   */
+  channelErrCode?: string | null;
+  /**
+   * 渠道错误描述
+   */
+  channelErrMsg?: string | null;
+  /**
+   * 订单创建时间
+   */
+  orderCreateTime?: string | null;
+  /**
+   * 支付成功时间
+   */
+  successTime?: string | null;
+  /**
+   * 订单失效时间
+   */
+  expiredTime?: string | null;
+  /**
+   * 业务类型
+   */
+  businessType?: string | null;
+  /**
+   * 业务订单号
+   */
+  businessOrderNo?: string | null;
+  /**
+   * 门店编号
+   */
+  storeId?: number | null;
+  /**
+   * 码牌ID
+   */
+  qrcId?: number | null;
+  /**
+   * 客户端IP
+   */
+  clientIp?: string | null;
+  /**
+   * 异步通知地址
+   */
+  notifyUrl?: string | null;
+  /**
+   * 跳转通知地址
+   */
+  returnUrl?: string | null;
+  /**
+   * 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+   */
+  divisionMode?: DivisionModeEnum;
+  /**
+   * 渠道额外参数
+   */
+  channelExtra?: string | null;
+  /**
+   * 扩展参数
+   */
+  extParam?: string | null;
+  /**
+   * 设备信息
+   */
+  deviceInfo?: string | null;
+  /**
+   * 回调通知次数
+   */
+  notifyCount: number;
+  /**
+   * 最后通知时间
+   */
+  lastNotifyTime?: string | null;
+  /**
+   * 通知处理状态
+   */
+  notifyHandleState: number;
+  /**
+   * 通知处理结果
+   */
+  notifyHandleResult?: string | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 操作日志
+   */
+  operationLog?: string | null;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+}
+export interface Deleteapp_PaymentTransactionInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
+export interface Pageapp_PrescriptionInput {
+  /**
+   * 模糊查询条件
+   */
+  search?: Search;
+  /**
+   * 模糊查询关键字
+   */
+  keyword?: string | null;
+  /**
+   * 筛选过滤条件
+   */
+  filter?: Filter;
+  /**
+   * 当前页码
+   */
+  page?: number;
+  /**
+   * 页码容量
+   */
+  pageSize?: number;
+  /**
+   * 排序字段
+   */
+  field?: string | null;
+  /**
+   * 排序方向
+   */
+  order?: string | null;
+  /**
+   * 降序排序
+   */
+  descStr?: string | null;
+  /**
+   * 处方名称
+   */
+  prescriptionName?: string | null;
+  /**
+   * 处方用法
+   */
+  usage?: string | null;
+  /**
+   * 处方药材
+   */
+  medicines?: string | null;
+  /**
+   * 订单金额
+   */
+  totalAmount?: number | null;
+  /**
+   * 药材金额
+   */
+  medicineAmount?: number | null;
+  /**
+   * 运费
+   */
+  freight?: number | null;
+  /**
+   * 快递单号
+   */
+  expressNo?: string | null;
+  /**
+   * 发货药房
+   */
+  pharmacy?: string | null;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  orderStatus?: AppPrescriptionStatusEnum;
+  /**
+   * 关联预约ID
+   */
+  appointmentId?: number | null;
+  /**
+   * 患者ID
+   */
+  patientId?: number | null;
+  /**
+   * 收件人
+   */
+  receiver?: string | null;
+  /**
+   * 收货地址
+   */
+  receiverAddress?: string | null;
+  /**
+   * 患者电话
+   */
+  patientPhone?: string | null;
+  /**
+   * 患者姓名
+   */
+  patientName?: string | null;
+  /**
+   * 患者年龄
+   */
+  patientAge?: number | null;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+   */
+  patientSex?: GenderEnum;
+  /**
+   * 医生ID
+   */
+  doctorId?: number | null;
+  /**
+   * 医生姓名
+   */
+  doctorName?: string | null;
+  /**
+   * 医生佣金
+   */
+  doctorCommission?: number | null;
+  /**
+   * 选中主键列表
+   */
+  selectKeyList?: number[] | null;
+}
+export interface Addapp_PrescriptionInput {
+  /**
+   * 处方名称
+   */
+  prescriptionName: string;
+  /**
+   * 处方用法
+   */
+  usage?: string | null;
+  /**
+   * 处方药材
+   */
+  medicines: string;
+  /**
+   * 订单金额
+   */
+  totalAmount: number;
+  /**
+   * 药材金额
+   */
+  medicineAmount: number;
+  /**
+   * 运费
+   */
+  freight: number;
+  /**
+   * 快递单号
+   */
+  expressNo?: string | null;
+  /**
+   * 发货药房
+   */
+  pharmacy?: string | null;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  orderStatus: AppPrescriptionStatusEnum;
+  /**
+   * 关联预约ID
+   */
+  appointmentId: number;
+  /**
+   * 患者ID
+   */
+  patientId: number;
+  /**
+   * 收件人
+   */
+  receiver?: string | null;
+  /**
+   * 收货地址
+   */
+  receiverAddress?: string | null;
+  /**
+   * 患者电话
+   */
+  patientPhone?: string | null;
+  /**
+   * 患者姓名
+   */
+  patientName?: string | null;
+  /**
+   * 患者年龄
+   */
+  patientAge?: number | null;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+   */
+  patientSex: GenderEnum;
+  /**
+   * 医生ID
+   */
+  doctorId: number;
+  /**
+   * 医生姓名
+   */
+  doctorName?: string | null;
+  /**
+   * 医生佣金
+   */
+  doctorCommission?: number | null;
+}
+export interface Updateapp_PrescriptionInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+  /**
+   * 处方名称
+   */
+  prescriptionName: string;
+  /**
+   * 处方用法
+   */
+  usage?: string | null;
+  /**
+   * 处方药材
+   */
+  medicines: string;
+  /**
+   * 订单金额
+   */
+  totalAmount: number;
+  /**
+   * 药材金额
+   */
+  medicineAmount: number;
+  /**
+   * 运费
+   */
+  freight: number;
+  /**
+   * 快递单号
+   */
+  expressNo?: string | null;
+  /**
+   * 发货药房
+   */
+  pharmacy?: string | null;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  orderStatus: AppPrescriptionStatusEnum;
+  /**
+   * 关联预约ID
+   */
+  appointmentId: number;
+  /**
+   * 患者ID
+   */
+  patientId: number;
+  /**
+   * 收件人
+   */
+  receiver?: string | null;
+  /**
+   * 收货地址
+   */
+  receiverAddress?: string | null;
+  /**
+   * 患者电话
+   */
+  patientPhone?: string | null;
+  /**
+   * 患者姓名
+   */
+  patientName?: string | null;
+  /**
+   * 患者年龄
+   */
+  patientAge?: number | null;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+   */
+  patientSex: GenderEnum;
+  /**
+   * 医生ID
+   */
+  doctorId: number;
+  /**
+   * 医生姓名
+   */
+  doctorName?: string | null;
+  /**
+   * 医生佣金
+   */
+  doctorCommission?: number | null;
+}
+export interface Deleteapp_PrescriptionInput {
+  /**
+   * 主键Id
+   */
+  id: number;
+}
 export type AppRoleEnum = 666 | 777 | 888 | 999;
 export interface Pageapp_UserInput {
   /**
@@ -1544,7 +2757,7 @@ export interface Addapp_UserInput {
    */
   avatar?: string | null;
   /**
-   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
    */
   sex: GenderEnum;
   /**
@@ -1818,7 +3031,7 @@ export interface Updateapp_UserInput {
    */
   avatar?: string | null;
   /**
-   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
    */
   sex: GenderEnum;
   /**
@@ -2169,7 +3382,7 @@ export interface AppUserInfo {
    */
   email?: string | null;
   /**
-   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
    */
   sex?: GenderEnum;
   /**
@@ -2539,6 +3752,178 @@ export interface AdminResult_String {
    */
   time?: string;
 }
+export interface App_AppointmentOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 预约编号
+   */
+  appointmentNo?: string | null;
+  /**
+   * 关联处方
+   */
+  prescriptionId?: number;
+  /**
+   * 关联处方 描述
+   */
+  prescriptionFkDisplayName?: string | null;
+  /**
+   * 患者ID
+   */
+  patientId?: number;
+  /**
+   * 患者ID 描述
+   */
+  patientFkDisplayName?: string | null;
+  /**
+   * 医生ID
+   */
+  doctorId?: number;
+  /**
+   * 医生ID 描述
+   */
+  doctorFkDisplayName?: string | null;
+  /**
+   * 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+   */
+  appointmentType?: AppOintmentTypeEnum;
+  /**
+   * 预约日期
+   */
+  appointmentDate?: string | null;
+  /**
+   * 预约时间段
+   */
+  appointmentTime?: string | null;
+  /**
+   * 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+   */
+  reservationStatus?: AppOintmentStatusEnum;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  prescriptionStatus?: AppPrescriptionStatusEnum;
+  /**
+   * 问诊价格
+   */
+  amount?: number;
+  /**
+   * 问诊优惠金额
+   */
+  discountAmount?: number;
+  /**
+   * 问诊实付金额
+   */
+  actualAmount?: number;
+  /**
+   * 服务时长
+   */
+  serviceDuration?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_AppointmentOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_AppointmentOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_AppointmentOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_AppointmentOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface PrescriptionMedicine {
+  /**
+   * 药材名称
+   */
+  name?: string | null;
+  /**
+   * 用量
+   */
+  amount?: number;
+  /**
+   * 价格
+   */
+  price?: number;
+}
 export interface App_User {
   /**
    * 雪花Id
@@ -2573,6 +3958,10 @@ export interface App_User {
    */
   isDelete?: boolean;
   /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
    * 用户名，不允许重复
    */
   username?: string | null;
@@ -2585,7 +3974,7 @@ export interface App_User {
    */
   avatar?: string | null;
   /**
-   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
    */
   sex?: GenderEnum;
   /**
@@ -2824,6 +4213,551 @@ export interface App_User {
    * 备注
    */
   remark?: string | null;
+}
+export interface App_DoctorAuditing {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 审核类型(多选)
+   */
+  auditing_types?: AppRoleEnum[] | null;
+  /**
+   * 用户ID
+   */
+  userId?: number;
+  /**
+   * APP用户信息表
+   */
+  appUser?: App_User;
+  /**
+   * 头像
+   */
+  avatar?: string | null;
+  /**
+   * 推荐人手机号
+   */
+  referrer_telephone?: string | null;
+  /**
+   * 位置
+   */
+  position?: string | null;
+  /**
+   * 省
+   */
+  province?: string | null;
+  /**
+   * 城市
+   */
+  city?: string | null;
+  /**
+   * 地区
+   */
+  district?: string | null;
+  /**
+   * 详细地址
+   */
+  address?: string | null;
+  /**
+   * 参加工作时间
+   */
+  employment_date?: string | null;
+  /**
+   * 部门
+   */
+  department?: string | null;
+  /**
+   * 职称
+   */
+  job_title?: string | null;
+  /**
+   * 擅长领域
+   */
+  fields?: AppDepartmentEnum[] | null;
+  /**
+   * 个人简介/医生简介
+   */
+  introduction?: string | null;
+  /**
+   * 咨询费用
+   */
+  inquiry_fee?: number | null;
+  /**
+   * 视频问诊费用
+   */
+  videoConsultationFee?: number | null;
+  /**
+   * 视频问诊时长（分钟）
+   */
+  videoConsultationDuration?: number | null;
+  /**
+   * 是否开启视频问诊
+   */
+  videoConsulationEnabled?: boolean;
+  /**
+   * 图文问诊费用
+   */
+  textConsultationFee?: number | null;
+  /**
+   * 图文问诊时长（分钟）
+   */
+  textConsultationDuration?: number | null;
+  /**
+   * 是否开启图文问诊
+   */
+  textConsultationEnabled?: boolean;
+  /**
+   * 语音问诊费用
+   */
+  audioConsultationFee?: number | null;
+  /**
+   * 语音问诊时长（分钟）
+   */
+  audioConsultationDuration?: number | null;
+  /**
+   * 是否开启语音问诊
+   */
+  audioConsultationEnabled?: boolean;
+  /**
+   * 身份证正面
+   */
+  idcard_front_image?: string | null;
+  /**
+   * 身份证反面
+   */
+  idcard_back_image?: string | null;
+  /**
+   * 手持证件照
+   */
+  idcard_handheld_image?: string | null;
+  /**
+   * 医生资格照(多张)
+   */
+  doctor_qualification_images?: string[] | null;
+  /**
+   * 中医资质证明(多张)
+   */
+  chn_medicine_qualification_images?: string[] | null;
+  /**
+   * 担保人名称
+   */
+  guarantor_name?: string | null;
+  /**
+   * 担保人身份正面
+   */
+  guarantor_idcard_front_image?: string | null;
+  /**
+   * 担保人身份反面
+   */
+  guarantor_idcard_back_image?: string | null;
+  /**
+   * 担保人手持身份证照
+   */
+  guarantor_idcard_handheld_image?: string | null;
+  /**
+   * 推荐
+   */
+  recommend?: boolean | null;
+  /**
+   * 评价平均分
+   */
+  avg_rating_score?: number | null;
+  /**
+   * 接诊人次
+   */
+  consultation_Count?: number;
+  /**
+   * 满意度（百分比）
+   */
+  satisfaction_Rate?: number;
+  /**
+   * 接诊速度/较快/一般/较慢
+   */
+  response_Speed?: string | null;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+   */
+  avatar_auditing_status?: DoctorAuditingStatusEnum;
+  /**
+   * 论文数
+   */
+  paper_count?: number | null;
+  /**
+   * 审核人
+   */
+  auditing_operator?: number | null;
+  /**
+   * 审核时间
+   */
+  auditing_at?: string | null;
+  /**
+   * 审核原因
+   */
+  auditing_reason?: string | null;
+  /**
+   * 是否是特诊医生
+   */
+  is_special_diagnosis?: boolean | null;
+  /**
+   * 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+   */
+  consultant_type?: AppConsultantTypeEnum;
+  /**
+   * 顾问证书编号
+   */
+  consultant_certificate_no?: string | null;
+  /**
+   * 顾问证书图片
+   */
+  consultant_certificate_image?: string[] | null;
+  /**
+   * 顾问资格说明
+   */
+  consultant_qualification_desc?: string | null;
+}
+export interface App_Prescription {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 处方名称
+   */
+  prescriptionName?: string | null;
+  /**
+   * 处方用法
+   */
+  usage?: string | null;
+  /**
+   * 处方药材（JSON数组，药材名+用量+价格）
+   */
+  medicines?: PrescriptionMedicine[] | null;
+  /**
+   * 处方金额
+   */
+  totalAmount?: number;
+  /**
+   * 药材金额
+   */
+  medicineAmount?: number;
+  /**
+   * 运费
+   */
+  freight?: number;
+  /**
+   * 快递单号
+   */
+  expressNo?: string | null;
+  /**
+   * 发货药房
+   */
+  pharmacy?: string | null;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  orderStatus?: AppPrescriptionStatusEnum;
+  /**
+   * 关联预约ID
+   */
+  appointmentId?: number;
+  /**
+   * 预约挂号表
+   */
+  appointment?: App_Appointment;
+  /**
+   * 患者ID
+   */
+  patientId?: number;
+  /**
+   * APP用户信息表
+   */
+  patient?: App_User;
+  /**
+   * 收件人
+   */
+  receiver?: string | null;
+  /**
+   * 收货地址
+   */
+  receiverAddress?: string | null;
+  /**
+   * 患者电话
+   */
+  patientPhone?: string | null;
+  /**
+   * 患者姓名
+   */
+  patientName?: string | null;
+  /**
+   * 患者年龄
+   */
+  patientAge?: number | null;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+   */
+  patientSex?: GenderEnum;
+  /**
+   * 医生ID
+   */
+  doctorId?: number;
+  /**
+   * 医生/顾问审核表
+   */
+  doctor?: App_DoctorAuditing;
+  /**
+   * 医生姓名
+   */
+  doctorName?: string | null;
+  /**
+   * 医生佣金
+   */
+  doctorCommission?: number | null;
+}
+export interface App_Appointment {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 预约编号/订单号
+   */
+  appointmentNo?: string | null;
+  /**
+   * 关联处方ID
+   */
+  prescriptionId?: number;
+  prescription?: App_Prescription;
+  /**
+   * 患者ID
+   */
+  patientId?: number;
+  /**
+   * APP用户信息表
+   */
+  appUser?: App_User;
+  /**
+   * 医生ID
+   */
+  doctorId?: number;
+  /**
+   * 医生/顾问审核表
+   */
+  appDoctor?: App_DoctorAuditing;
+  /**
+   * 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+   */
+  appointmentType?: AppOintmentTypeEnum;
+  /**
+   * 预约日期
+   */
+  appointmentDate?: string | null;
+  /**
+   * 预约时间段（如：10:30-11:30）
+   */
+  appointmentTime?: string | null;
+  /**
+   * 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+   */
+  reservationStatus?: AppOintmentStatusEnum;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  prescriptionStatus?: AppPrescriptionStatusEnum;
+  /**
+   * 问诊价格
+   */
+  amount?: number;
+  /**
+   * 问诊优惠金额
+   */
+  discountAmount?: number;
+  /**
+   * 问诊实付金额
+   */
+  actualAmount?: number;
+  /**
+   * 服务时长（如：10分钟、图文多轮沟通）
+   */
+  serviceDuration?: string | null;
+}
+export interface AdminResult_app_Appointment {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 预约挂号表
+   */
+  result?: App_Appointment;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Int64 {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: number;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_Dictionary_StringObject {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 数据
+   */
+  result?: Record<string, unknown> | null;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
 }
 export interface SysFile {
   /**
@@ -3181,192 +5115,6 @@ export interface AdminResult_SqlSugarPagedList_app_DoctorAuditingOutput {
    */
   time?: string;
 }
-export interface App_DoctorAuditing {
-  /**
-   * 雪花Id
-   */
-  id?: number;
-  /**
-   * 创建时间
-   */
-  createTime?: string;
-  /**
-   * 更新时间
-   */
-  updateTime?: string | null;
-  /**
-   * 创建者Id
-   */
-  createUserId?: number | null;
-  /**
-   * 创建者姓名
-   */
-  createUserName?: string | null;
-  /**
-   * 修改者Id
-   */
-  updateUserId?: number | null;
-  /**
-   * 修改者姓名
-   */
-  updateUserName?: string | null;
-  /**
-   * 软删除
-   */
-  isDelete?: boolean;
-  /**
-   * 审核类型(多选)
-   */
-  auditing_types?: AppRoleEnum[] | null;
-  /**
-   * 用户ID
-   */
-  userId?: number;
-  /**
-   * APP用户信息表
-   */
-  appUser?: App_User;
-  /**
-   * 头像
-   */
-  avatar?: string | null;
-  /**
-   * 推荐人手机号
-   */
-  referrer_telephone?: string | null;
-  /**
-   * 位置
-   */
-  position?: string | null;
-  /**
-   * 省
-   */
-  province?: string | null;
-  /**
-   * 城市
-   */
-  city?: string | null;
-  /**
-   * 地区
-   */
-  district?: string | null;
-  /**
-   * 详细地址
-   */
-  address?: string | null;
-  /**
-   * 参加工作时间
-   */
-  employment_date?: string | null;
-  /**
-   * 部门
-   */
-  department?: string | null;
-  /**
-   * 职称
-   */
-  job_title?: string | null;
-  /**
-   * 擅长领域
-   */
-  fields?: AppDepartmentEnum[] | null;
-  /**
-   * 个人简介
-   */
-  introduction?: string | null;
-  /**
-   * 咨询费用
-   */
-  inquiry_fee?: number | null;
-  /**
-   * 身份证正面
-   */
-  idcard_front_image?: string | null;
-  /**
-   * 身份证反面
-   */
-  idcard_back_image?: string | null;
-  /**
-   * 手持证件照
-   */
-  idcard_handheld_image?: string | null;
-  /**
-   * 医生资格照(多张)
-   */
-  doctor_qualification_images?: string[] | null;
-  /**
-   * 中医资质证明(多张)
-   */
-  chn_medicine_qualification_images?: string[] | null;
-  /**
-   * 担保人名称
-   */
-  guarantor_name?: string | null;
-  /**
-   * 担保人身份正面
-   */
-  guarantor_idcard_front_image?: string | null;
-  /**
-   * 担保人身份反面
-   */
-  guarantor_idcard_back_image?: string | null;
-  /**
-   * 担保人手持身份证照
-   */
-  guarantor_idcard_handheld_image?: string | null;
-  /**
-   * 推荐
-   */
-  recommend?: boolean | null;
-  /**
-   * 评价平均分
-   */
-  avg_rating_score?: number | null;
-  /**
-   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
-   */
-  auditing_status?: DoctorAuditingStatusEnum;
-  /**
-   * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
-   */
-  avatar_auditing_status?: DoctorAuditingStatusEnum;
-  /**
-   * 论文数
-   */
-  paper_count?: number | null;
-  /**
-   * 审核人
-   */
-  auditing_operator?: number | null;
-  /**
-   * 审核时间
-   */
-  auditing_at?: string | null;
-  /**
-   * 审核原因
-   */
-  auditing_reason?: string | null;
-  /**
-   * 是否是特诊医生
-   */
-  is_special_diagnosis?: boolean | null;
-  /**
-   * 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
-   */
-  consultant_type?: AppConsultantTypeEnum;
-  /**
-   * 顾问证书编号
-   */
-  consultant_certificate_no?: string | null;
-  /**
-   * 顾问证书图片
-   */
-  consultant_certificate_image?: string[] | null;
-  /**
-   * 顾问资格说明
-   */
-  consultant_qualification_desc?: string | null;
-}
 export interface AdminResult_app_DoctorAuditing {
   /**
    * 状态码
@@ -3393,32 +5141,6 @@ export interface AdminResult_app_DoctorAuditing {
    */
   time?: string;
 }
-export interface AdminResult_Int64 {
-  /**
-   * 状态码
-   */
-  code?: number;
-  /**
-   * 类型success、warning、error
-   */
-  type?: string | null;
-  /**
-   * 错误信息
-   */
-  message?: string | null;
-  /**
-   * 数据
-   */
-  result?: number;
-  /**
-   * 附加数据
-   */
-  extras?: null;
-  /**
-   * 时间
-   */
-  time?: string;
-}
 export interface AdminResult_SysFile {
   /**
    * 状态码
@@ -3436,32 +5158,6 @@ export interface AdminResult_SysFile {
    * 系统文件表
    */
   result?: SysFile;
-  /**
-   * 附加数据
-   */
-  extras?: null;
-  /**
-   * 时间
-   */
-  time?: string;
-}
-export interface AdminResult_Dictionary_StringObject {
-  /**
-   * 状态码
-   */
-  code?: number;
-  /**
-   * 类型success、warning、error
-   */
-  type?: string | null;
-  /**
-   * 错误信息
-   */
-  message?: string | null;
-  /**
-   * 数据
-   */
-  result?: Record<string, unknown> | null;
   /**
    * 附加数据
    */
@@ -3697,6 +5393,10 @@ export interface App_HealthArticleCategory {
    */
   isDelete?: boolean;
   /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
    * 分类名称
    */
   name?: string | null;
@@ -3870,6 +5570,10 @@ export interface App_HealthArticleTag {
    * 软删除
    */
   isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
   /**
    * 标签名称
    */
@@ -4120,6 +5824,10 @@ export interface App_HealthArticle {
    * 软删除
    */
   isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
   /**
    * 标题
    */
@@ -4377,6 +6085,10 @@ export interface App_healthskill {
    */
   isDelete?: boolean;
   /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
    * 备  注:健康症状
    * 默认值:
    */
@@ -4430,6 +6142,220 @@ export interface AdminResult_app_healthskillOutput {
    * 健康小妙招输出参数
    */
   result?: App_healthskillOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_MedicineOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 药材名称
+   */
+  name?: string | null;
+  /**
+   * 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+   */
+  type?: AppMedicineEnum;
+  /**
+   * 编码
+   */
+  code?: string | null;
+  /**
+   * 单价
+   */
+  price?: number;
+  /**
+   * 单价
+   */
+  costPrice?: number;
+  /**
+   * 库存
+   */
+  stock?: number;
+  /**
+   * 单位
+   */
+  unit?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_MedicineOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_MedicineOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_MedicineOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_MedicineOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_Medicine {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 药材名称
+   */
+  name?: string | null;
+  /**
+   * 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+   */
+  type?: AppMedicineEnum;
+  /**
+   * 编码
+   */
+  code?: string | null;
+  /**
+   * 单价（元/单位）
+   */
+  price?: number;
+  /**
+   * 折扣单价（元/单位）
+   */
+  costPrice?: number;
+  /**
+   * 库存
+   */
+  stock?: number;
+  /**
+   * 单位（如：克、片等）
+   */
+  unit?: string | null;
+}
+export interface AdminResult_app_Medicine {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 药材表
+   */
+  result?: App_Medicine;
   /**
    * 附加数据
    */
@@ -4587,6 +6513,10 @@ export interface App_Message {
    */
   isDelete?: boolean;
   /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
    * 消息标题
    */
   title?: string | null;
@@ -4633,6 +6563,770 @@ export interface AdminResult_app_Message {
    */
   time?: string;
 }
+export interface App_PaymentTransactionOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+   */
+  transactionType?: PaymentTransactionTypeEnum;
+  /**
+   * 关联用户ID
+   */
+  userId?: number | null;
+  /**
+   * 商户号
+   */
+  mchNo?: string | null;
+  /**
+   * 应用ID
+   */
+  appId?: string | null;
+  /**
+   * 支付订单号
+   */
+  payOrderId?: string | null;
+  /**
+   * 商户订单号
+   */
+  mchOrderNo?: string | null;
+  /**
+   * 支付接口编码
+   */
+  ifCode?: string | null;
+  /**
+   * 支付方式代码
+   */
+  wayCode?: string | null;
+  /**
+   * Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+   */
+  wayCodeEnum?: WayCodeEnum;
+  /**
+   * 订单金额
+   */
+  amount?: number;
+  /**
+   * 实际支付金额
+   */
+  actualAmount?: number | null;
+  /**
+   * 货币代码
+   */
+  currency?: string | null;
+  /**
+   * 退款订单号
+   */
+  refundOrderId?: string | null;
+  /**
+   * 商户退款单号
+   */
+  mchRefundNo?: string | null;
+  /**
+   * 退款金额
+   */
+  refundAmount?: number | null;
+  /**
+   * 退款原因
+   */
+  refundReason?: string | null;
+  /**
+   * 交易状态
+   */
+  state?: number;
+  /**
+   * 商品标题
+   */
+  subject?: string | null;
+  /**
+   * 商品描述
+   */
+  body?: string | null;
+  /**
+   * 渠道订单号
+   */
+  channelOrderNo?: string | null;
+  /**
+   * 渠道用户标识
+   */
+  channelUser?: string | null;
+  /**
+   * 渠道错误码
+   */
+  channelErrCode?: string | null;
+  /**
+   * 渠道错误描述
+   */
+  channelErrMsg?: string | null;
+  /**
+   * 订单创建时间
+   */
+  orderCreateTime?: string | null;
+  /**
+   * 支付成功时间
+   */
+  successTime?: string | null;
+  /**
+   * 订单失效时间
+   */
+  expiredTime?: string | null;
+  /**
+   * 业务类型
+   */
+  businessType?: string | null;
+  /**
+   * 业务订单号
+   */
+  businessOrderNo?: string | null;
+  /**
+   * 门店编号
+   */
+  storeId?: number | null;
+  /**
+   * 码牌ID
+   */
+  qrcId?: number | null;
+  /**
+   * 客户端IP
+   */
+  clientIp?: string | null;
+  /**
+   * 异步通知地址
+   */
+  notifyUrl?: string | null;
+  /**
+   * 跳转通知地址
+   */
+  returnUrl?: string | null;
+  /**
+   * 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+   */
+  divisionMode?: DivisionModeEnum;
+  /**
+   * 渠道额外参数
+   */
+  channelExtra?: string | null;
+  /**
+   * 扩展参数
+   */
+  extParam?: string | null;
+  /**
+   * 设备信息
+   */
+  deviceInfo?: string | null;
+  /**
+   * 回调通知次数
+   */
+  notifyCount?: number;
+  /**
+   * 最后通知时间
+   */
+  lastNotifyTime?: string | null;
+  /**
+   * 通知处理状态
+   */
+  notifyHandleState?: number;
+  /**
+   * 通知处理结果
+   */
+  notifyHandleResult?: string | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 操作日志
+   */
+  operationLog?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_PaymentTransactionOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_PaymentTransactionOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_PaymentTransactionOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_PaymentTransactionOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export type OrderStateEnum = 0 | 1 | 2 | 3 | 4 | 5 | 6;
+export type RefundStateEnum = 0 | 1 | 2 | 3 | 4;
+export interface App_PaymentTransaction {
+  /**
+   * 雪花Id
+   */
+  id?: number;
+  /**
+   * 创建时间
+   */
+  createTime?: string;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+   */
+  transactionType: PaymentTransactionTypeEnum;
+  /**
+   * 关联用户ID
+   */
+  userId?: number | null;
+  /**
+   * 商户号
+   */
+  mchNo?: string | null;
+  /**
+   * 应用ID
+   */
+  appId?: string | null;
+  /**
+   * 支付订单号
+   * 支付中心生成的订单号
+   */
+  payOrderId?: string | null;
+  /**
+   * 商户订单号
+   * 商户生成的订单号
+   */
+  mchOrderNo: string;
+  /**
+   * 支付接口编码
+   * 例如：wxpay（微信支付）、alipay（支付宝）
+   */
+  ifCode?: string | null;
+  /**
+   * 支付方式代码
+   * 例如：WX_LITE、ALI_JSAPI
+   */
+  wayCode?: string | null;
+  /**
+   * Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+   */
+  wayCodeEnum?: WayCodeEnum;
+  /**
+   * 订单金额（单位：分）
+   * 支付时为支付金额，退款时为原订单金额
+   */
+  amount: number;
+  /**
+   * 订单金额（元）
+   * 计算属性，用于显示
+   */
+  amountInYuan?: number;
+  /**
+   * 实际支付金额（单位：分）
+   * 考虑优惠折扣后的实际支付金额
+   */
+  actualAmount?: number | null;
+  /**
+   * 实际支付金额（元）
+   */
+  actualAmountInYuan?: number | null;
+  /**
+   * 货币代码
+   * 三位货币代码，人民币：cny
+   */
+  currency: string;
+  /**
+   * 退款订单号
+   * 支付中心生成的退款订单号（仅退款交易有值）
+   */
+  refundOrderId?: string | null;
+  /**
+   * 商户退款单号
+   * 商户生成的退款单号（仅退款交易有值）
+   */
+  mchRefundNo?: string | null;
+  /**
+   * 退款金额（单位：分）
+   * 仅退款交易有值
+   */
+  refundAmount?: number | null;
+  /**
+   * 退款金额（元）
+   */
+  refundAmountInYuan?: number | null;
+  /**
+   * 退款原因
+   */
+  refundReason?: string | null;
+  /**
+   * 交易状态
+   * 支付：0-订单生成, 1-支付中, 2-支付成功, 3-支付失败, 4-已撤销, 5-已退款, 6-订单关闭
+   * 退款：0-订单生成, 1-退款中, 2-退款成功, 3-退款失败, 4-退款关闭
+   */
+  state: number;
+  /**
+   * 订单状态枚举<br />&nbsp;订单生成 Created = 0<br />&nbsp;支付中 Paying = 1<br />&nbsp;支付成功 Success = 2<br />&nbsp;支付失败 Failed = 3<br />&nbsp;已撤销 Cancelled = 4<br />&nbsp;已退款 Refunded = 5<br />&nbsp;订单关闭 Closed = 6<br />
+   */
+  payOrderState?: OrderStateEnum;
+  /**
+   * 退款状态枚举<br />&nbsp;订单生成 Created = 0<br />&nbsp;退款中 Refunding = 1<br />&nbsp;退款成功 Success = 2<br />&nbsp;退款失败 Failed = 3<br />&nbsp;退款关闭 Closed = 4<br />
+   */
+  refundOrderState?: RefundStateEnum;
+  /**
+   * 交易状态描述
+   */
+  stateDescription?: string | null;
+  /**
+   * 是否最终状态
+   */
+  isFinalState?: boolean;
+  /**
+   * 商品标题
+   */
+  subject?: string | null;
+  /**
+   * 商品描述
+   */
+  body?: string | null;
+  /**
+   * 渠道订单号
+   * 对应微信/支付宝等第三方平台的订单号
+   */
+  channelOrderNo?: string | null;
+  /**
+   * 渠道用户标识
+   * 微信openId、支付宝userId等
+   */
+  channelUser?: string | null;
+  /**
+   * 渠道错误码
+   */
+  channelErrCode?: string | null;
+  /**
+   * 渠道错误描述
+   */
+  channelErrMsg?: string | null;
+  /**
+   * 订单创建时间
+   * Jeepay系统中的订单创建时间
+   */
+  orderCreateTime?: string | null;
+  /**
+   * 支付成功时间
+   * 支付或退款完成的时间
+   */
+  successTime?: string | null;
+  /**
+   * 订单失效时间
+   * 订单超时自动关闭的时间
+   */
+  expiredTime?: string | null;
+  /**
+   * 业务类型
+   * 商户自定义，如：商品购买、充值、服务费等
+   */
+  businessType?: string | null;
+  /**
+   * 业务订单号
+   * 商户系统内的业务订单号，如商城订单号
+   */
+  businessOrderNo?: string | null;
+  /**
+   * 门店编号
+   */
+  storeId?: number | null;
+  /**
+   * 码牌ID
+   */
+  qrcId?: number | null;
+  /**
+   * 客户端IP
+   * 发起支付的客户端IP地址
+   */
+  clientIp?: string | null;
+  /**
+   * 异步通知地址
+   * 支付结果异步回调URL
+   */
+  notifyUrl?: string | null;
+  /**
+   * 跳转通知地址
+   * 支付结果同步跳转URL
+   */
+  returnUrl?: string | null;
+  /**
+   * 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+   */
+  divisionMode?: DivisionModeEnum;
+  /**
+   * 渠道额外参数
+   * JSON格式，存储特定渠道的额外参数
+   */
+  channelExtra?: string | null;
+  /**
+   * 扩展参数
+   * JSON格式，商户扩展参数
+   */
+  extParam?: string | null;
+  /**
+   * 设备信息
+   * JSON格式，终端设备信息
+   */
+  deviceInfo?: string | null;
+  /**
+   * 回调通知次数
+   * 记录接收到的异步通知次数
+   */
+  notifyCount?: number;
+  /**
+   * 最后通知时间
+   * 最后一次接收异步通知的时间
+   */
+  lastNotifyTime?: string | null;
+  /**
+   * 通知处理状态
+   * 0-未处理, 1-处理中, 2-处理成功, 3-处理失败
+   */
+  notifyHandleState?: number;
+  /**
+   * 通知处理结果
+   * 记录通知处理的详细结果或错误信息
+   */
+  notifyHandleResult?: string | null;
+  /**
+   * 备注
+   */
+  remark?: string | null;
+  /**
+   * 操作日志
+   * JSON格式，记录订单的关键操作日志
+   */
+  operationLog?: string | null;
+}
+export interface AdminResult_app_PaymentTransaction {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * Jeepay支付交易流水表
+   * 记录所有支付订单和退款订单的交易流水信息
+   */
+  result?: App_PaymentTransaction;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface App_PrescriptionOutput {
+  /**
+   * 主键Id
+   */
+  id?: number;
+  /**
+   * 处方名称
+   */
+  prescriptionName?: string | null;
+  /**
+   * 处方用法
+   */
+  usage?: string | null;
+  /**
+   * 处方药材
+   */
+  medicines?: string | null;
+  /**
+   * 订单金额
+   */
+  totalAmount?: number;
+  /**
+   * 药材金额
+   */
+  medicineAmount?: number;
+  /**
+   * 运费
+   */
+  freight?: number;
+  /**
+   * 快递单号
+   */
+  expressNo?: string | null;
+  /**
+   * 发货药房
+   */
+  pharmacy?: string | null;
+  /**
+   * 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+   */
+  orderStatus?: AppPrescriptionStatusEnum;
+  /**
+   * 关联预约ID
+   */
+  appointmentId?: number;
+  /**
+   * 患者ID
+   */
+  patientId?: number;
+  /**
+   * 收件人
+   */
+  receiver?: string | null;
+  /**
+   * 收货地址
+   */
+  receiverAddress?: string | null;
+  /**
+   * 患者电话
+   */
+  patientPhone?: string | null;
+  /**
+   * 患者姓名
+   */
+  patientName?: string | null;
+  /**
+   * 患者年龄
+   */
+  patientAge?: number | null;
+  /**
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+   */
+  patientSex?: GenderEnum;
+  /**
+   * 医生ID
+   */
+  doctorId?: number;
+  /**
+   * 医生姓名
+   */
+  doctorName?: string | null;
+  /**
+   * 医生佣金
+   */
+  doctorCommission?: number | null;
+  /**
+   * 软删除
+   */
+  isDelete?: boolean;
+  /**
+   * 软删除时间
+   */
+  deleteTime?: string | null;
+  /**
+   * 创建时间
+   */
+  createTime?: string | null;
+  /**
+   * 更新时间
+   */
+  updateTime?: string | null;
+  /**
+   * 创建者Id
+   */
+  createUserId?: number | null;
+  /**
+   * 创建者姓名
+   */
+  createUserName?: string | null;
+  /**
+   * 修改者Id
+   */
+  updateUserId?: number | null;
+  /**
+   * 修改者姓名
+   */
+  updateUserName?: string | null;
+}
+export interface SqlSugarPagedList_app_PrescriptionOutput {
+  /**
+   * 页码
+   */
+  page?: number;
+  /**
+   * 页容量
+   */
+  pageSize?: number;
+  /**
+   * 总条数
+   */
+  total?: number;
+  /**
+   * 总页数
+   */
+  totalPages?: number;
+  /**
+   * 当前页集合
+   */
+  items?: App_PrescriptionOutput[] | null;
+  /**
+   * 是否有上一页
+   */
+  hasPrevPage?: boolean;
+  /**
+   * 是否有下一页
+   */
+  hasNextPage?: boolean;
+}
+export interface AdminResult_SqlSugarPagedList_app_PrescriptionOutput {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 分页泛型集合
+   */
+  result?: SqlSugarPagedList_app_PrescriptionOutput;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
+export interface AdminResult_app_Prescription {
+  /**
+   * 状态码
+   */
+  code?: number;
+  /**
+   * 类型success、warning、error
+   */
+  type?: string | null;
+  /**
+   * 错误信息
+   */
+  message?: string | null;
+  /**
+   * 处方表
+   */
+  result?: App_Prescription;
+  /**
+   * 附加数据
+   */
+  extras?: null;
+  /**
+   * 时间
+   */
+  time?: string;
+}
 export interface App_UserOutput {
   /**
    * 主键Id
@@ -4655,7 +7349,7 @@ export interface App_UserOutput {
    */
   avatarAttachment?: SysFile;
   /**
-   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
+   * 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
    */
   sex?: GenderEnum;
   /**
@@ -5291,6 +7985,8 @@ declare global {
        *     updateUserName?: string | null
        *     // 软删除
        *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
        *     // 标签名称
        *     name?: string | null
        *   }
@@ -6035,6 +8731,8 @@ declare global {
        *     updateUserName?: string | null
        *     // 软删除
        *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
        *     // 标题
        *     title?: string | null
        *     // 摘要/简介
@@ -7378,6 +10076,8 @@ declare global {
        *     updateUserName?: string | null
        *     // 软删除
        *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
        *     // 备  注:健康症状
        *     // 默认值:
        *     title?: string | null
@@ -8370,8 +11070,8 @@ declare global {
        *       mobile?: string | null
        *       // 邮箱
        *       email?: string | null
-       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *       sex?: 0 | 1 | 2 | 9
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       sex?: 0 | 1 | 2
        *       // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
        *       accountType?: 666 | 777 | 888 | 999
        *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
@@ -8521,8 +11221,8 @@ declare global {
        *       mobile?: string | null
        *       // 邮箱
        *       email?: string | null
-       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *       sex?: 0 | 1 | 2 | 9
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       sex?: 0 | 1 | 2
        *       // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
        *       accountType?: 666 | 777 | 888 | 999
        *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
@@ -8642,8 +11342,8 @@ declare global {
        *       mobile?: string | null
        *       // 邮箱
        *       email?: string | null
-       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *       sex?: 0 | 1 | 2 | 9
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       sex?: 0 | 1 | 2
        *       // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
        *       accountType?: 666 | 777 | 888 | 999
        *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
@@ -8726,8 +11426,8 @@ declare global {
        *     mobile?: string | null
        *     // 邮箱
        *     email?: string | null
-       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *     sex?: 0 | 1 | 2 | 9
+       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *     sex?: 0 | 1 | 2
        *     // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
        *     accountType?: 666 | 777 | 888 | 999
        *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
@@ -8814,8 +11514,8 @@ declare global {
        *   nickName?: string | null
        *   // 邮箱
        *   email?: string | null
-       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *   sex?: 0 | 1 | 2 | 9
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *   sex?: 0 | 1 | 2
        * }
        * ```
        *
@@ -8844,8 +11544,8 @@ declare global {
        *     mobile?: string | null
        *     // 邮箱
        *     email?: string | null
-       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *     sex?: 0 | 1 | 2 | 9
+       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *     sex?: 0 | 1 | 2
        *     // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
        *     accountType?: 666 | 777 | 888 | 999
        *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
@@ -8909,8 +11609,8 @@ declare global {
        *   nickName?: string | null
        *   // 头像
        *   avatar?: string | null
-       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *   sex?: 0 | 1 | 2 | 9
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *   sex?: 0 | 1 | 2
        *   // 出生日期
        *   birthday?: string | null
        *   // 地址
@@ -8945,8 +11645,8 @@ declare global {
        *     mobile?: string | null
        *     // 邮箱
        *     email?: string | null
-       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *     sex?: 0 | 1 | 2 | 9
+       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *     sex?: 0 | 1 | 2
        *     // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
        *     accountType?: 666 | 777 | 888 | 999
        *     // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
@@ -9360,6 +12060,1784 @@ declare global {
         config: Config
       ): Alova2Method<AdminResult_Boolean, 'appUser.apiAppuserCheckmobileavailableMobilePost', Config>;
     };
+    app_Appointment: {
+      /**
+       * ---
+       *
+       * [POST] 分页查询预约 🔖
+       *
+       * **path:** /api/app_Appointment/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 预约编号
+       *   appointmentNo?: string | null
+       *   // 关联处方
+       *   prescriptionId?: number | null
+       *   // 患者ID
+       *   patientId?: number | null
+       *   // 医生ID
+       *   doctorId?: number | null
+       *   // 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+       *   appointmentType?: 1 | 2 | 3
+       *   // 预约日期范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   appointmentDateRange?: (string | null)[] | null
+       *   // 预约时间段
+       *   appointmentTime?: string | null
+       *   // 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+       *   reservationStatus?: 1 | 2 | 3 | 4 | 5 | 6 | 7
+       *   // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *   prescriptionStatus?: 1 | 2 | 3 | 4 | 5
+       *   // 问诊价格
+       *   amount?: number | null
+       *   // 问诊优惠金额
+       *   discountAmount?: number | null
+       *   // 问诊实付金额
+       *   actualAmount?: number | null
+       *   // 服务时长
+       *   serviceDuration?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 预约输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 预约编号
+       *       appointmentNo?: string | null
+       *       // 关联处方
+       *       prescriptionId?: number
+       *       // 关联处方 描述
+       *       prescriptionFkDisplayName?: string | null
+       *       // 患者ID
+       *       patientId?: number
+       *       // 患者ID 描述
+       *       patientFkDisplayName?: string | null
+       *       // 医生ID
+       *       doctorId?: number
+       *       // 医生ID 描述
+       *       doctorFkDisplayName?: string | null
+       *       // 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+       *       appointmentType?: 1 | 2 | 3
+       *       // 预约日期
+       *       appointmentDate?: string | null
+       *       // 预约时间段
+       *       appointmentTime?: string | null
+       *       // 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+       *       reservationStatus?: 1 | 2 | 3 | 4 | 5 | 6 | 7
+       *       // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *       prescriptionStatus?: 1 | 2 | 3 | 4 | 5
+       *       // 问诊价格
+       *       amount?: number
+       *       // 问诊优惠金额
+       *       discountAmount?: number
+       *       // 问诊实付金额
+       *       actualAmount?: number
+       *       // 服务时长
+       *       serviceDuration?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_appointmentPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_AppointmentOutput> & {
+          data: Pageapp_AppointmentInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_AppointmentOutput,
+        'app_Appointment.apiApp_appointmentPagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取预约详情 ℹ️
+       *
+       * **path:** /api/app_Appointment/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 预约挂号表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
+       *     // 预约编号/订单号
+       *     appointmentNo?: string | null
+       *     // 关联处方ID
+       *     prescriptionId?: number
+       *     // 处方表
+       *     prescription?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 处方名称
+       *       prescriptionName?: string | null
+       *       // 处方用法
+       *       usage?: string | null
+       *       // 处方药材（JSON数组，药材名+用量+价格）
+       *       // [params1] start
+       *       // [items] start
+       *       // 处方药材明细
+       *       // [items] end
+       *       // [params1] end
+       *       medicines?: Array<{
+       *         // 药材名称
+       *         name?: string | null
+       *         // 用量
+       *         amount?: number
+       *         // 价格
+       *         price?: number
+       *       }> | null
+       *       // 处方金额
+       *       totalAmount?: number
+       *       // 药材金额
+       *       medicineAmount?: number
+       *       // 运费
+       *       freight?: number
+       *       // 快递单号
+       *       expressNo?: string | null
+       *       // 发货药房
+       *       pharmacy?: string | null
+       *       // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *       orderStatus?: 1 | 2 | 3 | 4 | 5
+       *       // 关联预约ID
+       *       appointmentId?: number
+       *       // [cycle] $.result
+       *       appointment?: App_Appointment
+       *       // 患者ID
+       *       patientId?: number
+       *       // APP用户信息表
+       *       patient?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 软删除
+       *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
+       *         // 用户名，不允许重复
+       *         username?: string | null
+       *         // 用户昵称
+       *         nickName?: string | null
+       *         // 头像地址
+       *         avatar?: string | null
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *         sex?: 0 | 1 | 2
+       *         // 年龄
+       *         age?: number
+       *         // 出生日期
+       *         birthday?: string | null
+       *         // 个人简介
+       *         introduction?: string | null
+       *         // 用户标签
+       *         tags?: string | null
+       *         // 用户积分
+       *         score?: number
+       *         // 手机号码
+       *         mobile?: string | null
+       *         // 手机号验证状态：0 未验证 1 已验证
+       *         mobileConfirmed?: number
+       *         // 邮箱地址
+       *         email?: string | null
+       *         // 邮箱验证状态：0 未验证 1 已验证
+       *         emailConfirmed?: number
+       *         // 办公电话
+       *         officePhone?: string | null
+       *         // 国家
+       *         country?: string | null
+       *         // 省
+       *         province?: string | null
+       *         // 城市
+       *         city?: string | null
+       *         // 详细地址
+       *         address?: string | null
+       *         // 语言
+       *         language?: string | null
+       *         // 民族
+       *         nation?: string | null
+       *         // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *         cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *         // 身份证号
+       *         idCardNum?: string | null
+       *         // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *         cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *         // 政治面貌
+       *         politicalOutlook?: string | null
+       *         // 毕业院校
+       *         college?: string | null
+       *         // 实名认证信息（JSON格式）
+       *         realnameAuth?: string | null
+       *         // 紧急联系人
+       *         emergencyContact?: string | null
+       *         // 紧急联系人电话
+       *         emergencyPhone?: string | null
+       *         // 紧急联系人地址
+       *         emergencyAddress?: string | null
+       *         // 密码使用的passwordSecret版本
+       *         passwordSecretVersion?: number
+       *         // 微信各平台openid（JSON格式）
+       *         wxOpenId?: string | null
+       *         // 微信unionid
+       *         wxUnionId?: string | null
+       *         // 支付宝平台openid
+       *         aliOpenId?: string | null
+       *         // 苹果登录openid
+       *         appleOpenId?: string | null
+       *         // QQ各平台openid（JSON格式）
+       *         qqOpenId?: string | null
+       *         // QQ unionid
+       *         qqUnionId?: string | null
+       *         // 华为openid
+       *         huaweiOpenId?: string | null
+       *         // 华为unionid
+       *         huaweiUnionId?: string | null
+       *         // 三方平台身份信息（JSON格式）
+       *         identities?: string | null
+       *         // 会话密钥
+       *         sessionKey?: string | null
+       *         // 用户角色（JSON格式）
+       *         // [params1] start
+       *         // [items] start
+       *         // APP用户角色表
+       *         // [items] end
+       *         // [params1] end
+       *         role?: Array<{
+       *           // 雪花Id
+       *           id?: number
+       *           // 用户Id
+       *           userId?: number
+       *           // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *           role?: 666 | 777 | 888 | 999
+       *           // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *           auditStatus?: 0 | 1
+       *           // 备注
+       *           remark?: string | null
+       *           // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *           status?: 1 | 2
+       *         }> | null
+       *         // 部门ID（JSON格式）
+       *         departmentId?: string | null
+       *         // 允许登录的客户端的appid列表（JSON格式）
+       *         dcloudAppId?: string | null
+       *         // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *         accountType?: 666 | 777 | 888 | 999
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         defaultRole?: 666 | 777 | 888 | 999
+       *         // 用户自身邀请码
+       *         myInviteCode?: string | null
+       *         // 邀请人Id
+       *         invitedUserId?: number | null
+       *         // 用户全部上级邀请者（JSON格式）
+       *         inviterUid?: string | null
+       *         // 受邀时间
+       *         inviteTime?: string | null
+       *         // 注册时间
+       *         registerDate?: string | null
+       *         // 注册时IP地址
+       *         registerIp?: string | null
+       *         // 最后登录时间
+       *         lastLoginTime?: string | null
+       *         // 最后登录时IP地址
+       *         lastLoginIp?: string | null
+       *         // 最后登录地点
+       *         lastLoginAddress?: string | null
+       *         // 最后登录设备
+       *         lastLoginDevice?: string | null
+       *         // 最后登录渠道
+       *         lastLoginFrom?: string | null
+       *         // AccessToken
+       *         accessToken?: string | null
+       *         // RefreshToken
+       *         refreshToken?: string | null
+       *         // 过期时间
+       *         expiresIn?: number | null
+       *         // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *         platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *         // 排序
+       *         orderNo?: number
+       *         // 备注
+       *         remark?: string | null
+       *       }
+       *       // 收件人
+       *       receiver?: string | null
+       *       // 收货地址
+       *       receiverAddress?: string | null
+       *       // 患者电话
+       *       patientPhone?: string | null
+       *       // 患者姓名
+       *       patientName?: string | null
+       *       // 患者年龄
+       *       patientAge?: number | null
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       patientSex?: 0 | 1 | 2
+       *       // 医生ID
+       *       doctorId?: number
+       *       // 医生/顾问审核表
+       *       doctor?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 软删除
+       *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
+       *         // 审核类型(多选)
+       *         // [params1] start
+       *         // [items] start
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         // [items] end
+       *         // [params1] end
+       *         auditing_types?: (666 | 777 | 888 | 999)[] | null
+       *         // 用户ID
+       *         userId?: number
+       *         // APP用户信息表
+       *         appUser?: {
+       *           // 雪花Id
+       *           id?: number
+       *           // 创建时间
+       *           createTime?: string
+       *           // 更新时间
+       *           updateTime?: string | null
+       *           // 创建者Id
+       *           createUserId?: number | null
+       *           // 创建者姓名
+       *           createUserName?: string | null
+       *           // 修改者Id
+       *           updateUserId?: number | null
+       *           // 修改者姓名
+       *           updateUserName?: string | null
+       *           // 软删除
+       *           isDelete?: boolean
+       *           // 软删除时间
+       *           deleteTime?: string | null
+       *           // 用户名，不允许重复
+       *           username?: string | null
+       *           // 用户昵称
+       *           nickName?: string | null
+       *           // 头像地址
+       *           avatar?: string | null
+       *           // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *           sex?: 0 | 1 | 2
+       *           // 年龄
+       *           age?: number
+       *           // 出生日期
+       *           birthday?: string | null
+       *           // 个人简介
+       *           introduction?: string | null
+       *           // 用户标签
+       *           tags?: string | null
+       *           // 用户积分
+       *           score?: number
+       *           // 手机号码
+       *           mobile?: string | null
+       *           // 手机号验证状态：0 未验证 1 已验证
+       *           mobileConfirmed?: number
+       *           // 邮箱地址
+       *           email?: string | null
+       *           // 邮箱验证状态：0 未验证 1 已验证
+       *           emailConfirmed?: number
+       *           // 办公电话
+       *           officePhone?: string | null
+       *           // 国家
+       *           country?: string | null
+       *           // 省
+       *           province?: string | null
+       *           // 城市
+       *           city?: string | null
+       *           // 详细地址
+       *           address?: string | null
+       *           // 语言
+       *           language?: string | null
+       *           // 民族
+       *           nation?: string | null
+       *           // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *           cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *           // 身份证号
+       *           idCardNum?: string | null
+       *           // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *           cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *           // 政治面貌
+       *           politicalOutlook?: string | null
+       *           // 毕业院校
+       *           college?: string | null
+       *           // 实名认证信息（JSON格式）
+       *           realnameAuth?: string | null
+       *           // 紧急联系人
+       *           emergencyContact?: string | null
+       *           // 紧急联系人电话
+       *           emergencyPhone?: string | null
+       *           // 紧急联系人地址
+       *           emergencyAddress?: string | null
+       *           // 密码使用的passwordSecret版本
+       *           passwordSecretVersion?: number
+       *           // 微信各平台openid（JSON格式）
+       *           wxOpenId?: string | null
+       *           // 微信unionid
+       *           wxUnionId?: string | null
+       *           // 支付宝平台openid
+       *           aliOpenId?: string | null
+       *           // 苹果登录openid
+       *           appleOpenId?: string | null
+       *           // QQ各平台openid（JSON格式）
+       *           qqOpenId?: string | null
+       *           // QQ unionid
+       *           qqUnionId?: string | null
+       *           // 华为openid
+       *           huaweiOpenId?: string | null
+       *           // 华为unionid
+       *           huaweiUnionId?: string | null
+       *           // 三方平台身份信息（JSON格式）
+       *           identities?: string | null
+       *           // 会话密钥
+       *           sessionKey?: string | null
+       *           // 用户角色（JSON格式）
+       *           // [params1] start
+       *           // [items] start
+       *           // APP用户角色表
+       *           // [items] end
+       *           // [params1] end
+       *           role?: Array<{
+       *             // 雪花Id
+       *             id?: number
+       *             // 用户Id
+       *             userId?: number
+       *             // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *             role?: 666 | 777 | 888 | 999
+       *             // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *             auditStatus?: 0 | 1
+       *             // 备注
+       *             remark?: string | null
+       *             // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *             status?: 1 | 2
+       *           }> | null
+       *           // 部门ID（JSON格式）
+       *           departmentId?: string | null
+       *           // 允许登录的客户端的appid列表（JSON格式）
+       *           dcloudAppId?: string | null
+       *           // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *           accountType?: 666 | 777 | 888 | 999
+       *           // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *           defaultRole?: 666 | 777 | 888 | 999
+       *           // 用户自身邀请码
+       *           myInviteCode?: string | null
+       *           // 邀请人Id
+       *           invitedUserId?: number | null
+       *           // 用户全部上级邀请者（JSON格式）
+       *           inviterUid?: string | null
+       *           // 受邀时间
+       *           inviteTime?: string | null
+       *           // 注册时间
+       *           registerDate?: string | null
+       *           // 注册时IP地址
+       *           registerIp?: string | null
+       *           // 最后登录时间
+       *           lastLoginTime?: string | null
+       *           // 最后登录时IP地址
+       *           lastLoginIp?: string | null
+       *           // 最后登录地点
+       *           lastLoginAddress?: string | null
+       *           // 最后登录设备
+       *           lastLoginDevice?: string | null
+       *           // 最后登录渠道
+       *           lastLoginFrom?: string | null
+       *           // AccessToken
+       *           accessToken?: string | null
+       *           // RefreshToken
+       *           refreshToken?: string | null
+       *           // 过期时间
+       *           expiresIn?: number | null
+       *           // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *           platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *           // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *           status?: 1 | 2
+       *           // 排序
+       *           orderNo?: number
+       *           // 备注
+       *           remark?: string | null
+       *         }
+       *         // 头像
+       *         avatar?: string | null
+       *         // 推荐人手机号
+       *         referrer_telephone?: string | null
+       *         // 位置
+       *         position?: string | null
+       *         // 省
+       *         province?: string | null
+       *         // 城市
+       *         city?: string | null
+       *         // 地区
+       *         district?: string | null
+       *         // 详细地址
+       *         address?: string | null
+       *         // 参加工作时间
+       *         employment_date?: string | null
+       *         // 部门
+       *         department?: string | null
+       *         // 职称
+       *         job_title?: string | null
+       *         // 擅长领域
+       *         // [params1] start
+       *         // [items] start
+       *         // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *         // [items] end
+       *         // [params1] end
+       *         fields?:
+       *           | (
+       *               | 1
+       *               | 2
+       *               | 3
+       *               | 4
+       *               | 5
+       *               | 6
+       *               | 7
+       *               | 8
+       *               | 9
+       *               | 10
+       *               | 11
+       *               | 12
+       *               | 13
+       *               | 14
+       *               | 15
+       *               | 16
+       *               | 17
+       *               | 18
+       *               | 19
+       *               | 20
+       *               | 21
+       *               | 22
+       *               | 23
+       *               | 24
+       *               | 25
+       *               | 61
+       *               | 62
+       *               | 63
+       *               | 64
+       *               | 65
+       *               | 66
+       *             )[]
+       *           | null
+       *         // 个人简介/医生简介
+       *         introduction?: string | null
+       *         // 咨询费用
+       *         inquiry_fee?: number | null
+       *         // 视频问诊费用
+       *         videoConsultationFee?: number | null
+       *         // 视频问诊时长（分钟）
+       *         videoConsultationDuration?: number | null
+       *         // 是否开启视频问诊
+       *         videoConsulationEnabled?: boolean
+       *         // 图文问诊费用
+       *         textConsultationFee?: number | null
+       *         // 图文问诊时长（分钟）
+       *         textConsultationDuration?: number | null
+       *         // 是否开启图文问诊
+       *         textConsultationEnabled?: boolean
+       *         // 语音问诊费用
+       *         audioConsultationFee?: number | null
+       *         // 语音问诊时长（分钟）
+       *         audioConsultationDuration?: number | null
+       *         // 是否开启语音问诊
+       *         audioConsultationEnabled?: boolean
+       *         // 身份证正面
+       *         idcard_front_image?: string | null
+       *         // 身份证反面
+       *         idcard_back_image?: string | null
+       *         // 手持证件照
+       *         idcard_handheld_image?: string | null
+       *         // 医生资格照(多张)
+       *         // [params1] start
+       *         // [items] start
+       *         // [items] end
+       *         // [params1] end
+       *         doctor_qualification_images?: string[] | null
+       *         // 中医资质证明(多张)
+       *         // [params1] start
+       *         // [items] start
+       *         // [items] end
+       *         // [params1] end
+       *         chn_medicine_qualification_images?: string[] | null
+       *         // 担保人名称
+       *         guarantor_name?: string | null
+       *         // 担保人身份正面
+       *         guarantor_idcard_front_image?: string | null
+       *         // 担保人身份反面
+       *         guarantor_idcard_back_image?: string | null
+       *         // 担保人手持身份证照
+       *         guarantor_idcard_handheld_image?: string | null
+       *         // 推荐
+       *         recommend?: boolean | null
+       *         // 评价平均分
+       *         avg_rating_score?: number | null
+       *         // 接诊人次
+       *         consultation_Count?: number
+       *         // 满意度（百分比）
+       *         satisfaction_Rate?: number
+       *         // 接诊速度/较快/一般/较慢
+       *         response_Speed?: string | null
+       *         // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *         auditing_status?: 0 | 1 | 2 | 3
+       *         // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *         avatar_auditing_status?: 0 | 1 | 2 | 3
+       *         // 论文数
+       *         paper_count?: number | null
+       *         // 审核人
+       *         auditing_operator?: number | null
+       *         // 审核时间
+       *         auditing_at?: string | null
+       *         // 审核原因
+       *         auditing_reason?: string | null
+       *         // 是否是特诊医生
+       *         is_special_diagnosis?: boolean | null
+       *         // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *         consultant_type?: 1 | 2 | 3
+       *         // 顾问证书编号
+       *         consultant_certificate_no?: string | null
+       *         // 顾问证书图片
+       *         // [params1] start
+       *         // [items] start
+       *         // [items] end
+       *         // [params1] end
+       *         consultant_certificate_image?: string[] | null
+       *         // 顾问资格说明
+       *         consultant_qualification_desc?: string | null
+       *       }
+       *       // 医生姓名
+       *       doctorName?: string | null
+       *       // 医生佣金
+       *       doctorCommission?: number | null
+       *     }
+       *     // 患者ID
+       *     patientId?: number
+       *     // APP用户信息表
+       *     appUser?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 用户名，不允许重复
+       *       username?: string | null
+       *       // 用户昵称
+       *       nickName?: string | null
+       *       // 头像地址
+       *       avatar?: string | null
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       sex?: 0 | 1 | 2
+       *       // 年龄
+       *       age?: number
+       *       // 出生日期
+       *       birthday?: string | null
+       *       // 个人简介
+       *       introduction?: string | null
+       *       // 用户标签
+       *       tags?: string | null
+       *       // 用户积分
+       *       score?: number
+       *       // 手机号码
+       *       mobile?: string | null
+       *       // 手机号验证状态：0 未验证 1 已验证
+       *       mobileConfirmed?: number
+       *       // 邮箱地址
+       *       email?: string | null
+       *       // 邮箱验证状态：0 未验证 1 已验证
+       *       emailConfirmed?: number
+       *       // 办公电话
+       *       officePhone?: string | null
+       *       // 国家
+       *       country?: string | null
+       *       // 省
+       *       province?: string | null
+       *       // 城市
+       *       city?: string | null
+       *       // 详细地址
+       *       address?: string | null
+       *       // 语言
+       *       language?: string | null
+       *       // 民族
+       *       nation?: string | null
+       *       // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *       cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *       // 身份证号
+       *       idCardNum?: string | null
+       *       // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *       cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *       // 政治面貌
+       *       politicalOutlook?: string | null
+       *       // 毕业院校
+       *       college?: string | null
+       *       // 实名认证信息（JSON格式）
+       *       realnameAuth?: string | null
+       *       // 紧急联系人
+       *       emergencyContact?: string | null
+       *       // 紧急联系人电话
+       *       emergencyPhone?: string | null
+       *       // 紧急联系人地址
+       *       emergencyAddress?: string | null
+       *       // 密码使用的passwordSecret版本
+       *       passwordSecretVersion?: number
+       *       // 微信各平台openid（JSON格式）
+       *       wxOpenId?: string | null
+       *       // 微信unionid
+       *       wxUnionId?: string | null
+       *       // 支付宝平台openid
+       *       aliOpenId?: string | null
+       *       // 苹果登录openid
+       *       appleOpenId?: string | null
+       *       // QQ各平台openid（JSON格式）
+       *       qqOpenId?: string | null
+       *       // QQ unionid
+       *       qqUnionId?: string | null
+       *       // 华为openid
+       *       huaweiOpenId?: string | null
+       *       // 华为unionid
+       *       huaweiUnionId?: string | null
+       *       // 三方平台身份信息（JSON格式）
+       *       identities?: string | null
+       *       // 会话密钥
+       *       sessionKey?: string | null
+       *       // 用户角色（JSON格式）
+       *       // [params1] start
+       *       // [items] start
+       *       // APP用户角色表
+       *       // [items] end
+       *       // [params1] end
+       *       role?: Array<{
+       *         // 雪花Id
+       *         id?: number
+       *         // 用户Id
+       *         userId?: number
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         role?: 666 | 777 | 888 | 999
+       *         // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *         auditStatus?: 0 | 1
+       *         // 备注
+       *         remark?: string | null
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *       }> | null
+       *       // 部门ID（JSON格式）
+       *       departmentId?: string | null
+       *       // 允许登录的客户端的appid列表（JSON格式）
+       *       dcloudAppId?: string | null
+       *       // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *       accountType?: 666 | 777 | 888 | 999
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       defaultRole?: 666 | 777 | 888 | 999
+       *       // 用户自身邀请码
+       *       myInviteCode?: string | null
+       *       // 邀请人Id
+       *       invitedUserId?: number | null
+       *       // 用户全部上级邀请者（JSON格式）
+       *       inviterUid?: string | null
+       *       // 受邀时间
+       *       inviteTime?: string | null
+       *       // 注册时间
+       *       registerDate?: string | null
+       *       // 注册时IP地址
+       *       registerIp?: string | null
+       *       // 最后登录时间
+       *       lastLoginTime?: string | null
+       *       // 最后登录时IP地址
+       *       lastLoginIp?: string | null
+       *       // 最后登录地点
+       *       lastLoginAddress?: string | null
+       *       // 最后登录设备
+       *       lastLoginDevice?: string | null
+       *       // 最后登录渠道
+       *       lastLoginFrom?: string | null
+       *       // AccessToken
+       *       accessToken?: string | null
+       *       // RefreshToken
+       *       refreshToken?: string | null
+       *       // 过期时间
+       *       expiresIn?: number | null
+       *       // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *       platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *       status?: 1 | 2
+       *       // 排序
+       *       orderNo?: number
+       *       // 备注
+       *       remark?: string | null
+       *     }
+       *     // 医生ID
+       *     doctorId?: number
+       *     // 医生/顾问审核表
+       *     appDoctor?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 审核类型(多选)
+       *       // [params1] start
+       *       // [items] start
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       // [items] end
+       *       // [params1] end
+       *       auditing_types?: (666 | 777 | 888 | 999)[] | null
+       *       // 用户ID
+       *       userId?: number
+       *       // APP用户信息表
+       *       appUser?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 软删除
+       *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
+       *         // 用户名，不允许重复
+       *         username?: string | null
+       *         // 用户昵称
+       *         nickName?: string | null
+       *         // 头像地址
+       *         avatar?: string | null
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *         sex?: 0 | 1 | 2
+       *         // 年龄
+       *         age?: number
+       *         // 出生日期
+       *         birthday?: string | null
+       *         // 个人简介
+       *         introduction?: string | null
+       *         // 用户标签
+       *         tags?: string | null
+       *         // 用户积分
+       *         score?: number
+       *         // 手机号码
+       *         mobile?: string | null
+       *         // 手机号验证状态：0 未验证 1 已验证
+       *         mobileConfirmed?: number
+       *         // 邮箱地址
+       *         email?: string | null
+       *         // 邮箱验证状态：0 未验证 1 已验证
+       *         emailConfirmed?: number
+       *         // 办公电话
+       *         officePhone?: string | null
+       *         // 国家
+       *         country?: string | null
+       *         // 省
+       *         province?: string | null
+       *         // 城市
+       *         city?: string | null
+       *         // 详细地址
+       *         address?: string | null
+       *         // 语言
+       *         language?: string | null
+       *         // 民族
+       *         nation?: string | null
+       *         // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *         cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *         // 身份证号
+       *         idCardNum?: string | null
+       *         // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *         cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *         // 政治面貌
+       *         politicalOutlook?: string | null
+       *         // 毕业院校
+       *         college?: string | null
+       *         // 实名认证信息（JSON格式）
+       *         realnameAuth?: string | null
+       *         // 紧急联系人
+       *         emergencyContact?: string | null
+       *         // 紧急联系人电话
+       *         emergencyPhone?: string | null
+       *         // 紧急联系人地址
+       *         emergencyAddress?: string | null
+       *         // 密码使用的passwordSecret版本
+       *         passwordSecretVersion?: number
+       *         // 微信各平台openid（JSON格式）
+       *         wxOpenId?: string | null
+       *         // 微信unionid
+       *         wxUnionId?: string | null
+       *         // 支付宝平台openid
+       *         aliOpenId?: string | null
+       *         // 苹果登录openid
+       *         appleOpenId?: string | null
+       *         // QQ各平台openid（JSON格式）
+       *         qqOpenId?: string | null
+       *         // QQ unionid
+       *         qqUnionId?: string | null
+       *         // 华为openid
+       *         huaweiOpenId?: string | null
+       *         // 华为unionid
+       *         huaweiUnionId?: string | null
+       *         // 三方平台身份信息（JSON格式）
+       *         identities?: string | null
+       *         // 会话密钥
+       *         sessionKey?: string | null
+       *         // 用户角色（JSON格式）
+       *         // [params1] start
+       *         // [items] start
+       *         // APP用户角色表
+       *         // [items] end
+       *         // [params1] end
+       *         role?: Array<{
+       *           // 雪花Id
+       *           id?: number
+       *           // 用户Id
+       *           userId?: number
+       *           // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *           role?: 666 | 777 | 888 | 999
+       *           // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *           auditStatus?: 0 | 1
+       *           // 备注
+       *           remark?: string | null
+       *           // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *           status?: 1 | 2
+       *         }> | null
+       *         // 部门ID（JSON格式）
+       *         departmentId?: string | null
+       *         // 允许登录的客户端的appid列表（JSON格式）
+       *         dcloudAppId?: string | null
+       *         // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *         accountType?: 666 | 777 | 888 | 999
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         defaultRole?: 666 | 777 | 888 | 999
+       *         // 用户自身邀请码
+       *         myInviteCode?: string | null
+       *         // 邀请人Id
+       *         invitedUserId?: number | null
+       *         // 用户全部上级邀请者（JSON格式）
+       *         inviterUid?: string | null
+       *         // 受邀时间
+       *         inviteTime?: string | null
+       *         // 注册时间
+       *         registerDate?: string | null
+       *         // 注册时IP地址
+       *         registerIp?: string | null
+       *         // 最后登录时间
+       *         lastLoginTime?: string | null
+       *         // 最后登录时IP地址
+       *         lastLoginIp?: string | null
+       *         // 最后登录地点
+       *         lastLoginAddress?: string | null
+       *         // 最后登录设备
+       *         lastLoginDevice?: string | null
+       *         // 最后登录渠道
+       *         lastLoginFrom?: string | null
+       *         // AccessToken
+       *         accessToken?: string | null
+       *         // RefreshToken
+       *         refreshToken?: string | null
+       *         // 过期时间
+       *         expiresIn?: number | null
+       *         // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *         platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *         // 排序
+       *         orderNo?: number
+       *         // 备注
+       *         remark?: string | null
+       *       }
+       *       // 头像
+       *       avatar?: string | null
+       *       // 推荐人手机号
+       *       referrer_telephone?: string | null
+       *       // 位置
+       *       position?: string | null
+       *       // 省
+       *       province?: string | null
+       *       // 城市
+       *       city?: string | null
+       *       // 地区
+       *       district?: string | null
+       *       // 详细地址
+       *       address?: string | null
+       *       // 参加工作时间
+       *       employment_date?: string | null
+       *       // 部门
+       *       department?: string | null
+       *       // 职称
+       *       job_title?: string | null
+       *       // 擅长领域
+       *       // [params1] start
+       *       // [items] start
+       *       // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *       // [items] end
+       *       // [params1] end
+       *       fields?:
+       *         | (
+       *             | 1
+       *             | 2
+       *             | 3
+       *             | 4
+       *             | 5
+       *             | 6
+       *             | 7
+       *             | 8
+       *             | 9
+       *             | 10
+       *             | 11
+       *             | 12
+       *             | 13
+       *             | 14
+       *             | 15
+       *             | 16
+       *             | 17
+       *             | 18
+       *             | 19
+       *             | 20
+       *             | 21
+       *             | 22
+       *             | 23
+       *             | 24
+       *             | 25
+       *             | 61
+       *             | 62
+       *             | 63
+       *             | 64
+       *             | 65
+       *             | 66
+       *           )[]
+       *         | null
+       *       // 个人简介/医生简介
+       *       introduction?: string | null
+       *       // 咨询费用
+       *       inquiry_fee?: number | null
+       *       // 视频问诊费用
+       *       videoConsultationFee?: number | null
+       *       // 视频问诊时长（分钟）
+       *       videoConsultationDuration?: number | null
+       *       // 是否开启视频问诊
+       *       videoConsulationEnabled?: boolean
+       *       // 图文问诊费用
+       *       textConsultationFee?: number | null
+       *       // 图文问诊时长（分钟）
+       *       textConsultationDuration?: number | null
+       *       // 是否开启图文问诊
+       *       textConsultationEnabled?: boolean
+       *       // 语音问诊费用
+       *       audioConsultationFee?: number | null
+       *       // 语音问诊时长（分钟）
+       *       audioConsultationDuration?: number | null
+       *       // 是否开启语音问诊
+       *       audioConsultationEnabled?: boolean
+       *       // 身份证正面
+       *       idcard_front_image?: string | null
+       *       // 身份证反面
+       *       idcard_back_image?: string | null
+       *       // 手持证件照
+       *       idcard_handheld_image?: string | null
+       *       // 医生资格照(多张)
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       doctor_qualification_images?: string[] | null
+       *       // 中医资质证明(多张)
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       chn_medicine_qualification_images?: string[] | null
+       *       // 担保人名称
+       *       guarantor_name?: string | null
+       *       // 担保人身份正面
+       *       guarantor_idcard_front_image?: string | null
+       *       // 担保人身份反面
+       *       guarantor_idcard_back_image?: string | null
+       *       // 担保人手持身份证照
+       *       guarantor_idcard_handheld_image?: string | null
+       *       // 推荐
+       *       recommend?: boolean | null
+       *       // 评价平均分
+       *       avg_rating_score?: number | null
+       *       // 接诊人次
+       *       consultation_Count?: number
+       *       // 满意度（百分比）
+       *       satisfaction_Rate?: number
+       *       // 接诊速度/较快/一般/较慢
+       *       response_Speed?: string | null
+       *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *       auditing_status?: 0 | 1 | 2 | 3
+       *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *       avatar_auditing_status?: 0 | 1 | 2 | 3
+       *       // 论文数
+       *       paper_count?: number | null
+       *       // 审核人
+       *       auditing_operator?: number | null
+       *       // 审核时间
+       *       auditing_at?: string | null
+       *       // 审核原因
+       *       auditing_reason?: string | null
+       *       // 是否是特诊医生
+       *       is_special_diagnosis?: boolean | null
+       *       // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *       consultant_type?: 1 | 2 | 3
+       *       // 顾问证书编号
+       *       consultant_certificate_no?: string | null
+       *       // 顾问证书图片
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       consultant_certificate_image?: string[] | null
+       *       // 顾问资格说明
+       *       consultant_qualification_desc?: string | null
+       *     }
+       *     // 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+       *     appointmentType?: 1 | 2 | 3
+       *     // 预约日期
+       *     appointmentDate?: string | null
+       *     // 预约时间段（如：10:30-11:30）
+       *     appointmentTime?: string | null
+       *     // 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+       *     reservationStatus?: 1 | 2 | 3 | 4 | 5 | 6 | 7
+       *     // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *     prescriptionStatus?: 1 | 2 | 3 | 4 | 5
+       *     // 问诊价格
+       *     amount?: number
+       *     // 问诊优惠金额
+       *     discountAmount?: number
+       *     // 问诊实付金额
+       *     actualAmount?: number
+       *     // 服务时长（如：10分钟、图文多轮沟通）
+       *     serviceDuration?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_appointmentDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_Appointment> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_Appointment, 'app_Appointment.apiApp_appointmentDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 增加预约 ➕
+       *
+       * **path:** /api/app_Appointment/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 预约编号
+       *   appointmentNo: string
+       *   // 关联处方
+       *   prescriptionId?: number | null
+       *   // 患者ID
+       *   patientId: number
+       *   // 医生ID
+       *   doctorId: number
+       *   // 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+       *   appointmentType: 1 | 2 | 3
+       *   // 预约日期
+       *   appointmentDate?: string | null
+       *   // 预约时间段
+       *   appointmentTime?: string | null
+       *   // 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+       *   reservationStatus: 1 | 2 | 3 | 4 | 5 | 6 | 7
+       *   // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *   prescriptionStatus: 1 | 2 | 3 | 4 | 5
+       *   // 问诊价格
+       *   amount: number
+       *   // 问诊优惠金额
+       *   discountAmount: number
+       *   // 问诊实付金额
+       *   actualAmount: number
+       *   // 服务时长
+       *   serviceDuration?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_appointmentAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_AppointmentInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_Appointment.apiApp_appointmentAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新预约 ✏️
+       *
+       * **path:** /api/app_Appointment/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 预约编号
+       *   appointmentNo: string
+       *   // 关联处方
+       *   prescriptionId?: number | null
+       *   // 患者ID
+       *   patientId: number
+       *   // 医生ID
+       *   doctorId: number
+       *   // 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+       *   appointmentType: 1 | 2 | 3
+       *   // 预约日期
+       *   appointmentDate?: string | null
+       *   // 预约时间段
+       *   appointmentTime?: string | null
+       *   // 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+       *   reservationStatus: 1 | 2 | 3 | 4 | 5 | 6 | 7
+       *   // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *   prescriptionStatus: 1 | 2 | 3 | 4 | 5
+       *   // 问诊价格
+       *   amount: number
+       *   // 问诊优惠金额
+       *   discountAmount: number
+       *   // 问诊实付金额
+       *   actualAmount: number
+       *   // 服务时长
+       *   serviceDuration?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_appointmentUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_AppointmentInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Appointment.apiApp_appointmentUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除预约 ❌
+       *
+       * **path:** /api/app_Appointment/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_appointmentDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_AppointmentInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Appointment.apiApp_appointmentDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除预约 ❌
+       *
+       * **path:** /api/app_Appointment/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_appointmentBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_AppointmentInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_Appointment.apiApp_appointmentBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 获取下拉列表数据 🔖
+       *
+       * **path:** /api/app_Appointment/dropdownData
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 是否用于分页查询
+       *   fromPage?: boolean
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: Record<string, unknown> | null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_appointmentDropdowndataPost<
+        Config extends Alova2MethodConfig<AdminResult_Dictionary_StringObject> & {
+          data: DropdownDataapp_AppointmentInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_Dictionary_StringObject,
+        'app_Appointment.apiApp_appointmentDropdowndataPost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 导出预约记录 🔖
+       *
+       * **path:** /api/app_Appointment/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 预约编号
+       *   appointmentNo?: string | null
+       *   // 关联处方
+       *   prescriptionId?: number | null
+       *   // 患者ID
+       *   patientId?: number | null
+       *   // 医生ID
+       *   doctorId?: number | null
+       *   // 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+       *   appointmentType?: 1 | 2 | 3
+       *   // 预约日期范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   appointmentDateRange?: (string | null)[] | null
+       *   // 预约时间段
+       *   appointmentTime?: string | null
+       *   // 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+       *   reservationStatus?: 1 | 2 | 3 | 4 | 5 | 6 | 7
+       *   // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *   prescriptionStatus?: 1 | 2 | 3 | 4 | 5
+       *   // 问诊价格
+       *   amount?: number | null
+       *   // 问诊优惠金额
+       *   discountAmount?: number | null
+       *   // 问诊实付金额
+       *   actualAmount?: number | null
+       *   // 服务时长
+       *   serviceDuration?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_appointmentExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_AppointmentInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Appointment.apiApp_appointmentExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载预约数据导入模板 ⬇️
+       *
+       * **path:** /api/app_Appointment/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_appointmentImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_Appointment.apiApp_appointmentImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入预约记录 💾
+       *
+       * **path:** /api/app_Appointment/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_appointmentImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Appointment.apiApp_appointmentImportPost', Config>;
+    };
     app_DoctorAuditing: {
       /**
        * ---
@@ -9557,14 +14035,16 @@ declare global {
        *         updateUserName?: string | null
        *         // 软删除
        *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
        *         // 用户名，不允许重复
        *         username?: string | null
        *         // 用户昵称
        *         nickName?: string | null
        *         // 头像地址
        *         avatar?: string | null
-       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *         sex?: 0 | 1 | 2 | 9
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *         sex?: 0 | 1 | 2
        *         // 年龄
        *         age?: number
        *         // 出生日期
@@ -10294,14 +14774,16 @@ declare global {
        *         updateUserName?: string | null
        *         // 软删除
        *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
        *         // 用户名，不允许重复
        *         username?: string | null
        *         // 用户昵称
        *         nickName?: string | null
        *         // 头像地址
        *         avatar?: string | null
-       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *         sex?: 0 | 1 | 2 | 9
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *         sex?: 0 | 1 | 2
        *         // 年龄
        *         age?: number
        *         // 出生日期
@@ -10881,6 +15363,8 @@ declare global {
        *     updateUserName?: string | null
        *     // 软删除
        *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
        *     // 审核类型(多选)
        *     // [params1] start
        *     // [items] start
@@ -10908,14 +15392,16 @@ declare global {
        *       updateUserName?: string | null
        *       // 软删除
        *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
        *       // 用户名，不允许重复
        *       username?: string | null
        *       // 用户昵称
        *       nickName?: string | null
        *       // 头像地址
        *       avatar?: string | null
-       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *       sex?: 0 | 1 | 2 | 9
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       sex?: 0 | 1 | 2
        *       // 年龄
        *       age?: number
        *       // 出生日期
@@ -11114,10 +15600,28 @@ declare global {
        *           | 66
        *         )[]
        *       | null
-       *     // 个人简介
+       *     // 个人简介/医生简介
        *     introduction?: string | null
        *     // 咨询费用
        *     inquiry_fee?: number | null
+       *     // 视频问诊费用
+       *     videoConsultationFee?: number | null
+       *     // 视频问诊时长（分钟）
+       *     videoConsultationDuration?: number | null
+       *     // 是否开启视频问诊
+       *     videoConsulationEnabled?: boolean
+       *     // 图文问诊费用
+       *     textConsultationFee?: number | null
+       *     // 图文问诊时长（分钟）
+       *     textConsultationDuration?: number | null
+       *     // 是否开启图文问诊
+       *     textConsultationEnabled?: boolean
+       *     // 语音问诊费用
+       *     audioConsultationFee?: number | null
+       *     // 语音问诊时长（分钟）
+       *     audioConsultationDuration?: number | null
+       *     // 是否开启语音问诊
+       *     audioConsultationEnabled?: boolean
        *     // 身份证正面
        *     idcard_front_image?: string | null
        *     // 身份证反面
@@ -11148,6 +15652,12 @@ declare global {
        *     recommend?: boolean | null
        *     // 评价平均分
        *     avg_rating_score?: number | null
+       *     // 接诊人次
+       *     consultation_Count?: number
+       *     // 满意度（百分比）
+       *     satisfaction_Rate?: number
+       *     // 接诊速度/较快/一般/较慢
+       *     response_Speed?: string | null
        *     // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *     auditing_status?: 0 | 1 | 2 | 3
        *     // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
@@ -12502,14 +17012,16 @@ declare global {
        *         updateUserName?: string | null
        *         // 软删除
        *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
        *         // 用户名，不允许重复
        *         username?: string | null
        *         // 用户昵称
        *         nickName?: string | null
        *         // 头像地址
        *         avatar?: string | null
-       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *         sex?: 0 | 1 | 2 | 9
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *         sex?: 0 | 1 | 2
        *         // 年龄
        *         age?: number
        *         // 出生日期
@@ -13410,6 +17922,8 @@ declare global {
        *     updateUserName?: string | null
        *     // 软删除
        *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
        *     // 分类名称
        *     name?: string | null
        *     // 父级分类Id
@@ -13746,6 +18260,575 @@ declare global {
         config: Config
       ): Alova2Method<null, 'app_HealthArticleCategory.apiApp_healtharticlecategoryImportPost', Config>;
     };
+    app_Medicine: {
+      /**
+       * ---
+       *
+       * [POST] 分页查询药材管理 🔖
+       *
+       * **path:** /api/app_Medicine/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 药材名称
+       *   name?: string | null
+       *   // 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+       *   type?: 1 | 2
+       *   // 编码
+       *   code?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 药材管理输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 药材名称
+       *       name?: string | null
+       *       // 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+       *       type?: 1 | 2
+       *       // 编码
+       *       code?: string | null
+       *       // 单价
+       *       price?: number
+       *       // 单价
+       *       costPrice?: number
+       *       // 库存
+       *       stock?: number
+       *       // 单位
+       *       unit?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_medicinePagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_MedicineOutput> & {
+          data: Pageapp_MedicineInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_SqlSugarPagedList_app_MedicineOutput, 'app_Medicine.apiApp_medicinePagePost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 获取药材管理详情 ℹ️
+       *
+       * **path:** /api/app_Medicine/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 药材表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
+       *     // 药材名称
+       *     name?: string | null
+       *     // 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+       *     type?: 1 | 2
+       *     // 编码
+       *     code?: string | null
+       *     // 单价（元/单位）
+       *     price?: number
+       *     // 折扣单价（元/单位）
+       *     costPrice?: number
+       *     // 库存
+       *     stock?: number
+       *     // 单位（如：克、片等）
+       *     unit?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_medicineDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_Medicine> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_Medicine, 'app_Medicine.apiApp_medicineDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 增加药材管理 ➕
+       *
+       * **path:** /api/app_Medicine/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 药材名称
+       *   name: string
+       *   // 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+       *   type: 1 | 2
+       *   // 编码
+       *   code?: string | null
+       *   // 单价
+       *   price: number
+       *   // 单价
+       *   costPrice: number
+       *   // 库存
+       *   stock: number
+       *   // 单位
+       *   unit: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_medicineAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_MedicineInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_Medicine.apiApp_medicineAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新药材管理 ✏️
+       *
+       * **path:** /api/app_Medicine/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 药材名称
+       *   name: string
+       *   // 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+       *   type: 1 | 2
+       *   // 编码
+       *   code?: string | null
+       *   // 单价
+       *   price: number
+       *   // 单价
+       *   costPrice: number
+       *   // 库存
+       *   stock: number
+       *   // 单位
+       *   unit: string
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_medicineUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_MedicineInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Medicine.apiApp_medicineUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除药材管理 ❌
+       *
+       * **path:** /api/app_Medicine/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_medicineDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_MedicineInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Medicine.apiApp_medicineDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除药材管理 ❌
+       *
+       * **path:** /api/app_Medicine/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_medicineBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_MedicineInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_Medicine.apiApp_medicineBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导出药材管理记录 🔖
+       *
+       * **path:** /api/app_Medicine/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 药材名称
+       *   name?: string | null
+       *   // 药材类型<br />&nbsp;颗粒 Granule = 1<br />&nbsp;饮片 DecoctionPiece = 2<br />
+       *   type?: 1 | 2
+       *   // 编码
+       *   code?: string | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_medicineExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_MedicineInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Medicine.apiApp_medicineExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载药材管理数据导入模板 ⬇️
+       *
+       * **path:** /api/app_Medicine/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_medicineImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_Medicine.apiApp_medicineImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入药材管理记录 💾
+       *
+       * **path:** /api/app_Medicine/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_medicineImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Medicine.apiApp_medicineImportPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 同步旧药材数据（T_flx_medical）到新药材表
+       *
+       * **path:** /api/app_Medicine/syncOldData
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: null
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_medicineSyncolddataPost<Config extends Alova2MethodConfig<AdminResult_Object>>(
+        config?: Config
+      ): Alova2Method<AdminResult_Object, 'app_Medicine.apiApp_medicineSyncolddataPost', Config>;
+    };
     app_Message: {
       /**
        * ---
@@ -13935,6 +19018,8 @@ declare global {
        *     updateUserName?: string | null
        *     // 软删除
        *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
        *     // 消息标题
        *     title?: string | null
        *     // 消息内容
@@ -14339,6 +19424,2881 @@ declare global {
         config: Config
       ): Alova2Method<null, 'app_Message.apiApp_messageMarkasreadMessageidPost', Config>;
     };
+    app_PaymentTransaction: {
+      /**
+       * ---
+       *
+       * [POST] 分页查询支付流水 🔖
+       *
+       * **path:** /api/app_PaymentTransaction/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+       *   transactionType?: 1 | 2
+       *   // 关联用户ID
+       *   userId?: number | null
+       *   // 商户号
+       *   mchNo?: string | null
+       *   // 应用ID
+       *   appId?: string | null
+       *   // 支付订单号
+       *   payOrderId?: string | null
+       *   // 商户订单号
+       *   mchOrderNo?: string | null
+       *   // 支付接口编码
+       *   ifCode?: string | null
+       *   // 支付方式代码
+       *   wayCode?: string | null
+       *   // Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+       *   wayCodeEnum?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20
+       *   // 订单金额
+       *   amount?: number | null
+       *   // 实际支付金额
+       *   actualAmount?: number | null
+       *   // 货币代码
+       *   currency?: string | null
+       *   // 退款订单号
+       *   refundOrderId?: string | null
+       *   // 商户退款单号
+       *   mchRefundNo?: string | null
+       *   // 退款金额
+       *   refundAmount?: number | null
+       *   // 退款原因
+       *   refundReason?: string | null
+       *   // 交易状态
+       *   state?: number | null
+       *   // 商品标题
+       *   subject?: string | null
+       *   // 商品描述
+       *   body?: string | null
+       *   // 渠道订单号
+       *   channelOrderNo?: string | null
+       *   // 渠道用户标识
+       *   channelUser?: string | null
+       *   // 渠道错误码
+       *   channelErrCode?: string | null
+       *   // 渠道错误描述
+       *   channelErrMsg?: string | null
+       *   // 订单创建时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   orderCreateTimeRange?: (string | null)[] | null
+       *   // 支付成功时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   successTimeRange?: (string | null)[] | null
+       *   // 订单失效时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   expiredTimeRange?: (string | null)[] | null
+       *   // 业务类型
+       *   businessType?: string | null
+       *   // 业务订单号
+       *   businessOrderNo?: string | null
+       *   // 门店编号
+       *   storeId?: number | null
+       *   // 码牌ID
+       *   qrcId?: number | null
+       *   // 客户端IP
+       *   clientIp?: string | null
+       *   // 异步通知地址
+       *   notifyUrl?: string | null
+       *   // 跳转通知地址
+       *   returnUrl?: string | null
+       *   // 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+       *   divisionMode?: 0 | 1 | 2
+       *   // 渠道额外参数
+       *   channelExtra?: string | null
+       *   // 扩展参数
+       *   extParam?: string | null
+       *   // 设备信息
+       *   deviceInfo?: string | null
+       *   // 回调通知次数
+       *   notifyCount?: number | null
+       *   // 最后通知时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   lastNotifyTimeRange?: (string | null)[] | null
+       *   // 通知处理状态
+       *   notifyHandleState?: number | null
+       *   // 通知处理结果
+       *   notifyHandleResult?: string | null
+       *   // 备注
+       *   remark?: string | null
+       *   // 操作日志
+       *   operationLog?: string | null
+       *   // 软删除时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   deleteTimeRange?: (string | null)[] | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 支付流水输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+       *       transactionType?: 1 | 2
+       *       // 关联用户ID
+       *       userId?: number | null
+       *       // 商户号
+       *       mchNo?: string | null
+       *       // 应用ID
+       *       appId?: string | null
+       *       // 支付订单号
+       *       payOrderId?: string | null
+       *       // 商户订单号
+       *       mchOrderNo?: string | null
+       *       // 支付接口编码
+       *       ifCode?: string | null
+       *       // 支付方式代码
+       *       wayCode?: string | null
+       *       // Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+       *       wayCodeEnum?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20
+       *       // 订单金额
+       *       amount?: number
+       *       // 实际支付金额
+       *       actualAmount?: number | null
+       *       // 货币代码
+       *       currency?: string | null
+       *       // 退款订单号
+       *       refundOrderId?: string | null
+       *       // 商户退款单号
+       *       mchRefundNo?: string | null
+       *       // 退款金额
+       *       refundAmount?: number | null
+       *       // 退款原因
+       *       refundReason?: string | null
+       *       // 交易状态
+       *       state?: number
+       *       // 商品标题
+       *       subject?: string | null
+       *       // 商品描述
+       *       body?: string | null
+       *       // 渠道订单号
+       *       channelOrderNo?: string | null
+       *       // 渠道用户标识
+       *       channelUser?: string | null
+       *       // 渠道错误码
+       *       channelErrCode?: string | null
+       *       // 渠道错误描述
+       *       channelErrMsg?: string | null
+       *       // 订单创建时间
+       *       orderCreateTime?: string | null
+       *       // 支付成功时间
+       *       successTime?: string | null
+       *       // 订单失效时间
+       *       expiredTime?: string | null
+       *       // 业务类型
+       *       businessType?: string | null
+       *       // 业务订单号
+       *       businessOrderNo?: string | null
+       *       // 门店编号
+       *       storeId?: number | null
+       *       // 码牌ID
+       *       qrcId?: number | null
+       *       // 客户端IP
+       *       clientIp?: string | null
+       *       // 异步通知地址
+       *       notifyUrl?: string | null
+       *       // 跳转通知地址
+       *       returnUrl?: string | null
+       *       // 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+       *       divisionMode?: 0 | 1 | 2
+       *       // 渠道额外参数
+       *       channelExtra?: string | null
+       *       // 扩展参数
+       *       extParam?: string | null
+       *       // 设备信息
+       *       deviceInfo?: string | null
+       *       // 回调通知次数
+       *       notifyCount?: number
+       *       // 最后通知时间
+       *       lastNotifyTime?: string | null
+       *       // 通知处理状态
+       *       notifyHandleState?: number
+       *       // 通知处理结果
+       *       notifyHandleResult?: string | null
+       *       // 备注
+       *       remark?: string | null
+       *       // 操作日志
+       *       operationLog?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_paymenttransactionPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_PaymentTransactionOutput> & {
+          data: Pageapp_PaymentTransactionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_PaymentTransactionOutput,
+        'app_PaymentTransaction.apiApp_paymenttransactionPagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取支付流水详情 ℹ️
+       *
+       * **path:** /api/app_PaymentTransaction/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // Jeepay支付交易流水表
+       *   // 记录所有支付订单和退款订单的交易流水信息
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
+       *     // 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+       *     transactionType: 1 | 2
+       *     // 关联用户ID
+       *     userId?: number | null
+       *     // 商户号
+       *     mchNo?: string | null
+       *     // 应用ID
+       *     appId?: string | null
+       *     // 支付订单号
+       *     // 支付中心生成的订单号
+       *     payOrderId?: string | null
+       *     // 商户订单号
+       *     // 商户生成的订单号
+       *     mchOrderNo: string
+       *     // 支付接口编码
+       *     // 例如：wxpay（微信支付）、alipay（支付宝）
+       *     ifCode?: string | null
+       *     // 支付方式代码
+       *     // 例如：WX_LITE、ALI_JSAPI
+       *     wayCode?: string | null
+       *     // Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+       *     wayCodeEnum?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20
+       *     // 订单金额（单位：分）
+       *     // 支付时为支付金额，退款时为原订单金额
+       *     amount: number
+       *     // 订单金额（元）
+       *     // 计算属性，用于显示
+       *     amountInYuan?: number
+       *     // 实际支付金额（单位：分）
+       *     // 考虑优惠折扣后的实际支付金额
+       *     actualAmount?: number | null
+       *     // 实际支付金额（元）
+       *     actualAmountInYuan?: number | null
+       *     // 货币代码
+       *     // 三位货币代码，人民币：cny
+       *     currency: string
+       *     // 退款订单号
+       *     // 支付中心生成的退款订单号（仅退款交易有值）
+       *     refundOrderId?: string | null
+       *     // 商户退款单号
+       *     // 商户生成的退款单号（仅退款交易有值）
+       *     mchRefundNo?: string | null
+       *     // 退款金额（单位：分）
+       *     // 仅退款交易有值
+       *     refundAmount?: number | null
+       *     // 退款金额（元）
+       *     refundAmountInYuan?: number | null
+       *     // 退款原因
+       *     refundReason?: string | null
+       *     // 交易状态
+       *     // 支付：0-订单生成, 1-支付中, 2-支付成功, 3-支付失败, 4-已撤销, 5-已退款, 6-订单关闭
+       *     // 退款：0-订单生成, 1-退款中, 2-退款成功, 3-退款失败, 4-退款关闭
+       *     state: number
+       *     // 订单状态枚举<br />&nbsp;订单生成 Created = 0<br />&nbsp;支付中 Paying = 1<br />&nbsp;支付成功 Success = 2<br />&nbsp;支付失败 Failed = 3<br />&nbsp;已撤销 Cancelled = 4<br />&nbsp;已退款 Refunded = 5<br />&nbsp;订单关闭 Closed = 6<br />
+       *     payOrderState?: 0 | 1 | 2 | 3 | 4 | 5 | 6
+       *     // 退款状态枚举<br />&nbsp;订单生成 Created = 0<br />&nbsp;退款中 Refunding = 1<br />&nbsp;退款成功 Success = 2<br />&nbsp;退款失败 Failed = 3<br />&nbsp;退款关闭 Closed = 4<br />
+       *     refundOrderState?: 0 | 1 | 2 | 3 | 4
+       *     // 交易状态描述
+       *     stateDescription?: string | null
+       *     // 是否最终状态
+       *     isFinalState?: boolean
+       *     // 商品标题
+       *     subject?: string | null
+       *     // 商品描述
+       *     body?: string | null
+       *     // 渠道订单号
+       *     // 对应微信/支付宝等第三方平台的订单号
+       *     channelOrderNo?: string | null
+       *     // 渠道用户标识
+       *     // 微信openId、支付宝userId等
+       *     channelUser?: string | null
+       *     // 渠道错误码
+       *     channelErrCode?: string | null
+       *     // 渠道错误描述
+       *     channelErrMsg?: string | null
+       *     // 订单创建时间
+       *     // Jeepay系统中的订单创建时间
+       *     orderCreateTime?: string | null
+       *     // 支付成功时间
+       *     // 支付或退款完成的时间
+       *     successTime?: string | null
+       *     // 订单失效时间
+       *     // 订单超时自动关闭的时间
+       *     expiredTime?: string | null
+       *     // 业务类型
+       *     // 商户自定义，如：商品购买、充值、服务费等
+       *     businessType?: string | null
+       *     // 业务订单号
+       *     // 商户系统内的业务订单号，如商城订单号
+       *     businessOrderNo?: string | null
+       *     // 门店编号
+       *     storeId?: number | null
+       *     // 码牌ID
+       *     qrcId?: number | null
+       *     // 客户端IP
+       *     // 发起支付的客户端IP地址
+       *     clientIp?: string | null
+       *     // 异步通知地址
+       *     // 支付结果异步回调URL
+       *     notifyUrl?: string | null
+       *     // 跳转通知地址
+       *     // 支付结果同步跳转URL
+       *     returnUrl?: string | null
+       *     // 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+       *     divisionMode?: 0 | 1 | 2
+       *     // 渠道额外参数
+       *     // JSON格式，存储特定渠道的额外参数
+       *     channelExtra?: string | null
+       *     // 扩展参数
+       *     // JSON格式，商户扩展参数
+       *     extParam?: string | null
+       *     // 设备信息
+       *     // JSON格式，终端设备信息
+       *     deviceInfo?: string | null
+       *     // 回调通知次数
+       *     // 记录接收到的异步通知次数
+       *     notifyCount?: number
+       *     // 最后通知时间
+       *     // 最后一次接收异步通知的时间
+       *     lastNotifyTime?: string | null
+       *     // 通知处理状态
+       *     // 0-未处理, 1-处理中, 2-处理成功, 3-处理失败
+       *     notifyHandleState?: number
+       *     // 通知处理结果
+       *     // 记录通知处理的详细结果或错误信息
+       *     notifyHandleResult?: string | null
+       *     // 备注
+       *     remark?: string | null
+       *     // 操作日志
+       *     // JSON格式，记录订单的关键操作日志
+       *     operationLog?: string | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_paymenttransactionDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_PaymentTransaction> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_app_PaymentTransaction,
+        'app_PaymentTransaction.apiApp_paymenttransactionDetailGet',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [POST] 增加支付流水 ➕
+       *
+       * **path:** /api/app_PaymentTransaction/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+       *   transactionType: 1 | 2
+       *   // 关联用户ID
+       *   userId?: number | null
+       *   // 商户号
+       *   mchNo?: string | null
+       *   // 应用ID
+       *   appId?: string | null
+       *   // 支付订单号
+       *   payOrderId?: string | null
+       *   // 商户订单号
+       *   mchOrderNo: string
+       *   // 支付接口编码
+       *   ifCode?: string | null
+       *   // 支付方式代码
+       *   wayCode?: string | null
+       *   // Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+       *   wayCodeEnum?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20
+       *   // 订单金额
+       *   amount: number
+       *   // 实际支付金额
+       *   actualAmount?: number | null
+       *   // 货币代码
+       *   currency: string
+       *   // 退款订单号
+       *   refundOrderId?: string | null
+       *   // 商户退款单号
+       *   mchRefundNo?: string | null
+       *   // 退款金额
+       *   refundAmount?: number | null
+       *   // 退款原因
+       *   refundReason?: string | null
+       *   // 交易状态
+       *   state: number
+       *   // 商品标题
+       *   subject?: string | null
+       *   // 商品描述
+       *   body?: string | null
+       *   // 渠道订单号
+       *   channelOrderNo?: string | null
+       *   // 渠道用户标识
+       *   channelUser?: string | null
+       *   // 渠道错误码
+       *   channelErrCode?: string | null
+       *   // 渠道错误描述
+       *   channelErrMsg?: string | null
+       *   // 订单创建时间
+       *   orderCreateTime?: string | null
+       *   // 支付成功时间
+       *   successTime?: string | null
+       *   // 订单失效时间
+       *   expiredTime?: string | null
+       *   // 业务类型
+       *   businessType?: string | null
+       *   // 业务订单号
+       *   businessOrderNo?: string | null
+       *   // 门店编号
+       *   storeId?: number | null
+       *   // 码牌ID
+       *   qrcId?: number | null
+       *   // 客户端IP
+       *   clientIp?: string | null
+       *   // 异步通知地址
+       *   notifyUrl?: string | null
+       *   // 跳转通知地址
+       *   returnUrl?: string | null
+       *   // 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+       *   divisionMode?: 0 | 1 | 2
+       *   // 渠道额外参数
+       *   channelExtra?: string | null
+       *   // 扩展参数
+       *   extParam?: string | null
+       *   // 设备信息
+       *   deviceInfo?: string | null
+       *   // 回调通知次数
+       *   notifyCount: number
+       *   // 最后通知时间
+       *   lastNotifyTime?: string | null
+       *   // 通知处理状态
+       *   notifyHandleState: number
+       *   // 通知处理结果
+       *   notifyHandleResult?: string | null
+       *   // 备注
+       *   remark?: string | null
+       *   // 操作日志
+       *   operationLog?: string | null
+       *   // 软删除时间
+       *   deleteTime?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_paymenttransactionAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_PaymentTransactionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_PaymentTransaction.apiApp_paymenttransactionAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新支付流水 ✏️
+       *
+       * **path:** /api/app_PaymentTransaction/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+       *   transactionType: 1 | 2
+       *   // 关联用户ID
+       *   userId?: number | null
+       *   // 商户号
+       *   mchNo?: string | null
+       *   // 应用ID
+       *   appId?: string | null
+       *   // 支付订单号
+       *   payOrderId?: string | null
+       *   // 商户订单号
+       *   mchOrderNo: string
+       *   // 支付接口编码
+       *   ifCode?: string | null
+       *   // 支付方式代码
+       *   wayCode?: string | null
+       *   // Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+       *   wayCodeEnum?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20
+       *   // 订单金额
+       *   amount: number
+       *   // 实际支付金额
+       *   actualAmount?: number | null
+       *   // 货币代码
+       *   currency: string
+       *   // 退款订单号
+       *   refundOrderId?: string | null
+       *   // 商户退款单号
+       *   mchRefundNo?: string | null
+       *   // 退款金额
+       *   refundAmount?: number | null
+       *   // 退款原因
+       *   refundReason?: string | null
+       *   // 交易状态
+       *   state: number
+       *   // 商品标题
+       *   subject?: string | null
+       *   // 商品描述
+       *   body?: string | null
+       *   // 渠道订单号
+       *   channelOrderNo?: string | null
+       *   // 渠道用户标识
+       *   channelUser?: string | null
+       *   // 渠道错误码
+       *   channelErrCode?: string | null
+       *   // 渠道错误描述
+       *   channelErrMsg?: string | null
+       *   // 订单创建时间
+       *   orderCreateTime?: string | null
+       *   // 支付成功时间
+       *   successTime?: string | null
+       *   // 订单失效时间
+       *   expiredTime?: string | null
+       *   // 业务类型
+       *   businessType?: string | null
+       *   // 业务订单号
+       *   businessOrderNo?: string | null
+       *   // 门店编号
+       *   storeId?: number | null
+       *   // 码牌ID
+       *   qrcId?: number | null
+       *   // 客户端IP
+       *   clientIp?: string | null
+       *   // 异步通知地址
+       *   notifyUrl?: string | null
+       *   // 跳转通知地址
+       *   returnUrl?: string | null
+       *   // 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+       *   divisionMode?: 0 | 1 | 2
+       *   // 渠道额外参数
+       *   channelExtra?: string | null
+       *   // 扩展参数
+       *   extParam?: string | null
+       *   // 设备信息
+       *   deviceInfo?: string | null
+       *   // 回调通知次数
+       *   notifyCount: number
+       *   // 最后通知时间
+       *   lastNotifyTime?: string | null
+       *   // 通知处理状态
+       *   notifyHandleState: number
+       *   // 通知处理结果
+       *   notifyHandleResult?: string | null
+       *   // 备注
+       *   remark?: string | null
+       *   // 操作日志
+       *   operationLog?: string | null
+       *   // 软删除时间
+       *   deleteTime?: string | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_paymenttransactionUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_PaymentTransactionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_PaymentTransaction.apiApp_paymenttransactionUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除支付流水 ❌
+       *
+       * **path:** /api/app_PaymentTransaction/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_paymenttransactionDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_PaymentTransactionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_PaymentTransaction.apiApp_paymenttransactionDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除支付流水 ❌
+       *
+       * **path:** /api/app_PaymentTransaction/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_paymenttransactionBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_PaymentTransactionInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_PaymentTransaction.apiApp_paymenttransactionBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导出支付流水记录 🔖
+       *
+       * **path:** /api/app_PaymentTransaction/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 支付交易类型枚举<br />&nbsp;支付 Payment = 1<br />&nbsp;退款 Refund = 2<br />
+       *   transactionType?: 1 | 2
+       *   // 关联用户ID
+       *   userId?: number | null
+       *   // 商户号
+       *   mchNo?: string | null
+       *   // 应用ID
+       *   appId?: string | null
+       *   // 支付订单号
+       *   payOrderId?: string | null
+       *   // 商户订单号
+       *   mchOrderNo?: string | null
+       *   // 支付接口编码
+       *   ifCode?: string | null
+       *   // 支付方式代码
+       *   wayCode?: string | null
+       *   // Jeepay支付方式枚举<br />&nbsp;WEB收银台 WEB_CASHIER = 0<br />&nbsp;聚合扫码(用户扫商家) QR_CASHIER = 1<br />&nbsp;聚合条码(商家扫用户) AUTO_BAR = 2<br />&nbsp;支付宝条码 ALI_BAR = 3<br />&nbsp;支付宝生活号 ALI_JSAPI = 4<br />&nbsp;支付宝小程序 ALI_LITE = 5<br />&nbsp;支付宝APP ALI_APP = 6<br />&nbsp;支付宝WAP ALI_WAP = 7<br />&nbsp;支付宝PC网站 ALI_PC = 8<br />&nbsp;支付宝二维码 ALI_QR = 9<br />&nbsp;微信条码 WX_BAR = 10<br />&nbsp;微信公众号 WX_JSAPI = 11<br />&nbsp;微信小程序 WX_LITE = 12<br />&nbsp;微信APP WX_APP = 13<br />&nbsp;微信H5 WX_H5 = 14<br />&nbsp;微信扫码 WX_NATIVE = 15<br />&nbsp;云闪付条码 YSF_BAR = 16<br />&nbsp;云闪付jsapi YSF_JSAPI = 17<br />&nbsp;智能POS AUTO_POS = 18<br />&nbsp;数字人民币条码 DCEP_BAR = 19<br />&nbsp;数字人民币二维码 DCEP_QR = 20<br />
+       *   wayCodeEnum?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20
+       *   // 订单金额
+       *   amount?: number | null
+       *   // 实际支付金额
+       *   actualAmount?: number | null
+       *   // 货币代码
+       *   currency?: string | null
+       *   // 退款订单号
+       *   refundOrderId?: string | null
+       *   // 商户退款单号
+       *   mchRefundNo?: string | null
+       *   // 退款金额
+       *   refundAmount?: number | null
+       *   // 退款原因
+       *   refundReason?: string | null
+       *   // 交易状态
+       *   state?: number | null
+       *   // 商品标题
+       *   subject?: string | null
+       *   // 商品描述
+       *   body?: string | null
+       *   // 渠道订单号
+       *   channelOrderNo?: string | null
+       *   // 渠道用户标识
+       *   channelUser?: string | null
+       *   // 渠道错误码
+       *   channelErrCode?: string | null
+       *   // 渠道错误描述
+       *   channelErrMsg?: string | null
+       *   // 订单创建时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   orderCreateTimeRange?: (string | null)[] | null
+       *   // 支付成功时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   successTimeRange?: (string | null)[] | null
+       *   // 订单失效时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   expiredTimeRange?: (string | null)[] | null
+       *   // 业务类型
+       *   businessType?: string | null
+       *   // 业务订单号
+       *   businessOrderNo?: string | null
+       *   // 门店编号
+       *   storeId?: number | null
+       *   // 码牌ID
+       *   qrcId?: number | null
+       *   // 客户端IP
+       *   clientIp?: string | null
+       *   // 异步通知地址
+       *   notifyUrl?: string | null
+       *   // 跳转通知地址
+       *   returnUrl?: string | null
+       *   // 分账模式枚举<br />&nbsp;该笔订单不允许分账 NotAllowed = 0<br />&nbsp;支付成功按配置自动完成分账 AutoComplete = 1<br />&nbsp;商户手动分账 Manual = 2<br />
+       *   divisionMode?: 0 | 1 | 2
+       *   // 渠道额外参数
+       *   channelExtra?: string | null
+       *   // 扩展参数
+       *   extParam?: string | null
+       *   // 设备信息
+       *   deviceInfo?: string | null
+       *   // 回调通知次数
+       *   notifyCount?: number | null
+       *   // 最后通知时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   lastNotifyTimeRange?: (string | null)[] | null
+       *   // 通知处理状态
+       *   notifyHandleState?: number | null
+       *   // 通知处理结果
+       *   notifyHandleResult?: string | null
+       *   // 备注
+       *   remark?: string | null
+       *   // 操作日志
+       *   operationLog?: string | null
+       *   // 软删除时间范围
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   deleteTimeRange?: (string | null)[] | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_paymenttransactionExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_PaymentTransactionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_PaymentTransaction.apiApp_paymenttransactionExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载支付流水数据导入模板 ⬇️
+       *
+       * **path:** /api/app_PaymentTransaction/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_paymenttransactionImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_PaymentTransaction.apiApp_paymenttransactionImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入支付流水记录 💾
+       *
+       * **path:** /api/app_PaymentTransaction/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_paymenttransactionImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_PaymentTransaction.apiApp_paymenttransactionImportPost', Config>;
+    };
+    app_Prescription: {
+      /**
+       * ---
+       *
+       * [POST] 分页查询处方 🔖
+       *
+       * **path:** /api/app_Prescription/page
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 处方名称
+       *   prescriptionName?: string | null
+       *   // 处方用法
+       *   usage?: string | null
+       *   // 处方药材
+       *   medicines?: string | null
+       *   // 订单金额
+       *   totalAmount?: number | null
+       *   // 药材金额
+       *   medicineAmount?: number | null
+       *   // 运费
+       *   freight?: number | null
+       *   // 快递单号
+       *   expressNo?: string | null
+       *   // 发货药房
+       *   pharmacy?: string | null
+       *   // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *   orderStatus?: 1 | 2 | 3 | 4 | 5
+       *   // 关联预约ID
+       *   appointmentId?: number | null
+       *   // 患者ID
+       *   patientId?: number | null
+       *   // 收件人
+       *   receiver?: string | null
+       *   // 收货地址
+       *   receiverAddress?: string | null
+       *   // 患者电话
+       *   patientPhone?: string | null
+       *   // 患者姓名
+       *   patientName?: string | null
+       *   // 患者年龄
+       *   patientAge?: number | null
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *   patientSex?: 0 | 1 | 2
+       *   // 医生ID
+       *   doctorId?: number | null
+       *   // 医生姓名
+       *   doctorName?: string | null
+       *   // 医生佣金
+       *   doctorCommission?: number | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 分页泛型集合
+       *   result?: {
+       *     // 页码
+       *     page?: number
+       *     // 页容量
+       *     pageSize?: number
+       *     // 总条数
+       *     total?: number
+       *     // 总页数
+       *     totalPages?: number
+       *     // 当前页集合
+       *     // [params1] start
+       *     // [items] start
+       *     // 处方输出参数
+       *     // [items] end
+       *     // [params1] end
+       *     items?: Array<{
+       *       // 主键Id
+       *       id?: number
+       *       // 处方名称
+       *       prescriptionName?: string | null
+       *       // 处方用法
+       *       usage?: string | null
+       *       // 处方药材
+       *       medicines?: string | null
+       *       // 订单金额
+       *       totalAmount?: number
+       *       // 药材金额
+       *       medicineAmount?: number
+       *       // 运费
+       *       freight?: number
+       *       // 快递单号
+       *       expressNo?: string | null
+       *       // 发货药房
+       *       pharmacy?: string | null
+       *       // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *       orderStatus?: 1 | 2 | 3 | 4 | 5
+       *       // 关联预约ID
+       *       appointmentId?: number
+       *       // 患者ID
+       *       patientId?: number
+       *       // 收件人
+       *       receiver?: string | null
+       *       // 收货地址
+       *       receiverAddress?: string | null
+       *       // 患者电话
+       *       patientPhone?: string | null
+       *       // 患者姓名
+       *       patientName?: string | null
+       *       // 患者年龄
+       *       patientAge?: number | null
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       patientSex?: 0 | 1 | 2
+       *       // 医生ID
+       *       doctorId?: number
+       *       // 医生姓名
+       *       doctorName?: string | null
+       *       // 医生佣金
+       *       doctorCommission?: number | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 创建时间
+       *       createTime?: string | null
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *     }> | null
+       *     // 是否有上一页
+       *     hasPrevPage?: boolean
+       *     // 是否有下一页
+       *     hasNextPage?: boolean
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_prescriptionPagePost<
+        Config extends Alova2MethodConfig<AdminResult_SqlSugarPagedList_app_PrescriptionOutput> & {
+          data: Pageapp_PrescriptionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<
+        AdminResult_SqlSugarPagedList_app_PrescriptionOutput,
+        'app_Prescription.apiApp_prescriptionPagePost',
+        Config
+      >;
+      /**
+       * ---
+       *
+       * [GET] 获取处方详情 ℹ️
+       *
+       * **path:** /api/app_Prescription/detail
+       *
+       * ---
+       *
+       * **Query Parameters**
+       * ```ts
+       * type QueryParameters = {
+       *   // 主键Id
+       *   Id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 处方表
+       *   result?: {
+       *     // 雪花Id
+       *     id?: number
+       *     // 创建时间
+       *     createTime?: string
+       *     // 更新时间
+       *     updateTime?: string | null
+       *     // 创建者Id
+       *     createUserId?: number | null
+       *     // 创建者姓名
+       *     createUserName?: string | null
+       *     // 修改者Id
+       *     updateUserId?: number | null
+       *     // 修改者姓名
+       *     updateUserName?: string | null
+       *     // 软删除
+       *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
+       *     // 处方名称
+       *     prescriptionName?: string | null
+       *     // 处方用法
+       *     usage?: string | null
+       *     // 处方药材（JSON数组，药材名+用量+价格）
+       *     // [params1] start
+       *     // [items] start
+       *     // 处方药材明细
+       *     // [items] end
+       *     // [params1] end
+       *     medicines?: Array<{
+       *       // 药材名称
+       *       name?: string | null
+       *       // 用量
+       *       amount?: number
+       *       // 价格
+       *       price?: number
+       *     }> | null
+       *     // 处方金额
+       *     totalAmount?: number
+       *     // 药材金额
+       *     medicineAmount?: number
+       *     // 运费
+       *     freight?: number
+       *     // 快递单号
+       *     expressNo?: string | null
+       *     // 发货药房
+       *     pharmacy?: string | null
+       *     // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *     orderStatus?: 1 | 2 | 3 | 4 | 5
+       *     // 关联预约ID
+       *     appointmentId?: number
+       *     // 预约挂号表
+       *     appointment?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 预约编号/订单号
+       *       appointmentNo?: string | null
+       *       // 关联处方ID
+       *       prescriptionId?: number
+       *       // [cycle] $.result
+       *       prescription?: App_Prescription
+       *       // 患者ID
+       *       patientId?: number
+       *       // APP用户信息表
+       *       appUser?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 软删除
+       *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
+       *         // 用户名，不允许重复
+       *         username?: string | null
+       *         // 用户昵称
+       *         nickName?: string | null
+       *         // 头像地址
+       *         avatar?: string | null
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *         sex?: 0 | 1 | 2
+       *         // 年龄
+       *         age?: number
+       *         // 出生日期
+       *         birthday?: string | null
+       *         // 个人简介
+       *         introduction?: string | null
+       *         // 用户标签
+       *         tags?: string | null
+       *         // 用户积分
+       *         score?: number
+       *         // 手机号码
+       *         mobile?: string | null
+       *         // 手机号验证状态：0 未验证 1 已验证
+       *         mobileConfirmed?: number
+       *         // 邮箱地址
+       *         email?: string | null
+       *         // 邮箱验证状态：0 未验证 1 已验证
+       *         emailConfirmed?: number
+       *         // 办公电话
+       *         officePhone?: string | null
+       *         // 国家
+       *         country?: string | null
+       *         // 省
+       *         province?: string | null
+       *         // 城市
+       *         city?: string | null
+       *         // 详细地址
+       *         address?: string | null
+       *         // 语言
+       *         language?: string | null
+       *         // 民族
+       *         nation?: string | null
+       *         // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *         cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *         // 身份证号
+       *         idCardNum?: string | null
+       *         // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *         cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *         // 政治面貌
+       *         politicalOutlook?: string | null
+       *         // 毕业院校
+       *         college?: string | null
+       *         // 实名认证信息（JSON格式）
+       *         realnameAuth?: string | null
+       *         // 紧急联系人
+       *         emergencyContact?: string | null
+       *         // 紧急联系人电话
+       *         emergencyPhone?: string | null
+       *         // 紧急联系人地址
+       *         emergencyAddress?: string | null
+       *         // 密码使用的passwordSecret版本
+       *         passwordSecretVersion?: number
+       *         // 微信各平台openid（JSON格式）
+       *         wxOpenId?: string | null
+       *         // 微信unionid
+       *         wxUnionId?: string | null
+       *         // 支付宝平台openid
+       *         aliOpenId?: string | null
+       *         // 苹果登录openid
+       *         appleOpenId?: string | null
+       *         // QQ各平台openid（JSON格式）
+       *         qqOpenId?: string | null
+       *         // QQ unionid
+       *         qqUnionId?: string | null
+       *         // 华为openid
+       *         huaweiOpenId?: string | null
+       *         // 华为unionid
+       *         huaweiUnionId?: string | null
+       *         // 三方平台身份信息（JSON格式）
+       *         identities?: string | null
+       *         // 会话密钥
+       *         sessionKey?: string | null
+       *         // 用户角色（JSON格式）
+       *         // [params1] start
+       *         // [items] start
+       *         // APP用户角色表
+       *         // [items] end
+       *         // [params1] end
+       *         role?: Array<{
+       *           // 雪花Id
+       *           id?: number
+       *           // 用户Id
+       *           userId?: number
+       *           // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *           role?: 666 | 777 | 888 | 999
+       *           // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *           auditStatus?: 0 | 1
+       *           // 备注
+       *           remark?: string | null
+       *           // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *           status?: 1 | 2
+       *         }> | null
+       *         // 部门ID（JSON格式）
+       *         departmentId?: string | null
+       *         // 允许登录的客户端的appid列表（JSON格式）
+       *         dcloudAppId?: string | null
+       *         // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *         accountType?: 666 | 777 | 888 | 999
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         defaultRole?: 666 | 777 | 888 | 999
+       *         // 用户自身邀请码
+       *         myInviteCode?: string | null
+       *         // 邀请人Id
+       *         invitedUserId?: number | null
+       *         // 用户全部上级邀请者（JSON格式）
+       *         inviterUid?: string | null
+       *         // 受邀时间
+       *         inviteTime?: string | null
+       *         // 注册时间
+       *         registerDate?: string | null
+       *         // 注册时IP地址
+       *         registerIp?: string | null
+       *         // 最后登录时间
+       *         lastLoginTime?: string | null
+       *         // 最后登录时IP地址
+       *         lastLoginIp?: string | null
+       *         // 最后登录地点
+       *         lastLoginAddress?: string | null
+       *         // 最后登录设备
+       *         lastLoginDevice?: string | null
+       *         // 最后登录渠道
+       *         lastLoginFrom?: string | null
+       *         // AccessToken
+       *         accessToken?: string | null
+       *         // RefreshToken
+       *         refreshToken?: string | null
+       *         // 过期时间
+       *         expiresIn?: number | null
+       *         // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *         platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *         // 排序
+       *         orderNo?: number
+       *         // 备注
+       *         remark?: string | null
+       *       }
+       *       // 医生ID
+       *       doctorId?: number
+       *       // 医生/顾问审核表
+       *       appDoctor?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 软删除
+       *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
+       *         // 审核类型(多选)
+       *         // [params1] start
+       *         // [items] start
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         // [items] end
+       *         // [params1] end
+       *         auditing_types?: (666 | 777 | 888 | 999)[] | null
+       *         // 用户ID
+       *         userId?: number
+       *         // APP用户信息表
+       *         appUser?: {
+       *           // 雪花Id
+       *           id?: number
+       *           // 创建时间
+       *           createTime?: string
+       *           // 更新时间
+       *           updateTime?: string | null
+       *           // 创建者Id
+       *           createUserId?: number | null
+       *           // 创建者姓名
+       *           createUserName?: string | null
+       *           // 修改者Id
+       *           updateUserId?: number | null
+       *           // 修改者姓名
+       *           updateUserName?: string | null
+       *           // 软删除
+       *           isDelete?: boolean
+       *           // 软删除时间
+       *           deleteTime?: string | null
+       *           // 用户名，不允许重复
+       *           username?: string | null
+       *           // 用户昵称
+       *           nickName?: string | null
+       *           // 头像地址
+       *           avatar?: string | null
+       *           // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *           sex?: 0 | 1 | 2
+       *           // 年龄
+       *           age?: number
+       *           // 出生日期
+       *           birthday?: string | null
+       *           // 个人简介
+       *           introduction?: string | null
+       *           // 用户标签
+       *           tags?: string | null
+       *           // 用户积分
+       *           score?: number
+       *           // 手机号码
+       *           mobile?: string | null
+       *           // 手机号验证状态：0 未验证 1 已验证
+       *           mobileConfirmed?: number
+       *           // 邮箱地址
+       *           email?: string | null
+       *           // 邮箱验证状态：0 未验证 1 已验证
+       *           emailConfirmed?: number
+       *           // 办公电话
+       *           officePhone?: string | null
+       *           // 国家
+       *           country?: string | null
+       *           // 省
+       *           province?: string | null
+       *           // 城市
+       *           city?: string | null
+       *           // 详细地址
+       *           address?: string | null
+       *           // 语言
+       *           language?: string | null
+       *           // 民族
+       *           nation?: string | null
+       *           // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *           cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *           // 身份证号
+       *           idCardNum?: string | null
+       *           // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *           cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *           // 政治面貌
+       *           politicalOutlook?: string | null
+       *           // 毕业院校
+       *           college?: string | null
+       *           // 实名认证信息（JSON格式）
+       *           realnameAuth?: string | null
+       *           // 紧急联系人
+       *           emergencyContact?: string | null
+       *           // 紧急联系人电话
+       *           emergencyPhone?: string | null
+       *           // 紧急联系人地址
+       *           emergencyAddress?: string | null
+       *           // 密码使用的passwordSecret版本
+       *           passwordSecretVersion?: number
+       *           // 微信各平台openid（JSON格式）
+       *           wxOpenId?: string | null
+       *           // 微信unionid
+       *           wxUnionId?: string | null
+       *           // 支付宝平台openid
+       *           aliOpenId?: string | null
+       *           // 苹果登录openid
+       *           appleOpenId?: string | null
+       *           // QQ各平台openid（JSON格式）
+       *           qqOpenId?: string | null
+       *           // QQ unionid
+       *           qqUnionId?: string | null
+       *           // 华为openid
+       *           huaweiOpenId?: string | null
+       *           // 华为unionid
+       *           huaweiUnionId?: string | null
+       *           // 三方平台身份信息（JSON格式）
+       *           identities?: string | null
+       *           // 会话密钥
+       *           sessionKey?: string | null
+       *           // 用户角色（JSON格式）
+       *           // [params1] start
+       *           // [items] start
+       *           // APP用户角色表
+       *           // [items] end
+       *           // [params1] end
+       *           role?: Array<{
+       *             // 雪花Id
+       *             id?: number
+       *             // 用户Id
+       *             userId?: number
+       *             // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *             role?: 666 | 777 | 888 | 999
+       *             // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *             auditStatus?: 0 | 1
+       *             // 备注
+       *             remark?: string | null
+       *             // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *             status?: 1 | 2
+       *           }> | null
+       *           // 部门ID（JSON格式）
+       *           departmentId?: string | null
+       *           // 允许登录的客户端的appid列表（JSON格式）
+       *           dcloudAppId?: string | null
+       *           // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *           accountType?: 666 | 777 | 888 | 999
+       *           // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *           defaultRole?: 666 | 777 | 888 | 999
+       *           // 用户自身邀请码
+       *           myInviteCode?: string | null
+       *           // 邀请人Id
+       *           invitedUserId?: number | null
+       *           // 用户全部上级邀请者（JSON格式）
+       *           inviterUid?: string | null
+       *           // 受邀时间
+       *           inviteTime?: string | null
+       *           // 注册时间
+       *           registerDate?: string | null
+       *           // 注册时IP地址
+       *           registerIp?: string | null
+       *           // 最后登录时间
+       *           lastLoginTime?: string | null
+       *           // 最后登录时IP地址
+       *           lastLoginIp?: string | null
+       *           // 最后登录地点
+       *           lastLoginAddress?: string | null
+       *           // 最后登录设备
+       *           lastLoginDevice?: string | null
+       *           // 最后登录渠道
+       *           lastLoginFrom?: string | null
+       *           // AccessToken
+       *           accessToken?: string | null
+       *           // RefreshToken
+       *           refreshToken?: string | null
+       *           // 过期时间
+       *           expiresIn?: number | null
+       *           // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *           platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *           // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *           status?: 1 | 2
+       *           // 排序
+       *           orderNo?: number
+       *           // 备注
+       *           remark?: string | null
+       *         }
+       *         // 头像
+       *         avatar?: string | null
+       *         // 推荐人手机号
+       *         referrer_telephone?: string | null
+       *         // 位置
+       *         position?: string | null
+       *         // 省
+       *         province?: string | null
+       *         // 城市
+       *         city?: string | null
+       *         // 地区
+       *         district?: string | null
+       *         // 详细地址
+       *         address?: string | null
+       *         // 参加工作时间
+       *         employment_date?: string | null
+       *         // 部门
+       *         department?: string | null
+       *         // 职称
+       *         job_title?: string | null
+       *         // 擅长领域
+       *         // [params1] start
+       *         // [items] start
+       *         // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *         // [items] end
+       *         // [params1] end
+       *         fields?:
+       *           | (
+       *               | 1
+       *               | 2
+       *               | 3
+       *               | 4
+       *               | 5
+       *               | 6
+       *               | 7
+       *               | 8
+       *               | 9
+       *               | 10
+       *               | 11
+       *               | 12
+       *               | 13
+       *               | 14
+       *               | 15
+       *               | 16
+       *               | 17
+       *               | 18
+       *               | 19
+       *               | 20
+       *               | 21
+       *               | 22
+       *               | 23
+       *               | 24
+       *               | 25
+       *               | 61
+       *               | 62
+       *               | 63
+       *               | 64
+       *               | 65
+       *               | 66
+       *             )[]
+       *           | null
+       *         // 个人简介/医生简介
+       *         introduction?: string | null
+       *         // 咨询费用
+       *         inquiry_fee?: number | null
+       *         // 视频问诊费用
+       *         videoConsultationFee?: number | null
+       *         // 视频问诊时长（分钟）
+       *         videoConsultationDuration?: number | null
+       *         // 是否开启视频问诊
+       *         videoConsulationEnabled?: boolean
+       *         // 图文问诊费用
+       *         textConsultationFee?: number | null
+       *         // 图文问诊时长（分钟）
+       *         textConsultationDuration?: number | null
+       *         // 是否开启图文问诊
+       *         textConsultationEnabled?: boolean
+       *         // 语音问诊费用
+       *         audioConsultationFee?: number | null
+       *         // 语音问诊时长（分钟）
+       *         audioConsultationDuration?: number | null
+       *         // 是否开启语音问诊
+       *         audioConsultationEnabled?: boolean
+       *         // 身份证正面
+       *         idcard_front_image?: string | null
+       *         // 身份证反面
+       *         idcard_back_image?: string | null
+       *         // 手持证件照
+       *         idcard_handheld_image?: string | null
+       *         // 医生资格照(多张)
+       *         // [params1] start
+       *         // [items] start
+       *         // [items] end
+       *         // [params1] end
+       *         doctor_qualification_images?: string[] | null
+       *         // 中医资质证明(多张)
+       *         // [params1] start
+       *         // [items] start
+       *         // [items] end
+       *         // [params1] end
+       *         chn_medicine_qualification_images?: string[] | null
+       *         // 担保人名称
+       *         guarantor_name?: string | null
+       *         // 担保人身份正面
+       *         guarantor_idcard_front_image?: string | null
+       *         // 担保人身份反面
+       *         guarantor_idcard_back_image?: string | null
+       *         // 担保人手持身份证照
+       *         guarantor_idcard_handheld_image?: string | null
+       *         // 推荐
+       *         recommend?: boolean | null
+       *         // 评价平均分
+       *         avg_rating_score?: number | null
+       *         // 接诊人次
+       *         consultation_Count?: number
+       *         // 满意度（百分比）
+       *         satisfaction_Rate?: number
+       *         // 接诊速度/较快/一般/较慢
+       *         response_Speed?: string | null
+       *         // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *         auditing_status?: 0 | 1 | 2 | 3
+       *         // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *         avatar_auditing_status?: 0 | 1 | 2 | 3
+       *         // 论文数
+       *         paper_count?: number | null
+       *         // 审核人
+       *         auditing_operator?: number | null
+       *         // 审核时间
+       *         auditing_at?: string | null
+       *         // 审核原因
+       *         auditing_reason?: string | null
+       *         // 是否是特诊医生
+       *         is_special_diagnosis?: boolean | null
+       *         // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *         consultant_type?: 1 | 2 | 3
+       *         // 顾问证书编号
+       *         consultant_certificate_no?: string | null
+       *         // 顾问证书图片
+       *         // [params1] start
+       *         // [items] start
+       *         // [items] end
+       *         // [params1] end
+       *         consultant_certificate_image?: string[] | null
+       *         // 顾问资格说明
+       *         consultant_qualification_desc?: string | null
+       *       }
+       *       // 预约类型枚举<br />&nbsp;视频问诊 视频问诊 = 1<br />&nbsp;图文问诊 图文问诊 = 2<br />&nbsp;语音问诊 语音问诊 = 3<br />
+       *       appointmentType?: 1 | 2 | 3
+       *       // 预约日期
+       *       appointmentDate?: string | null
+       *       // 预约时间段（如：10:30-11:30）
+       *       appointmentTime?: string | null
+       *       // 预约状态枚举<br />&nbsp;待支付 待支付 = 1<br />&nbsp;待确认 待确认 = 2<br />&nbsp;已确认 已确认 = 3<br />&nbsp;进行中 进行中 = 4<br />&nbsp;已完成 已完成 = 5<br />&nbsp;已取消 已取消 = 6<br />&nbsp;已退款 已退款 = 7<br />
+       *       reservationStatus?: 1 | 2 | 3 | 4 | 5 | 6 | 7
+       *       // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *       prescriptionStatus?: 1 | 2 | 3 | 4 | 5
+       *       // 问诊价格
+       *       amount?: number
+       *       // 问诊优惠金额
+       *       discountAmount?: number
+       *       // 问诊实付金额
+       *       actualAmount?: number
+       *       // 服务时长（如：10分钟、图文多轮沟通）
+       *       serviceDuration?: string | null
+       *     }
+       *     // 患者ID
+       *     patientId?: number
+       *     // APP用户信息表
+       *     patient?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 用户名，不允许重复
+       *       username?: string | null
+       *       // 用户昵称
+       *       nickName?: string | null
+       *       // 头像地址
+       *       avatar?: string | null
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       sex?: 0 | 1 | 2
+       *       // 年龄
+       *       age?: number
+       *       // 出生日期
+       *       birthday?: string | null
+       *       // 个人简介
+       *       introduction?: string | null
+       *       // 用户标签
+       *       tags?: string | null
+       *       // 用户积分
+       *       score?: number
+       *       // 手机号码
+       *       mobile?: string | null
+       *       // 手机号验证状态：0 未验证 1 已验证
+       *       mobileConfirmed?: number
+       *       // 邮箱地址
+       *       email?: string | null
+       *       // 邮箱验证状态：0 未验证 1 已验证
+       *       emailConfirmed?: number
+       *       // 办公电话
+       *       officePhone?: string | null
+       *       // 国家
+       *       country?: string | null
+       *       // 省
+       *       province?: string | null
+       *       // 城市
+       *       city?: string | null
+       *       // 详细地址
+       *       address?: string | null
+       *       // 语言
+       *       language?: string | null
+       *       // 民族
+       *       nation?: string | null
+       *       // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *       cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *       // 身份证号
+       *       idCardNum?: string | null
+       *       // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *       cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *       // 政治面貌
+       *       politicalOutlook?: string | null
+       *       // 毕业院校
+       *       college?: string | null
+       *       // 实名认证信息（JSON格式）
+       *       realnameAuth?: string | null
+       *       // 紧急联系人
+       *       emergencyContact?: string | null
+       *       // 紧急联系人电话
+       *       emergencyPhone?: string | null
+       *       // 紧急联系人地址
+       *       emergencyAddress?: string | null
+       *       // 密码使用的passwordSecret版本
+       *       passwordSecretVersion?: number
+       *       // 微信各平台openid（JSON格式）
+       *       wxOpenId?: string | null
+       *       // 微信unionid
+       *       wxUnionId?: string | null
+       *       // 支付宝平台openid
+       *       aliOpenId?: string | null
+       *       // 苹果登录openid
+       *       appleOpenId?: string | null
+       *       // QQ各平台openid（JSON格式）
+       *       qqOpenId?: string | null
+       *       // QQ unionid
+       *       qqUnionId?: string | null
+       *       // 华为openid
+       *       huaweiOpenId?: string | null
+       *       // 华为unionid
+       *       huaweiUnionId?: string | null
+       *       // 三方平台身份信息（JSON格式）
+       *       identities?: string | null
+       *       // 会话密钥
+       *       sessionKey?: string | null
+       *       // 用户角色（JSON格式）
+       *       // [params1] start
+       *       // [items] start
+       *       // APP用户角色表
+       *       // [items] end
+       *       // [params1] end
+       *       role?: Array<{
+       *         // 雪花Id
+       *         id?: number
+       *         // 用户Id
+       *         userId?: number
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         role?: 666 | 777 | 888 | 999
+       *         // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *         auditStatus?: 0 | 1
+       *         // 备注
+       *         remark?: string | null
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *       }> | null
+       *       // 部门ID（JSON格式）
+       *       departmentId?: string | null
+       *       // 允许登录的客户端的appid列表（JSON格式）
+       *       dcloudAppId?: string | null
+       *       // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *       accountType?: 666 | 777 | 888 | 999
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       defaultRole?: 666 | 777 | 888 | 999
+       *       // 用户自身邀请码
+       *       myInviteCode?: string | null
+       *       // 邀请人Id
+       *       invitedUserId?: number | null
+       *       // 用户全部上级邀请者（JSON格式）
+       *       inviterUid?: string | null
+       *       // 受邀时间
+       *       inviteTime?: string | null
+       *       // 注册时间
+       *       registerDate?: string | null
+       *       // 注册时IP地址
+       *       registerIp?: string | null
+       *       // 最后登录时间
+       *       lastLoginTime?: string | null
+       *       // 最后登录时IP地址
+       *       lastLoginIp?: string | null
+       *       // 最后登录地点
+       *       lastLoginAddress?: string | null
+       *       // 最后登录设备
+       *       lastLoginDevice?: string | null
+       *       // 最后登录渠道
+       *       lastLoginFrom?: string | null
+       *       // AccessToken
+       *       accessToken?: string | null
+       *       // RefreshToken
+       *       refreshToken?: string | null
+       *       // 过期时间
+       *       expiresIn?: number | null
+       *       // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *       platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *       // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *       status?: 1 | 2
+       *       // 排序
+       *       orderNo?: number
+       *       // 备注
+       *       remark?: string | null
+       *     }
+       *     // 收件人
+       *     receiver?: string | null
+       *     // 收货地址
+       *     receiverAddress?: string | null
+       *     // 患者电话
+       *     patientPhone?: string | null
+       *     // 患者姓名
+       *     patientName?: string | null
+       *     // 患者年龄
+       *     patientAge?: number | null
+       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *     patientSex?: 0 | 1 | 2
+       *     // 医生ID
+       *     doctorId?: number
+       *     // 医生/顾问审核表
+       *     doctor?: {
+       *       // 雪花Id
+       *       id?: number
+       *       // 创建时间
+       *       createTime?: string
+       *       // 更新时间
+       *       updateTime?: string | null
+       *       // 创建者Id
+       *       createUserId?: number | null
+       *       // 创建者姓名
+       *       createUserName?: string | null
+       *       // 修改者Id
+       *       updateUserId?: number | null
+       *       // 修改者姓名
+       *       updateUserName?: string | null
+       *       // 软删除
+       *       isDelete?: boolean
+       *       // 软删除时间
+       *       deleteTime?: string | null
+       *       // 审核类型(多选)
+       *       // [params1] start
+       *       // [items] start
+       *       // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *       // [items] end
+       *       // [params1] end
+       *       auditing_types?: (666 | 777 | 888 | 999)[] | null
+       *       // 用户ID
+       *       userId?: number
+       *       // APP用户信息表
+       *       appUser?: {
+       *         // 雪花Id
+       *         id?: number
+       *         // 创建时间
+       *         createTime?: string
+       *         // 更新时间
+       *         updateTime?: string | null
+       *         // 创建者Id
+       *         createUserId?: number | null
+       *         // 创建者姓名
+       *         createUserName?: string | null
+       *         // 修改者Id
+       *         updateUserId?: number | null
+       *         // 修改者姓名
+       *         updateUserName?: string | null
+       *         // 软删除
+       *         isDelete?: boolean
+       *         // 软删除时间
+       *         deleteTime?: string | null
+       *         // 用户名，不允许重复
+       *         username?: string | null
+       *         // 用户昵称
+       *         nickName?: string | null
+       *         // 头像地址
+       *         avatar?: string | null
+       *         // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *         sex?: 0 | 1 | 2
+       *         // 年龄
+       *         age?: number
+       *         // 出生日期
+       *         birthday?: string | null
+       *         // 个人简介
+       *         introduction?: string | null
+       *         // 用户标签
+       *         tags?: string | null
+       *         // 用户积分
+       *         score?: number
+       *         // 手机号码
+       *         mobile?: string | null
+       *         // 手机号验证状态：0 未验证 1 已验证
+       *         mobileConfirmed?: number
+       *         // 邮箱地址
+       *         email?: string | null
+       *         // 邮箱验证状态：0 未验证 1 已验证
+       *         emailConfirmed?: number
+       *         // 办公电话
+       *         officePhone?: string | null
+       *         // 国家
+       *         country?: string | null
+       *         // 省
+       *         province?: string | null
+       *         // 城市
+       *         city?: string | null
+       *         // 详细地址
+       *         address?: string | null
+       *         // 语言
+       *         language?: string | null
+       *         // 民族
+       *         nation?: string | null
+       *         // 证件类型枚举<br />&nbsp;身份证 IdCard = 0<br />&nbsp;护照 PassportCard = 1<br />&nbsp;出生证 BirthCard = 2<br />&nbsp;港澳台通行证 GatCard = 3<br />&nbsp;外国人居留证 ForeignCard = 4<br />&nbsp;营业执照 License = 5<br />
+       *         cardType?: 0 | 1 | 2 | 3 | 4 | 5
+       *         // 身份证号
+       *         idCardNum?: string | null
+       *         // 文化程度枚举<br />&nbsp;其他 Level0 = 0<br />&nbsp;文盲 Level1 = 1<br />&nbsp;小学 Level2 = 2<br />&nbsp;初中 Level3 = 3<br />&nbsp;普通高中 Level4 = 4<br />&nbsp;技工学校 Level5 = 5<br />&nbsp;职业教育 Level6 = 6<br />&nbsp;职业高中 Level7 = 7<br />&nbsp;中等专科 Level8 = 8<br />&nbsp;大学专科 Level9 = 9<br />&nbsp;大学本科 Level10 = 10<br />&nbsp;硕士研究生 Level11 = 11<br />&nbsp;博士研究生 Level12 = 12<br />
+       *         cultureLevel?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12
+       *         // 政治面貌
+       *         politicalOutlook?: string | null
+       *         // 毕业院校
+       *         college?: string | null
+       *         // 实名认证信息（JSON格式）
+       *         realnameAuth?: string | null
+       *         // 紧急联系人
+       *         emergencyContact?: string | null
+       *         // 紧急联系人电话
+       *         emergencyPhone?: string | null
+       *         // 紧急联系人地址
+       *         emergencyAddress?: string | null
+       *         // 密码使用的passwordSecret版本
+       *         passwordSecretVersion?: number
+       *         // 微信各平台openid（JSON格式）
+       *         wxOpenId?: string | null
+       *         // 微信unionid
+       *         wxUnionId?: string | null
+       *         // 支付宝平台openid
+       *         aliOpenId?: string | null
+       *         // 苹果登录openid
+       *         appleOpenId?: string | null
+       *         // QQ各平台openid（JSON格式）
+       *         qqOpenId?: string | null
+       *         // QQ unionid
+       *         qqUnionId?: string | null
+       *         // 华为openid
+       *         huaweiOpenId?: string | null
+       *         // 华为unionid
+       *         huaweiUnionId?: string | null
+       *         // 三方平台身份信息（JSON格式）
+       *         identities?: string | null
+       *         // 会话密钥
+       *         sessionKey?: string | null
+       *         // 用户角色（JSON格式）
+       *         // [params1] start
+       *         // [items] start
+       *         // APP用户角色表
+       *         // [items] end
+       *         // [params1] end
+       *         role?: Array<{
+       *           // 雪花Id
+       *           id?: number
+       *           // 用户Id
+       *           userId?: number
+       *           // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *           role?: 666 | 777 | 888 | 999
+       *           // 认证状态<br />&nbsp;未认证 NotCertified = 0<br />&nbsp;已认证 Certified = 1<br />
+       *           auditStatus?: 0 | 1
+       *           // 备注
+       *           remark?: string | null
+       *           // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *           status?: 1 | 2
+       *         }> | null
+       *         // 部门ID（JSON格式）
+       *         departmentId?: string | null
+       *         // 允许登录的客户端的appid列表（JSON格式）
+       *         dcloudAppId?: string | null
+       *         // APP账号类型<br />&nbsp;会员 Member = 666<br />&nbsp;普通账号 NormalUser = 777<br />&nbsp;系统管理员 SysAdmin = 888<br />&nbsp;超级管理员 SuperAdmin = 999<br />
+       *         accountType?: 666 | 777 | 888 | 999
+       *         // APP角色类型<br />&nbsp;代理 Agent = 666<br />&nbsp;普通 NormalUser = 777<br />&nbsp;医生 Doctor = 888<br />&nbsp;顾问 Consultant = 999<br />
+       *         defaultRole?: 666 | 777 | 888 | 999
+       *         // 用户自身邀请码
+       *         myInviteCode?: string | null
+       *         // 邀请人Id
+       *         invitedUserId?: number | null
+       *         // 用户全部上级邀请者（JSON格式）
+       *         inviterUid?: string | null
+       *         // 受邀时间
+       *         inviteTime?: string | null
+       *         // 注册时间
+       *         registerDate?: string | null
+       *         // 注册时IP地址
+       *         registerIp?: string | null
+       *         // 最后登录时间
+       *         lastLoginTime?: string | null
+       *         // 最后登录时IP地址
+       *         lastLoginIp?: string | null
+       *         // 最后登录地点
+       *         lastLoginAddress?: string | null
+       *         // 最后登录设备
+       *         lastLoginDevice?: string | null
+       *         // 最后登录渠道
+       *         lastLoginFrom?: string | null
+       *         // AccessToken
+       *         accessToken?: string | null
+       *         // RefreshToken
+       *         refreshToken?: string | null
+       *         // 过期时间
+       *         expiresIn?: number | null
+       *         // 平台类型枚举<br />&nbsp;微信公众号 微信公众号 = 1<br />&nbsp;微信小程序 微信小程序 = 2<br />&nbsp;QQ QQ = 3<br />&nbsp;支付宝 Alipay = 4<br />&nbsp;Gitee Gitee = 5<br />&nbsp; APP = 6<br />
+       *         platformType?: 1 | 2 | 3 | 4 | 5 | 6
+       *         // 通用状态枚举<br />&nbsp;启用 Enable = 1<br />&nbsp;停用 Disable = 2<br />
+       *         status?: 1 | 2
+       *         // 排序
+       *         orderNo?: number
+       *         // 备注
+       *         remark?: string | null
+       *       }
+       *       // 头像
+       *       avatar?: string | null
+       *       // 推荐人手机号
+       *       referrer_telephone?: string | null
+       *       // 位置
+       *       position?: string | null
+       *       // 省
+       *       province?: string | null
+       *       // 城市
+       *       city?: string | null
+       *       // 地区
+       *       district?: string | null
+       *       // 详细地址
+       *       address?: string | null
+       *       // 参加工作时间
+       *       employment_date?: string | null
+       *       // 部门
+       *       department?: string | null
+       *       // 职称
+       *       job_title?: string | null
+       *       // 擅长领域
+       *       // [params1] start
+       *       // [items] start
+       *       // 科室专科专长枚举<br />&nbsp;中医骨科 ZhongYiGuKe = 1<br />&nbsp;中医内科 ZhongYiNeiKe = 2<br />&nbsp;肿瘤血液 ZhongLiuXueYe = 3<br />&nbsp;中医妇科 ZhongYiFuKe = 4<br />&nbsp;中医眼科 ZhongYiYanKe = 5<br />&nbsp;中医推拿 ZhongYiTuiNa = 6<br />&nbsp;中医儿科 ZhongYiErKe = 7<br />&nbsp;中医男科 ZhongYiNanKe = 8<br />&nbsp;疼痛科 TengTongKe = 9<br />&nbsp;中医外科 ZhongYiWaiKe = 10<br />&nbsp;皮肤外科 PiFuWaiKe = 11<br />&nbsp;耳鼻喉科 ErBiHouKe = 12<br />&nbsp;临床营养 LinChuangYingYang = 13<br />&nbsp;肛肠科 GangChangKe = 14<br />&nbsp;健康指导 JianKangZhiDao = 15<br />&nbsp;口腔科 KouQiangKe = 16<br />&nbsp;中医针灸 ZhongYiZhenJiu = 17<br />&nbsp;传染科 ChuanRanKe = 18<br />&nbsp;精神心理 JingShenXinLi = 19<br />&nbsp;疑难杂症 YiNanZaZheng = 20<br />&nbsp;肿瘤病 ZhongLiuBing = 21<br />&nbsp;其他 QiTa = 22<br />&nbsp;中医全科 ZhongYiQuanKe = 23<br />&nbsp;中医药师 ZhongYiYaoShi = 24<br />&nbsp;名老中医 MingLaoZhongYi = 25<br />&nbsp;心血管 XinXueGuan = 61<br />&nbsp;高血压 GaoXueYa = 62<br />&nbsp;消化道 XiaoHuaDao = 63<br />&nbsp;糖尿病 TangNiaoBing = 64<br />&nbsp;呼吸系统 HuXiXiTong = 65<br />&nbsp;冠心病 GuanXinBing = 66<br />
+       *       // [items] end
+       *       // [params1] end
+       *       fields?:
+       *         | (
+       *             | 1
+       *             | 2
+       *             | 3
+       *             | 4
+       *             | 5
+       *             | 6
+       *             | 7
+       *             | 8
+       *             | 9
+       *             | 10
+       *             | 11
+       *             | 12
+       *             | 13
+       *             | 14
+       *             | 15
+       *             | 16
+       *             | 17
+       *             | 18
+       *             | 19
+       *             | 20
+       *             | 21
+       *             | 22
+       *             | 23
+       *             | 24
+       *             | 25
+       *             | 61
+       *             | 62
+       *             | 63
+       *             | 64
+       *             | 65
+       *             | 66
+       *           )[]
+       *         | null
+       *       // 个人简介/医生简介
+       *       introduction?: string | null
+       *       // 咨询费用
+       *       inquiry_fee?: number | null
+       *       // 视频问诊费用
+       *       videoConsultationFee?: number | null
+       *       // 视频问诊时长（分钟）
+       *       videoConsultationDuration?: number | null
+       *       // 是否开启视频问诊
+       *       videoConsulationEnabled?: boolean
+       *       // 图文问诊费用
+       *       textConsultationFee?: number | null
+       *       // 图文问诊时长（分钟）
+       *       textConsultationDuration?: number | null
+       *       // 是否开启图文问诊
+       *       textConsultationEnabled?: boolean
+       *       // 语音问诊费用
+       *       audioConsultationFee?: number | null
+       *       // 语音问诊时长（分钟）
+       *       audioConsultationDuration?: number | null
+       *       // 是否开启语音问诊
+       *       audioConsultationEnabled?: boolean
+       *       // 身份证正面
+       *       idcard_front_image?: string | null
+       *       // 身份证反面
+       *       idcard_back_image?: string | null
+       *       // 手持证件照
+       *       idcard_handheld_image?: string | null
+       *       // 医生资格照(多张)
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       doctor_qualification_images?: string[] | null
+       *       // 中医资质证明(多张)
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       chn_medicine_qualification_images?: string[] | null
+       *       // 担保人名称
+       *       guarantor_name?: string | null
+       *       // 担保人身份正面
+       *       guarantor_idcard_front_image?: string | null
+       *       // 担保人身份反面
+       *       guarantor_idcard_back_image?: string | null
+       *       // 担保人手持身份证照
+       *       guarantor_idcard_handheld_image?: string | null
+       *       // 推荐
+       *       recommend?: boolean | null
+       *       // 评价平均分
+       *       avg_rating_score?: number | null
+       *       // 接诊人次
+       *       consultation_Count?: number
+       *       // 满意度（百分比）
+       *       satisfaction_Rate?: number
+       *       // 接诊速度/较快/一般/较慢
+       *       response_Speed?: string | null
+       *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *       auditing_status?: 0 | 1 | 2 | 3
+       *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
+       *       avatar_auditing_status?: 0 | 1 | 2 | 3
+       *       // 论文数
+       *       paper_count?: number | null
+       *       // 审核人
+       *       auditing_operator?: number | null
+       *       // 审核时间
+       *       auditing_at?: string | null
+       *       // 审核原因
+       *       auditing_reason?: string | null
+       *       // 是否是特诊医生
+       *       is_special_diagnosis?: boolean | null
+       *       // 顾问类型枚举<br />&nbsp;私人健康顾问 PrivateHealthConsultant = 1<br />&nbsp;医师顾问 PhysicianConsultant = 2<br />&nbsp;药商顾问 PharmacistConsultant = 3<br />
+       *       consultant_type?: 1 | 2 | 3
+       *       // 顾问证书编号
+       *       consultant_certificate_no?: string | null
+       *       // 顾问证书图片
+       *       // [params1] start
+       *       // [items] start
+       *       // [items] end
+       *       // [params1] end
+       *       consultant_certificate_image?: string[] | null
+       *       // 顾问资格说明
+       *       consultant_qualification_desc?: string | null
+       *     }
+       *     // 医生姓名
+       *     doctorName?: string | null
+       *     // 医生佣金
+       *     doctorCommission?: number | null
+       *   }
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_prescriptionDetailGet<
+        Config extends Alova2MethodConfig<AdminResult_app_Prescription> & {
+          params: {
+            /**
+             * 主键Id
+             */
+            Id: number;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_app_Prescription, 'app_Prescription.apiApp_prescriptionDetailGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 增加处方 ➕
+       *
+       * **path:** /api/app_Prescription/add
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 处方名称
+       *   prescriptionName: string
+       *   // 处方用法
+       *   usage?: string | null
+       *   // 处方药材
+       *   medicines: string
+       *   // 订单金额
+       *   totalAmount: number
+       *   // 药材金额
+       *   medicineAmount: number
+       *   // 运费
+       *   freight: number
+       *   // 快递单号
+       *   expressNo?: string | null
+       *   // 发货药房
+       *   pharmacy?: string | null
+       *   // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *   orderStatus: 1 | 2 | 3 | 4 | 5
+       *   // 关联预约ID
+       *   appointmentId: number
+       *   // 患者ID
+       *   patientId: number
+       *   // 收件人
+       *   receiver?: string | null
+       *   // 收货地址
+       *   receiverAddress?: string | null
+       *   // 患者电话
+       *   patientPhone?: string | null
+       *   // 患者姓名
+       *   patientName?: string | null
+       *   // 患者年龄
+       *   patientAge?: number | null
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *   patientSex: 0 | 1 | 2
+       *   // 医生ID
+       *   doctorId: number
+       *   // 医生姓名
+       *   doctorName?: string | null
+       *   // 医生佣金
+       *   doctorCommission?: number | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_prescriptionAddPost<
+        Config extends Alova2MethodConfig<AdminResult_Int64> & {
+          data: Addapp_PrescriptionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int64, 'app_Prescription.apiApp_prescriptionAddPost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 更新处方 ✏️
+       *
+       * **path:** /api/app_Prescription/update
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       *   // 处方名称
+       *   prescriptionName: string
+       *   // 处方用法
+       *   usage?: string | null
+       *   // 处方药材
+       *   medicines: string
+       *   // 订单金额
+       *   totalAmount: number
+       *   // 药材金额
+       *   medicineAmount: number
+       *   // 运费
+       *   freight: number
+       *   // 快递单号
+       *   expressNo?: string | null
+       *   // 发货药房
+       *   pharmacy?: string | null
+       *   // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *   orderStatus: 1 | 2 | 3 | 4 | 5
+       *   // 关联预约ID
+       *   appointmentId: number
+       *   // 患者ID
+       *   patientId: number
+       *   // 收件人
+       *   receiver?: string | null
+       *   // 收货地址
+       *   receiverAddress?: string | null
+       *   // 患者电话
+       *   patientPhone?: string | null
+       *   // 患者姓名
+       *   patientName?: string | null
+       *   // 患者年龄
+       *   patientAge?: number | null
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *   patientSex: 0 | 1 | 2
+       *   // 医生ID
+       *   doctorId: number
+       *   // 医生姓名
+       *   doctorName?: string | null
+       *   // 医生佣金
+       *   doctorCommission?: number | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_prescriptionUpdatePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Updateapp_PrescriptionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Prescription.apiApp_prescriptionUpdatePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 删除处方 ❌
+       *
+       * **path:** /api/app_Prescription/delete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 主键Id
+       *   id: number
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_prescriptionDeletePost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Deleteapp_PrescriptionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Prescription.apiApp_prescriptionDeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 批量删除处方 ❌
+       *
+       * **path:** /api/app_Prescription/batchDelete
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = Array<{
+       *   // 主键Id
+       *   id: number
+       * }>
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = {
+       *   // 状态码
+       *   code?: number
+       *   // 类型success、warning、error
+       *   type?: string | null
+       *   // 错误信息
+       *   message?: string | null
+       *   // 数据
+       *   result?: number
+       *   // 附加数据
+       *   extras?: null
+       *   // 时间
+       *   time?: string
+       * }
+       * ```
+       */
+      apiApp_prescriptionBatchdeletePost<
+        Config extends Alova2MethodConfig<AdminResult_Int32> & {
+          data: Deleteapp_PrescriptionInput[];
+        }
+      >(
+        config: Config
+      ): Alova2Method<AdminResult_Int32, 'app_Prescription.apiApp_prescriptionBatchdeletePost', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导出处方记录 🔖
+       *
+       * **path:** /api/app_Prescription/export
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   // 模糊查询条件
+       *   search?: {
+       *     // 字段名称集合
+       *     // [params1] start
+       *     // [items] start
+       *     // [items] end
+       *     // [params1] end
+       *     fields?: string[] | null
+       *     // 关键字
+       *     keyword?: string | null
+       *   }
+       *   // 模糊查询关键字
+       *   keyword?: string | null
+       *   // 筛选过滤条件
+       *   filter?: {
+       *     // 过滤条件<br />&nbsp;并且 And = 0<br />&nbsp;或者 Or = 1<br />&nbsp;异或 Xor = 2<br />
+       *     logic?: 0 | 1 | 2
+       *     // 筛选过滤条件子项
+       *     // [params1] start
+       *     // [items] start
+       *     // [cycle] $.filter
+       *     // [items] end
+       *     // [params1] end
+       *     filters?: Filter[] | null
+       *     // 字段名称
+       *     field?: string | null
+       *     // 过滤逻辑运算符<br />&nbsp;等于 EQ = 0<br />&nbsp;不等于 NEQ = 1<br />&nbsp;小于 LT = 2<br />&nbsp;小于等于 LTE = 3<br />&nbsp;大于 GT = 4<br />&nbsp;大于等于 GTE = 5<br />&nbsp;开始包含 StartsWith = 6<br />&nbsp;末尾包含 EndsWith = 7<br />&nbsp;包含 Contains = 8<br />
+       *     operator?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+       *     // 字段值
+       *     value?: null
+       *   }
+       *   // 当前页码
+       *   page?: number
+       *   // 页码容量
+       *   pageSize?: number
+       *   // 排序字段
+       *   field?: string | null
+       *   // 排序方向
+       *   order?: string | null
+       *   // 降序排序
+       *   descStr?: string | null
+       *   // 处方名称
+       *   prescriptionName?: string | null
+       *   // 处方用法
+       *   usage?: string | null
+       *   // 处方药材
+       *   medicines?: string | null
+       *   // 订单金额
+       *   totalAmount?: number | null
+       *   // 药材金额
+       *   medicineAmount?: number | null
+       *   // 运费
+       *   freight?: number | null
+       *   // 快递单号
+       *   expressNo?: string | null
+       *   // 发货药房
+       *   pharmacy?: string | null
+       *   // 开方状态枚举<br />&nbsp;待开方 待开方 = 1<br />&nbsp;待支付 待支付 = 2<br />&nbsp;待配送 待配送 = 3<br />&nbsp;已发货 已发货 = 4<br />&nbsp;已完成 已完成 = 5<br />
+       *   orderStatus?: 1 | 2 | 3 | 4 | 5
+       *   // 关联预约ID
+       *   appointmentId?: number | null
+       *   // 患者ID
+       *   patientId?: number | null
+       *   // 收件人
+       *   receiver?: string | null
+       *   // 收货地址
+       *   receiverAddress?: string | null
+       *   // 患者电话
+       *   patientPhone?: string | null
+       *   // 患者姓名
+       *   patientName?: string | null
+       *   // 患者年龄
+       *   patientAge?: number | null
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *   patientSex?: 0 | 1 | 2
+       *   // 医生ID
+       *   doctorId?: number | null
+       *   // 医生姓名
+       *   doctorName?: string | null
+       *   // 医生佣金
+       *   doctorCommission?: number | null
+       *   // 选中主键列表
+       *   // [params1] start
+       *   // [items] start
+       *   // [items] end
+       *   // [params1] end
+       *   selectKeyList?: number[] | null
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_prescriptionExportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: Pageapp_PrescriptionInput;
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Prescription.apiApp_prescriptionExportPost', Config>;
+      /**
+       * ---
+       *
+       * [GET] 下载处方数据导入模板 ⬇️
+       *
+       * **path:** /api/app_Prescription/import
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_prescriptionImportGet<Config extends Alova2MethodConfig<null>>(
+        config?: Config
+      ): Alova2Method<null, 'app_Prescription.apiApp_prescriptionImportGet', Config>;
+      /**
+       * ---
+       *
+       * [POST] 导入处方记录 💾
+       *
+       * **path:** /api/app_Prescription/import
+       *
+       * ---
+       *
+       * **RequestBody**
+       * ```ts
+       * type RequestBody = {
+       *   file: Blob
+       * }
+       * ```
+       *
+       * ---
+       *
+       * **Response**
+       * ```ts
+       * type Response = null
+       * ```
+       */
+      apiApp_prescriptionImportPost<
+        Config extends Alova2MethodConfig<null> & {
+          data: {
+            file: Blob;
+          };
+        }
+      >(
+        config: Config
+      ): Alova2Method<null, 'app_Prescription.apiApp_prescriptionImportPost', Config>;
+    };
     app_User: {
       /**
        * ---
@@ -14499,8 +22459,8 @@ declare global {
        *         // 业务数据Id
        *         dataId?: number | null
        *       }
-       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *       sex?: 0 | 1 | 2 | 9
+       *       // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *       sex?: 0 | 1 | 2
        *       // 年龄
        *       age?: number
        *       // 出生日期
@@ -14707,14 +22667,16 @@ declare global {
        *     updateUserName?: string | null
        *     // 软删除
        *     isDelete?: boolean
+       *     // 软删除时间
+       *     deleteTime?: string | null
        *     // 用户名，不允许重复
        *     username?: string | null
        *     // 用户昵称
        *     nickName?: string | null
        *     // 头像地址
        *     avatar?: string | null
-       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *     sex?: 0 | 1 | 2 | 9
+       *     // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *     sex?: 0 | 1 | 2
        *     // 年龄
        *     age?: number
        *     // 出生日期
@@ -14889,8 +22851,8 @@ declare global {
        *   nickName?: string | null
        *   // 头像地址
        *   avatar?: string | null
-       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *   sex: 0 | 1 | 2 | 9
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *   sex: 0 | 1 | 2
        *   // 年龄
        *   age: number
        *   // 出生日期
@@ -15067,8 +23029,8 @@ declare global {
        *   nickName?: string | null
        *   // 头像地址
        *   avatar?: string | null
-       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知的性别 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />&nbsp;未说明的性别 Unspecified = 9<br />
-       *   sex: 0 | 1 | 2 | 9
+       *   // 性别枚举（GB/T 2261.1-2003）<br />&nbsp;未知 Unknown = 0<br />&nbsp;男性 Male = 1<br />&nbsp;女性 Female = 2<br />
+       *   sex: 0 | 1 | 2
        *   // 年龄
        *   age: number
        *   // 出生日期
