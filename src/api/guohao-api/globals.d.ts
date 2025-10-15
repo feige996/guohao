@@ -666,6 +666,30 @@ export interface Pageapp_DoctorAuditingInput {
    */
   inquiry_fee?: number | null;
   /**
+   * 视频问诊费用
+   */
+  videoConsultationFee?: number | null;
+  /**
+   * 图文问诊费用
+   */
+  textConsultationFee?: number | null;
+  /**
+   * 语音问诊费用
+   */
+  audioConsultationFee?: number | null;
+  /**
+   * 是否开启视频问诊
+   */
+  videoConsulationEnabled?: boolean | null;
+  /**
+   * 是否开启图文问诊
+   */
+  textConsultationEnabled?: boolean | null;
+  /**
+   * 是否开启语音问诊
+   */
+  audioConsultationEnabled?: boolean | null;
+  /**
    * 推荐
    */
   recommend?: boolean | null;
@@ -673,6 +697,18 @@ export interface Pageapp_DoctorAuditingInput {
    * 评价平均分
    */
   avg_rating_score?: number | null;
+  /**
+   * 接诊人次
+   */
+  consultation_Count?: number | null;
+  /**
+   * 满意度（百分比）
+   */
+  satisfaction_Rate?: number | null;
+  /**
+   * 接诊速度
+   */
+  response_Speed?: string | null;
   /**
    * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
    */
@@ -776,6 +812,42 @@ export interface Addapp_DoctorAuditingInput {
    */
   inquiry_fee?: number | null;
   /**
+   * 视频问诊费用
+   */
+  videoConsultationFee?: number | null;
+  /**
+   * 视频问诊时长（分钟）
+   */
+  videoConsultationDuration?: number | null;
+  /**
+   * 是否开启视频问诊
+   */
+  videoConsulationEnabled?: boolean;
+  /**
+   * 图文问诊费用
+   */
+  textConsultationFee?: number | null;
+  /**
+   * 图文问诊时长（分钟）
+   */
+  textConsultationDuration?: number | null;
+  /**
+   * 是否开启图文问诊
+   */
+  textConsultationEnabled?: boolean;
+  /**
+   * 语音问诊费用
+   */
+  audioConsultationFee?: number | null;
+  /**
+   * 语音问诊时长（分钟）
+   */
+  audioConsultationDuration?: number | null;
+  /**
+   * 是否开启语音问诊
+   */
+  audioConsultationEnabled?: boolean;
+  /**
    * 身份证正面
    */
   idcard_front_image?: string | null;
@@ -819,6 +891,18 @@ export interface Addapp_DoctorAuditingInput {
    * 评价平均分
    */
   avg_rating_score?: number | null;
+  /**
+   * 接诊人次
+   */
+  consultation_Count?: number;
+  /**
+   * 满意度（百分比）
+   */
+  satisfaction_Rate?: number;
+  /**
+   * 接诊速度
+   */
+  response_Speed?: string | null;
   /**
    * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
    */
@@ -930,6 +1014,42 @@ export interface Updateapp_DoctorAuditingInput {
    */
   inquiry_fee?: number | null;
   /**
+   * 视频问诊费用
+   */
+  videoConsultationFee?: number | null;
+  /**
+   * 视频问诊时长（分钟）
+   */
+  videoConsultationDuration?: number | null;
+  /**
+   * 是否开启视频问诊
+   */
+  videoConsulationEnabled?: boolean;
+  /**
+   * 图文问诊费用
+   */
+  textConsultationFee?: number | null;
+  /**
+   * 图文问诊时长（分钟）
+   */
+  textConsultationDuration?: number | null;
+  /**
+   * 是否开启图文问诊
+   */
+  textConsultationEnabled?: boolean;
+  /**
+   * 语音问诊费用
+   */
+  audioConsultationFee?: number | null;
+  /**
+   * 语音问诊时长（分钟）
+   */
+  audioConsultationDuration?: number | null;
+  /**
+   * 是否开启语音问诊
+   */
+  audioConsultationEnabled?: boolean;
+  /**
    * 身份证正面
    */
   idcard_front_image?: string | null;
@@ -973,6 +1093,18 @@ export interface Updateapp_DoctorAuditingInput {
    * 评价平均分
    */
   avg_rating_score?: number | null;
+  /**
+   * 接诊人次
+   */
+  consultation_Count?: number;
+  /**
+   * 满意度（百分比）
+   */
+  satisfaction_Rate?: number;
+  /**
+   * 接诊速度
+   */
+  response_Speed?: string | null;
   /**
    * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
    */
@@ -4923,6 +5055,42 @@ export interface App_DoctorAuditingOutput {
    */
   inquiry_fee?: number | null;
   /**
+   * 视频问诊费用
+   */
+  videoConsultationFee?: number | null;
+  /**
+   * 视频问诊时长（分钟）
+   */
+  videoConsultationDuration?: number | null;
+  /**
+   * 是否开启视频问诊
+   */
+  videoConsulationEnabled?: boolean;
+  /**
+   * 图文问诊费用
+   */
+  textConsultationFee?: number | null;
+  /**
+   * 图文问诊时长（分钟）
+   */
+  textConsultationDuration?: number | null;
+  /**
+   * 是否开启图文问诊
+   */
+  textConsultationEnabled?: boolean;
+  /**
+   * 语音问诊费用
+   */
+  audioConsultationFee?: number | null;
+  /**
+   * 语音问诊时长（分钟）
+   */
+  audioConsultationDuration?: number | null;
+  /**
+   * 是否开启语音问诊
+   */
+  audioConsultationEnabled?: boolean;
+  /**
    * 身份证正面
    */
   idcard_front_image?: string | null;
@@ -4986,6 +5154,18 @@ export interface App_DoctorAuditingOutput {
    * 评价平均分
    */
   avg_rating_score?: number | null;
+  /**
+   * 接诊人次
+   */
+  consultation_Count?: number;
+  /**
+   * 满意度（百分比）
+   */
+  satisfaction_Rate?: number;
+  /**
+   * 接诊速度
+   */
+  response_Speed?: string | null;
   /**
    * 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
    */
@@ -13947,10 +14127,28 @@ declare global {
        *   introduction?: string | null
        *   // 咨询费用
        *   inquiry_fee?: number | null
+       *   // 视频问诊费用
+       *   videoConsultationFee?: number | null
+       *   // 图文问诊费用
+       *   textConsultationFee?: number | null
+       *   // 语音问诊费用
+       *   audioConsultationFee?: number | null
+       *   // 是否开启视频问诊
+       *   videoConsulationEnabled?: boolean | null
+       *   // 是否开启图文问诊
+       *   textConsultationEnabled?: boolean | null
+       *   // 是否开启语音问诊
+       *   audioConsultationEnabled?: boolean | null
        *   // 推荐
        *   recommend?: boolean | null
        *   // 评价平均分
        *   avg_rating_score?: number | null
+       *   // 接诊人次
+       *   consultation_Count?: number | null
+       *   // 满意度（百分比）
+       *   satisfaction_Rate?: number | null
+       *   // 接诊速度
+       *   response_Speed?: string | null
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *   auditing_status?: 0 | 1 | 2 | 3
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
@@ -14249,6 +14447,24 @@ declare global {
        *       introduction?: string | null
        *       // 咨询费用
        *       inquiry_fee?: number | null
+       *       // 视频问诊费用
+       *       videoConsultationFee?: number | null
+       *       // 视频问诊时长（分钟）
+       *       videoConsultationDuration?: number | null
+       *       // 是否开启视频问诊
+       *       videoConsulationEnabled?: boolean
+       *       // 图文问诊费用
+       *       textConsultationFee?: number | null
+       *       // 图文问诊时长（分钟）
+       *       textConsultationDuration?: number | null
+       *       // 是否开启图文问诊
+       *       textConsultationEnabled?: boolean
+       *       // 语音问诊费用
+       *       audioConsultationFee?: number | null
+       *       // 语音问诊时长（分钟）
+       *       audioConsultationDuration?: number | null
+       *       // 是否开启语音问诊
+       *       audioConsultationEnabled?: boolean
        *       // 身份证正面
        *       idcard_front_image?: string | null
        *       // 系统文件表
@@ -14514,6 +14730,12 @@ declare global {
        *       recommend?: boolean | null
        *       // 评价平均分
        *       avg_rating_score?: number | null
+       *       // 接诊人次
+       *       consultation_Count?: number
+       *       // 满意度（百分比）
+       *       satisfaction_Rate?: number
+       *       // 接诊速度
+       *       response_Speed?: string | null
        *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *       auditing_status?: 0 | 1 | 2 | 3
        *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
@@ -14686,10 +14908,28 @@ declare global {
        *   introduction?: string | null
        *   // 咨询费用
        *   inquiry_fee?: number | null
+       *   // 视频问诊费用
+       *   videoConsultationFee?: number | null
+       *   // 图文问诊费用
+       *   textConsultationFee?: number | null
+       *   // 语音问诊费用
+       *   audioConsultationFee?: number | null
+       *   // 是否开启视频问诊
+       *   videoConsulationEnabled?: boolean | null
+       *   // 是否开启图文问诊
+       *   textConsultationEnabled?: boolean | null
+       *   // 是否开启语音问诊
+       *   audioConsultationEnabled?: boolean | null
        *   // 推荐
        *   recommend?: boolean | null
        *   // 评价平均分
        *   avg_rating_score?: number | null
+       *   // 接诊人次
+       *   consultation_Count?: number | null
+       *   // 满意度（百分比）
+       *   satisfaction_Rate?: number | null
+       *   // 接诊速度
+       *   response_Speed?: string | null
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *   auditing_status?: 0 | 1 | 2 | 3
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
@@ -14988,6 +15228,24 @@ declare global {
        *       introduction?: string | null
        *       // 咨询费用
        *       inquiry_fee?: number | null
+       *       // 视频问诊费用
+       *       videoConsultationFee?: number | null
+       *       // 视频问诊时长（分钟）
+       *       videoConsultationDuration?: number | null
+       *       // 是否开启视频问诊
+       *       videoConsulationEnabled?: boolean
+       *       // 图文问诊费用
+       *       textConsultationFee?: number | null
+       *       // 图文问诊时长（分钟）
+       *       textConsultationDuration?: number | null
+       *       // 是否开启图文问诊
+       *       textConsultationEnabled?: boolean
+       *       // 语音问诊费用
+       *       audioConsultationFee?: number | null
+       *       // 语音问诊时长（分钟）
+       *       audioConsultationDuration?: number | null
+       *       // 是否开启语音问诊
+       *       audioConsultationEnabled?: boolean
        *       // 身份证正面
        *       idcard_front_image?: string | null
        *       // 系统文件表
@@ -15253,6 +15511,12 @@ declare global {
        *       recommend?: boolean | null
        *       // 评价平均分
        *       avg_rating_score?: number | null
+       *       // 接诊人次
+       *       consultation_Count?: number
+       *       // 满意度（百分比）
+       *       satisfaction_Rate?: number
+       *       // 接诊速度
+       *       response_Speed?: string | null
        *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *       auditing_status?: 0 | 1 | 2 | 3
        *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
@@ -15777,6 +16041,24 @@ declare global {
        *   introduction?: string | null
        *   // 咨询费用
        *   inquiry_fee?: number | null
+       *   // 视频问诊费用
+       *   videoConsultationFee?: number | null
+       *   // 视频问诊时长（分钟）
+       *   videoConsultationDuration?: number | null
+       *   // 是否开启视频问诊
+       *   videoConsulationEnabled?: boolean
+       *   // 图文问诊费用
+       *   textConsultationFee?: number | null
+       *   // 图文问诊时长（分钟）
+       *   textConsultationDuration?: number | null
+       *   // 是否开启图文问诊
+       *   textConsultationEnabled?: boolean
+       *   // 语音问诊费用
+       *   audioConsultationFee?: number | null
+       *   // 语音问诊时长（分钟）
+       *   audioConsultationDuration?: number | null
+       *   // 是否开启语音问诊
+       *   audioConsultationEnabled?: boolean
        *   // 身份证正面
        *   idcard_front_image?: string | null
        *   // 身份证反面
@@ -15799,6 +16081,12 @@ declare global {
        *   recommend?: boolean | null
        *   // 评价平均分
        *   avg_rating_score?: number | null
+       *   // 接诊人次
+       *   consultation_Count?: number
+       *   // 满意度（百分比）
+       *   satisfaction_Rate?: number
+       *   // 接诊速度
+       *   response_Speed?: string | null
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *   auditing_status?: 0 | 1 | 2 | 3
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
@@ -15926,6 +16214,24 @@ declare global {
        *   introduction?: string | null
        *   // 咨询费用
        *   inquiry_fee?: number | null
+       *   // 视频问诊费用
+       *   videoConsultationFee?: number | null
+       *   // 视频问诊时长（分钟）
+       *   videoConsultationDuration?: number | null
+       *   // 是否开启视频问诊
+       *   videoConsulationEnabled?: boolean
+       *   // 图文问诊费用
+       *   textConsultationFee?: number | null
+       *   // 图文问诊时长（分钟）
+       *   textConsultationDuration?: number | null
+       *   // 是否开启图文问诊
+       *   textConsultationEnabled?: boolean
+       *   // 语音问诊费用
+       *   audioConsultationFee?: number | null
+       *   // 语音问诊时长（分钟）
+       *   audioConsultationDuration?: number | null
+       *   // 是否开启语音问诊
+       *   audioConsultationEnabled?: boolean
        *   // 身份证正面
        *   idcard_front_image?: string | null
        *   // 身份证反面
@@ -15948,6 +16254,12 @@ declare global {
        *   recommend?: boolean | null
        *   // 评价平均分
        *   avg_rating_score?: number | null
+       *   // 接诊人次
+       *   consultation_Count?: number
+       *   // 满意度（百分比）
+       *   satisfaction_Rate?: number
+       *   // 接诊速度
+       *   response_Speed?: string | null
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *   auditing_status?: 0 | 1 | 2 | 3
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
@@ -16688,10 +17000,28 @@ declare global {
        *   introduction?: string | null
        *   // 咨询费用
        *   inquiry_fee?: number | null
+       *   // 视频问诊费用
+       *   videoConsultationFee?: number | null
+       *   // 图文问诊费用
+       *   textConsultationFee?: number | null
+       *   // 语音问诊费用
+       *   audioConsultationFee?: number | null
+       *   // 是否开启视频问诊
+       *   videoConsulationEnabled?: boolean | null
+       *   // 是否开启图文问诊
+       *   textConsultationEnabled?: boolean | null
+       *   // 是否开启语音问诊
+       *   audioConsultationEnabled?: boolean | null
        *   // 推荐
        *   recommend?: boolean | null
        *   // 评价平均分
        *   avg_rating_score?: number | null
+       *   // 接诊人次
+       *   consultation_Count?: number | null
+       *   // 满意度（百分比）
+       *   satisfaction_Rate?: number | null
+       *   // 接诊速度
+       *   response_Speed?: string | null
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *   auditing_status?: 0 | 1 | 2 | 3
        *   // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
@@ -17226,6 +17556,24 @@ declare global {
        *       introduction?: string | null
        *       // 咨询费用
        *       inquiry_fee?: number | null
+       *       // 视频问诊费用
+       *       videoConsultationFee?: number | null
+       *       // 视频问诊时长（分钟）
+       *       videoConsultationDuration?: number | null
+       *       // 是否开启视频问诊
+       *       videoConsulationEnabled?: boolean
+       *       // 图文问诊费用
+       *       textConsultationFee?: number | null
+       *       // 图文问诊时长（分钟）
+       *       textConsultationDuration?: number | null
+       *       // 是否开启图文问诊
+       *       textConsultationEnabled?: boolean
+       *       // 语音问诊费用
+       *       audioConsultationFee?: number | null
+       *       // 语音问诊时长（分钟）
+       *       audioConsultationDuration?: number | null
+       *       // 是否开启语音问诊
+       *       audioConsultationEnabled?: boolean
        *       // 身份证正面
        *       idcard_front_image?: string | null
        *       // 系统文件表
@@ -17491,6 +17839,12 @@ declare global {
        *       recommend?: boolean | null
        *       // 评价平均分
        *       avg_rating_score?: number | null
+       *       // 接诊人次
+       *       consultation_Count?: number
+       *       // 满意度（百分比）
+       *       satisfaction_Rate?: number
+       *       // 接诊速度
+       *       response_Speed?: string | null
        *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
        *       auditing_status?: 0 | 1 | 2 | 3
        *       // 医生审核状态<br />&nbsp;未提交 NotSubmitted = 0<br />&nbsp;待审核 Pending = 1<br />&nbsp;审核通过 Approved = 2<br />&nbsp;驳回 Rejected = 3<br />
