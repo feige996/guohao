@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { App_DoctorAuditingOutput, SysDictData } from '@/api/guohao-api/globals.d'
+import type { App_DoctorAuditing, SysDictData } from '@/api/guohao-api/globals.d'
 import { onLoad } from '@dcloudio/uni-app'
 import { useRequest } from 'alova/client'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 // 定义页面元数据
@@ -14,38 +14,35 @@ definePage({
   },
 })
 
-// 医生信息接口
-interface DoctorInfo {
-  id: string
-  name: string
-  avatar: string
-  title: string
-  specialty: string
-  introduction: string
-  consultationCount: number
-  satisfactionRate: number
-  responseSpeed: string
-}
+const showMore = ref(false)
 
-// 医生信息
-const doctorInfo = ref<DoctorInfo>({
-  id: '',
-  name: '孙医生',
-  avatar: '/static/images/avatar.jpg',
-  title: '骨科专家',
-  specialty: 'XX疗法传承人',
-  introduction: '师从中医骨科泰斗xxx，从医20年、患者好评率99%、擅长针灸正骨。\n\n个人简介："耄耋祖训，专攻疑难骨科"',
-  consultationCount: 121,
-  satisfactionRate: 0,
-  responseSpeed: '较快',
-})
-
-// 原始医生数据（从API获取）
-const doctorData = ref<App_DoctorAuditingOutput | null>(null)
+// 医生信息（从API获取）
+const doctorInfo = ref<App_DoctorAuditing>({} as App_DoctorAuditing)
 
 // 字典数据
 const departmentDict = ref<SysDictData[]>([])
 const departmentMap = ref<Record<string, string>>({})
+
+// 计算属性：医生姓名
+const doctorName = computed(() => {
+  return doctorInfo.value?.appUser?.nickName || doctorInfo.value?.appUser?.username || '医生'
+})
+
+// 计算属性：医生头像
+const doctorAvatar = computed(() => {
+  return doctorInfo.value?.avatar || doctorInfo.value?.appUser?.avatar || '/static/images/default-avatar.png'
+})
+
+// 计算属性：擅长科室
+const doctorSpecialty = computed(() => {
+  if (doctorInfo.value?.fields && doctorInfo.value.fields.length > 0) {
+    const fieldLabels = doctorInfo.value.fields.map((field: number) => {
+      return departmentMap.value[field.toString()] || `科室${field}`
+    })
+    return fieldLabels.join('、')
+  }
+  return '中医科'
+})
 
 // 获取科室字典数据
 const {
@@ -121,32 +118,8 @@ const {
   console.log('处理后的医生数据:', result)
 
   if (result) {
-    doctorData.value = result
-
-    // 转换为页面展示格式
-    const userName = result.appUser?.nickName || result.appUser?.username || '医生'
-    const userAvatar = result.avatar || result.appUser?.avatar || '/static/images/default-avatar.png'
-
-    // 处理科室信息
-    let specialtyText = '中医科'
-    if (result.fields && result.fields.length > 0) {
-      const fieldLabels = result.fields.map((field: number) => {
-        return departmentMap.value[field.toString()] || `科室${field}`
-      })
-      specialtyText = fieldLabels.join('、')
-    }
-
-    doctorInfo.value = {
-      id: result.appUser?.id?.toString() || doctorInfo.value.id,
-      name: userName,
-      avatar: userAvatar,
-      title: result.job_title || '主治医师',
-      specialty: specialtyText,
-      introduction: result.introduction || '暂无简介',
-      consultationCount: result.consultation_count || 0,
-      satisfactionRate: result.avg_rating_score || 0,
-      responseSpeed: result.avg_response_speed || '—',
-    }
+    // 直接使用后端返回的数据
+    doctorInfo.value = result
   }
 }).onError((error: any) => {
   console.error('获取医生详情失败:', error)
@@ -159,11 +132,7 @@ const {
 // 页面加载时获取医生ID
 onLoad(async (options: any) => {
   if (options.id) {
-    doctorInfo.value.id = options.id
     await loadDoctorInfo(options.id)
-  }
-  if (options.name) {
-    doctorInfo.value.name = decodeURIComponent(options.name)
   }
 })
 
@@ -229,36 +198,44 @@ function handleBack() {
         <!-- 医生信息卡片 -->
         <view class="mb-[24rpx] rounded-[24rpx] bg-white p-[32rpx]">
           <view class="mb-[24rpx] flex">
-            <image class="mr-[24rpx] h-[96rpx] w-[96rpx] rounded-full bg-[#f0f0f0]" :src="doctorInfo.avatar" mode="aspectFill" />
+            <image class="mr-[24rpx] h-[96rpx] w-[96rpx] rounded-full bg-[#f0f0f0]" :src="doctorAvatar" mode="aspectFill" />
             <view class="flex-1">
               <view class="flex flex-wrap items-center gap-[16rpx]">
-                <text class="text-[#333] font-semibold text-[36rpx]">{{ doctorInfo.name }}</text>
-                <text class="text-[#666] text-[28rpx]">{{ doctorInfo.title }}</text>
-                <text class="text-[#666] text-[28rpx]">{{ doctorInfo.specialty }}</text>
+                <text class="text-[#333] font-semibold text-[36rpx]">{{ doctorName }}</text>
+                <text class="text-[#666] text-[28rpx]">{{ doctorInfo.job_title || '主治医师' }}</text>
+                <text class="text-[#666] text-[28rpx]">{{ doctorSpecialty }}</text>
               </view>
             </view>
           </view>
 
-          <view class="mb-[32rpx] whitespace-pre-line text-[#666] text-[28rpx] leading-[44rpx]">
-            {{ doctorInfo.introduction }}
-          </view>
+          <wd-collapse v-model="showMore" :line-num="3" title="医生简介" viewmore use-more-slot style="padding: 0px !important;">
+            <view class="text-justify text-[#666] text-[28rpx] leading-[44rpx]">
+              {{ doctorInfo.introduction || '暂无简介' }}
+            </view>
+            <template #more>
+              <view class="text-[#ff6b35]">
+                <text v-if="showMore" class="text-[#ff6b35] text-[28rpx]">收起</text>
+                <text v-else class="text-[#ff6b35] text-[28rpx]">显示全部</text>
+              </view>
+            </template>
+          </wd-collapse>
 
           <!-- 统计信息 -->
           <view class="flex items-center justify-around border-t border-[#f0f0f0] pt-[24rpx]">
             <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-              <text v-if="doctorInfo.consultationCount > 0" class="text-[#333] font-semibold text-[40rpx]">{{ doctorInfo.consultationCount }}</text>
+              <text v-if="doctorInfo.consultation_Count && doctorInfo.consultation_Count > 0" class="text-[#333] font-semibold text-[40rpx]">{{ doctorInfo.consultation_Count }}</text>
               <text v-else class="text-[#999] text-[32rpx]">—</text>
               <text class="text-[#999] text-[24rpx]">接诊人次</text>
             </view>
             <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
             <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-              <text v-if="doctorInfo.satisfactionRate > 0" class="text-[#333] font-semibold text-[40rpx]">{{ (doctorInfo.satisfactionRate * 100).toFixed(0) }}%</text>
+              <text v-if="doctorInfo.satisfaction_Rate && doctorInfo.satisfaction_Rate > 0" class="text-[#333] font-semibold text-[40rpx]">{{ doctorInfo.satisfaction_Rate }}%</text>
               <text v-else class="text-[#999] text-[32rpx]">—</text>
               <text class="text-[#999] text-[24rpx]">满意度</text>
             </view>
             <view class="h-[80rpx] w-[1rpx] bg-[#f0f0f0]" />
             <view class="flex flex-1 flex-col items-center gap-[8rpx]">
-              <text v-if="doctorInfo.responseSpeed && doctorInfo.responseSpeed !== '—'" class="text-[#333] font-semibold text-[32rpx]">{{ doctorInfo.responseSpeed }}</text>
+              <text v-if="doctorInfo.response_Speed && doctorInfo.response_Speed !== '—'" class="text-[#333] font-semibold text-[32rpx]">{{ doctorInfo.response_Speed }}</text>
               <text v-else class="text-[#999] text-[32rpx]">—</text>
               <text class="text-[#999] text-[24rpx]">接诊速度</text>
             </view>
@@ -266,17 +243,17 @@ function handleBack() {
         </view>
 
         <!-- 视频挂号 -->
-        <view class="mb-[24rpx]">
+        <view v-if="doctorInfo.videoConsulationEnabled" class="mb-[24rpx]">
           <view class="mb-[16rpx] text-[#333] font-semibold text-[32rpx]">
             视频挂号
           </view>
           <view class="relative flex items-center rounded-[24rpx] bg-white p-[32rpx]">
             <view class="flex flex-1 flex-col gap-[8rpx]">
               <text class="text-[#333] font-medium text-[32rpx]">灵活视频时间</text>
-              <text class="text-[#999] text-[24rpx]">您购买后医生将为您安排视频时间</text>
+              <text class="text-[#999] text-[24rpx]">您购买后医生将为您安排视频时间{{ doctorInfo.videoConsultationDuration ? `（${doctorInfo.videoConsultationDuration}分钟）` : '' }}</text>
             </view>
             <view class="mx-[24rpx] flex items-center text-[#ff6b35] font-semibold text-[32rpx]">
-              ¥20
+              ¥{{ doctorInfo.videoConsultationFee || 20 }}
             </view>
             <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleRegister">
               <text class="text-white font-medium text-[28rpx]">去挂号</text>
@@ -285,16 +262,16 @@ function handleBack() {
         </view>
 
         <!-- 图文问诊 -->
-        <view class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
+        <view v-if="doctorInfo.textConsultationEnabled" class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
           <view class="mr-[24rpx] h-[88rpx] w-[88rpx] flex items-center justify-center rounded-full bg-[#e3f2fd]">
             <text class="text-[48rpx]">💬</text>
           </view>
           <view class="flex-1">
             <view class="mb-[8rpx] flex items-center gap-[12rpx]">
               <text class="text-[#333] font-medium text-[32rpx]">图文问诊</text>
-              <text class="text-[#ff6b35] font-medium text-[28rpx]">¥20/次</text>
+              <text class="text-[#ff6b35] font-medium text-[28rpx]">¥{{ doctorInfo.textConsultationFee || 20 }}/次</text>
             </view>
-            <text class="text-[#999] text-[24rpx]">图文多轮沟通</text>
+            <text class="text-[#999] text-[24rpx]">图文多轮沟通{{ doctorInfo.textConsultationDuration ? `（${doctorInfo.textConsultationDuration}分钟）` : '' }}</text>
           </view>
           <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleTextConsultation">
             <text class="text-white font-medium text-[28rpx]">去问诊</text>
@@ -302,19 +279,16 @@ function handleBack() {
         </view>
 
         <!-- 电话问诊 -->
-        <view class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
+        <view v-if="doctorInfo.audioConsultationEnabled" class="mb-[24rpx] flex items-center rounded-[24rpx] bg-white p-[32rpx]">
           <view class="mr-[24rpx] h-[88rpx] w-[88rpx] flex items-center justify-center rounded-full bg-[#e8f5e9]">
             <text class="text-[48rpx]">📞</text>
           </view>
           <view class="flex-1">
             <view class="mb-[8rpx] flex items-center gap-[12rpx]">
               <text class="text-[#333] font-medium text-[32rpx]">电话问诊</text>
-              <text class="text-[#ff6b35] font-medium text-[28rpx]">¥20/10分钟</text>
-              <view class="inline-flex items-center rounded-[8rpx] bg-[#bbdefb] px-[12rpx] py-[4rpx] text-[#1976d2] text-[20rpx]">
-                首单少
-              </view>
+              <text class="text-[#ff6b35] font-medium text-[28rpx]">¥{{ doctorInfo.audioConsultationFee || 20 }}/{{ doctorInfo.audioConsultationDuration || 10 }}分钟</text>
             </view>
-            <text class="text-[#999] text-[24rpx]">1对1电话交流，今日剩3个号</text>
+            <text class="text-[#999] text-[24rpx]">1对1电话交流</text>
           </view>
           <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handlePhoneConsultation">
             <text class="text-white font-medium text-[28rpx]">去通话</text>
