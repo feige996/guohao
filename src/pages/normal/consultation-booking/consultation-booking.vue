@@ -200,10 +200,30 @@ function handleBack() {
           <view class="mb-[24rpx] flex">
             <image class="mr-[24rpx] h-[96rpx] w-[96rpx] rounded-full bg-[#f0f0f0]" :src="doctorAvatar" mode="aspectFill" />
             <view class="flex-1">
-              <view class="flex flex-wrap items-center gap-[16rpx]">
+              <!-- 医生姓名和职称 -->
+              <view class="mb-[12rpx] flex flex-wrap items-center gap-[16rpx]">
                 <text class="text-[#333] font-semibold text-[36rpx]">{{ doctorName }}</text>
                 <text class="text-[#666] text-[28rpx]">{{ doctorInfo.job_title || '主治医师' }}</text>
-                <text class="text-[#666] text-[28rpx]">{{ doctorSpecialty }}</text>
+              </view>
+
+              <!-- 科室和医院标签 -->
+              <view class="flex flex-wrap items-center gap-[8rpx]">
+                <!-- 科室标签 -->
+                <wd-tag
+                  v-for="(dept, index) in (doctorInfo.fields && doctorInfo.fields.length > 0
+                    ? doctorInfo.fields.slice(0, 4).map(field => departmentMap[field.toString()] || `科室${field}`)
+                    : ['中医科'])"
+                  :key="index"
+                  type="warning"
+                  mark
+                >
+                  {{ dept }}
+                </wd-tag>
+
+                <!-- 医院标签 -->
+                <!-- <wd-tag v-if="doctorInfo.position" type="primary" plain>
+                  {{ doctorInfo.position }}
+                </wd-tag> -->
               </view>
             </view>
           </view>
