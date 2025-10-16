@@ -262,15 +262,19 @@ function handleBack() {
           </view>
         </view>
 
+        <view v-if="doctorInfo.videoConsulationEnabled || doctorInfo.textConsultationEnabled || doctorInfo.audioConsultationEnabled" class="mb-[24rpx]">
+          <view class="mb-[16rpx] text-[#333] font-semibold text-[32rpx]">
+            问诊服务
+          </view>
+        </view>
+
         <!-- 视频挂号 -->
         <view v-if="doctorInfo.videoConsulationEnabled" class="mb-[24rpx]">
-          <view class="mb-[16rpx] text-[#333] font-semibold text-[32rpx]">
-            视频挂号
-          </view>
           <view class="relative flex items-center rounded-[24rpx] bg-white p-[32rpx]">
             <view class="flex flex-1 flex-col gap-[8rpx]">
               <text class="text-[#333] font-medium text-[32rpx]">灵活视频时间</text>
-              <text class="text-[#999] text-[24rpx]">您购买后医生将为您安排视频时间{{ doctorInfo.videoConsultationDuration ? `（${doctorInfo.videoConsultationDuration}分钟）` : '' }}</text>
+              <!-- <text class="text-[#999] text-[24rpx]">您购买后医生将为您安排视频时间{{ doctorInfo.videoConsultationDuration ? `（${doctorInfo.videoConsultationDuration}分钟）` : '' }}</text> -->
+              <text class="text-[#999] text-[24rpx]">您购买后医生将为您安排视频时间</text>
             </view>
             <view class="mx-[24rpx] flex items-center text-[#ff6b35] font-semibold text-[32rpx]">
               ¥{{ doctorInfo.videoConsultationFee || 20 }}
@@ -291,7 +295,8 @@ function handleBack() {
               <text class="text-[#333] font-medium text-[32rpx]">图文问诊</text>
               <text class="text-[#ff6b35] font-medium text-[28rpx]">¥{{ doctorInfo.textConsultationFee || 20 }}/次</text>
             </view>
-            <text class="text-[#999] text-[24rpx]">图文多轮沟通{{ doctorInfo.textConsultationDuration ? `（${doctorInfo.textConsultationDuration}分钟）` : '' }}</text>
+            <!-- <text class="text-[#999] text-[24rpx]">图文多轮沟通{{ doctorInfo.textConsultationDuration ? `（${doctorInfo.textConsultationDuration}分钟）` : '' }}</text> -->
+            <text class="text-[#999] text-[24rpx]">图文多轮沟通</text>
           </view>
           <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handleTextConsultation">
             <text class="text-white font-medium text-[28rpx]">去问诊</text>
@@ -305,13 +310,14 @@ function handleBack() {
           </view>
           <view class="flex-1">
             <view class="mb-[8rpx] flex items-center gap-[12rpx]">
-              <text class="text-[#333] font-medium text-[32rpx]">电话问诊</text>
-              <text class="text-[#ff6b35] font-medium text-[28rpx]">¥{{ doctorInfo.audioConsultationFee || 20 }}/{{ doctorInfo.audioConsultationDuration || 10 }}分钟</text>
+              <text class="text-[#333] font-medium text-[32rpx]">语音问诊</text>
+              <!-- <text class="text-[#ff6b35] font-medium text-[28rpx]">¥{{ doctorInfo.audioConsultationFee || 20 }}/{{ doctorInfo.audioConsultationDuration || 10 }}分钟</text> -->
+              <text class="text-[#ff6b35] font-medium text-[28rpx]">¥{{ doctorInfo.audioConsultationFee || 20 }}/次</text>
             </view>
-            <text class="text-[#999] text-[24rpx]">1对1电话交流</text>
+            <text class="text-[#999] text-[24rpx]">1对1语音交流</text>
           </view>
           <view class="rounded-[48rpx] from-[#ff8a65] to-[#ff6b35] bg-gradient-to-br px-[32rpx] py-[16rpx]" @click="handlePhoneConsultation">
-            <text class="text-white font-medium text-[28rpx]">去通话</text>
+            <text class="text-white font-medium text-[28rpx]">去问诊</text>
           </view>
         </view>
       </view>
