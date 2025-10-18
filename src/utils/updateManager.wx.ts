@@ -25,5 +25,10 @@ export default () => {
 
   updateManager.onUpdateFailed(() => {
     // 新版本下载失败
+    uni.showModal({
+      title: '更新提示',
+      content: '新版小程序下载失败\n请自行退出程序，手动卸载本程序，重新打开',
+      showCancel: false,
+    })
   })
 }

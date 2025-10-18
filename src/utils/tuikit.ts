@@ -371,6 +371,8 @@ export async function logoutTUIKit(): Promise<void> {
 export function getTUIKitManager(): TUIKitManager {
   return tuiKitManager
 }
+let tuikitModule: typeof import('@/utils/tuikit') | null = null
+let isLoading = false
 
 /**
  * 懒加载 TUIKit 模块
@@ -382,6 +384,7 @@ export async function loadTUIKitModule() {
 
   if (isLoading) {
     // 如果正在加载，等待加载完成
+    // eslint-disable-next-line no-unmodified-loop-condition
     while (isLoading) {
       await new Promise(resolve => setTimeout(resolve, 100))
     }
