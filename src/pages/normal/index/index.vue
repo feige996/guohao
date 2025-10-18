@@ -5,7 +5,7 @@ import ConsultationSection from '@/components/ConsultationSection'
 import FunctionCards from '@/components/FunctionCards'
 import SearchBar from '@/components/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
-import DateCard from './DateCard.vue'
+import DateCard from './components/DateCard.vue'
 
 definePage({
   type: 'home',

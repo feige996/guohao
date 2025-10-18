@@ -183,10 +183,6 @@
       "excludeLoginPath": false
     },
     {
-      "path": "pages/normal/index/DateCard",
-      "type": "page"
-    },
-    {
       "path": "pages/normal/index/indexcopy",
       "type": "page",
       "style": {
