@@ -83,7 +83,7 @@ onLoad((options) => {
     redirectUrl.value = ensureDecodeURIComponent(options.redirect)
   }
   else {
-    redirectUrl.value = tabbarList[0].pagePath
+    redirectUrl.value = tabbarList.value[0].pagePath
   }
   console.log('redirectUrl.value: ', redirectUrl.value)
 })
