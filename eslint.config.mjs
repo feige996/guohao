@@ -16,6 +16,7 @@ export default uniHelper({
     'src/manifest.json',
     // 忽略自动生成文件
     'src/service/**',
+    'src/TUIKit/**',
   ],
   // https://eslint-config.antfu.me/rules
   rules: {
