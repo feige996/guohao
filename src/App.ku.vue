@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useThemeStore } from '@/store'
+import { useThemeStore, useUserStore } from '@/store'
 import FgTabbar from '@/tabbar/index.vue'
 import { isPageTabbar } from './tabbar/store'
 import { currRoute } from './utils'
 
 const themeStore = useThemeStore()
+const userStore = useUserStore()
 
 const isCurrentPageTabbar = ref(true)
 onShow(() => {
@@ -30,6 +31,11 @@ defineExpose({
     <view class="hidden text-center">
       {{ helloKuRoot }}，这里可以配置全局的东西
     </view>
+    <wd-fab :draggable="true">
+      <wd-button type="primary" @click="userStore.toggleUserDefaultRole">
+        切换角色
+      </wd-button>
+    </wd-fab>
 
     <KuRootView />
 

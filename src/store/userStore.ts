@@ -121,6 +121,15 @@ export const useUserStore = defineStore('user', () => {
     }
   })
 
+  const toggleUserDefaultRole = () => {
+    if (userInfo.value?.defaultRole === 777) {
+      userInfo.value.defaultRole = 888
+    }
+    else {
+      userInfo.value.defaultRole = 777
+    }
+  }
+
   /**
    * 保存登录结果
    * @param loginResult 登录API返回的结果
@@ -254,6 +263,7 @@ export const useUserStore = defineStore('user', () => {
     updateUserInfo,
     clearUserInfo,
     getAuthHeader,
+    toggleUserDefaultRole,
   }
 }, {
   persist: true,
