@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { FunctionCardItem } from '@/components/FunctionCards'
-import ConstitutionCard from '@/components/ConstitutionCard'
 import ConsultationSection from '@/components/ConsultationSection'
 import FunctionCards from '@/components/FunctionCards'
 import SearchBar from '@/components/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
-import DateCard from './components/DateCard.vue'
+import VIPmember from './components/VIPmember.vue'
+import DateStatus from './components/DateStatus.vue'
 
 definePage({
   type: 'home',
@@ -40,22 +40,6 @@ function handleUpgradeClick() {
 function handleHealthManagerClick() {
   console.log('点击健康管家消息')
   // 在这里添加健康管家消息的逻辑
-}
-
-// 体质卡片事件处理
-function handleConstitutionCardClick() {
-  console.log('点击体质卡片')
-  // 在这里添加体质卡片的逻辑
-}
-
-function handleConstitutionClick() {
-  console.log('点击体质状态')
-  // 在这里添加体质状态的逻辑
-}
-
-function handleAdviceClick() {
-  console.log('点击养生建议')
-  // 在这里添加养生建议的逻辑
 }
 
 // 功能卡片事件处理
@@ -146,24 +130,30 @@ const functionCards: FunctionCardItem[] = [
     <div class="relative w-[750rpx] flex flex-col items-start">
       <!-- 顶部渐变区域 -->
       <div class="relative h-[848rpx] w-[750rpx] flex flex-col items-start from-[#f6e2d3] to-transparent bg-gradient-to-b">
+        <!-- VIP会员组件 -->
+        <div class="ml-[24rpx] mt-[24rpx]">
+          <VIPmember />
+        </div>
+
         <!-- 搜索栏 -->
+        <div class="mt-[12px]">
         <SearchBar
           @search="handleSearch"
           @click="handleSearchBarClick"
-        />
+          />
+        </div>
 
-        <!-- 专业咨询区域 -->
+        <!-- 日期和体质状态 -->
+        <div class="mt-[12px] ml-[24rpx]">
+          <DateStatus />
+        </div>
+
+        <!-- 专业咨询区域（下移） -->
         <ConsultationSection
           @consult-click="handleConsultClick"
           @upgrade-click="handleUpgradeClick"
           @health-manager-click="handleHealthManagerClick"
         />
-      </div>
-
-      <!-- 体质卡片区域 -->
-      <div class="relative ml-[24rpx] h-[344rpx] w-[702rpx] flex flex-row items-start rounded-[16rpx] bg-white bg-cover bg-center bg-no-repeat -mt-[208rpx]">
-        <DateCard class="relative ml-[32rpx] mt-[32rpx] h-[280rpx] w-[282rpx]" />
-        <ConstitutionCard class="ml-[22rpx] mt-[32rpx]" />
       </div>
 
       <!-- 专属权益区域 -->
