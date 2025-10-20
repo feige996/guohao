@@ -1,71 +1,61 @@
-<script setup lang="ts">
+<script lang="ts" setup>
+import VipCard from './Item.vue'
 /**
- * VipCard 组件
- * 用于显示会员相关功能卡片，如健康档案、关注医生等
+ * 处理关注医生卡片点击事件
  */
-
-interface VipCardProps {
-  // 卡片标题
-  title?: string
-  // 卡片描述
-  description?: string
-  // 图标URL
-  iconUrl?: string
-  // 是否可点击
-  clickable?: boolean
+function handleDoctorClick() {
+  // 这里可以添加关注医生页面的跳转逻辑
+  console.log('点击了关注医生卡片')
 }
 
-const props = withDefaults(defineProps<VipCardProps>(), {
-  title: '健康档案',
-  description: '已记录健康信息',
-  // 默认使用提供的图标URL
-  iconUrl: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650227621/e560/6106/f1c2/7218a547c5a5ac8fb8fbc2dcea1478d8.png',
-  clickable: true,
-})
-
-// 定义事件
-const emit = defineEmits<{
-  click: []
-}>()
-
 /**
- * 处理卡片点击事件
+ * 处理健康档案卡片点击事件
  */
-function handleCardClick() {
-  if (props.clickable) {
-    emit('click')
-  }
+function handleHealthRecordClick() {
+  // 这里可以添加健康档案页面的跳转逻辑
+  console.log('点击了健康档案卡片')
 }
 </script>
 
 <template>
-  <view
-    class="flex-1 rounded-[16rpx] rounded-lg bg-white from-[#fdf2ea] to-[#f7f6f7] bg-gradient-to-b px-2 py-4 shadow-[0rpx_0rpx_12rpx_0rpx_rgba(0,0,0,0.05)] shadow-md transition-all duration-300 hover:shadow-lg"
-    :class="{ 'cursor-pointer': clickable }"
-  >
-    <!-- 卡片内容容器 -->
-    <view class="flex items-center justify-between" @click="handleCardClick">
-      <!-- 图标和文字部分 -->
-      <view class="flex items-center gap-2">
-        <!-- 图标 -->
-        <image
-          class="h-10 w-10"
-          :src="iconUrl"
-          mode="aspectFit"
-        />
-        <view>
-          <view class="text-gray-800 font-medium">
-            {{ title }}
-          </view>
-          <view class="mt-1 text-xs text-gray-500">
-            {{ description }}
-            <!-- 右箭头 -->
-            <span class="ml-2 text-gray-400">
-              &gt;
-            </span>
-          </view>
-        </view>
+  <view>
+    <view class="card-container flex items-center px-3">
+      <view class="text-white font-medium text-[32rpx] leading-[48rpx]">
+        健康VIP
       </view>
+      <view class="text-white/50 font-medium text-[26rpx] leading-[32rpx]">
+        开通VIP 享更高级权益
+      </view>
+      <view class="ml-auto rounded-[28rpx] from-[#fefbfb] to-[#f7f9ef] bg-gradient-to-b pb-[12rpx] pl-[24rpx] pr-[24rpx] pt-[12rpx] text-center text-highlight font-medium text-[24rpx] leading-[32rpx]">
+        升级VIP
+      </view>
+    </view>
+
+    <!-- VIP底部背景 -->
+    <view class="relative left--3 box-border h-[180rpx] w-screen flex gap-2 rounded-[16rpx] from-[rgba(253,238,227,0.94)] to-[rgba(245,246,243,0.94)] bg-gradient-to-b p-3 backdrop-blur-[10rpx]">
+      <!-- 左边卡片 - 使用VIPCard组件 -->
+      <VipCard
+        title="关注医生"
+        description="已关注医生信息"
+        icon-url="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650226633/0ad9/94f5/516d/9dca6d56eb93b5495d8c57770ea9fc5a.png"
+        @click="handleDoctorClick"
+      />
+
+      <!-- 右边卡片 - 使用VIPCard组件 -->
+      <VipCard
+        title="健康档案"
+        description="已记录健康信息"
+        icon-url="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650227605/4538/58f9/66c2/4bca6a9bdd69e5a5b6d297cf379d4589.png"
+        @click="handleHealthRecordClick"
+      />
     </view>
   </view>
 </template>
+
+<style lang="scss" scoped>
+.card-container {
+  height: 60px;
+  border-radius: 16px 16px 0 0;
+  background-image: linear-gradient(to bottom, #97493d, #c7ac80);
+}
+</style>
