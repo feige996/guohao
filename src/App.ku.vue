@@ -36,6 +36,6 @@ onShow(() => {
 .page-container {
   height: 100%;
   min-height: 100vh;
-  background-image: linear-gradient(to bottom, #f6e2d3, transparent 60%, transparent);
+  background-image: linear-gradient(to bottom, #f6e2d3, transparent 30%, transparent);
 }
 </style>

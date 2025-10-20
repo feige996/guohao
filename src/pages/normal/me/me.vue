@@ -7,6 +7,7 @@ import { currRoute } from '@/utils'
 import { safeAreaInsets } from '@/utils/systemInfo'
 import loveSrc from './assets/love.png'
 import peopleSrc from './assets/people.png'
+import ServiceCard from './components/ServiceCard/index.vue'
 import VipCard from './components/VipCard/index.vue'
 
 /**
@@ -79,18 +80,28 @@ const menuItems = [
 // 服务项配置
 const serviceItems = [
   {
-    id: 'vip',
-    title: '会员中心',
-    subtitle: '享受专属权益',
-    icon: '/static/images/me/vip-icon.png',
-    bgColor: 'from-[#ffd700] to-[#ffb347]',
+    id: 'consultation-record',
+    title: '问诊记录',
+    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650226508/77bc/5dd6/9844/c4a72f29c70308915a12d88e1bf7f368.png',
+    bgColor: 'bg-[#fff0f0]',
   },
   {
-    id: 'customer-service',
-    title: '在线客服',
-    subtitle: '7×24小时服务',
-    icon: '/static/images/me/service-icon.png',
-    bgColor: 'from-[#87ceeb] to-[#4682b4]',
+    id: 'order',
+    title: '商品订单',
+    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650223673/8c52/9644/88b4/95fa6e626f409bfcabe3ab2b20269ed2.png',
+    bgColor: 'bg-[#f8f4e6]',
+  },
+  {
+    id: 'health-record',
+    title: '健康档案',
+    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650224797/4274/2528/339b/600c29854c72cbe3017db993e255c8cd.png',
+    bgColor: 'bg-[#f0f7f0]',
+  },
+  {
+    id: 'address',
+    title: '地址管理',
+    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650228089/e392/c333/b6d3/06fc2f16d63579eacfc1f05951fca735.png',
+    bgColor: 'bg-[#f0f5ff]',
   },
 ]
 
@@ -231,37 +242,16 @@ function handleServiceClick(item: any) {
     </view>
 
     <!-- 我的服务卡片 -->
-    <view class="mx-[24rpx] mt-[16rpx] h-[260rpx] flex flex-col items-start justify-center gap-[32rpx] rounded-[8rpx] bg-white pb-[32rpx] pl-[32rpx] pr-[32rpx] pt-[32rpx]">
+    <view class="mx-[24rpx] mt-[16rpx] flex flex-col items-start justify-center gap-[32rpx] rounded-[8rpx] bg-white pb-[32rpx] pl-[32rpx] pr-[32rpx] pt-[32rpx]">
       <span class="flex-shrink-0 whitespace-pre text-[#0e0e0e] font-medium text-[32rpx] leading-[40rpx]"> 我的服务 </span>
-      <view class="relative h-[124rpx] w-full flex flex-shrink-0 flex-row items-start justify-between">
-        <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-center text-[#0e0e0e] font-medium text-[24rpx] leading-[28rpx]">
-          <img
-            class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650226508/77bc/5dd6/9844/c4a72f29c70308915a12d88e1bf7f368.png"
-          >
-          <span class="w-[96rpx] flex-shrink-0"> 问诊记录 </span>
-        </view>
-        <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[#0e0e0e] font-medium text-[24rpx] leading-[28rpx]">
-          <img
-            class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650223673/8c52/9644/88b4/95fa6e626f409bfcabe3ab2b20269ed2.png"
-          >
-          <span class="flex-shrink-0"> 商品订单 </span>
-        </view>
-        <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[#0e0e0e] font-medium text-[24rpx] leading-[28rpx]">
-          <img
-            class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650228089/e392/c333/b6d3/06fc2f16d63579eacfc1f05951fca735.png"
-          >
-          <span class="w-[96rpx] flex-shrink-0"> 健康档案 </span>
-        </view>
-        <view class="relative h-[124rpx] w-[96rpx] flex flex-shrink-0 flex-col items-center justify-center gap-[16rpx] whitespace-pre text-[#0e0e0e] font-medium text-[24rpx] leading-[28rpx]">
-          <img
-            class="relative h-[80rpx] w-[80rpx] flex-shrink-0"
-            src="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650224797/4274/2528/339b/600c29854c72cbe3017db993e255c8cd.png"
-          >
-          <span class="w-[96rpx] flex-shrink-0"> 地址管理 </span>
-        </view>
+      <view class="grid grid-cols-4 w-full gap-[16rpx]">
+        <ServiceCard
+          v-for="(service, index) in serviceItems"
+          :key="index"
+          :title="service.title"
+          :icon-url="service.icon"
+          @click="handleServiceClick(service.title)"
+        />
       </view>
     </view>
 
