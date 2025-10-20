@@ -185,7 +185,7 @@ function handleHealthcareCardClick(config: HealthcareCardConfig) {
     case 'guide':
       // 处理导诊顾问点击逻辑
       console.log('跳转到导诊顾问页面')
-      // uni.navigateTo({ url: '/pages/guide/index' })
+      uni.navigateTo({ url: '/pages/normal/consultation-guide/index' })
       break
     case 'consult':
       // 处理在线问诊点击逻辑
@@ -204,7 +204,7 @@ function handleMedicalServiceCardClick(card: MedicalServiceCardConfig) {
   switch (card.action) {
     case 'goToMedicineService':
       console.log('跳转到购药服务页面')
-      // uni.navigateTo({ url: '/pages/medicine/index' })
+      // uni.navigateTo({ url: '/pages/normal/medication-purchase-service/index' })
       break
     case 'goToSmartDiagnosis':
       console.log('跳转到智慧自诊页面')

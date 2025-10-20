@@ -145,6 +145,26 @@
       }
     },
     {
+      "path": "pages/normal/consultation-guide/chat",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/consultation-guide/index",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/consultation-guide/message-confirm",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/consultation-guide/message-form",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/consultation-guide/wechat-service",
+      "type": "page"
+    },
+    {
       "path": "pages/normal/diagnosis/diagnosis",
       "type": "page",
       "style": {
@@ -203,6 +223,10 @@
         "navigationStyle": "custom",
         "navigationBarTitleText": "个人中心"
       }
+    },
+    {
+      "path": "pages/normal/medication-purchase-service/index",
+      "type": "page"
     },
     {
       "path": "pages/normal/message/message",
