@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref } from 'vue'
 
 // 导航栏标题
-const pageTitle = ref("开药购药")
+const pageTitle = ref('开药购药')
 
 // 处理返回按钮点击
 function handleBack() {
@@ -11,25 +11,19 @@ function handleBack() {
 
 // 处理复诊开方点击
 function handleFollowUpPrescription() {
-  uni.showToast({
-    title: "申请开方功能",
-    icon: "none"
-  })
+  uni.navigateTo({ url: '/pages/normal/medication-purchase-service/follow-up-prescription' })
 }
 
 // 处理养生方药点击
 function handleHealthPrescription() {
-  uni.showToast({
-    title: "自选方药功能",
-    icon: "none"
-  })
+  uni.navigateTo({ url: '/pages/normal/medication-purchase-service/health-prescription' })
 }
 </script>
 
 <template>
   <div class="min-h-screen bg-[#f5f5f5]">
     <!-- 导航栏 -->
-    <div class="relative h-[44px] flex items-center justify-center bg-white px-[16px] border-b border-[#e5e5e5]">
+    <div class="relative h-[44px] flex items-center justify-center border-b border-[#e5e5e5] bg-white px-[16px]">
       <div class="absolute left-[16px] z-10 flex items-center justify-center p-[8px] -ml-[8px]" @click="handleBack">
         <uni-icons type="back" size="24" color="#333333" />
       </div>
@@ -42,21 +36,21 @@ function handleHealthPrescription() {
     <div class="p-[12px]">
       <div class="flex items-center rounded-[8px] bg-[#f0f0f0] px-[12px]">
         <uni-icons type="search" size="20" color="#999999" />
-        <input 
-          type="text" 
-          placeholder="搜索药品、药店、医生" 
+        <input
+          type="text"
+          placeholder="搜索药品、药店、医生"
           class="ml-[8px] flex-1 bg-transparent py-[8px] text-[14px] text-[#333333] outline-none"
-        />
+        >
       </div>
     </div>
 
     <!-- 页面内容 -->
     <div class="p-[12px]">
       <!-- 复诊开方卡片 -->
-      <div class="mb-[12px] rounded-[12px] bg-white overflow-hidden shadow-sm">
+      <div class="mb-[12px] overflow-hidden rounded-[12px] bg-white shadow-sm">
         <div class="flex items-center bg-[#f6f9ff] px-[16px] py-[14px]">
           <div class="mr-[12px] h-[40px] w-[40px] rounded-full bg-[#0957DE] p-[8px]">
-            <uni-icons type="medal" size="24" color="#ffffff" />
+            <uni-icons type="medical" size="24" color="#ffffff" />
           </div>
           <div>
             <h3 class="text-[16px] text-[#333333] font-medium">
@@ -68,7 +62,7 @@ function handleHealthPrescription() {
           </div>
         </div>
         <div class="px-[16px] py-[12px]">
-          <button 
+          <button
             class="w-full rounded-[20px] bg-[#0957DE] py-[10px] text-[14px] text-white font-medium"
             @click="handleFollowUpPrescription"
           >
@@ -78,10 +72,10 @@ function handleHealthPrescription() {
       </div>
 
       <!-- 养生方药卡片 -->
-      <div class="rounded-[12px] bg-white overflow-hidden shadow-sm">
+      <div class="overflow-hidden rounded-[12px] bg-white shadow-sm">
         <div class="flex items-center bg-[#fff1f0] px-[16px] py-[14px]">
           <div class="mr-[12px] h-[40px] w-[40px] rounded-full bg-[#ff4d4f] p-[8px]">
-            <uni-icons type="star" size="24" color="#ffffff" />
+            <uni-icons type="leaf" size="24" color="#ffffff" />
           </div>
           <div>
             <h3 class="text-[16px] text-[#333333] font-medium">
@@ -93,7 +87,7 @@ function handleHealthPrescription() {
           </div>
         </div>
         <div class="px-[16px] py-[12px]">
-          <button 
+          <button
             class="w-full rounded-[20px] bg-[#ff4d4f] py-[10px] text-[14px] text-white font-medium"
             @click="handleHealthPrescription"
           >

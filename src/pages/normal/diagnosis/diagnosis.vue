@@ -204,7 +204,7 @@ function handleMedicalServiceCardClick(card: MedicalServiceCardConfig) {
   switch (card.action) {
     case 'goToMedicineService':
       console.log('跳转到购药服务页面')
-      // uni.navigateTo({ url: '/pages/normal/medication-purchase-service/index' })
+      uni.navigateTo({ url: '/pages/normal/medication-purchase-service/index' })
       break
     case 'goToSmartDiagnosis':
       console.log('跳转到智慧自诊页面')

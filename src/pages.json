@@ -225,7 +225,23 @@
       }
     },
     {
+      "path": "pages/normal/medication-purchase-service/follow-up-prescription",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/medication-purchase-service/health-prescription",
+      "type": "page"
+    },
+    {
       "path": "pages/normal/medication-purchase-service/index",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/medication-purchase-service/prescription-detail",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/medication-purchase-service/prescription-order",
       "type": "page"
     },
     {

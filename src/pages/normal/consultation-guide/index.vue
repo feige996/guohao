@@ -114,7 +114,7 @@ function handleMedicationService() {
         >
           <div class="flex items-center">
             <div class="mr-[12px] h-[44px] w-[44px] flex items-center justify-center rounded-full bg-[#f0f0ff]">
-              <uni-icons type="medal" size="24" color="#722ed1" />
+              <uni-icons type="medical" size="24" color="#722ed1" />
             </div>
             <div>
               <h3 class="text-[16px] text-[#333333] font-medium">
