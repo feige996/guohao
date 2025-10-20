@@ -81,6 +81,7 @@ export default defineConfig({
     colors: {
       /** 主题色，用法如: text-primary */
       primary: 'var(--wot-color-theme,#0957DE)',
+      highlight:'#B1843B'
     },
     /** 背景颜色 */
     backgroundColor: {
