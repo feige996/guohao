@@ -47,7 +47,7 @@ export default defineConfig({
   ],
   shortcuts: [
     {
-      center: 'flex justify-center items-center',
+      'center': 'flex justify-center items-center',
       // 文本截断快捷类
       'line-clamp-1': 'overflow-hidden text-ellipsis whitespace-nowrap',
       'line-clamp-2': 'overflow-hidden text-ellipsis line-clamp-2',
@@ -81,6 +81,12 @@ export default defineConfig({
     colors: {
       /** 主题色，用法如: text-primary */
       primary: 'var(--wot-color-theme,#0957DE)',
+    },
+    /** 背景颜色 */
+    backgroundColor: {
+      /** 背景颜色，用法如: bg-primary */
+      primary: 'var(--wot-color-theme,#f6e2d3)',
+      secondary: 'var(--wot-color-theme-secondary,#000000)',
     },
     fontSize: {
       /** 提供更小号的字体，用法如：text-2xs */
