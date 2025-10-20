@@ -92,7 +92,7 @@ function handleMenuClick(item: any) {
       <text class="ml-auto text-xs text-[#ccc]">{{ item.desc }}</text>
       <image
         v-if="item.arrow"
-        src="/static/images/homepage/settings-arrow.png"
+        src="/static/images/homepage/arrow-right.png"
         class="h-[24rpx] w-[24rpx]"
       />
     </view>

@@ -57,12 +57,14 @@ function handleCardClick() {
           <view class="text-gray-800 font-medium">
             {{ title }}
           </view>
-          <view class="mt-1 text-xs text-gray-500">
-            {{ description }}
+          <view class="mt-1 flex items-center gap-1 text-xs text-gray-500">
+            <text>{{ description }}</text>
             <!-- 右箭头 -->
-            <span class="ml-2 text-gray-400">
-              &gt;
-            </span>
+            <image
+              src="/static/images/homepage/arrow-right.png"
+              class="h-3 w-3"
+              mode="aspectFit"
+            />
           </view>
         </view>
       </view>
