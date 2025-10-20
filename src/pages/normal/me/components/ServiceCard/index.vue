@@ -17,13 +17,13 @@ const list = [
   {
     id: 'health-record',
     title: '健康档案',
-    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650224797/4274/2528/339b/600c29854c72cbe3017db993e255c8cd.png',
+    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650228089/e392/c333/b6d3/06fc2f16d63579eacfc1f05951fca735.png',
     bgColor: 'bg-[#f0f7f0]',
   },
   {
     id: 'address',
     title: '地址管理',
-    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650228089/e392/c333/b6d3/06fc2f16d63579eacfc1f05951fca735.png',
+    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650224797/4274/2528/339b/600c29854c72cbe3017db993e255c8cd.png',
     bgColor: 'bg-[#f0f5ff]',
   },
 ]

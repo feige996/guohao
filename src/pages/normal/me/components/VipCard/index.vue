@@ -19,14 +19,14 @@ function handleHealthRecordClick() {
 
 <template>
   <view>
-    <view class="card-container flex items-center px-3">
+    <view class="card-container flex items-center gap-2 px-3">
       <view class="text-white font-medium text-[32rpx] leading-[48rpx]">
         健康VIP
       </view>
       <view class="text-white/50 font-medium text-[26rpx] leading-[32rpx]">
         开通VIP 享更高级权益
       </view>
-      <view class="ml-auto rounded-[28rpx] from-[#fefbfb] to-[#f7f9ef] bg-gradient-to-b pb-[12rpx] pl-[24rpx] pr-[24rpx] pt-[12rpx] text-center text-highlight font-medium text-[24rpx] leading-[32rpx]">
+      <view class="ml-auto rounded-[28rpx] from-[#fefbfb] to-[#f7f9ef] bg-gradient-to-b pb-[12rpx] pl-[24rpx] pr-[24rpx] pt-[12rpx] text-center text-highlight font-bold font-medium text-[24rpx] leading-[32rpx]">
         升级VIP
       </view>
     </view>

@@ -34,12 +34,12 @@ function handleCardClick() {
 
 <template>
   <view
-    class="flex flex-col items-center justify-center p-4 transition-all duration-200 hover:opacity-90"
+    class="flex flex-col items-center justify-center transition-all duration-200 hover:opacity-90"
     :class="{ 'cursor-pointer': clickable }"
     @click="handleCardClick"
   >
     <!-- 图标容器 -->
-    <view class="mb-2 flex h-16 w-16 items-center justify-center rounded-lg border border-gray-100 bg-gray-50">
+    <view class="h-16 w-16 flex items-center justify-center">
       <!-- 图标 -->
       <image
         class="h-10 w-10 object-contain"
@@ -48,7 +48,7 @@ function handleCardClick() {
       />
     </view>
     <!-- 标题 -->
-    <view class="text-center text-sm font-medium text-gray-800">
+    <view class="text-center text-xs text-gray-800 font-500">
       {{ title }}
     </view>
   </view>

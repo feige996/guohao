@@ -77,14 +77,14 @@ function login() {
       </view>
 
       <!-- VIP卡片区域 -->
-      <VipCard />
+      <VipCard class="mt-3" />
     </view>
 
     <!-- 我的服务卡片 -->
     <ServiceCard />
 
     <!-- 功能菜单 -->
-    <MenuCard />
+    <MenuCard class="mt-3" />
 
     <!-- 退出登录按钮 -->
     <view v-if="isLoggedIn" class="mx-[24rpx] mb-[32rpx] mt-[32rpx]">
