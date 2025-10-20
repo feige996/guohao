@@ -49,7 +49,9 @@ function handleServiceClick(item: any) {
 
 <template>
   <view class="rounded-[8rpx] bg-white bg-white px-3 py-4">
-    <span class="flex-shrink-0 whitespace-pre text-[#0e0e0e] font-medium text-[32rpx] leading-[40rpx]"> 我的服务 </span>
+    <view class="flex-shrink-0 whitespace-pre text-[#0e0e0e] font-medium text-[32rpx] leading-[40rpx]">
+      我的服务
+    </view>
     <view class="grid grid-cols-4 w-full gap-[16rpx]">
       <ServiceCard
         v-for="(service, index) in list"

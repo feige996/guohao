@@ -77,7 +77,9 @@ function handleMenuClick(item: any) {
 
 <template>
   <view class="rounded-[8rpx] bg-white bg-white px-3 py-4">
-    <span class="flex-shrink-0 whitespace-pre text-[#0e0e0e] font-medium text-[32rpx] leading-[40rpx]"> 账户与设置 </span>
+    <view class="mb-2 flex-shrink-0 whitespace-pre text-[#0e0e0e] font-medium text-[32rpx] leading-[40rpx]">
+      账户与设置
+    </view>
     <view
       v-for="item in list"
       :key="item.id"
