@@ -70,7 +70,8 @@ function handleMenuClick(item: any) {
 </script>
 
 <template>
-  <view class="mx-[24rpx] mt-[32rpx] overflow-hidden rounded-[16rpx] bg-white shadow-sm">
+  <view class="rounded-[8rpx] bg-white bg-white px-3 py-4">
+    <span class="flex-shrink-0 whitespace-pre text-[#0e0e0e] font-medium text-[32rpx] leading-[40rpx]"> 账户与设置 </span>
     <view
       v-for="item in list"
       :key="item.id"

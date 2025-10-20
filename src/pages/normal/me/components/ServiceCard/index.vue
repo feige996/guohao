@@ -48,7 +48,7 @@ function handleServiceClick(item: any) {
 </script>
 
 <template>
-  <view class="mx-[24rpx] mt-[16rpx] flex flex-col items-start justify-center gap-[32rpx] rounded-[8rpx] bg-white bg-white pb-[32rpx] pl-[32rpx] pr-[32rpx] pt-[32rpx]">
+  <view class="rounded-[8rpx] bg-white bg-white px-3 py-4">
     <span class="flex-shrink-0 whitespace-pre text-[#0e0e0e] font-medium text-[32rpx] leading-[40rpx]"> 我的服务 </span>
     <view class="grid grid-cols-4 w-full gap-[16rpx]">
       <ServiceCard
