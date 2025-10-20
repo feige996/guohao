@@ -19,21 +19,6 @@ const userStore = useUserStore()
 // 使用storeToRefs解构userInfo
 const { userInfo, displayName, userAvatar, isLoggedIn } = storeToRefs(userStore)
 
-// 登录功能
-function gotoLogin() {
-  if (userStore.isLoggedIn) {
-    uni.showToast({
-      title: '已登录，不能去登录页',
-      icon: 'none',
-    })
-    return
-  }
-  const { path } = currRoute()
-  uni.navigateTo({
-    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent(path)}`,
-  })
-}
-
 // 退出登录
 function logout() {
   uni.showModal({
@@ -53,6 +38,9 @@ function logout() {
 // 登录
 function login() {
   console.log('登录')
+  uni.navigateTo({
+    url: LOGIN_PAGE,
+  })
 }
 </script>
 
