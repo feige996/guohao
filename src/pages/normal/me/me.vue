@@ -50,6 +50,10 @@ function logout() {
     },
   })
 }
+// 登录
+function login() {
+  console.log('登录')
+}
 </script>
 
 <template>
@@ -84,12 +88,22 @@ function logout() {
 
     <!-- 退出登录按钮 -->
     <view v-if="isLoggedIn" class="mx-[24rpx] mb-[32rpx] mt-[32rpx]">
-      <button
-        class="h-[88rpx] w-full border border-[#ff4757] rounded-[16rpx] bg-white text-[#ff4757] font-medium text-[28rpx]"
+      <wd-button
+        block
+        type="error"
         @click="logout"
       >
         退出登录
-      </button>
+      </wd-button>
+    </view>
+    <view v-else class="mx-[24rpx] mb-[32rpx] mt-[32rpx]">
+      <wd-button
+        block
+        type="primary"
+        @click="login"
+      >
+        登录
+      </wd-button>
     </view>
 
     <!-- 底部安全区域 -->
