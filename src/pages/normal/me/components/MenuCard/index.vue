@@ -2,76 +2,29 @@
 // 菜单项配置
 const list = [
   {
-    id: 'profile',
-    title: '个人资料',
-    desc: '查看和编辑个人信息',
-    icon: '/static/images/me/profile-icon.png',
-    arrow: true,
+    title: '意见反馈',
+    desc: '欢迎提供改进意见',
+    path: '/pages/xx',
   },
   {
-    id: 'health-record',
-    title: '健康档案',
-    desc: '查看和编辑健康档案',
-    icon: '/static/images/me/health-record-icon.png',
-    arrow: true,
+    title: '在线客服',
+    desc: '24小时在线',
+    path: '/pages/xx',
   },
   {
-    id: 'consultation-history',
-    title: '问诊记录',
-    desc: '查看和编辑问诊记录',
-    icon: '/static/images/me/consultation-icon.png',
-    arrow: true,
+    title: '系统设置',
+    desc: '账号、退出、手机绑定',
+    path: '/pages/xx',
   },
   {
-    id: 'prescription',
-    title: '我的处方',
-    desc: '查看和编辑我的处方',
-    icon: '/static/images/me/prescription-icon.png',
-    arrow: true,
-  },
-  {
-    id: 'collection',
-    title: '养生收藏',
-    desc: '查看和编辑养生收藏',
-    icon: '/static/images/me/collection-icon.png',
-    arrow: true,
-  },
-  {
-    id: 'settings',
-    title: '设置',
-    desc: '查看和编辑设置',
-    icon: '/static/images/me/settings-icon.png',
-    arrow: true,
+    title: '关于系统',
+    path: '/pages/xx',
   },
 ]
 // 菜单项点击处理
-function handleMenuClick(item: any) {
+function handleClick(item: { path: string }) {
   console.log('点击菜单项:', item)
-  switch (item.id) {
-    case 'profile':
-      uni.navigateTo({ url: '/pages/profile/profile' })
-      break
-    case 'health-record':
-      uni.navigateTo({ url: '/pages/health-record/health-record' })
-      break
-    case 'consultation-history':
-      uni.navigateTo({ url: '/pages/consultation-history/consultation-history' })
-      break
-    case 'prescription':
-      uni.navigateTo({ url: '/pages/prescription/prescription' })
-      break
-    case 'collection':
-      uni.navigateTo({ url: '/pages/collection/collection' })
-      break
-    case 'settings':
-      uni.navigateTo({ url: '/pages/settings/settings' })
-      break
-    default:
-      uni.showToast({
-        title: '功能开发中',
-        icon: 'none',
-      })
-  }
+  uni.navigateTo({ url: item.path })
 }
 </script>
 
@@ -81,17 +34,16 @@ function handleMenuClick(item: any) {
       账户与设置
     </view>
     <view
-      v-for="item in list"
-      :key="item.id"
+      v-for="(item, index) in list"
+      :key="index"
       class="flex items-center gap-2 leading-10"
-      @click="handleMenuClick(item)"
+      @click="handleClick(item)"
     >
       <view class="flex-1 text-[#333333] text-[28rpx]">
         {{ item.title }}
       </view>
       <text class="ml-auto text-xs text-[#ccc]">{{ item.desc }}</text>
       <image
-        v-if="item.arrow"
         src="/static/images/homepage/arrow-right.png"
         class="h-[24rpx] w-[24rpx]"
       />

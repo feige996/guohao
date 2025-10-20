@@ -2,7 +2,6 @@
 import { storeToRefs } from 'pinia'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
-import { currRoute } from '@/utils'
 import { safeAreaInsets } from '@/utils/systemInfo'
 import MenuCard from './components/MenuCard/index.vue'
 import ServiceCard from './components/ServiceCard/index.vue'

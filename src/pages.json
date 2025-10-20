@@ -190,13 +190,6 @@
       }
     },
     {
-      "path": "pages/normal/me/me copy",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "普通用户我的"
-      }
-    },
-    {
       "path": "pages/normal/me/me",
       "type": "page",
       "style": {
