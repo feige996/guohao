@@ -4,36 +4,42 @@ const list = [
   {
     id: 'profile',
     title: '个人资料',
+    desc: '查看和编辑个人信息',
     icon: '/static/images/me/profile-icon.png',
     arrow: true,
   },
   {
     id: 'health-record',
     title: '健康档案',
+    desc: '查看和编辑健康档案',
     icon: '/static/images/me/health-record-icon.png',
     arrow: true,
   },
   {
     id: 'consultation-history',
     title: '问诊记录',
+    desc: '查看和编辑问诊记录',
     icon: '/static/images/me/consultation-icon.png',
     arrow: true,
   },
   {
     id: 'prescription',
     title: '我的处方',
+    desc: '查看和编辑我的处方',
     icon: '/static/images/me/prescription-icon.png',
     arrow: true,
   },
   {
     id: 'collection',
     title: '养生收藏',
+    desc: '查看和编辑养生收藏',
     icon: '/static/images/me/collection-icon.png',
     arrow: true,
   },
   {
     id: 'settings',
     title: '设置',
+    desc: '查看和编辑设置',
     icon: '/static/images/me/settings-icon.png',
     arrow: true,
   },
@@ -75,11 +81,13 @@ function handleMenuClick(item: any) {
     <view
       v-for="item in list"
       :key="item.id"
-      class="flex items-center border-b border-[#f5f5f5] px-[32rpx] py-[32rpx] last:border-b-0"
+      class="flex items-center gap-2 leading-10"
       @click="handleMenuClick(item)"
     >
-      <image :src="item.icon" class="h-[48rpx] w-[48rpx]" />
-      <text class="ml-[24rpx] flex-1 text-[#333333] text-[28rpx]">{{ item.title }}</text>
+      <view class="flex-1 text-[#333333] text-[28rpx]">
+        {{ item.title }}
+      </view>
+      <text class="ml-auto text-xs text-[#ccc]">{{ item.desc }}</text>
       <image
         v-if="item.arrow"
         src="/static/images/homepage/settings-arrow.png"
