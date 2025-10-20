@@ -18,7 +18,7 @@ onShow(() => {
 
 <template>
   <view class="page-container">
-    <wd-fab :draggable="true">
+    <wd-fab :draggable="true" position="right-center">
       <wd-button type="primary" @click="userStore.toggleUserDefaultRole">
         切换角色
       </wd-button>
