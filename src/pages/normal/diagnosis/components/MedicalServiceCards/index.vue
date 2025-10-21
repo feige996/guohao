@@ -16,10 +16,15 @@ const medicalServices = [
     desc: '中医专家，实时沟通',
     path: '/pages/normal/online-consultation/index',
   },
+  {
+    title: '疾病详情',
+    desc: '查看疾病详情',
+    path: '/pages/normal/smart-self-diagnosis/index',
+  },
 ]
 
 // 菜单项点击处理
-function handleServiceClick(item: { title: string; path: string }) {
+function handleServiceClick(item: { title: string, path: string }) {
   console.log('点击医疗服务项:', item.title, '路径:', item.path)
   try {
     const result = uni.navigateTo({
@@ -31,17 +36,18 @@ function handleServiceClick(item: { title: string; path: string }) {
         uni.showToast({
           title: `跳转失败: ${err.errMsg || '未知错误'}`,
           icon: 'none',
-          duration: 3000
+          duration: 3000,
         })
-      }
+      },
     })
     console.log('导航返回结果:', result)
-  } catch (error) {
+  }
+  catch (error) {
     console.error('导航发生异常:', error)
     uni.showToast({
       title: '导航异常，请重试',
       icon: 'none',
-      duration: 3000
+      duration: 3000,
     })
   }
 }
