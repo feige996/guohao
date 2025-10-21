@@ -19,14 +19,14 @@ const doctorInfo = reactive({
   name: '医生',
   title: '',
   specialty: '',
-  avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=center'
+  avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=400&h=400&fit=crop&crop=center',
 })
 
 // 评分数据
 const ratings = reactive({
   medicalSkill: 5, // 医术评分
   service: 5, // 服务评分
-  recommendation: 5 // 推荐度评分
+  recommendation: 5, // 推荐度评分
 })
 
 // 评论文本
@@ -37,13 +37,18 @@ const maxCommentLength = 200
 let hasSubmitted = false
 
 // 初始化页面数据
-onLoad((options: { doctorId?: string; doctorName?: string; doctorTitle?: string; doctorSpecialty?: string; doctorAvatar?: string }) => {
+onLoad((options: { doctorId?: string, doctorName?: string, doctorTitle?: string, doctorSpecialty?: string, doctorAvatar?: string }) => {
   // 从参数中获取医生信息
-  if (options.doctorId) doctorInfo.id = options.doctorId
-  if (options.doctorName) doctorInfo.name = options.doctorName
-  if (options.doctorTitle) doctorInfo.title = options.doctorTitle
-  if (options.doctorSpecialty) doctorInfo.specialty = options.doctorSpecialty
-  if (options.doctorAvatar) doctorInfo.avatar = options.doctorAvatar
+  if (options.doctorId)
+    doctorInfo.id = options.doctorId
+  if (options.doctorName)
+    doctorInfo.name = options.doctorName
+  if (options.doctorTitle)
+    doctorInfo.title = options.doctorTitle
+  if (options.doctorSpecialty)
+    doctorInfo.specialty = options.doctorSpecialty
+  if (options.doctorAvatar)
+    doctorInfo.avatar = options.doctorAvatar
 })
 
 onReady(() => {
@@ -59,14 +64,14 @@ function setRating(type: RatingType, value: number) {
 function formatStars(type: RatingType) {
   const stars = []
   const rating = ratings[type]
-  
+
   for (let i = 1; i <= 5; i++) {
     stars.push({
       filled: i <= rating,
-      index: i
+      index: i,
     })
   }
-  
+
   return stars
 }
 
@@ -77,30 +82,31 @@ function handleStarClick(type: RatingType, index: number) {
 
 // 提交评价
 function submitRating() {
-  if (hasSubmitted) return
-  
+  if (hasSubmitted)
+    return
+
   // 简单的表单验证
   if (!comment.value.trim()) {
     uni.showToast({
       title: '请输入评价内容',
-      icon: 'none'
+      icon: 'none',
     })
     return
   }
-  
+
   // 模拟提交评价
   hasSubmitted = true
-  
+
   // 准备提交的数据
   const submitData = {
     doctorId: doctorInfo.id,
     ratings,
     comment: comment.value.trim(),
-    timestamp: new Date().getTime()
+    timestamp: new Date().getTime(),
   }
-  
+
   console.log('提交评价数据:', submitData)
-  
+
   // 显示提交成功提示
   uni.showToast({
     title: '评价提交成功',
@@ -112,7 +118,7 @@ function submitRating() {
         // 返回上一页，或者跳转到指定页面
         uni.navigateBack()
       }, 1500)
-    }
+    },
   })
 }
 
@@ -123,7 +129,7 @@ function handleBack() {
     uni.navigateBack()
     return
   }
-  
+
   // 如果未提交，提示用户
   uni.showModal({
     title: '提示',
@@ -132,15 +138,15 @@ function handleBack() {
       if (res.confirm) {
         uni.navigateBack()
       }
-    }
+    },
   })
 }
 </script>
 
 <template>
-  <view class="bg-[#f8f8f8] min-h-screen">
+  <view class="min-h-screen bg-[#f8f8f8]">
     <!-- 顶部导航栏 -->
-    <view class="sticky top-0 z-10 flex items-center justify-between bg-white px-4 py-3 border-b border-[#eee]">
+    <view class="sticky top-0 z-10 flex items-center justify-between border-b border-[#eee] bg-white px-4 py-3">
       <view class="flex items-center">
         <text class="mr-2 text-[#333] text-[36rpx]" @click="handleBack">←</text>
         <text class="text-[#333] font-medium text-[32rpx]">医师评价</text>
@@ -148,9 +154,9 @@ function handleBack() {
     </view>
 
     <!-- 医生信息卡片 -->
-    <view class="bg-white p-5 mb-3">
+    <view class="mb-3 bg-white p-5">
       <view class="flex items-center">
-        <image :src="doctorInfo.avatar" class="w-20 h-20 rounded-full mr-4" mode="aspectFill" />
+        <image :src="doctorInfo.avatar" class="mr-4 h-20 w-20 rounded-full" mode="aspectFill" />
         <view class="flex-1">
           <view class="flex items-center">
             <text class="text-[#333] font-medium text-[32rpx]">{{ doctorInfo.name }}</text>
@@ -162,18 +168,18 @@ function handleBack() {
     </view>
 
     <!-- 评分区域 -->
-    <view class="bg-white p-5 mb-3">
-      <text class="block text-[#333] font-medium text-[30rpx] mb-4">我的评价</text>
-      
+    <view class="mb-3 bg-white p-5">
+      <text class="mb-4 block text-[#333] font-medium text-[30rpx]">我的评价</text>
+
       <!-- 医术评分 -->
       <view class="mb-6">
-        <view class="flex items-center justify-between mb-2">
+        <view class="mb-2 flex items-center justify-between">
           <text class="text-[#666] text-[28rpx]">医术:</text>
           <view class="flex">
             <text
               v-for="star in formatStars('medicalSkill')"
               :key="star.index"
-              class="text-[40rpx] mx-1"
+              class="mx-1 text-[40rpx]"
               :class="star.filled ? 'text-[#ffb800]' : 'text-[#dcdcdc]'"
               @click="handleStarClick('medicalSkill', star.index)"
             >
@@ -182,16 +188,16 @@ function handleBack() {
           </view>
         </view>
       </view>
-      
+
       <!-- 服务评分 -->
       <view class="mb-6">
-        <view class="flex items-center justify-between mb-2">
+        <view class="mb-2 flex items-center justify-between">
           <text class="text-[#666] text-[28rpx]">服务:</text>
           <view class="flex">
             <text
               v-for="star in formatStars('service')"
               :key="star.index"
-              class="text-[40rpx] mx-1"
+              class="mx-1 text-[40rpx]"
               :class="star.filled ? 'text-[#ffb800]' : 'text-[#dcdcdc]'"
               @click="handleStarClick('service', star.index)"
             >
@@ -200,16 +206,16 @@ function handleBack() {
           </view>
         </view>
       </view>
-      
+
       <!-- 推荐度评分 -->
       <view>
-        <view class="flex items-center justify-between mb-2">
+        <view class="mb-2 flex items-center justify-between">
           <text class="text-[#666] text-[28rpx]">推荐度:</text>
           <view class="flex">
             <text
               v-for="star in formatStars('recommendation')"
               :key="star.index"
-              class="text-[40rpx] mx-1"
+              class="mx-1 text-[40rpx]"
               :class="star.filled ? 'text-[#ffb800]' : 'text-[#dcdcdc]'"
               @click="handleStarClick('recommendation', star.index)"
             >
@@ -221,15 +227,15 @@ function handleBack() {
     </view>
 
     <!-- 评价内容 -->
-    <view class="bg-white p-5 mb-3">
-      <text class="block text-[#333] font-medium text-[30rpx] mb-4">评语</text>
+    <view class="mb-3 bg-white p-5">
+      <text class="mb-4 block text-[#333] font-medium text-[30rpx]">评语</text>
       <textarea
         v-model="comment"
-        class="w-full h-40 px-4 py-3 bg-[#f5f5f5] rounded-md text-[28rpx] text-[#333] placeholder:text-[#999]"
+        class="h-40 w-full rounded-md bg-[#f5f5f5] px-4 py-3 text-[#333] text-[28rpx] placeholder:text-[#999]"
         placeholder="请输入您的评价内容"
         :maxlength="maxCommentLength"
-      ></textarea>
-      <view class="flex justify-end mt-2">
+      />
+      <view class="mt-2 flex justify-end">
         <text class="text-[#999] text-[24rpx]">{{ comment.length }}/{{ maxCommentLength }}</text>
       </view>
     </view>
@@ -237,7 +243,7 @@ function handleBack() {
     <!-- 提交按钮 -->
     <view class="p-5">
       <button
-        class="w-full py-3 bg-[#e26464] text-white text-[32rpx] font-medium rounded-full"
+        class="w-full rounded-full bg-[#e26464] py-3 text-white font-medium text-[32rpx]"
         :disabled="hasSubmitted"
         @click="submitRating"
       >

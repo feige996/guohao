@@ -223,7 +223,7 @@ function handleMedicalServiceCardClick(card: MedicalServiceCardConfig) {
       break
     case 'goToSmartDiagnosis':
       console.log('跳转到智慧自诊页面')
-      // uni.navigateTo({ url: '/pages/diagnosis/index' })
+      uni.navigateTo({ url: '/pages/normal/smart-self-diagnosis/index' })
       break
     default:
       console.log('未知操作:', card.action)

@@ -318,6 +318,18 @@
         "navigationStyle": "custom",
         "navigationBarTitleText": "预约付费"
       }
+    },
+    {
+      "path": "pages/normal/smart-self-diagnosis/diagnosis-result",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/smart-self-diagnosis/diagnosis-test",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/smart-self-diagnosis/index",
+      "type": "page"
     }
   ],
   "subPackages": [
