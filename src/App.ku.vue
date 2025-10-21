@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useThemeStore, useUserStore } from '@/store'
+import { useUserStore } from '@/store'
 import FgTabbar from '@/tabbar/index.vue'
 import { isPageTabbar } from './tabbar/store'
 import { currRoute } from './utils'
 
-const themeStore = useThemeStore()
 const userStore = useUserStore()
 
 const isCurrentPageTabbar = ref(true)
@@ -15,23 +14,11 @@ onShow(() => {
   isCurrentPageTabbar.value = isPageTabbar(path)
   // console.log('isCurrentPageTabbar', isCurrentPageTabbar.value)
 })
-
-const helloKuRoot = ref('Hello AppKuVue')
-
-const exposeRef = ref('this is form app.Ku.vue')
-
-defineExpose({
-  exposeRef,
-})
 </script>
 
 <template>
-  <wd-config-provider :theme-vars="themeStore.themeVars" :theme="themeStore.theme">
-    <!-- 这个先隐藏了，知道这样用就行 -->
-    <view class="hidden text-center">
-      {{ helloKuRoot }}，这里可以配置全局的东西
-    </view>
-    <wd-fab :draggable="true">
+  <view class="page-container">
+    <wd-fab :draggable="true" position="right-center">
       <wd-button type="primary" @click="userStore.toggleUserDefaultRole">
         切换角色
       </wd-button>
@@ -42,5 +29,13 @@ defineExpose({
     <FgTabbar v-if="isCurrentPageTabbar" />
     <wd-toast />
     <wd-message-box />
-  </wd-config-provider>
+  </view>
 </template>
+
+<style scoped lang="scss">
+.page-container {
+  height: 100%;
+  min-height: 100vh;
+  background-image: linear-gradient(to bottom, #f6e2d3, #f5f7f4 30%, #f5f7f4);
+}
+</style>

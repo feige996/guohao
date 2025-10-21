@@ -4,7 +4,7 @@
     "navigationBarTitleText": "unibest",
     "navigationBarBackgroundColor": "#f8f8f8",
     "navigationBarTextStyle": "black",
-    "backgroundColor": "#FFFFFF"
+    "backgroundColor": "#f6e2d3"
   },
   "easycom": {
     "autoscan": true,
@@ -207,13 +207,6 @@
       "type": "page",
       "style": {
         "navigationBarTitleText": "普通用户首页"
-      }
-    },
-    {
-      "path": "pages/normal/me/me copy",
-      "type": "page",
-      "style": {
-        "navigationBarTitleText": "普通用户我的"
       }
     },
     {
