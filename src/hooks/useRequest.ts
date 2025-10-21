@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import type { Ref } from 'vue'
 
 interface IUseRequestOptions<T> {
@@ -27,25 +28,27 @@ export default function useRequest<T>(
   options: IUseRequestOptions<T> = { immediate: false },
 ): IUseRequestReturn<T> {
   const loading = ref(false)
-  const error = ref(false)
-  const data = ref<T | undefined>(options.initialData) as Ref<T | undefined>
+  const error = ref<boolean | Error>(false)
+  const data = ref<T | undefined>(options.initialData)
+  
   const run = async () => {
     loading.value = true
-    return func()
-      .then((res) => {
-        data.value = res.data
-        error.value = false
-        return data.value
-      })
-      .catch((err) => {
-        error.value = err
-        throw err
-      })
-      .finally(() => {
-        loading.value = false
-      })
+    try {
+      const res = await func()
+      data.value = res?.data
+      error.value = false
+      return data.value
+    } catch (err) {
+      error.value = err instanceof Error ? err : new Error(String(err))
+      throw err
+    } finally {
+      loading.value = false
+    }
   }
 
-  options.immediate && run()
+  if (options.immediate) {
+    run().catch(console.error)
+  }
+  
   return { loading, error, data, run }
 }

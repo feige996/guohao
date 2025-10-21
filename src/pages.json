@@ -173,12 +173,20 @@
       }
     },
     {
+      "path": "pages/normal/healthcare/article-list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "养生文章",
+        "backgroundColor": "#F8F9FA"
+      }
+    },
+    {
       "path": "pages/normal/healthcare/detail",
       "type": "page",
       "style": {
         "navigationStyle": "custom",
-        "navigationBarTitleText": "文章详情",
-        "disableScroll": true
+        "navigationBarTitleText": "内容详情",
+        "disableScroll": false
       },
       "excludeLoginPath": false
     },
@@ -201,6 +209,32 @@
         "disableScroll": true
       },
       "excludeLoginPath": false
+    },
+    {
+      "path": "pages/normal/healthcare/solar-term-detail",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/healthcare/solar-terms",
+      "type": "page"
+    },
+    {
+      "path": "pages/normal/healthcare/tcm-lecture-detail",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "课程详情",
+        "disableScroll": false
+      },
+      "excludeLoginPath": false
+    },
+    {
+      "path": "pages/normal/healthcare/tcm-lecture-list",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "中医讲堂",
+        "backgroundColor": "#F8F9FA"
+      }
     },
     {
       "path": "pages/normal/index/indexcopy",

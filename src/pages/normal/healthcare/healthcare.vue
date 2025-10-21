@@ -3,6 +3,7 @@ import type { App_HealthArticle } from '@/api/guohao-api/globals.d'
 import { useRequest } from 'alova/client'
 import SearchBar from '@/components/SearchBar/SearchBar.vue'
 import { safeAreaInsets } from '@/utils/systemInfo'
+import HealthcareFeatureEntry from './components/HealthcareFeatureEntry/index.vue'
 
 definePage({
   style: {
@@ -258,8 +259,11 @@ onMounted(() => {
         <wd-swiper v-model:current="current" height="280rpx" :list="swiperList" autoplay @click="handleClick" @change="onChange" />
       </view>
 
+      <!-- 功能入口组件 -->
+      <HealthcareFeatureEntry />
+
       <!-- Tabs -->
-      <view class="px-[28rpx] pb-2 pt-4">
+      <view class="px-[28rpx] pb-2 pt-2">
         <wd-tabs auto-line-width swipeable animated slidable="always" :slidable-num="5" :map-num="6" @change="handleChange">
           <block v-for="(item, categoryId) in tabsWithBadge" :key="categoryId">
             <wd-tab :title="item.title">
