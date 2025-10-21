@@ -184,13 +184,23 @@ function handleHealthcareCardClick(config: HealthcareCardConfig) {
   switch (config.id) {
     case 'guide':
       // 处理导诊顾问点击逻辑
-      console.log('跳转到导诊顾问页面')
-      uni.navigateTo({ url: '/pages/normal/consultation-guide/index' })
+      console.log('跳转到导诊顾问页面，URL: /pages/normal/consultation-guide/index')
+      const guideResult = uni.navigateTo({
+        url: '/pages/normal/consultation-guide/index',
+        success: () => console.log('导诊顾问页面跳转成功'),
+        fail: err => console.error('导诊顾问页面跳转失败:', err),
+      })
+      console.log('导航返回结果:', guideResult)
       break
     case 'consult':
       // 处理在线问诊点击逻辑
-      console.log('跳转到在线问诊页面')
-      // uni.navigateTo({ url: '/pages/consult/index' })
+      console.log('跳转到在线问诊页面，URL: /pages/normal/online-consultation/index')
+      const consultResult = uni.navigateTo({
+        url: '/pages/normal/online-consultation/index',
+        success: () => console.log('在线问诊页面跳转成功'),
+        fail: err => console.error('在线问诊页面跳转失败:', err),
+      })
+      console.log('导航返回结果:', consultResult)
       break
     default:
       console.log('未知的卡片类型:', config.id)
@@ -199,12 +209,17 @@ function handleHealthcareCardClick(config: HealthcareCardConfig) {
 
 // 医疗服务卡片点击事件处理
 function handleMedicalServiceCardClick(card: MedicalServiceCardConfig) {
-  console.log('点击了医疗服务卡片:', card.id, card.title)
+  console.log('点击了医疗服务卡片:', card.id, card.title, card.action)
 
   switch (card.action) {
     case 'goToMedicineService':
-      console.log('跳转到购药服务页面')
-      uni.navigateTo({ url: '/pages/normal/medication-purchase-service/index' })
+      console.log('跳转到购药服务页面，URL: /pages/normal/medication-purchase-service/index')
+      const medicineResult = uni.navigateTo({
+        url: '/pages/normal/medication-purchase-service/index',
+        success: () => console.log('购药服务页面跳转成功'),
+        fail: err => console.error('购药服务页面跳转失败:', err),
+      })
+      console.log('导航返回结果:', medicineResult)
       break
     case 'goToSmartDiagnosis':
       console.log('跳转到智慧自诊页面')

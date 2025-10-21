@@ -32,14 +32,6 @@ function handleMessage() {
     url: '/pages/normal/consultation-guide/message-confirm',
   })
 }
-
-// 处理购药服务点击
-function handleMedicationService() {
-  // 跳转到购药服务页面
-  uni.navigateTo({
-    url: 'pages/normal/medication-purchase-service/index',
-  })
-}
 </script>
 
 <template>
@@ -107,26 +99,7 @@ function handleMedicationService() {
           <uni-icons type="right" size="18" color="#CCCCCC" />
         </div>
 
-        <!-- 购药服务 -->
-        <div
-          class="flex cursor-pointer items-center justify-between rounded-[8px] bg-white p-[16px]"
-          @click="handleMedicationService"
-        >
-          <div class="flex items-center">
-            <div class="mr-[12px] h-[44px] w-[44px] flex items-center justify-center rounded-full bg-[#f0f0ff]">
-              <uni-icons type="medical" size="24" color="#722ed1" />
-            </div>
-            <div>
-              <h3 class="text-[16px] text-[#333333] font-medium">
-                购药服务
-              </h3>
-              <p class="mt-[2px] text-[12px] text-[#999999]">
-                复诊开方、养生方药购买
-              </p>
-            </div>
-          </div>
-          <uni-icons type="right" size="18" color="#CCCCCC" />
-        </div>
+        <!-- 删除购药服务部分 -->
 
         <!-- 需求留言 -->
         <div

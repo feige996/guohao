@@ -152,11 +152,11 @@ async function loadDoctorInfo(doctorId: string) {
   }
 }
 
-// 去挂号
+// 去挂号 - 视频问诊
 function handleRegister() {
-  uni.showToast({
-    title: '去挂号功能开发中',
-    icon: 'none',
+  // 跳转到支付页面，并传递医生ID和服务类型
+  uni.navigateTo({
+    url: `/pages/normal/payment/payment?doctorId=${doctorInfo.value.id || 1}&serviceType=视频问诊&fee=${doctorInfo.value.videoConsultationFee || 20}`
   })
 }
 

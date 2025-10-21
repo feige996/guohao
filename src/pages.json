@@ -246,6 +246,78 @@
         "disableScroll": true
       },
       "excludeLoginPath": true
+    },
+    {
+      "path": "pages/normal/online-consultation/appointment",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "问诊预约"
+      }
+    },
+    {
+      "path": "pages/normal/online-consultation/consultation",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "图文问诊"
+      }
+    },
+    {
+      "path": "pages/normal/online-consultation/doctor-rating",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "医师评价"
+      }
+    },
+    {
+      "path": "pages/normal/online-consultation/index",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "在线问诊"
+      }
+    },
+    {
+      "path": "pages/normal/online-consultation/payment",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "预约付费"
+      }
+    },
+    {
+      "path": "pages/normal/online-consultation/phone-consultation",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "电话问诊"
+      }
+    },
+    {
+      "path": "pages/normal/online-consultation/video-consultation",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "视频问诊"
+      }
+    },
+    {
+      "path": "pages/normal/online-consultation/waiting-room",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "候诊室"
+      }
+    },
+    {
+      "path": "pages/normal/payment/payment",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "预约付费"
+      }
     }
   ],
   "subPackages": [
