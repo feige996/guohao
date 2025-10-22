@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import type { FunctionCardItem } from '@/components/FunctionCards'
+import { ref } from 'vue'
 import ConsultationSection from '@/components/ConsultationSection'
 import FunctionCards from '@/components/FunctionCards'
 import SearchBar from '@/components/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
-import VIPmember from './components/VIPmember.vue'
 import DateStatus from './components/DateStatus.vue'
+import VIPmember from './components/VIPmember.vue'
 
 definePage({
   type: 'home',
@@ -39,7 +40,10 @@ function handleUpgradeClick() {
 
 function handleHealthManagerClick() {
   console.log('点击健康管家消息')
-  // 在这里添加健康管家消息的逻辑
+  // 跳转到健康问答页面
+  uni.navigateTo({
+    url: '/pages/normal/index/healthConsult',
+  })
 }
 
 // 功能卡片事件处理
@@ -49,11 +53,14 @@ function handleFunctionCardClick(item: FunctionCardItem) {
   switch (item.id) {
     case 'appointment':
       console.log('跳转到预约问诊')
+      uni.navigateTo({
+        url: '/pages/normal/index/appointmentConsult',
+      })
       break
     case 'message':
       console.log('跳转到我的消息')
       uni.navigateTo({
-        url: '/pages/normal/message/message',
+        url: '/pages/normal/index/message',
       })
       break
     case 'collection':
@@ -64,6 +71,9 @@ function handleFunctionCardClick(item: FunctionCardItem) {
       break
     case 'product':
       console.log('跳转到关注商品')
+      uni.navigateTo({
+        url: '/pages/normal/index/favoriteProducts'
+      })
       break
     default:
       console.log('未知功能:', item.id)
@@ -125,43 +135,54 @@ const functionCards: FunctionCardItem[] = [
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
-    <!-- 主容器 -->
-    <div class="relative w-[750rpx] flex flex-col items-start">
-      <!-- 顶部渐变区域 -->
-      <div class="relative h-[848rpx] w-[750rpx] flex flex-col items-start from-[#f6e2d3] to-transparent bg-gradient-to-b">
-        <!-- VIP会员组件 -->
-        <div class="ml-[24rpx] mt-[24rpx]">
+  <view class="min-h-screen bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+    <!-- 顶部渐变背景 -->
+    <view class="absolute left-0 top-0 h-[600rpx] w-full from-[#f6e2d3] to-transparent bg-gradient-to-b -z-10" />
+
+    <!-- 顶部区域 -->
+    <view class="pb-[20rpx]">
+      <!-- VIP会员组件 - 与其他卡片左侧对齐 -->
+      <div class="mt-[24rpx] flex justify-center px-[24rpx]">
+        <div class="w-[702rpx]">
           <VIPmember />
         </div>
+      </div>
 
-        <!-- 搜索栏 -->
-        <div class="mt-[12px]">
-        <SearchBar
-          @search="handleSearch"
-          @click="handleSearchBarClick"
+      <!-- 搜索栏 - 与其他卡片左侧对齐 -->
+      <div class="mt-[12px] flex justify-center px-[24rpx]">
+        <div class="w-[702rpx]">
+          <SearchBar
+            margin-left="0rpx"
+            @search="handleSearch"
+            @click="handleSearchBarClick"
           />
         </div>
+      </div>
 
-        <!-- 日期和体质状态 -->
-        <div class="mt-[12px] ml-[24rpx]">
+      <!-- 日期和体质状态 - 与其他卡片左侧对齐 -->
+      <div class="flex justify-center px-[24rpx]">
+        <div class="w-[702rpx]">
           <DateStatus />
         </div>
+      </div>
 
-        <!-- 专业咨询区域（下移） -->
+      <!-- 专业咨询区域 - 居中显示 -->
+      <div class="flex justify-center px-[24rpx] py-[30rpx]">
         <ConsultationSection
           @consult-click="handleConsultClick"
           @upgrade-click="handleUpgradeClick"
           @health-manager-click="handleHealthManagerClick"
         />
       </div>
+    </view>
 
-      <!-- 专属权益区域 -->
-      <div class="relative ml-[24rpx] mt-[28rpx] h-[640rpx] w-[702rpx] flex flex-col items-start rounded-[16rpx] bg-white">
+    <!-- 专属权益区域 - 与专业咨询区域白色底版对齐 -->
+    <div class="flex justify-center px-[24rpx] py-[50rpx]">
+      <div class="w-[702rpx] rounded-[16rpx] bg-white p-[24rpx]">
         <!-- 标题栏 -->
-        <div class="relative ml-[24rpx] mt-[32rpx] h-[44rpx] w-[654rpx] flex flex-row items-start">
-          <span class="relative ml-0 mt-0 h-[44rpx] w-[192rpx] whitespace-pre text-[#333333] font-medium text-[32rpx] leading-[40rpx]"> 您的专属权益 </span>
-          <span class="relative ml-[382rpx] mt-[6rpx] h-[32rpx] w-[48rpx] whitespace-pre text-center text-[#999999] font-light text-[24rpx] leading-[32rpx]"> 设置 </span>
+        <div class="relative ml-[24rpx] mt-[32rpx] h-[44rpx] flex flex-row items-start">
+          <span class="relative ml-0 mt-0 h-[44rpx] whitespace-pre text-[#333333] font-medium text-[32rpx] leading-[40rpx]"> 您的专属权益 </span>
+          <span class="relative ml-auto mt-[6rpx] h-[32rpx] w-[48rpx] whitespace-pre text-center text-[#999999] font-light text-[24rpx] leading-[32rpx]"> 设置 </span>
           <img
             class="relative ml-[8rpx] mt-[10rpx] h-[24rpx] w-[24rpx]"
             src="@img/homepage/settings-arrow.png"
@@ -176,5 +197,7 @@ const functionCards: FunctionCardItem[] = [
         />
       </div>
     </div>
-  </div>
+
+
+  </view>
 </template>

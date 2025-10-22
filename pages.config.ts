@@ -9,6 +9,18 @@ export default defineUniPages({
       style: {}
     },
     {
+      path: 'pages/normal/index/appointmentConsult',
+      style: {
+        navigationBarTitleText: '我的预约'
+      }
+    },
+    {
+      path: 'pages/normal/index/healthConsult',
+      style: {
+        navigationBarTitleText: '健康问答'
+      }
+    },
+    {
       path: 'pages/normal/me/components/ServiceCard/ConsultationRecord',
       style: {}
     },

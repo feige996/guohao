@@ -96,10 +96,50 @@ const {
   filterFavoriteArticles()
 })
 
+// 模拟收藏文章数据
+const mockFavoriteArticles: Partial<App_HealthArticle>[] = [
+  {
+    id: 1,
+    title: '春季养肝调理方案',
+    summary: '春季养肝调理的实用方法和注意事项',
+    coverImageUrl: '/static/images/lunar/liver.png',
+    favoriteCount: 128,
+    likeCount: 56,
+    viewCount: 3421,
+    publishTime: '2025-3-12',
+    tags: ['春季养生', '肝脏调理']
+  },
+  {
+    id: 2,
+    title: '中医治疗高血压专题',
+    summary: '高血压中医调理案例分析与治疗方案',
+    coverImageUrl: '/static/images/tcm-lecture3.png',
+    favoriteCount: 89,
+    likeCount: 42,
+    viewCount: 2156,
+    publishTime: '2025-3-12',
+    tags: ['高血压', '中医治疗']
+  },
+  {
+    id: 3,
+    title: '调理脾胃经典方法',
+    summary: '中医调理脾胃的实用方法',
+    coverImageUrl: '/static/images/tcm-lecture2.png',
+    favoriteCount: 156,
+    likeCount: 67,
+    viewCount: 4213,
+    publishTime: '2025-3-16',
+    tags: ['脾胃调理', '中医养生']
+  }
+]
+
 // 过滤收藏的文章
 function filterFavoriteArticles() {
-  if (!userStore.userInfo?.id)
+  if (!userStore.userInfo?.id) {
+    // 未登录状态下，使用模拟数据
+    favoriteArticles.value = mockFavoriteArticles as App_HealthArticle[]
     return
+  }
 
   const userId = userStore.userInfo.id
   const favoriteIds: number[] = []
@@ -119,6 +159,20 @@ function filterFavoriteArticles() {
   favoriteArticles.value = articles.value.filter(article =>
     article.id && favoriteIds.includes(article.id),
   )
+
+  // 如果没有找到收藏的文章，使用模拟数据并保存到本地存储
+  if (favoriteArticles.value.length === 0) {
+    console.log('没有找到收藏的文章，使用模拟数据')
+    favoriteArticles.value = mockFavoriteArticles as App_HealthArticle[]
+    
+    // 将模拟文章保存到本地存储
+    mockFavoriteArticles.forEach(article => {
+      if (article.id) {
+        const favoriteKey = `article_favorite_${article.id}_${userId}`
+        uni.setStorageSync(favoriteKey, 'true')
+      }
+    })
+  }
 
   console.log('收藏的文章:', favoriteArticles.value)
 }
@@ -274,12 +328,18 @@ function goToArticleList() {
 
 // 页面初始化
 onMounted(() => {
-  if (!checkLoginStatus())
-    return
-
-  // 开始加载文章数据
+  // 不检查登录状态，允许未登录用户查看模拟数据
+  
+  // 直接调用filterFavoriteArticles显示模拟数据
+  filterFavoriteArticles()
+  
+  // 开始加载文章数据（如果需要）
   isLoading.value = true
-  fetchAllArticles(1, pageSize.value)
+  fetchAllArticles(1, pageSize.value).finally(() => {
+    isLoading.value = false
+    // 确保在API调用后再次检查收藏数据
+    filterFavoriteArticles()
+  })
 })
 
 // 页面显示时刷新收藏状态

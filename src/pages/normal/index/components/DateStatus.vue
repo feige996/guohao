@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 
+// 跳转到健康状态页面
+function navigateToHealthStatus() {
+  uni.navigateTo({
+    url: '/pages/normal/index/healthStatus'
+  })
+}
+
 // 定义日期和状态数据
 const currentDate = ref('')
 const lunarDate = ref('')
@@ -56,7 +63,7 @@ function formatDate() {
   
   lunarDay.value = lunarDayStr
   lunarDate.value = `${lunarYear.value} - ${lunarMonth.value}月${lunarDay.value}`
-  yearAnimal.value = '水'
+  yearAnimal.value = '乙巳蛇年'
 }
 
 onMounted(() => {
@@ -65,58 +72,74 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex space-x-[12px]">
-    <!-- 日期信息矩形框 -->
-    <div class="w-[168px] h-[172px] bg-white rounded-[8px] p-[12px] shadow-md relative">
-      <!-- 农历日期 -->
-      <div class="mb-[8px]">
+  <div class="flex space-x-[12px] w-full my-[16rpx]">
+    <!-- 日期信息矩形框 - 左侧 -->
+    <div class="flex-1 bg-white rounded-[12rpx] p-[20rpx] shadow-sm relative overflow-hidden">
+      <!-- 农历年份 -->
+      <div class="mb-[8rpx]">
         <div class="flex items-center">
-          <span class="text-[16px] font-medium text-[#333333]">{{ lunarYear }}</span>
-          <span class="mx-[4px] text-[16px] text-[#333333]">-</span>
-          <span class="text-[16px] font-medium text-[#333333]">{{ lunarMonth }}月{{ lunarDay }}</span>
-          <span class="ml-[8px] text-[12px] text-[#999999]">{{ yearAnimal }}气</span>
+          <span class="text-[28rpx] font-medium text-[#333333]">{{ lunarYear }}</span>
+          <span class="mx-[4rpx] text-[28rpx] text-[#333333]">·</span>
+          <span class="text-[28rpx] font-medium text-[#333333]">{{ lunarMonth }}月{{ lunarDay }}</span>
         </div>
-        <span class="text-[14px] text-[#666666] mt-[4px] block">{{ currentDate }}</span>
+      </div>
+      
+      <!-- 公历日期 -->
+      <div class="mb-[12rpx]">
+        <span class="text-[24rpx] text-[#666666]">{{ currentDate }}</span>
+      </div>
+      
+      <!-- 节气信息 -->
+      <div class="bg-[#FFF7E9] rounded-[8rpx] p-[12rpx] mb-[16rpx]">
+        <span class="text-[26rpx] text-[#FF6E36]">{{ yearAnimal }}</span>
       </div>
       
       <!-- 日期数字 -->
-      <div class="flex items-end justify-between">
-        <div class="flex flex-col">
-          <span class="text-[28px] font-bold text-[#333333]">{{ dayOfMonth }}</span>
-          <span class="text-[14px] text-[#666666]">{{ month }} / 16</span>
+      <div class="flex items-baseline justify-between">
+        <div class="flex items-baseline">
+          <span class="text-[52rpx] font-bold text-[#333333]">{{ dayOfMonth }}</span>
+          <span class="text-[24rpx] text-[#666666] ml-[8rpx]">{{ month }}/06</span>
         </div>
       </div>
       
-      <!-- 数字标签 -->
-      <div class="absolute top-[12px] right-[12px] text-[16px] font-medium text-[#333333]">16</div>
+      <!-- 移除数字标签 -->
     </div>
     
-    <!-- 体质状态矩形框 -->
-    <div class="w-[168px] h-[172px] bg-white rounded-[8px] p-[12px] shadow-md relative">
-      <div class="mb-[8px]">
+    <!-- 体质状态矩形框 - 右侧 -->
+    <div class="flex-1 bg-white rounded-[12rpx] p-[20rpx] shadow-sm relative cursor-pointer" @click="navigateToHealthStatus">
+      <div class="mb-[8rpx]">
         <div class="flex items-center">
-          <span class="text-[14px] text-[#666666]">体质状态：</span>
-          <span class="text-[14px] font-medium text-[#333333]">{{ bodyStatus }}</span>
-        </div>
-        <div class="flex items-start mt-[4px]">
-          <span class="text-[14px] text-[#666666]">气节养生建议：</span>
-          <span class="text-[14px] font-medium text-[#333333] ml-[4px]">{{ qiCondition }}</span>
+          <span class="text-[24rpx] text-[#666666]">体质状态：</span>
+          <span class="text-[24rpx] font-medium text-[#333333]">{{ bodyStatus }}</span>
         </div>
       </div>
       
-      <div class="space-y-[2px]">
-        <span class="text-[12px] text-[#999999] block">血压 {{ bloodPressure }}</span>
-        <span class="text-[12px] text-[#999999] block">心率 {{ heartRate }}</span>
-        <span class="text-[12px] text-[#999999] block">血氧 {{ bloodOxygen }}</span>
+      <div class="mb-[12rpx]">
+        <div class="flex items-start">
+          <span class="text-[24rpx] text-[#666666]">气节养生建议：</span>
+          <span class="text-[24rpx] font-medium text-[#333333] ml-[4rpx]">{{ qiCondition }}</span>
+        </div>
       </div>
       
-      <!-- 备注信息 -->
-      <div class="mt-[8px]">
-        <span class="text-[12px] text-[#999999]">{{ note }}</span>
+      <!-- 养生详细建议 -->
+      <div class="bg-[#FFF7E9] rounded-[8rpx] p-[12rpx] text-[22rpx] text-[#666666] line-clamp-2 mb-[12rpx]">
+        {{ note }}
       </div>
       
-      <!-- 数字标签 -->
-      <div class="absolute top-[12px] right-[12px] text-[16px] font-medium text-[#333333]">16</div>
+      <!-- 健康数据 -->
+      <div class="space-y-[8rpx]">
+        <span class="text-[22rpx] text-[#999999] block">血压 {{ bloodPressure }}</span>
+        <span class="text-[22rpx] text-[#999999] block">心率 {{ heartRate }}</span>
+        <span class="text-[22rpx] text-[#999999] block">血氧 {{ bloodOxygen }}</span>
+      </div>
+      
+      <!-- 移除数字标签 -->
+      
+      <!-- 点击提示 -->
+      <div class="absolute bottom-[20rpx] right-[20rpx] text-[20rpx] text-[#999999] flex items-center">
+        点击查看详情
+        <uni-icons name="arrowright" size="16rpx" class="ml-[4rpx]" />
+      </div>
     </div>
   </div>
 </template>

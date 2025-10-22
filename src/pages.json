@@ -259,10 +259,48 @@
       }
     },
     {
-      "path": "pages/normal/index/indexcopy",
+      "path": "pages/normal/index/appointmentConsult",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "普通用户首页"
+        "navigationBarTitleText": "我的预约"
+      }
+    },
+    {
+      "path": "pages/normal/index/favoriteProducts",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "关注商品",
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/normal/index/healthConsult",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "健康问答"
+      }
+    },
+    {
+      "path": "pages/normal/index/healthStatus",
+      "type": "page",
+      "style": {}
+    },
+    {
+      "path": "pages/normal/index/message",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "我的消息",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/normal/index/systemMessageDetail",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "我的消息",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTextStyle": "black"
       }
     },
     {

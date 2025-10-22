@@ -51,7 +51,7 @@ function handleAllFunctionClick() {
     <div
       v-for="(group, groupIndex) in groupedCards"
       :key="groupIndex"
-      class="relative ml-[16rpx] h-[156rpx] w-[670rpx] flex flex-row items-start"
+      class="w-full flex items-start justify-center"
       :class="{
         'mt-[32rpx]': groupIndex === 0,
         'mt-[16rpx]': groupIndex > 0,
@@ -64,7 +64,7 @@ function handleAllFunctionClick() {
         :class="[
           {
             'ml-0': cardIndex === 0,
-            'ml-[14rpx]': cardIndex === 1,
+            'ml-[14rpx]': cardIndex > 0,
             'opacity-50 cursor-not-allowed': card.enabled === false,
           },
           card.className,
@@ -72,7 +72,7 @@ function handleAllFunctionClick() {
         @click="handleCardClick(card)"
       >
         <div
-          class="relative mt-0 h-[156rpx] w-[328rpx] flex flex-col items-start overflow-hidden"
+          class="relative h-full w-full flex flex-col items-start overflow-hidden"
           :class="card.className"
         >
           <!-- 背景图片 -->

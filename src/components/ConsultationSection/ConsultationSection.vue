@@ -19,16 +19,16 @@ interface Emits {
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  title: '专业咨询',
-  subtitle: '为您及家人健康提供专属服务',
-  healthManagerMessage: '[健康管家]您最近身体怎么样？',
+  title: '健康问答',
+  subtitle: '服务指引，健康咨询',
+  healthManagerMessage: '你好，请问什么是湿热体质？',
   consultButtonText: '问医生',
   membershipText: '升级会员 享更多权益',
   upgradeText: '去升级',
   width: '702rpx',
   height: '300rpx',
-  marginLeft: '24rpx',
-  marginTop: '60rpx',
+  marginLeft: '0rpx',
+  marginTop: '0rpx',
 })
 
 const emit = defineEmits<Emits>()
