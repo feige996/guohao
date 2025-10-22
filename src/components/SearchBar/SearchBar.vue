@@ -66,8 +66,7 @@ function handleInputClick() {
       :height="props.height"
       shape="round"
       clearable
-      prefix-icon="search"
-      custom-style="background-color: #f7f4f3; border: 1px solid #cccccc; border-radius: 660rpx; font-size: 24rpx; color: #333333;"
+      custom-style="background-color: #f7f4f3; border: none; border-radius: 660rpx; font-size: 24rpx; color: #333333;"
       placeholder-style="color: #cccccc; font-size: 24rpx;"
       @click="handleInputClick"
       @confirm="handleSearch"

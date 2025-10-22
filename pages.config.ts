@@ -3,6 +3,16 @@ import { defineUniPages } from '@uni-helper/vite-plugin-uni-pages'
 import { tabBar } from './src/tabbar/config'
 
 export default defineUniPages({
+  pages: [
+    {
+      path: 'pages/shop/cart',
+      style: {
+        navigationBarTitleText: '购物车',
+        navigationBarBackgroundColor: '#f8f8f8',
+        navigationBarTextStyle: 'black',
+      }
+    }
+  ],
   globalStyle: {
     navigationStyle: 'default',
     navigationBarTitleText: 'unibest',

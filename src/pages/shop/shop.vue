@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import SearchBar from '@/components/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
@@ -8,6 +9,10 @@ definePage({
     navigationBarTitleText: '商城',
   },
 })
+
+// 页面参数
+const categoryId = ref<number | null>(null)
+const categoryName = ref<string>('')
 
 // 轮播图数据
 const swiperList = ref([
@@ -204,6 +209,16 @@ const allProducts = {
 // 当前显示的商品列表
 const productList = ref(allProducts.all)
 
+// 页面加载
+onLoad((options: any) => {
+  if (options.categoryId) {
+    categoryId.value = Number(options.categoryId)
+    categoryName.value = options.categoryName || ''
+    console.log('加载分类:', categoryId.value, categoryName.value)
+    // 这里可以根据分类ID过滤商品
+  }
+})
+
 // 搜索事件处理
 function handleSearch(searchValue: string) {
   console.log('执行搜索:', searchValue)
@@ -232,16 +247,30 @@ function handleTabClick(tab: any) {
 // 商品点击事件
 function handleProductClick(product: any) {
   console.log('点击商品:', product)
-  // 在这里添加商品详情页跳转逻辑
+  // 跳转到商品详情页
+  uni.navigateTo({
+    url: `/pages/shop/shop-detail?id=${product.id}`,
+  })
+}
+
+// 处理返回
+function handleBack() {
+  uni.navigateBack()
 }
 </script>
 
 <template>
   <div class="min-h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
     <!-- 主容器 -->
-    <div class="relative w-[750rpx] flex flex-col items-start">
+    <div class="relative w-full flex flex-col items-start">
       <!-- 顶部渐变区域 -->
-      <div class="relative h-[200rpx] w-[750rpx] flex flex-col items-start from-[#f6e2d3] to-transparent bg-gradient-to-b">
+      <div class="relative h-[200rpx] w-full flex flex-col items-start from-[#f6e2d3] to-transparent bg-gradient-to-b">
+        <!-- 自定义导航栏 -->
+        <div class="absolute left-[32rpx] top-[20rpx] z-10">
+          <view class="h-[64rpx] w-[64rpx] flex items-center justify-center" @click="handleBack">
+            <image src="/static/app/back.png" class="h-[24rpx] w-[24rpx]" mode="aspectFill" />
+          </view>
+        </div>
         <!-- 搜索栏 -->
         <SearchBar
           placeholder="搜索商品、品牌、分类等"
@@ -284,7 +313,7 @@ function handleProductClick(product: any) {
           :class="activeTab === tab.id ? 'bg-[#97493d] text-white' : 'text-[#666666]'"
           @click="handleTabClick(tab)"
         >
-          <span class="text-[28rpx] font-medium">{{ tab.name }}</span>
+          <span class="font-medium text-[28rpx]">{{ tab.name }}</span>
         </div>
       </div>
 
@@ -314,7 +343,7 @@ function handleProductClick(product: any) {
                   <span
                     v-for="tag in product.tags"
                     :key="tag"
-                    class="rounded-[8rpx] bg-[#97493d] px-[12rpx] py-[4rpx] text-[20rpx] text-white"
+                    class="rounded-[8rpx] bg-[#97493d] px-[12rpx] py-[4rpx] text-white text-[20rpx]"
                   >
                     {{ tag }}
                   </span>
@@ -324,18 +353,18 @@ function handleProductClick(product: any) {
               <!-- 商品信息 -->
               <div class="p-[24rpx]">
                 <!-- 商品名称 -->
-                <div class="line-clamp-2 mb-[16rpx] text-[28rpx] text-[#333333] font-medium">
+                <div class="mb-[16rpx] line-clamp-2 text-[#333333] font-medium text-[28rpx]">
                   {{ product.name }}
                 </div>
 
                 <!-- 价格信息 -->
                 <div class="mb-[12rpx] flex items-center">
-                  <span class="text-[32rpx] text-[#97493d] font-bold">¥{{ product.price }}</span>
-                  <span class="ml-[12rpx] text-[24rpx] text-[#999999] line-through">¥{{ product.originalPrice }}</span>
+                  <span class="text-[#97493d] font-bold text-[32rpx]">¥{{ product.price }}</span>
+                  <span class="ml-[12rpx] text-[#999999] line-through text-[24rpx]">¥{{ product.originalPrice }}</span>
                 </div>
 
                 <!-- 销量信息 -->
-                <div class="text-[24rpx] text-[#999999]">
+                <div class="text-[#999999] text-[24rpx]">
                   已售{{ product.sales }}件
                 </div>
               </div>

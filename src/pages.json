@@ -69,6 +69,28 @@
       }
     },
     {
+      "path": "pages/shop/cart",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "购物车",
+        "navigationBarBackgroundColor": "#f8f8f8",
+        "navigationBarTextStyle": "black"
+      }
+    },
+    {
+      "path": "pages/shop/customer-service",
+      "type": "page",
+      "style": {}
+    },
+    {
+      "path": "pages/shop/shop-detail",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "商品详情"
+      }
+    },
+    {
       "path": "pages/shop/shop",
       "type": "page",
       "style": {
@@ -146,23 +168,28 @@
     },
     {
       "path": "pages/normal/consultation-guide/chat",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/consultation-guide/index",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/consultation-guide/message-confirm",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/consultation-guide/message-form",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/consultation-guide/wechat-service",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/diagnosis/diagnosis",
@@ -212,11 +239,13 @@
     },
     {
       "path": "pages/normal/healthcare/solar-term-detail",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/healthcare/solar-terms",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/healthcare/tcm-lecture-detail",
@@ -253,23 +282,28 @@
     },
     {
       "path": "pages/normal/medication-purchase-service/follow-up-prescription",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/medication-purchase-service/health-prescription",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/medication-purchase-service/index",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/medication-purchase-service/prescription-detail",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/medication-purchase-service/prescription-order",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/message/message",
@@ -354,16 +388,27 @@
       }
     },
     {
+      "path": "pages/normal/shop/patient-shop",
+      "type": "page",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "中医商城"
+      }
+    },
+    {
       "path": "pages/normal/smart-self-diagnosis/diagnosis-result",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/smart-self-diagnosis/diagnosis-test",
-      "type": "page"
+      "type": "page",
+      "style": {}
     },
     {
       "path": "pages/normal/smart-self-diagnosis/index",
-      "type": "page"
+      "type": "page",
+      "style": {}
     }
   ],
   "subPackages": [
