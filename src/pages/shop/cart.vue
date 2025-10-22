@@ -140,11 +140,11 @@ loadCartData()
 <template>
   <div class="page min-h-screen bg-[#f8f8f8]">
     <!-- 顶部导航栏 -->
-    <div class="sticky top-0 z-10 flex items-center justify-between bg-white px-[30rpx] py-[20rpx]" :style="{ paddingTop: `${safeAreaInsets?.top || 0 + 20}rpx` }">
-      <button class="h-[80rpx] w-[80rpx] flex items-center justify-center text-[32rpx]" @click="handleBack">
-        ←
-      </button>
-      <h1 class="font-bold text-[36rpx]">
+    <div class="sticky top-0 z-10 flex items-center bg-white px-[30rpx] py-[20rpx]" :style="{ paddingTop: `${safeAreaInsets?.top || 0 + 20}rpx` }">
+      <view class="absolute left-[30rpx] flex items-center justify-center text-[32rpx]" @click="handleBack">
+        &lt;
+      </view>
+      <h1 class="mx-auto font-bold text-[36rpx]">
         购物车
       </h1>
       <div class="h-[80rpx] w-[80rpx]" />

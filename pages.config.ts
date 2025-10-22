@@ -6,18 +6,19 @@ export default defineUniPages({
   pages: [
     {
       path: 'pages/shop/cart',
-      style: {
-        navigationBarTitleText: '购物车',
-        navigationBarBackgroundColor: '#f8f8f8',
-        navigationBarTextStyle: 'black',
-      }
+      style: {}
+    },
+    {
+      path: 'pages/normal/me/components/ServiceCard/ConsultationRecord',
+      style: {}
+    },
+    {
+      path: 'pages/normal/me/components/ServiceCard/AddressManagement',
+      style: {}
     }
   ],
   globalStyle: {
-    navigationStyle: 'default',
-    navigationBarTitleText: 'unibest',
-    navigationBarBackgroundColor: '#f8f8f8',
-    navigationBarTextStyle: 'black',
+    navigationStyle: 'custom',
     backgroundColor: '#f6e2d3',
   },
   easycom: {
@@ -36,46 +37,32 @@ export default defineUniPages({
       pages: [
         {
           path: 'components/TUIConversation/index',
-          style: {
-            navigationBarTitleText: '腾讯云 IM',
-          },
+          style: {},
         },
         {
           path: 'components/TUIChat/index',
-          style: {
-            navigationBarTitleText: '腾讯云 IM',
-          },
+          style: {},
         },
         // 集成 chat 组件，必须配置该路径: 视频播放
         {
           path: 'components/TUIChat/video-play',
-          style: {
-            navigationBarTitleText: '腾讯云 IM',
-          },
+          style: {},
         },
         {
           path: 'components/TUIChat/web-view',
-          style: {
-            navigationBarTitleText: '腾讯云 IM',
-          },
+          style: {},
         },
         {
           path: 'components/TUIContact/index',
-          style: {
-            navigationBarTitleText: '腾讯云 IM',
-          },
+          style: {},
         },
         {
           path: 'components/TUIGroup/index',
-          style: {
-            navigationBarTitleText: '腾讯云 IM',
-          },
+          style: {},
         },
         {
           path: 'components/TUISearch/index',
-          style: {
-            navigationBarTitleText: '聊天记录',
-          },
+          style: {},
         },
       ],
     },

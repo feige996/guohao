@@ -1,5 +1,7 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import ServiceCard from './Item.vue'
+
 // 服务项配置
 const list = [
   {
@@ -28,21 +30,36 @@ const list = [
   },
 ]
 
+
+
 // 服务项点击处理
-function handleServiceClick(item: any) {
-  console.log('点击服务项:', item)
-  switch (item.id) {
-    case 'vip':
-      uni.navigateTo({ url: '/pages/vip/vip' })
-      break
-    case 'customer-service':
-      uni.navigateTo({ url: '/pages/customer-service/customer-service' })
-      break
-    default:
-      uni.showToast({
-        title: '功能开发中',
-        icon: 'none',
-      })
+function handleServiceClick(title: string) {
+  console.log('点击服务项:', title)
+  if (title === '健康档案') {
+    // 跳转到健康档案详情页面
+    uni.navigateTo({
+      url: '/pages/normal/me/HealthRecordDetail'
+    })
+  } else if (title === '问诊记录') {
+    // 跳转到问诊记录页面
+    uni.navigateTo({
+      url: '/pages/normal/me/components/ServiceCard/ConsultationRecord'
+    })
+  } else if (title === '地址管理') {
+    uni.navigateTo({
+      url: '/pages/normal/me/components/ServiceCard/AddressManagement'
+    })
+  } else if (title === '商品订单') {
+    // 跳转到购物车页面
+    uni.navigateTo({
+      url: '/pages/shop/cart'
+    })
+  }
+  else {
+    uni.showToast({
+      title: '功能开发中',
+      icon: 'none',
+    })
   }
 }
 </script>
@@ -54,13 +71,15 @@ function handleServiceClick(item: any) {
     </view>
     <view class="grid grid-cols-4 w-full gap-[16rpx]">
       <ServiceCard
-        v-for="(service, index) in list"
-        :key="index"
+        v-for="service in list"
+        :key="service.id"
         :title="service.title"
         :icon-url="service.icon"
         @click="handleServiceClick(service.title)"
       />
     </view>
+
+
   </view>
 </template>
 
