@@ -128,10 +128,38 @@
       }
     },
     {
+      "path": "pages/doctor/me/authentication",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "我的认证"
+      }
+    },
+    {
+      "path": "pages/doctor/me/doctorInfo",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "医生档案"
+      }
+    },
+    {
+      "path": "pages/doctor/me/income",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "我的收益"
+      }
+    },
+    {
       "path": "pages/doctor/me/me",
       "type": "page",
       "style": {
         "navigationBarTitleText": "医生我的"
+      }
+    },
+    {
+      "path": "pages/doctor/me/serviceSchedule",
+      "type": "page",
+      "style": {
+        "navigationBarTitleText": "服务与排诊设置"
       }
     },
     {

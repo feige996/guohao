@@ -57,13 +57,19 @@ function handleSwitchChange(type: string, value: boolean) {
 // 点击档案区域
 function handleRecordClick() {
   console.log('点击了档案区域')
-  // 这里可以添加跳转到详细档案页面的逻辑
+  // 跳转到详细档案页面
+  uni.navigateTo({
+    url: '/pages/doctor/me/doctorInfo',
+  })
 }
 
 // 点击收入区域
 function handleIncomeClick() {
   console.log('点击了收入区域')
-  // 这里可以添加跳转到收入明细页面的逻辑
+  // 跳转到收入明细页面
+  uni.navigateTo({
+    url: '/pages/doctor/me/income',
+  })
 }
 
 // 点击评价区域
@@ -75,6 +81,15 @@ function handleRatingClick() {
 // 格式化数字，添加千分位分隔符
 function formatNumber(num: number): string {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}
+
+// 点击服务设置
+function handleServiceSettingsClick() {
+  console.log('点击了服务设置')
+  // 跳转到服务与排诊设置页面
+  uni.navigateTo({
+    url: '/pages/doctor/me/serviceSchedule',
+  })
 }
 </script>
 
@@ -130,7 +145,7 @@ function formatNumber(num: number): string {
     </view>
 
     <!-- 统计卡片区域 -->
-    <view class="flex gap-4 mt-3 px-3">
+    <view class="mt-3 flex gap-4 px-3">
       <!-- 我的收入卡片 -->
       <view class="flex-1 rounded-lg bg-white p-4 shadow-sm" @click="handleIncomeClick">
         <view class="flex items-center">
@@ -161,7 +176,7 @@ function formatNumber(num: number): string {
         </view>
         <view class="mt-2">
           <view class="flex items-center">
-            <text class="text-yellow-400 text-xs">⭐⭐⭐⭐⭐</text>
+            <text class="text-xs text-yellow-400">⭐⭐⭐⭐⭐</text>
           </view>
           <view class="mt-1">
             <text class="text-xs text-gray-500">累计好评: {{ ratingData.goodCount }}条</text>
@@ -174,18 +189,22 @@ function formatNumber(num: number): string {
     </view>
 
     <!-- 服务设置区域 -->
-    <view class="mt-3 bg-white p-4">
-      <view class="flex items-center justify-between">
-        <view class="flex items-center">
-          <view class="h-10 w-10 flex items-center justify-center rounded-full bg-red-100">
-            <text class="text-red-500">⚙️</text>
+    <view class="mt-3 bg-white">
+      <!-- 标题区域 - 可点击跳转 -->
+      <view class="p-4" @click="handleServiceSettingsClick">
+        <view class="flex items-center justify-between">
+          <view class="flex items-center">
+            <view class="h-10 w-10 flex items-center justify-center rounded-full bg-red-100">
+              <text class="text-red-500">⚙️</text>
+            </view>
+            <text class="ml-3 text-base font-medium">服务设置</text>
           </view>
-          <text class="ml-3 text-base font-medium">服务设置</text>
+          <text class="text-gray-400">›</text>
         </view>
       </view>
 
-      <!-- 设置项 -->
-      <view class="mt-4">
+      <!-- 设置项 - 不可点击跳转 -->
+      <view class="px-4 pb-4">
         <!-- 图文问诊 -->
         <view class="flex items-center justify-between border-b border-gray-100 py-3">
           <text class="text-base">图文问诊</text>
@@ -193,7 +212,7 @@ function formatNumber(num: number): string {
             v-model="serviceSettings.textConsult"
             active-color="#8c2303"
             inactive-color="#dcdfe6"
-            @change="(val: any) => handleSwitchChange('text', val)"
+            @update:model-value="(val) => handleSwitchChange('text', val)"
           />
         </view>
 
@@ -204,7 +223,7 @@ function formatNumber(num: number): string {
             v-model="serviceSettings.voiceConsult"
             active-color="#8c2303"
             inactive-color="#dcdfe6"
-            @change="(val: any) => handleSwitchChange('voice', val)"
+            @update:model-value="(val) => handleSwitchChange('voice', val)"
           />
         </view>
 
@@ -215,7 +234,7 @@ function formatNumber(num: number): string {
             v-model="serviceSettings.videoConsult"
             active-color="#8c2303"
             inactive-color="#dcdfe6"
-            @change="(val: any) => handleSwitchChange('video', val)"
+            @update:model-value="(val) => handleSwitchChange('video', val)"
           />
         </view>
       </view>
