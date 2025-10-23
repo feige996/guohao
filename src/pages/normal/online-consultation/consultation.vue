@@ -40,6 +40,14 @@ const doctorsData = [
 const doctorInfo = ref(doctorsData[0])
 const consultationStatus = ref('问诊中')
 const inputMessage = ref('')
+const showSymptomTemplate = ref(false)
+const symptomData = reactive({
+  location: '', // 部位
+  nature: '', // 性质
+  duration: '', // 持续时间
+  factors: '', // 加重/缓解因素
+  otherInfo: '' // 其他信息
+})
 const messageList = ref([
   {
     id: '1',
@@ -181,17 +189,62 @@ function chooseImage() {
   })
 }
 
-// 启动视频问诊
-function startVideoConsultation() {
-  uni.showModal({
-    title: '视频问诊',
-    content: '即将启动视频问诊，是否继续？',
+// 打开症状描述模板
+function openSymptomTemplate() {
+  showSymptomTemplate.value = true
+}
+
+// 提交症状描述
+function submitSymptom() {
+  // 检查必填项
+  if (!symptomData.location || !symptomData.nature || !symptomData.duration) {
+    uni.showToast({
+      title: '请填写基本症状信息',
+      icon: 'none'
+    })
+    return
+  }
+  
+  // 构建消息内容
+  let content = `症状描述：\n`
+  content += `- 部位：${symptomData.location}\n`
+  content += `- 性质：${symptomData.nature}\n`
+  content += `- 持续时间：${symptomData.duration}\n`
+  if (symptomData.factors) {
+    content += `- 加重/缓解因素：${symptomData.factors}\n`
+  }
+  if (symptomData.otherInfo) {
+    content += `- 其他信息：${symptomData.otherInfo}`
+  }
+  
+  // 发送消息
+  inputMessage.value = content
+  sendMessage()
+  
+  // 关闭弹窗并重置数据
+  showSymptomTemplate.value = false
+  Object.keys(symptomData).forEach(key => {
+    symptomData[key] = ''
+  })
+}
+
+// 选择会诊类型
+function chooseConsultationType() {
+  uni.showActionSheet({
+    itemList: ['视频会诊', '语音会诊'],
     success: (res) => {
-      if (res.confirm) {
-        console.log('启动视频问诊')
-        // 这里可以调用视频问诊的逻辑
+      if (res.tapIndex === 0) {
+        // 视频会诊
+        uni.navigateTo({
+          url: '/pages/normal/online-consultation/video-consultation'
+        })
+      } else if (res.tapIndex === 1) {
+        // 语音会诊
+        uni.navigateTo({
+          url: '/pages/normal/online-consultation/phone-consultation'
+        })
       }
-    },
+    }
   })
 }
 
@@ -208,22 +261,53 @@ function uploadMedicalRecord() {
   })
 }
 
-// 查看历史记录
-function viewHistory() {
+// 查看健康档案
+function viewHealthRecord() {
+  uni.navigateTo({
+    url: '/pages/normal/me/HealthRecordDetail'
+  })
+}
+
+// 打开转账功能
+function openTransfer() {
   uni.showModal({
-    title: '历史记录',
-    content: '功能开发中',
-    showCancel: false,
+    title: '向医生转账',
+    content: '请输入转账金额',
+    editable: true,
+    placeholderText: '请输入金额',
+    success: (res) => {
+      if (res.confirm && res.content) {
+        const amount = parseFloat(res.content)
+        if (isNaN(amount) || amount <= 0) {
+          uni.showToast({
+            title: '请输入有效金额',
+            icon: 'none'
+          })
+          return
+        }
+        
+        // 显示确认转账对话框
+        uni.showModal({
+          title: '确认转账',
+          content: `确定向 ${doctorInfo.value.name} 医生转账 ${amount} 元吗？`,
+          success: (confirmRes) => {
+            if (confirmRes.confirm) {
+              // 模拟转账成功
+              uni.showToast({
+                title: '转账成功',
+                icon: 'success'
+              })
+            }
+          }
+        })
+      }
+    }
   })
 }
 
 // 查看处方
 function viewPrescription() {
-  uni.showModal({
-    title: '查看处方',
-    content: '功能开发中',
-    showCancel: false,
-  })
+  viewHealthRecord()
 }
 </script>
 
@@ -299,23 +383,23 @@ function viewPrescription() {
         </view>
         <text class="mt-1 text-[#666] text-[20rpx]">拍照</text>
       </view>
-      <view class="flex flex-col items-center" @click="uploadMedicalRecord">
+      <view class="flex flex-col items-center" @click="openSymptomTemplate">
         <view class="h-12 w-12 flex items-center justify-center rounded-full bg-[#f0f0f0] text-[#666] text-[40rpx]">
           📋
         </view>
-        <text class="mt-1 text-[#666] text-[20rpx]">病历</text>
+        <text class="mt-1 text-[#666] text-[20rpx]">病例</text>
       </view>
-      <view class="flex flex-col items-center" @click="startVideoConsultation">
+      <view class="flex flex-col items-center" @click="chooseConsultationType">
         <view class="h-12 w-12 flex items-center justify-center rounded-full bg-[#f0f0f0] text-[#666] text-[40rpx]">
           🎥
         </view>
         <text class="mt-1 text-[#666] text-[20rpx]">视频</text>
       </view>
-      <view class="flex flex-col items-center" @click="viewHistory">
+      <view class="flex flex-col items-center" @click="openTransfer">
         <view class="h-12 w-12 flex items-center justify-center rounded-full bg-[#f0f0f0] text-[#666] text-[40rpx]">
-          📅
+          💸
         </view>
-        <text class="mt-1 text-[#666] text-[20rpx]">记录</text>
+        <text class="mt-1 text-[#666] text-[20rpx]">转账</text>
       </view>
       <view class="flex flex-col items-center" @click="viewPrescription">
         <view class="h-12 w-12 flex items-center justify-center rounded-full bg-[#f0f0f0] text-[#666] text-[40rpx]">
@@ -344,6 +428,86 @@ function viewPrescription() {
           @click="sendMessage"
         >
           发送
+        </view>
+      </view>
+    </view>
+
+    <!-- 症状描述模板弹窗 -->
+    <view v-if="showSymptomTemplate" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <view class="w-[80%] max-h-[80vh] overflow-y-auto rounded-lg bg-white p-4">
+        <view class="mb-4 flex items-center justify-between">
+          <text class="text-lg font-medium">症状描述</text>
+          <text class="text-[#999] text-xl" @click="showSymptomTemplate = false">×</text>
+        </view>
+        
+        <view class="mb-4">
+          <text class="block mb-2 text-[#666]">部位 <span class="text-red-500">*</span></text>
+          <input
+            v-model="symptomData.location"
+            type="text"
+            placeholder="例如：头痛、腹痛、关节痛等"
+            class="w-full rounded-[8rpx] border border-[#ddd] px-3 py-2 text-[26rpx]"
+            placeholder-style="text-[#999]"
+          >
+        </view>
+        
+        <view class="mb-4">
+          <text class="block mb-2 text-[#666]">性质 <span class="text-red-500">*</span></text>
+          <input
+            v-model="symptomData.nature"
+            type="text"
+            placeholder="例如：刺痛、胀痛、绞痛等"
+            class="w-full rounded-[8rpx] border border-[#ddd] px-3 py-2 text-[26rpx]"
+            placeholder-style="text-[#999]"
+          >
+        </view>
+        
+        <view class="mb-4">
+          <text class="block mb-2 text-[#666]">持续时间 <span class="text-red-500">*</span></text>
+          <input
+            v-model="symptomData.duration"
+            type="text"
+            placeholder="例如：3天、2周、1个月等"
+            class="w-full rounded-[8rpx] border border-[#ddd] px-3 py-2 text-[26rpx]"
+            placeholder-style="text-[#999]"
+          >
+        </view>
+        
+        <view class="mb-4">
+          <text class="block mb-2 text-[#666]">加重/缓解因素</text>
+          <input
+            v-model="symptomData.factors"
+            type="text"
+            placeholder="例如：运动后加重、休息后缓解等"
+            class="w-full rounded-[8rpx] border border-[#ddd] px-3 py-2 text-[26rpx]"
+            placeholder-style="text-[#999]"
+          >
+        </view>
+        
+        <view class="mb-6">
+          <text class="block mb-2 text-[#666]">其他信息</text>
+          <textarea
+            v-model="symptomData.otherInfo"
+            placeholder="请补充其他相关症状或信息"
+            class="w-full rounded-[8rpx] border border-[#ddd] px-3 py-2 text-[26rpx]"
+            placeholder-style="text-[#999]"
+            rows="3"
+          ></textarea>
+        </view>
+        
+        <view class="flex justify-end space-x-4">
+          <button
+            class="rounded-[8rpx] border border-[#ddd] px-6 py-2 text-[26rpx] text-[#666]"
+            @click="showSymptomTemplate = false"
+          >
+            取消
+          </button>
+          <button
+            class="rounded-[8rpx] bg-[#1890ff] px-6 py-2 text-[26rpx] text-white"
+            @click="submitSymptom"
+          >
+            提交
+          </button>
         </view>
       </view>
     </view>

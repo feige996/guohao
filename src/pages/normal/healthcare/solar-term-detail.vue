@@ -142,6 +142,11 @@ function handleShare() {
   })
 }
 
+// 返回上一页
+function handleBack() {
+  uni.navigateBack()
+}
+
 // 监听页面加载
 onMounted(() => {
   // 完整输出路由对象以调试
@@ -201,8 +206,19 @@ catch (error) {
 </script>
 
 <template>
-  <view class="solar-term-detail-page bg-white px-4 py-4">
-    <view v-if="termDetail" class="space-y-6">
+  <view class="solar-term-detail-page">
+    <!-- 返回栏 -->
+    <view class="sticky top-0 z-10 bg-white border-b border-gray-100">
+      <view class="px-4 h-12 flex items-center justify-between">
+        <view @click="handleBack" class="text-gray-700 text-2xl">
+          &lt;
+        </view>
+        <view class="text-lg font-medium text-gray-800">节气养生</view>
+        <view class="w-6"></view> <!-- 占位元素，保持标题居中 -->
+      </view>
+    </view>
+    <view class="px-4 py-4">
+      <view v-if="termDetail" class="space-y-6">
       <!-- 标题和播放按钮 -->
       <view class="flex items-center justify-between">
         <view class="text-2xl text-gray-800 font-bold">
@@ -212,7 +228,7 @@ catch (error) {
           class="rounded-full bg-orange-100 p-2 text-orange-500"
           @click="togglePlay"
         >
-          <uni-icons :type="isPlaying ? 'pause' : 'volume'" size="24" />
+          <uni-icons :type="isPlaying ? 'stop' : 'audio'" size="24" />
         </button>
       </view>
 
@@ -234,6 +250,7 @@ catch (error) {
       <!-- 图片 -->
       <view class="my-4 flex justify-center">
         <image :src="termDetail.imageUrl" class="h-48 w-48 object-contain" mode="aspectFit" />
+      </view>
       </view>
     </view>
 

@@ -108,17 +108,22 @@ function handleBack() {
 }
 
 // 处理预约服务点击
-function handleServiceClick(service: typeof appointmentServices[0]) {
-  console.log('选择预约服务:', service)
-  // 所有按钮都跳转到支付页面
+function handleServiceClick(service: { id: string }) {
+  console.log('点击预约服务:', service.id)
+  
+  // 根据服务ID确定服务类型
+  let serviceTypeName = ''
+  if (service.id === 'video') {
+    serviceTypeName = '视频问诊'
+  } else if (service.id === 'text') {
+    serviceTypeName = '图文问诊'
+  } else if (service.id === 'phone') {
+    serviceTypeName = '电话问诊'
+  }
+  
+  // 跳转到候诊室页面，并传递服务类型
   uni.navigateTo({
-    url: `/pages/normal/online-consultation/payment?id=${doctorInfo.value.id}&serviceId=${service.id}`,
-    success: () => {
-      console.log('跳转到支付页面成功')
-    },
-    fail: (err) => {
-      console.error('跳转到支付页面失败:', err)
-    }
+    url: `/pages/normal/online-consultation/waiting-room?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}&serviceType=${encodeURIComponent(serviceTypeName)}`
   })
 }
 </script>

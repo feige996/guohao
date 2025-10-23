@@ -94,22 +94,37 @@ function handleTermClick(term: SolarTerm) {
 function clearSearch() {
   searchKeyword.value = ''
 }
+
+// 返回上一页
+function handleBack() {
+  uni.navigateBack()
+}
 </script>
 
 <template>
-  <view class="solar-terms-page px-4 py-4">
-    <view class="mb-6">
+  <view class="solar-terms-page">
+    <!-- 返回栏 -->
+      <view class="sticky top-0 z-10 bg-white border-b border-gray-100">
+        <view class="px-4 h-12 flex items-center justify-between">
+          <view @click="handleBack" class="text-gray-700 text-2xl">
+            &lt;
+          </view>
+          <view class="text-lg font-medium text-gray-800">节气养生</view>
+          <view class="w-6"></view> <!-- 占位元素，保持标题居中 -->
+        </view>
+      </view>
+    <view class="px-4 py-4 mb-2">
       <!-- 搜索框 -->
-      <view class="relative mb-4">
+      <view class="relative mb-4 flex justify-center">
         <input
           v-model="searchKeyword"
-          class="w-full border border-gray-200 rounded-lg bg-gray-50 py-2.5 pl-10 pr-12 text-sm"
+          class="h-[30px] w-[356.73px] border border-gray-200 rounded-lg bg-white py-2 pl-10 pr-12 text-sm"
           placeholder="搜索养生关键词"
         >
         <uni-icons class="absolute left-3 top-1/2 text-gray-400 -translate-y-1/2" type="search" size="20" />
         <uni-icons
           v-if="searchKeyword"
-          class="absolute right-3 top-1/2 text-gray-400 -translate-y-1/2"
+          class="absolute right-3 top-1/2 cursor-pointer text-gray-400 -translate-y-1/2"
           type="clear"
           size="20"
           @click="clearSearch"
@@ -117,11 +132,11 @@ function clearSearch() {
       </view>
 
       <!-- 分类标签 -->
-      <view class="flex space-x-2 justify-between mb-4">
+      <view class="mb-4 flex justify-between space-x-2">
         <view
           v-for="category in categories"
           :key="category"
-          class="flex-1 rounded-full py-1.5 text-xs text-center transition-colors whitespace-nowrap"
+          class="flex-1 whitespace-nowrap rounded-full py-1.5 text-center text-xs transition-colors"
           :class="{
             'bg-orange-500 text-white': currentCategory === category,
             'bg-gray-100 text-gray-600': currentCategory !== category,

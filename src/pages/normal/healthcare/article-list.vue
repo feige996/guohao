@@ -165,6 +165,11 @@ function loadMore() {
   }
 }
 
+// 返回上一页
+function handleBack() {
+  uni.navigateBack()
+}
+
 // 页面加载时获取数据
 onLoad((options: any) => {
   console.log('页面参数:', options)
@@ -176,24 +181,41 @@ onLoad((options: any) => {
 </script>
 
 <template>
-  <view class="article-list-page min-h-screen bg-gray-50">
+  <view class="article-list-page min-h-screen bg-gradient-to-b from-blue-50 to-blue-100">
+    <!-- 返回栏 -->
+    <view class="sticky top-0 z-20 border-b border-gray-100 bg-white/80 backdrop-blur-sm">
+      <view class="h-12 flex items-center justify-between px-4">
+        <view class="text-2xl text-gray-700" @click="handleBack">
+          &lt;
+        </view>
+        <view class="text-lg text-gray-800 font-medium">
+          养生文章
+        </view>
+        <view class="w-6" /> <!-- 占位元素，保持标题居中 -->
+      </view>
+    </view>
     <!-- 搜索框 -->
-    <view class="sticky top-0 z-10 border-b border-gray-100 bg-white px-4 py-3">
-      <view class="relative">
+    <view class="sticky top-12 z-10 border-b border-gray-100 bg-white/80 backdrop-blur-sm px-4 py-3">
+      <view class="relative mb-4 flex justify-center">
         <input
           v-model="searchKeyword"
-          class="w-full border border-gray-200 rounded-lg bg-gray-50 py-2.5 pl-10 pr-12 text-sm"
+          class="h-[32px] w-full rounded-full border-2 border-black bg-white py-2 pl-10 pr-12 text-sm transition-all duration-300 focus:border-primary focus:outline-none"
           placeholder="搜索养生关键词"
           @confirm="handleSearch"
         >
-        <uni-icons class="absolute left-3 top-1/2 text-gray-400 -translate-y-1/2" type="search" size="20" />
+        <uni-icons class="absolute left-4 top-1/2 text-gray-400 -translate-y-1/2" type="search" size="18" />
         <uni-icons
           v-if="searchKeyword"
-          class="absolute right-3 top-1/2 text-gray-400 -translate-y-1/2"
-          type="closeempty"
-          size="20"
+          class="absolute right-4 top-1/2 cursor-pointer text-gray-400 -translate-y-1/2 transition-transform duration-300 hover:scale-110"
+          type="clear"
+          size="18"
           @click="clearSearch"
         />
+      </view>
+      
+      <!-- 矩形提示框 -->
+      <view class="mb-3 rounded-md bg-[#FFF7E6] px-4 py-2 text-sm text-[#FF6A00]">
+        提示：点击标签可快速筛选养生文章
       </view>
 
       <!-- 分类标签 -->
@@ -263,7 +285,7 @@ onLoad((options: any) => {
 
       <!-- 空状态 -->
       <view v-else class="py-12 text-center">
-        <uni-icons type="empty" size="64" class="mb-4 text-gray-300" />
+        <uni-icons type="circle" size="64" class="mb-4 text-gray-300" />
         <view class="text-gray-500">
           暂无文章
         </view>

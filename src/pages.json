@@ -254,7 +254,7 @@
       "path": "pages/normal/healthcare/tcm-lecture-list",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "中医讲堂",
+        "navigationBarTitleText": "视频课堂",
         "backgroundColor": "#F8F9FA"
       }
     },

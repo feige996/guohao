@@ -65,6 +65,9 @@ function navigateToDiagnosis(symptom: string) {
     <!-- 顶部导航栏 -->
     <view class="header flex items-center justify-between bg-white px-4 py-3 shadow-sm">
       <view class="flex items-center">
+        <view class="mr-3" @click="() => uni.navigateBack()">
+          <text class="text-lg font-medium">←</text>
+        </view>
         <view class="mr-3 h-8 w-8 flex items-center justify-center rounded-full bg-red-500 text-lg text-white">
           智
         </view>

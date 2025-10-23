@@ -35,7 +35,7 @@ const doctorsData = [
 
 // 响应式数据
 const doctorInfo = ref(doctorsData[0])
-const serviceType = ref('视频问诊')
+const serviceType = ref('视频问诊') // 默认视频问诊
 const countdown = ref('0小时0分')
 const isDoctorOnline = ref(true)
 const isConsultationAvailable = ref(true) // 模拟环境，默认可点击
@@ -72,7 +72,7 @@ const flowStatus = [
 ]
 
 // 倒计时定时器
-const timer: any = null
+let timer: any = null
 
 // 格式化倒计时
 function formatCountdown(minutes: number) {
@@ -104,69 +104,96 @@ function startCountdown() {
   */
 }
 
-// 生命周期
-onLoad((options: { doctorId?: string, serviceId?: string, serviceType?: string }) => {
-  console.log('候诊室页面加载，参数:', options)
+// 开始问诊 - 根据服务类型跳转到不同的问诊页面
+function startConsultation() {
+  console.log('开始问诊，服务类型:', serviceType.value)
+  
+  // 标准化服务类型
+  const currentServiceType = serviceType.value.trim()
+  console.log('处理后的服务类型:', currentServiceType)
+  
+  // 根据服务类型跳转到不同的问诊页面
+  if (currentServiceType === '视频问诊' || currentServiceType === '视频挂号') {
+    // 视频问诊或视频挂号跳转到视频会诊页面
+    console.log('跳转到视频问诊页面')
+    uni.navigateTo({
+      url: `/pages/normal/online-consultation/video-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}&serviceType=${encodeURIComponent(currentServiceType)}`
+    })
+  } else if (currentServiceType === '图文问诊') {
+    // 图文问诊跳转到图文问诊页面
+    console.log('跳转到图文问诊页面')
+    uni.navigateTo({
+      url: `/pages/normal/online-consultation/consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&serviceType=${encodeURIComponent(currentServiceType)}`
+    })
+  } else if (currentServiceType === '电话问诊') {
+    // 电话问诊跳转到电话问诊页面
+    console.log('跳转到电话问诊页面')
+    uni.navigateTo({
+      url: `/pages/normal/online-consultation/phone-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}&serviceType=${encodeURIComponent(currentServiceType)}`
+    })
+  } else {
+    // 默认为视频问诊
+    console.log('未识别的服务类型，默认跳转到视频问诊页面')
+    uni.navigateTo({
+      url: `/pages/normal/online-consultation/video-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}`
+    })
+  }
+}
 
-  // 设置医生信息
+// 联系客服
+function handleContactService() {
+  uni.showToast({
+    title: '联系客服功能开发中',
+    icon: 'none'
+  })
+}
+
+// 返回上一页
+function handleBack() {
+  uni.navigateBack()
+}
+
+// 生命周期
+onLoad((options: { doctorId?: string; doctorName?: string; department?: string; avatar?: string; serviceType?: string }) => {
+  console.log('候诊室页面加载，参数:', options)
+  
+  // 强制打印serviceType参数，确保正确接收
+  console.log('接收到的serviceType参数:', options.serviceType)
+  
+  // 如果传入了医生信息，更新医生信息
   if (options.doctorId) {
     const doctor = doctorsData.find(d => d.id === options.doctorId)
     if (doctor) {
       doctorInfo.value = doctor
+    } else if (options.doctorName && options.department) {
+      // 使用传入的医生信息
+      doctorInfo.value = {
+        id: options.doctorId || '1',
+        name: options.doctorName,
+        department: options.department,
+        avatar: options.avatar || doctorInfo.value.avatar
+      }
     }
   }
-
-  // 强制设置服务类型为视频问诊，忽略传递的参数
-  console.log('接收到的服务类型参数:', options.serviceType)
-  serviceType.value = '视频问诊'
-  console.log('实际设置的服务类型:', serviceType.value)
-
+  
+  // 接收服务类型参数
+  if (options.serviceType) {
+    serviceType.value = options.serviceType
+    console.log('更新服务类型:', serviceType.value)
+  } else {
+    console.log('未接收到serviceType参数，使用默认值:', serviceType.value)
+  }
+  
   // 开始倒计时
   startCountdown()
 })
 
 onUnload(() => {
-  // 清除定时器
-  timer && clearInterval(timer)
+  // 清理定时器
+  if (timer) {
+    clearInterval(timer)
+  }
 })
-
-// 处理返回
-function handleBack() {
-  uni.navigateBack()
-}
-
-// 联系客服
-function handleContactService() {
-  uni.showModal({
-    title: '联系客服',
-    content: '客服热线：400-123-4567',
-    showCancel: false,
-  })
-}
-
-// 开始问诊 - 确保视频问诊直接跳转到正确页面
-function startConsultation() {
-  // 直接使用硬编码的路径，确保视频问诊不会跳到其他页面
-  const targetPage = '/pages/normal/online-consultation/video-consultation'
-  console.log('强制跳转到视频问诊页面:', targetPage)
-  
-  // 使用绝对路径，避免路径解析问题
-  uni.navigateTo({
-    url: `${targetPage}?doctorId=${doctorInfo.value.id}&serviceType=${encodeURIComponent('视频问诊')}`,
-    success: () => {
-      console.log('跳转成功')
-    },
-    fail: (err) => {
-      console.error('跳转失败:', err)
-      // 即使失败也强制提示用户
-      uni.showModal({
-        title: '跳转提示',
-        content: '正在进入视频问诊...',
-        showCancel: false
-      })
-    }
-  })
-}
 </script>
 
 <template>

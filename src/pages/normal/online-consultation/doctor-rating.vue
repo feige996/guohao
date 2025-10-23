@@ -113,10 +113,12 @@ function submitRating() {
     icon: 'success',
     duration: 1500,
     success: () => {
-      // 延迟返回
+      // 延迟跳转到问诊预约页面
       setTimeout(() => {
-        // 返回上一页，或者跳转到指定页面
-        uni.navigateBack()
+        // 直接跳转到问诊预约页面，而不是返回上一页
+        uni.redirectTo({
+          url: '/pages/normal/online-consultation/appointment'
+        })
       }, 1500)
     },
   })
@@ -126,7 +128,10 @@ function submitRating() {
 function handleBack() {
   // 如果已经提交，可以直接返回
   if (hasSubmitted) {
-    uni.navigateBack()
+    // 直接跳转到问诊预约页面
+    uni.redirectTo({
+      url: '/pages/normal/online-consultation/appointment'
+    })
     return
   }
 
@@ -136,7 +141,10 @@ function handleBack() {
     content: '确定要取消评价吗？',
     success: (res) => {
       if (res.confirm) {
-        uni.navigateBack()
+        // 直接跳转到问诊预约页面
+        uni.redirectTo({
+          url: '/pages/normal/online-consultation/appointment'
+        })
       }
     },
   })

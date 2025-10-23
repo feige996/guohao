@@ -41,9 +41,9 @@ function handleFeatureClick(feature: FeatureEntry) {
   // 根据不同的功能入口跳转到不同的页面
   switch (feature.id) {
     case 'article':
-      // 跳转到养生文章页面
+      // 跳转到养生养气页面
       uni.navigateTo({
-        url: '/pages/normal/healthcare/article-list?type=article',
+        url: '/pages/normal/healthcare/solar-terms',
       })
       break
     case 'case':

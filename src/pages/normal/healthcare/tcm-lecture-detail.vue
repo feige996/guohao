@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
 import { safeAreaInsets } from '@/utils/systemInfo'
@@ -46,12 +46,42 @@ const detailLoading = ref(false)
 // 用户store
 const userStore = useUserStore()
 
-// 课程详情数据
-const lectureDetail = ref<TcmLectureDetail | null>(null)
+// 课程详情数据 - 初始化时直接设置默认模拟数据
+const lectureDetail = ref<TcmLectureDetail>({
+  id: 1,
+  title: '中医养生之道：四季养生的基本原则',
+  coverImageUrl: '/static/images/tcm-lecture4.png',
+  videoUrl: '',
+  description: '本课程详细讲解中医四季养生的理论基础和实践方法。中医认为，人与自然是一个统一的整体，四季气候变化人体生理功能有重要影响。通过学习本课程，您将了解春、夏、秋、冬四季的养生要点，掌握顺应自然、调整生活方式的实用技巧，从而达到预防疾病、延年益寿的目的。课程内容包括：春季养肝要点、夏季养心方法、秋季养肺之道、冬季养肾秘诀等。',
+  playCount: 8976,
+  duration: '48分钟',
+  isFree: true,
+  instructor: {
+    name: '国豪中医',
+    title: '中医内科主任医师',
+    bio: '本科学历，毕业于广州中医药大学中医专业，十余年临床经验，擅长中医内科疾病的诊治，尤其是脾胃病、呼吸系统疾病的中医药治疗。具有丰富的临床experienced知识。',
+    avatar: '/static/images/doctor-avatar.png',
+  },
+  chapters: [
+    { id: 1, title: '中医养生理论基础', duration: '10分钟' },
+    { id: 2, title: '春季养生：养肝为主', duration: '12分钟' },
+    { id: 3, title: '夏季养生：养心为要', duration: '10分钟' },
+    { id: 4, title: '秋季养生：养肺为重', duration: '8分钟' },
+    { id: 5, title: '冬季养生：养肾为本', duration: '8分钟' },
+  ],
+  relatedCourses: [
+    { id: 1, title: '口臭、脚臭、腋下臭？可能是湿气惹的祸', coverImageUrl: '/static/images/tcm-lecture1.png', isFree: true },
+    { id: 2, title: '手脚冰凉不只是冬天！中医调理方法', coverImageUrl: '/static/images/tcm-lecture2.png', isFree: true },
+    { id: 3, title: '长寿与身体先知道这种"感觉"', coverImageUrl: '/static/images/tcm-lecture3.png', isFree: true },
+  ],
+  publishTime: '2025-4-20',
+  isCollected: false,
+})
 const currentTab = ref('详情') // '详情' | '目录' | '相关课程'
 const isCollected = ref(false)
 
 // 模拟讲师数据
+// 修复讲师简介中的错误内容
 const mockInstructor: Instructor = {
   name: '国豪中医',
   title: '中医内科主任医师',
@@ -63,24 +93,27 @@ const mockInstructor: Instructor = {
 function getMockLectureDetail(id: number): TcmLectureDetail {
   return {
     id,
-    title: '口臭、脚臭、腋下臭？可能是湿气惹的祸',
-    coverImageUrl: '/static/images/tcm-lecture1.png',
+    title: '中医养生之道：四季养生的基本原则',
+    coverImageUrl: '/static/images/tcm-lecture4.png',
     videoUrl: '', // 实际项目中应该是真实的视频URL
-    description: '本课程详细讲解湿气的形成原因、常见症状以及中医调理方法。通过学习本课程，您将了解湿气与身体异味的关系，掌握实用的中医养生技巧。',
-    playCount: 7549,
-    duration: '45分钟',
+    description: '本课程详细讲解中医四季养生的理论基础和实践方法。中医认为，人与自然是一个统一的整体，四季气候变化的人体生理功能有重要影响。通过学习本课程，您将了解春、夏、秋、冬四季的养生要点，掌握顺应自然、调整生活方式的实用技巧，从而达到预防疾病、延年益寿的目的。课程内容包括：春季养肝要点、夏季养心方法、秋季养肺之道、冬季养肾秘诀等。',
+    playCount: 8976,
+    duration: '48分钟',
     isFree: true,
     instructor: mockInstructor,
     chapters: [
-      { id: 1, title: '湿气的形成与症状', duration: '12分钟' },
-      { id: 2, title: '湿气与身体异味的关系', duration: '15分钟' },
-      { id: 3, title: '中医调理湿气的方法', duration: '18分钟' },
+      { id: 1, title: '中医养生理论基础', duration: '10分钟' },
+      { id: 2, title: '春季养生：养肝为主', duration: '12分钟' },
+      { id: 3, title: '夏季养生：养心为要', duration: '10分钟' },
+      { id: 4, title: '秋季养生：养肺为重', duration: '8分钟' },
+      { id: 5, title: '冬季养生：养肾为本', duration: '8分钟' },
     ],
     relatedCourses: [
+      { id: 1, title: '口臭、脚臭、腋下臭？可能是湿气惹的祸', coverImageUrl: '/static/images/tcm-lecture1.png', isFree: true },
       { id: 2, title: '手脚冰凉不只是冬天！中医调理方法', coverImageUrl: '/static/images/tcm-lecture2.png', isFree: true },
       { id: 3, title: '长寿与身体先知道这种"感觉"', coverImageUrl: '/static/images/tcm-lecture3.png', isFree: true },
     ],
-    publishTime: '2025-5-10',
+    publishTime: '2025-4-20',
     isCollected: false,
   }
 }
@@ -204,9 +237,15 @@ function goToRelatedCourse(id: number) {
 
 // 页面加载时获取数据
 function onLoad(options: any) {
-  lectureId.value = Number(options?.id) || 1
+  // 始终使用默认ID 1 来加载模拟数据，确保页面有内容显示
+  lectureId.value = 1
   fetchLectureDetail(lectureId.value)
 }
+
+// 组件挂载时执行，确保数据已初始化
+onMounted(() => {
+  console.log('课程详情页面已挂载，数据初始化完成')
+})
 </script>
 
 <template>
@@ -224,15 +263,15 @@ function onLoad(options: any) {
       </view>
     </view>
 
-    <!-- 内容区域 -->
-    <view v-if="lectureDetail" class="content-container">
+    <!-- 内容区域 - 移除v-if条件，确保始终渲染 -->
+    <view class="content-container">
       <!-- 视频播放区域 -->
       <view class="video-container">
         <image :src="lectureDetail.coverImageUrl" class="h-48 w-full object-cover" />
         <!-- 播放按钮 -->
         <view class="absolute inset-0 flex items-center justify-center">
           <view class="h-16 w-16 flex items-center justify-center rounded-full bg-black/50">
-            <uni-icons type="play" size="32" color="white" />
+            <uni-icons type="play-circle" size="32" color="white" />
           </view>
         </view>
         <!-- 播放次数 -->
@@ -358,7 +397,7 @@ function onLoad(options: any) {
         <text class="action-text" :class="isCollected ? 'favorited' : ''">收藏</text>
       </view>
       <view class="action-item" @click="handleShare">
-        <uni-icons type="share-social" :size="24" color="#666" />
+        <uni-icons type="share" :size="24" color="#666" />
         <text class="action-text">分享</text>
       </view>
     </view>
