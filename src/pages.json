@@ -124,7 +124,7 @@
       "path": "pages/doctor/index/index",
       "type": "page",
       "style": {
-        "navigationBarTitleText": "医生用户首页"
+        "navigationBarTitleText": "工作台"
       }
     },
     {

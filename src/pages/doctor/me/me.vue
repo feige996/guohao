@@ -1,11 +1,5 @@
 <script lang="ts" setup>
-// import type { IUploadSuccessInfo } from '@/api/types/login'
-import { storeToRefs } from 'pinia'
-import { LOGIN_PAGE } from '@/router/config'
-import { useUserStore } from '@/store/userStore'
-import { tabbarStore } from '@/tabbar/store'
-import { currRoute } from '@/utils'
-import { useUpload } from '@/utils/uploadFile'
+import { ref } from 'vue'
 
 definePage({
   style: {
@@ -13,297 +7,219 @@ definePage({
   },
 })
 
-const userStore = useUserStore()
-// 使用storeToRefs解构userInfo
-const { userInfo } = storeToRefs(userStore)
+// 模拟医生信息数据
+const doctorInfo = ref({
+  name: '李浩',
+  title: '主任医师',
+  department: '内分泌科',
+  hospital: '国浩中医院',
+  rating: '100%',
+  consultationCount: 56800,
+  avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop&crop=center',
+  recordDate: '2025/02/11 14:32:21',
+})
 
-// #ifndef MP-WEIXIN
-// 上传头像
-const { run: uploadAvatar } = useUpload<IUploadSuccessInfo>(
-  import.meta.env.VITE_UPLOAD_BASEURL,
-  {},
-  {
-    onSuccess: (res) => {
-      console.log('h5头像上传成功', res)
-      // useUserStore().setUserAvatar(res.url)
-    },
-  },
-)
-// #endif
+// 模拟收入数据
+const incomeData = ref({
+  month: '50.00',
+  today: '50.00',
+})
 
-// 微信小程序下登录
-async function handleLogin() {
-  const { path } = currRoute()
+// 模拟评价数据
+const ratingData = ref({
+  goodCount: 188,
+  replyCount: 160,
+})
 
-  // #ifdef MP-WEIXIN
+// 服务设置状态
+const serviceSettings = ref({
+  textConsult: true,
+  voiceConsult: false,
+  videoConsult: false,
+})
 
-  // 微信登录
-  await userStore.wxLogin()
-  // #endif
-  // #ifndef MP-WEIXIN
-  uni.navigateTo({
-    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('pages/doctor/me/me')}`,
-  })
-
-  // uni.navigateTo({
-  //   url: `${LOGIN_PAGE}?redirect=${encodeURIComponent(path)}`,
-  // })
-  // #endif
-}
-
-// #ifdef MP-WEIXIN
-
-// 微信小程序下选择头像事件
-function onChooseAvatar(e: any) {
-  console.log('选择头像', e.detail)
-  const { avatarUrl } = e.detail
-  const { run } = useUpload<IUploadSuccessInfo>(
-    import.meta.env.VITE_UPLOAD_BASEURL,
-    {},
-    {
-      onSuccess: (res) => {
-        console.log('wx头像上传成功', res)
-        // useUserStore().setUserAvatar(res.url)
-      },
-    },
-    avatarUrl,
-  )
-  run()
-}
-// #endif
-// #ifdef MP-WEIXIN
-// 微信小程序下设置用户名
-function getUserInfo(e: any) {
-  console.log(e.detail)
-}
-// #endif
-
-// 从 about.vue 迁移的功能
-function gotoLogin() {
-  if (userStore.isLoggedIn) {
-    uni.showToast({
-      title: '已登录，不能去登录页',
-      icon: 'none',
-    })
-    return
+// 处理开关切换
+function handleSwitchChange(type: string, value: boolean) {
+  switch (type) {
+    case 'text':
+      serviceSettings.value.textConsult = value
+      break
+    case 'voice':
+      serviceSettings.value.voiceConsult = value
+      break
+    case 'video':
+      serviceSettings.value.videoConsult = value
+      break
   }
-  // uni.navigateTo({
-  //   url: `${LOGIN_PAGE}?redirect=${encodeURIComponent('pages/doctor/me/me')}`,
-  // })
-  const { path } = currRoute()
-  uni.navigateTo({
-    url: `${LOGIN_PAGE}?redirect=${encodeURIComponent(path)}`,
-  })
+  console.log(`开关${type}已切换为:`, value)
 }
 
-function logout() {
-  // 清空用户信息
-  userStore.logout()
-  // 执行退出登录逻辑
-  uni.showToast({
-    title: '退出登录成功',
-    icon: 'success',
-  })
+// 点击档案区域
+function handleRecordClick() {
+  console.log('点击了档案区域')
+  // 这里可以添加跳转到详细档案页面的逻辑
 }
 
-function setTabbarBadge() {
-  tabbarStore.setTabbarItemBadge(1, 100)
+// 点击收入区域
+function handleIncomeClick() {
+  console.log('点击了收入区域')
+  // 这里可以添加跳转到收入明细页面的逻辑
 }
 
-// 退出登录
-function handleLogout() {
-  uni.showModal({
-    title: '提示',
-    content: '确定要退出登录吗？',
-    success: (res) => {
-      if (res.confirm) {
-        // 清空用户信息
-        userStore.logout()
-        // 执行退出登录逻辑
-        uni.showToast({
-          title: '退出登录成功',
-          icon: 'success',
-        })
-        // #ifdef MP-WEIXIN
-        // 微信小程序，去首页
-        // uni.reLaunch({ url: '/pages/index/index' })
-        // #endif
-        // #ifndef MP-WEIXIN
-        // 非微信小程序，去登录页
-        // uni.navigateTo({ url: LOGIN_PAGE })
-        // #endif
-      }
-    },
-  })
+// 点击评价区域
+function handleRatingClick() {
+  console.log('点击了评价区域')
+  // 这里可以添加跳转到评价详情页面的逻辑
+}
+
+// 格式化数字，添加千分位分隔符
+function formatNumber(num: number): string {
+  return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 </script>
 
 <template>
-  <view class="profile-container">
-    <!-- 用户信息区域 -->
-    <view class="user-info-section">
-      <!-- #ifdef MP-WEIXIN -->
-      <button class="avatar-button" open-type="chooseAvatar" @chooseavatar="onChooseAvatar">
-        <!-- <image :src="userInfo.avatar" mode="scaleToFill" class="h-full w-full" /> -->
-      </button>
-      <!-- #endif -->
-      <!-- #ifndef MP-WEIXIN -->
-      <view class="avatar-wrapper" @click="uploadAvatar">
-        <!-- <image :src="userInfo.avatar" mode="scaleToFill" class="h-full w-full" /> -->
-      </view>
-      <!-- #endif -->
-      <view class="user-details">
-        <!-- #ifdef MP-WEIXIN -->
-        <!-- <input
-          v-model="userInfo.username"
-          type="nickname"
-          class="weui-input"
-          placeholder="请输入昵称"
-        > -->
-        <!-- #endif -->
-        <!-- #ifndef MP-WEIXIN -->
-        <view class="username">
-          <!-- {{ userInfo.username }} -->
-        </view>
-        <!-- #endif -->
-        <view class="user-id">
-          <!-- ID: {{ userInfo.id }} -->
+  <view class="min-h-screen bg-gray-100">
+    <!-- 顶部医生信息卡片 -->
+    <view class="bg-white p-4">
+      <view class="flex items-center">
+        <!-- 医生头像 -->
+        <image
+          :src="doctorInfo.avatar"
+          class="h-20 w-20 border-2 border-gray-200 rounded-full object-cover"
+        />
+
+        <!-- 医生信息 -->
+        <view class="ml-4 flex-1">
+          <view class="flex items-center">
+            <text class="text-xl font-semibold">{{ doctorInfo.name }}</text>
+            <text class="ml-2 text-base text-gray-600">{{ doctorInfo.title }}</text>
+          </view>
+          <view class="mt-1 flex items-center">
+            <text class="mr-3 text-sm text-blue-500">{{ doctorInfo.department }}</text>
+            <text class="text-sm text-gray-500">{{ doctorInfo.hospital }}</text>
+          </view>
+          <view class="mt-2 flex items-center">
+            <text class="text-xs text-gray-500">好评:</text>
+            <text class="ml-1 text-xs text-green-500">{{ doctorInfo.rating }}</text>
+            <text class="ml-3 text-xs text-gray-500">接诊:</text>
+            <text class="ml-1 text-xs text-blue-500">{{ formatNumber(doctorInfo.consultationCount) }}</text>
+          </view>
         </view>
       </view>
     </view>
 
-    <!-- 从 about.vue 迁移的功能按钮 -->
-    <view class="function-buttons">
-      <view class="button-row">
-        <button class="function-btn" @click="gotoLogin">
-          点击去登录页
-        </button>
-        <button class="function-btn" @click="logout">
-          点击退出登录
-        </button>
-      </view>
-      <view class="button-row">
-        <button class="function-btn full-width" @click="setTabbarBadge">
-          设置tabbarBadge
-        </button>
+    <!-- 我的档案区域 -->
+    <view class="mt-3 bg-white p-4" @click="handleRecordClick">
+      <view class="flex items-center">
+        <view class="h-10 w-10 flex items-center justify-center rounded-full bg-blue-100">
+          <text class="text-blue-500">👤</text>
+        </view>
+        <view class="ml-4 flex-1">
+          <view class="flex items-center justify-between">
+            <text class="text-base font-medium">我的档案</text>
+            <text class="text-xs text-gray-500">{{ doctorInfo.name }} {{ doctorInfo.title }}</text>
+          </view>
+          <view class="mt-1 flex items-center">
+            <text class="mr-3 text-xs text-gray-500">{{ doctorInfo.department }}</text>
+            <text class="text-xs text-gray-500">{{ doctorInfo.hospital }}</text>
+          </view>
+          <text class="mt-1 text-xs text-gray-400">{{ doctorInfo.recordDate }}</text>
+        </view>
       </view>
     </view>
 
-    <view class="mt-3 break-all px-3">
-      {{ JSON.stringify(userInfo, null, 2) }}
+    <!-- 统计卡片区域 -->
+    <view class="grid grid-cols-2 mt-3 gap-3 px-3">
+      <!-- 我的收入卡片 -->
+      <view class="rounded-lg bg-white p-4 shadow-sm" @click="handleIncomeClick">
+        <view class="flex items-center">
+          <view class="h-10 w-10 flex items-center justify-center rounded-full bg-orange-100">
+            <text class="text-orange-500">💰</text>
+          </view>
+          <view class="ml-3">
+            <text class="text-base font-medium">我的收入</text>
+            <view class="mt-2">
+              <view class="flex items-center justify-between">
+                <text class="text-xs text-gray-500">本月:</text>
+                <text class="text-sm text-orange-500">¥{{ incomeData.month }}</text>
+              </view>
+              <view class="mt-1 flex items-center justify-between">
+                <text class="text-xs text-gray-500">今日:</text>
+                <text class="text-sm text-orange-500">¥{{ incomeData.today }}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+
+      <!-- 患者评价卡片 -->
+      <view class="mt-4 rounded-lg bg-white p-3 pb-4 pt-4 shadow-sm" @click="handleRatingClick">
+        <view class="flex">
+          <view class="flex flex-col items-center">
+            <view class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-100">
+              <text class="text-yellow-500">💬</text>
+            </view>
+            <text class="mt-1 block text-sm text-gray-700">累计好评: {{ ratingData.goodCount }}条</text>
+            <text class="mt-1 block text-sm text-gray-700">累计回复: {{ ratingData.replyCount }}条</text>
+          </view>
+          <view class="ml-2 flex-1">
+            <text class="text-base font-medium">患者评价</text>
+            <!-- 添加星级评分 -->
+            <view class="mb-1 mt-1 flex items-center">
+              <text class="text-yellow-400">⭐⭐⭐⭐⭐</text>
+            </view>
+          </view>
+        </view>
+      </view>
     </view>
 
-    <view class="mt-20 px-3">
-      <view class="m-auto w-160px text-center">
-        <button v-if="userStore.hasLogin" type="warn" class="w-full" @click="handleLogout">
-          退出登录
-        </button>
-        <button v-else type="primary" class="w-full" @click="handleLogin">
-          登录
-        </button>
+    <!-- 服务设置区域 -->
+    <view class="mt-3 bg-white p-4">
+      <view class="flex items-center justify-between">
+        <view class="flex items-center">
+          <view class="h-10 w-10 flex items-center justify-center rounded-full bg-red-100">
+            <text class="text-red-500">⚙️</text>
+          </view>
+          <text class="ml-3 text-base font-medium">服务设置</text>
+        </view>
+      </view>
+
+      <!-- 设置项 -->
+      <view class="mt-4">
+        <!-- 图文问诊 -->
+        <view class="flex items-center justify-between border-b border-gray-100 py-3">
+          <text class="text-base">图文问诊</text>
+          <wd-switch
+            v-model="serviceSettings.textConsult"
+            active-color="#8c2303"
+            inactive-color="#dcdfe6"
+            @change="(val: any) => handleSwitchChange('text', val)"
+          />
+        </view>
+
+        <!-- 语音问诊 -->
+        <view class="flex items-center justify-between border-b border-gray-100 py-3">
+          <text class="text-base">语音问诊</text>
+          <wd-switch
+            v-model="serviceSettings.voiceConsult"
+            active-color="#8c2303"
+            inactive-color="#dcdfe6"
+            @change="(val: any) => handleSwitchChange('voice', val)"
+          />
+        </view>
+
+        <!-- 视频问诊 -->
+        <view class="flex items-center justify-between py-3">
+          <text class="text-base">视频问诊</text>
+          <wd-switch
+            v-model="serviceSettings.videoConsult"
+            active-color="#8c2303"
+            inactive-color="#dcdfe6"
+            @change="(val: any) => handleSwitchChange('video', val)"
+          />
+        </view>
       </view>
     </view>
   </view>
 </template>
-
-<style lang="scss" scoped>
-/* 基础样式 */
-.profile-container {
-  overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
-  // background-color: #f7f8fa;
-}
-/* 用户信息区域 */
-.user-info-section {
-  display: flex;
-  align-items: center;
-  padding: 40rpx;
-  margin: 30rpx 30rpx 20rpx;
-  background-color: #fff;
-  border-radius: 24rpx;
-  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-}
-
-.avatar-wrapper {
-  width: 160rpx;
-  height: 160rpx;
-  margin-right: 40rpx;
-  overflow: hidden;
-  border: 4rpx solid #f5f5f5;
-  border-radius: 50%;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-}
-.avatar-button {
-  height: 160rpx;
-  width: 160rpx;
-  padding: 0;
-  margin-right: 40rpx;
-  overflow: hidden;
-  border: 4rpx solid #f5f5f5;
-  border-radius: 50%;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
-}
-.user-details {
-  flex: 1;
-}
-
-.username {
-  margin-bottom: 12rpx;
-  font-size: 38rpx;
-  font-weight: 600;
-  color: #333;
-  letter-spacing: 0.5rpx;
-}
-
-.user-id {
-  font-size: 28rpx;
-  color: #666;
-}
-
-.user-created {
-  margin-top: 8rpx;
-  font-size: 24rpx;
-  color: #999;
-}
-
-/* 从 about.vue 迁移的功能按钮样式 */
-.function-buttons {
-  margin: 30rpx;
-  padding: 30rpx;
-  background-color: #fff;
-  border-radius: 24rpx;
-  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.08);
-}
-
-.button-row {
-  display: flex;
-  gap: 20rpx;
-  margin-bottom: 20rpx;
-}
-
-.button-row:last-child {
-  margin-bottom: 0;
-}
-
-.function-btn {
-  flex: 1;
-  padding: 20rpx 30rpx;
-  font-size: 28rpx;
-  color: #333;
-  background-color: #f8f9fa;
-  border: 2rpx solid #e9ecef;
-  border-radius: 12rpx;
-  transition: all 0.3s ease;
-}
-
-.function-btn:hover {
-  background-color: #e9ecef;
-  border-color: #dee2e6;
-}
-
-.function-btn.full-width {
-  flex: none;
-  width: 100%;
-}
-</style>
