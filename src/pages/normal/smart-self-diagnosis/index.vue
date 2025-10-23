@@ -148,9 +148,9 @@ function navigateToDiagnosis(symptom: string) {
     </view>
 
     <!-- 症状选项弹窗 -->
-    <view v-if="showSymptoms" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-      <view class="bg-white rounded-lg w-full max-w-sm overflow-hidden">
-        <view class="border-b border-gray-100 px-4 py-3 flex items-center justify-between">
+    <view v-if="showSymptoms" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+      <view class="max-w-sm w-full overflow-hidden rounded-lg bg-white">
+        <view class="flex items-center justify-between border-b border-gray-100 px-4 py-3">
           <text class="text-base font-medium">{{ selectedPart?.name }}相关症状</text>
           <uni-icons type="close" size="20" color="#ccc" @click="closeSymptoms" />
         </view>
@@ -159,7 +159,7 @@ function navigateToDiagnosis(symptom: string) {
             <view
               v-for="(symptom, index) in selectedPart?.symptoms"
               :key="index"
-              class="cursor-pointer rounded-lg border border-gray-200 px-3 py-3 text-center text-sm text-gray-700 transition-all hover:bg-red-50 hover:border-red-200"
+              class="cursor-pointer border border-gray-200 rounded-lg px-3 py-3 text-center text-sm text-gray-700 transition-all hover:border-red-200 hover:bg-red-50"
               @click="navigateToDiagnosis(symptom)"
             >
               {{ symptom }}

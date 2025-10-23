@@ -193,7 +193,7 @@ onLoad(() => {
       <uni-icons class="absolute left-4 text-gray-600" type="back" size="20" @click="handleBack" />
       视频课堂
     </view>
-    
+
     <!-- 搜索框 -->
     <view class="sticky top-[56px] z-10 border-b border-gray-100 bg-white px-4 py-3">
       <view class="relative">

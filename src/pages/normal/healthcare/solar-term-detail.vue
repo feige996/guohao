@@ -208,49 +208,51 @@ catch (error) {
 <template>
   <view class="solar-term-detail-page">
     <!-- 返回栏 -->
-    <view class="sticky top-0 z-10 bg-white border-b border-gray-100">
-      <view class="px-4 h-12 flex items-center justify-between">
-        <view @click="handleBack" class="text-gray-700 text-2xl">
+    <view class="sticky top-0 z-10 border-b border-gray-100 bg-white">
+      <view class="h-12 flex items-center justify-between px-4">
+        <view class="text-2xl text-gray-700" @click="handleBack">
           &lt;
         </view>
-        <view class="text-lg font-medium text-gray-800">节气养生</view>
-        <view class="w-6"></view> <!-- 占位元素，保持标题居中 -->
+        <view class="text-lg text-gray-800 font-medium">
+          节气养生
+        </view>
+        <view class="w-6" /> <!-- 占位元素，保持标题居中 -->
       </view>
     </view>
     <view class="px-4 py-4">
       <view v-if="termDetail" class="space-y-6">
-      <!-- 标题和播放按钮 -->
-      <view class="flex items-center justify-between">
-        <view class="text-2xl text-gray-800 font-bold">
-          {{ termDetail.name }}
+        <!-- 标题和播放按钮 -->
+        <view class="flex items-center justify-between">
+          <view class="text-2xl text-gray-800 font-bold">
+            {{ termDetail.name }}
+          </view>
+          <button
+            class="rounded-full bg-orange-100 p-2 text-orange-500"
+            @click="togglePlay"
+          >
+            <uni-icons :type="isPlaying ? 'stop' : 'audio'" size="24" />
+          </button>
         </view>
-        <button
-          class="rounded-full bg-orange-100 p-2 text-orange-500"
-          @click="togglePlay"
-        >
-          <uni-icons :type="isPlaying ? 'stop' : 'audio'" size="24" />
-        </button>
-      </view>
 
-      <!-- 描述 -->
-      <view class="text-lg text-gray-600 leading-relaxed">
-        {{ termDetail.description }}
-      </view>
-
-      <!-- 养生要点 -->
-      <view>
-        <view class="mb-2 text-lg text-gray-800 font-bold">
-          养生要点
+        <!-- 描述 -->
+        <view class="text-lg text-gray-600 leading-relaxed">
+          {{ termDetail.description }}
         </view>
-        <view class="whitespace-pre-line text-gray-600 leading-relaxed">
-          {{ termDetail.tips }}
-        </view>
-      </view>
 
-      <!-- 图片 -->
-      <view class="my-4 flex justify-center">
-        <image :src="termDetail.imageUrl" class="h-48 w-48 object-contain" mode="aspectFit" />
-      </view>
+        <!-- 养生要点 -->
+        <view>
+          <view class="mb-2 text-lg text-gray-800 font-bold">
+            养生要点
+          </view>
+          <view class="whitespace-pre-line text-gray-600 leading-relaxed">
+            {{ termDetail.tips }}
+          </view>
+        </view>
+
+        <!-- 图片 -->
+        <view class="my-4 flex justify-center">
+          <image :src="termDetail.imageUrl" class="h-48 w-48 object-contain" mode="aspectFit" />
+        </view>
       </view>
     </view>
 

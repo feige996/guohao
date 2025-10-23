@@ -107,35 +107,38 @@ function startCountdown() {
 // 开始问诊 - 根据服务类型跳转到不同的问诊页面
 function startConsultation() {
   console.log('开始问诊，服务类型:', serviceType.value)
-  
+
   // 标准化服务类型
   const currentServiceType = serviceType.value.trim()
   console.log('处理后的服务类型:', currentServiceType)
-  
+
   // 根据服务类型跳转到不同的问诊页面
   if (currentServiceType === '视频问诊' || currentServiceType === '视频挂号') {
     // 视频问诊或视频挂号跳转到视频会诊页面
     console.log('跳转到视频问诊页面')
     uni.navigateTo({
-      url: `/pages/normal/online-consultation/video-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}&serviceType=${encodeURIComponent(currentServiceType)}`
+      url: `/pages/normal/online-consultation/video-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}&serviceType=${encodeURIComponent(currentServiceType)}`,
     })
-  } else if (currentServiceType === '图文问诊') {
+  }
+  else if (currentServiceType === '图文问诊') {
     // 图文问诊跳转到图文问诊页面
     console.log('跳转到图文问诊页面')
     uni.navigateTo({
-      url: `/pages/normal/online-consultation/consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&serviceType=${encodeURIComponent(currentServiceType)}`
+      url: `/pages/normal/online-consultation/consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&serviceType=${encodeURIComponent(currentServiceType)}`,
     })
-  } else if (currentServiceType === '电话问诊') {
+  }
+  else if (currentServiceType === '电话问诊') {
     // 电话问诊跳转到电话问诊页面
     console.log('跳转到电话问诊页面')
     uni.navigateTo({
-      url: `/pages/normal/online-consultation/phone-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}&serviceType=${encodeURIComponent(currentServiceType)}`
+      url: `/pages/normal/online-consultation/phone-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}&serviceType=${encodeURIComponent(currentServiceType)}`,
     })
-  } else {
+  }
+  else {
     // 默认为视频问诊
     console.log('未识别的服务类型，默认跳转到视频问诊页面')
     uni.navigateTo({
-      url: `/pages/normal/online-consultation/video-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}`
+      url: `/pages/normal/online-consultation/video-consultation?doctorId=${doctorInfo.value.id}&doctorName=${encodeURIComponent(doctorInfo.value.name)}&department=${encodeURIComponent(doctorInfo.value.department)}&avatar=${encodeURIComponent(doctorInfo.value.avatar)}`,
     })
   }
 }
@@ -144,7 +147,7 @@ function startConsultation() {
 function handleContactService() {
   uni.showToast({
     title: '联系客服功能开发中',
-    icon: 'none'
+    icon: 'none',
   })
 }
 
@@ -154,36 +157,38 @@ function handleBack() {
 }
 
 // 生命周期
-onLoad((options: { doctorId?: string; doctorName?: string; department?: string; avatar?: string; serviceType?: string }) => {
+onLoad((options: { doctorId?: string, doctorName?: string, department?: string, avatar?: string, serviceType?: string }) => {
   console.log('候诊室页面加载，参数:', options)
-  
+
   // 强制打印serviceType参数，确保正确接收
   console.log('接收到的serviceType参数:', options.serviceType)
-  
+
   // 如果传入了医生信息，更新医生信息
   if (options.doctorId) {
     const doctor = doctorsData.find(d => d.id === options.doctorId)
     if (doctor) {
       doctorInfo.value = doctor
-    } else if (options.doctorName && options.department) {
+    }
+    else if (options.doctorName && options.department) {
       // 使用传入的医生信息
       doctorInfo.value = {
         id: options.doctorId || '1',
         name: options.doctorName,
         department: options.department,
-        avatar: options.avatar || doctorInfo.value.avatar
+        avatar: options.avatar || doctorInfo.value.avatar,
       }
     }
   }
-  
+
   // 接收服务类型参数
   if (options.serviceType) {
     serviceType.value = options.serviceType
     console.log('更新服务类型:', serviceType.value)
-  } else {
+  }
+  else {
     console.log('未接收到serviceType参数，使用默认值:', serviceType.value)
   }
-  
+
   // 开始倒计时
   startCountdown()
 })
