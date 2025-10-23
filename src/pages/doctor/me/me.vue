@@ -130,45 +130,44 @@ function formatNumber(num: number): string {
     </view>
 
     <!-- 统计卡片区域 -->
-    <view class="grid grid-cols-2 mt-3 gap-3 px-3">
+    <view class="flex gap-4 mt-3 px-3">
       <!-- 我的收入卡片 -->
-      <view class="rounded-lg bg-white p-4 shadow-sm" @click="handleIncomeClick">
+      <view class="flex-1 rounded-lg bg-white p-4 shadow-sm" @click="handleIncomeClick">
         <view class="flex items-center">
           <view class="h-10 w-10 flex items-center justify-center rounded-full bg-orange-100">
             <text class="text-orange-500">💰</text>
           </view>
-          <view class="ml-3">
-            <text class="text-base font-medium">我的收入</text>
-            <view class="mt-2">
-              <view class="flex items-center justify-between">
-                <text class="text-xs text-gray-500">本月:</text>
-                <text class="text-sm text-orange-500">¥{{ incomeData.month }}</text>
-              </view>
-              <view class="mt-1 flex items-center justify-between">
-                <text class="text-xs text-gray-500">今日:</text>
-                <text class="text-sm text-orange-500">¥{{ incomeData.today }}</text>
-              </view>
-            </view>
+          <text class="ml-3 text-base font-medium">我的收入</text>
+        </view>
+        <view class="mt-2">
+          <view class="flex items-center justify-between">
+            <text class="text-xs text-gray-500">本月:</text>
+            <text class="text-sm text-orange-500">¥{{ incomeData.month }}</text>
+          </view>
+          <view class="mt-1 flex items-center justify-between">
+            <text class="text-xs text-gray-500">今日:</text>
+            <text class="text-sm text-orange-500">¥{{ incomeData.today }}</text>
           </view>
         </view>
       </view>
 
       <!-- 患者评价卡片 -->
-      <view class="mt-4 rounded-lg bg-white p-3 pb-4 pt-4 shadow-sm" @click="handleRatingClick">
-        <view class="flex">
-          <view class="flex flex-col items-center">
-            <view class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-100">
-              <text class="text-yellow-500">💬</text>
-            </view>
-            <text class="mt-1 block text-sm text-gray-700">累计好评: {{ ratingData.goodCount }}条</text>
-            <text class="mt-1 block text-sm text-gray-700">累计回复: {{ ratingData.replyCount }}条</text>
+      <view class="flex-1 rounded-lg bg-white p-4 shadow-sm" @click="handleRatingClick">
+        <view class="flex items-center">
+          <view class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-100">
+            <text class="text-yellow-500">💬</text>
           </view>
-          <view class="ml-2 flex-1">
-            <text class="text-base font-medium">患者评价</text>
-            <!-- 添加星级评分 -->
-            <view class="mb-1 mt-1 flex items-center">
-              <text class="text-yellow-400">⭐⭐⭐⭐⭐</text>
-            </view>
+          <text class="ml-3 text-base font-medium">患者评价</text>
+        </view>
+        <view class="mt-2">
+          <view class="flex items-center">
+            <text class="text-yellow-400 text-xs">⭐⭐⭐⭐⭐</text>
+          </view>
+          <view class="mt-1">
+            <text class="text-xs text-gray-500">累计好评: {{ ratingData.goodCount }}条</text>
+          </view>
+          <view class="mt-1">
+            <text class="text-xs text-gray-500">累计回复: {{ ratingData.replyCount }}条</text>
           </view>
         </view>
       </view>
