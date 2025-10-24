@@ -6,28 +6,28 @@ export default defineUniPages({
   pages: [
     {
       path: 'pages/shop/cart',
-      style: {}
+      style: {},
     },
     {
       path: 'pages/normal/index/appointmentConsult',
       style: {
-        navigationBarTitleText: '我的预约'
-      }
+        navigationBarTitleText: '我的预约',
+      },
     },
     {
       path: 'pages/normal/index/healthConsult',
       style: {
-        navigationBarTitleText: '健康问答'
-      }
+        navigationBarTitleText: '健康问答',
+      },
     },
     {
       path: 'pages/normal/me/components/ServiceCard/ConsultationRecord',
-      style: {}
+      style: {},
     },
     {
       path: 'pages/normal/me/components/ServiceCard/AddressManagement',
-      style: {}
-    }
+      style: {},
+    },
   ],
   globalStyle: {
     navigationStyle: 'custom',
