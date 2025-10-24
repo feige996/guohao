@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import VipCard from './Item.vue'
+import VipCardItem from './Item.vue'
 /**
  * 处理关注医生卡片点击事件
  */
@@ -34,7 +34,7 @@ function handleHealthRecordClick() {
     <!-- VIP底部背景 -->
     <view class="relative left--3 box-border h-[180rpx] w-screen flex gap-2 rounded-[16rpx] from-[rgba(253,238,227,0.94)] to-[rgba(245,246,243,0.94)] bg-gradient-to-b p-3 backdrop-blur-[10rpx]">
       <!-- 左边卡片 - 使用VIPCard组件 -->
-      <VipCard
+      <VipCardItem
         title="关注医生"
         description="已关注医生信息"
         icon-url="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650226633/0ad9/94f5/516d/9dca6d56eb93b5495d8c57770ea9fc5a.png"
@@ -42,7 +42,7 @@ function handleHealthRecordClick() {
       />
 
       <!-- 右边卡片 - 使用VIPCard组件 -->
-      <VipCard
+      <VipCardItem
         title="健康档案"
         description="已记录健康信息"
         icon-url="https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650227605/4538/58f9/66c2/4bca6a9bdd69e5a5b6d297cf379d4589.png"

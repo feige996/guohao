@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import ServiceCard from './Item.vue'
+import ServiceCardItem from './Item.vue'
 
 // 服务项配置
 const list = [
@@ -30,29 +30,30 @@ const list = [
   },
 ]
 
-
-
 // 服务项点击处理
 function handleServiceClick(title: string) {
   console.log('点击服务项:', title)
   if (title === '健康档案') {
     // 跳转到健康档案详情页面
     uni.navigateTo({
-      url: '/pages/normal/me/HealthRecordDetail'
+      url: '/pages/normal/me/HealthRecordDetail',
     })
-  } else if (title === '问诊记录') {
+  }
+  else if (title === '问诊记录') {
     // 跳转到问诊记录页面
     uni.navigateTo({
-      url: '/pages/normal/me/components/ServiceCard/ConsultationRecord'
+      url: '/pages/normal/me/components/ServiceCard/ConsultationRecord',
     })
-  } else if (title === '地址管理') {
+  }
+  else if (title === '地址管理') {
     uni.navigateTo({
-      url: '/pages/normal/me/components/ServiceCard/AddressManagement'
+      url: '/pages/normal/me/components/ServiceCard/AddressManagement',
     })
-  } else if (title === '商品订单') {
+  }
+  else if (title === '商品订单') {
     // 跳转到购物车页面
     uni.navigateTo({
-      url: '/pages/shop/cart'
+      url: '/pages/shop/cart',
     })
   }
   else {
@@ -70,7 +71,7 @@ function handleServiceClick(title: string) {
       我的服务
     </view>
     <view class="grid grid-cols-4 w-full gap-[16rpx]">
-      <ServiceCard
+      <ServiceCardItem
         v-for="service in list"
         :key="service.id"
         :title="service.title"
@@ -78,8 +79,6 @@ function handleServiceClick(title: string) {
         @click="handleServiceClick(service.title)"
       />
     </view>
-
-
   </view>
 </template>
 
