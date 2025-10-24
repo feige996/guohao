@@ -64,11 +64,17 @@ function handleSendReminder(patientId: number) {
 // 导航到我的诊室
 function navigateToConsultationRoom() {
   console.log('导航到我的诊室')
+  uni.navigateTo({
+    url: '/pages/doctor/diagnosis/consultationRoom'
+  })
 }
 
 // 导航到开方页面
-function navigateToPrescription() {
+function navigateToPrescription(): void {
   console.log('导航到开方页面')
+  uni.navigateTo({
+    url: '/pages/doctor/diagnosis/newPrescription'
+  })
 }
 </script>
 
