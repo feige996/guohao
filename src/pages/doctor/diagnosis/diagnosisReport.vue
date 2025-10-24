@@ -92,53 +92,53 @@ function saveAndOpenPrescription(): void {
     duration: 1500,
   })
 
-  // // 延迟执行跳转，确保用户看到成功提示
-  // setTimeout(() => {
-  //   // 确认目标页面路径 - 根据tabbar配置，医生问诊页面是tabbar页面
-  //   const targetPage = '/pages/doctor/diagnosis/diagnosis'
+  // 延迟执行跳转，确保用户看到成功提示
+  setTimeout(() => {
+    // 确认目标页面路径 - 根据tabbar配置，医生问诊页面是tabbar页面
+    const targetPage = '/pages/doctor/diagnosis/diagnosis'
 
-  //   // 核心方案：使用switchTab跳转到tabbar页面
-  //   // 对于tabbar页面，必须使用switchTab而不是navigateTo
-  //   uni.switchTab({
-  //     url: targetPage,
-  //     success: () => {
-  //       console.log('成功使用switchTab跳转到问诊首页')
-  //     },
-  //     fail: (err) => {
-  //       console.error('switchTab跳转失败:', err)
+    // 核心方案：使用switchTab跳转到tabbar页面
+    // 对于tabbar页面，必须使用switchTab而不是navigateTo
+    uni.switchTab({
+      url: targetPage,
+      success: () => {
+        console.log('成功使用switchTab跳转到问诊首页')
+      },
+      fail: (err) => {
+        console.error('switchTab跳转失败:', err)
 
-  //       // 降级方案1：尝试使用redirectTo，替换当前页面
-  //       console.log('尝试使用redirectTo进行降级跳转')
-  //       uni.redirectTo({
-  //         url: targetPage,
-  //         success: () => {
-  //           console.log('redirectTo跳转成功')
-  //         },
-  //         fail: (redirectErr) => {
-  //           console.error('redirectTo也失败:', redirectErr)
+        // 降级方案1：尝试使用redirectTo，替换当前页面
+        console.log('尝试使用redirectTo进行降级跳转')
+        uni.redirectTo({
+          url: targetPage,
+          success: () => {
+            console.log('redirectTo跳转成功')
+          },
+          fail: (redirectErr) => {
+            console.error('redirectTo也失败:', redirectErr)
 
-  //           // 降级方案2：尝试使用reLaunch，关闭所有页面并跳转到目标页面
-  //           console.log('尝试使用reLaunch进行最终降级跳转')
-  //           uni.reLaunch({
-  //             url: targetPage,
-  //             success: () => {
-  //               console.log('reLaunch跳转成功')
-  //             },
-  //             fail: (relaunchErr) => {
-  //               console.error('所有跳转方式均失败:', relaunchErr)
-  //               // 最后提示用户手动返回
-  //               uni.showModal({
-  //                 title: '提示',
-  //                 content: '无法自动跳转，请点击底部导航栏返回问诊首页',
-  //                 showCancel: false
-  //               })
-  //             }
-  //           })
-  //         }
-  //       })
-  //     }
-  //   })
-  // }, 1600)
+            // 降级方案2：尝试使用reLaunch，关闭所有页面并跳转到目标页面
+            console.log('尝试使用reLaunch进行最终降级跳转')
+            uni.reLaunch({
+              url: targetPage,
+              success: () => {
+                console.log('reLaunch跳转成功')
+              },
+              fail: (relaunchErr) => {
+                console.error('所有跳转方式均失败:', relaunchErr)
+                // 最后提示用户手动返回
+                uni.showModal({
+                  title: '提示',
+                  content: '无法自动跳转，请点击底部导航栏返回问诊首页',
+                  showCancel: false,
+                })
+              },
+            })
+          },
+        })
+      },
+    })
+  }, 1600)
 }
 
 // 保存草稿
@@ -173,10 +173,10 @@ function onLoad(options: any): void {
   consultationTime.value = `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`
 }
 
-// 设置页面生命周期
-definePage({
-  onLoad,
-})
+// // 设置页面生命周期
+// definePage({
+//   onLoad,
+// })
 </script>
 
 <template>
