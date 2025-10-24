@@ -68,7 +68,7 @@ function handleSubmitApplication() {
 
   uni.showToast({
     title: '提交申请成功',
-    icon: 'success',
+    icon: 'none',
   })
 }
 </script>
@@ -126,7 +126,8 @@ function handleSubmitApplication() {
     <div class="fixed bottom-0 left-0 right-0 border-t border-[#e5e5e5] p-[16px]">
       <div class="flex gap-[12px]">
         <wd-button
-          type="default"
+          type="primary"
+          plain
           class="h-[44px] flex-1 rounded-[22px] text-[16px]"
           @click="handleViewResult"
         >
