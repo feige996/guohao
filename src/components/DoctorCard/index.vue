@@ -59,22 +59,4 @@ function handleRecordClick() {
       </view>
     </view>
   </view>
-  <view class="mt-3 bg-white p-4" @click="handleRecordClick">
-    <view class="flex items-center">
-      <view class="h-10 w-10 flex items-center justify-center rounded-full bg-blue-100">
-        <text class="text-blue-500">👤</text>
-      </view>
-      <view class="ml-4 flex-1">
-        <view class="flex items-center justify-between">
-          <text class="text-base font-medium">我的档案</text>
-          <text class="text-xs text-gray-500">{{ doctorInfo.name }} {{ doctorInfo.title }}</text>
-        </view>
-        <view class="mt-1 flex items-center">
-          <text class="mr-3 text-xs text-gray-500">{{ doctorInfo.department }}</text>
-          <text class="text-xs text-gray-500">{{ doctorInfo.hospital }}</text>
-        </view>
-        <text class="mt-1 text-xs text-gray-400">{{ doctorInfo.recordDate }}</text>
-      </view>
-    </view>
-  </view>
 </template>

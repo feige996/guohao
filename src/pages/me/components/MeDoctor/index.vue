@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import DoctorCard from '@/components/DoctorCard/index.vue'
 import ToggleRole from '../ToggleRole.vue'
+import DoctorProfile from './Components/DoctorProfile.vue'
 
 definePage({
   style: {
@@ -64,9 +65,11 @@ function handleServiceSettingsClick() {
 </script>
 
 <template>
-  <view class="min-h-screen bg-gray-100">
-    <!-- 顶部医生信息卡片 + 我的档案区域 -->
+  <view class="min-h-screen bg-gray-100 px-3 pt-4">
+    <!-- 顶部医生信息卡片 -->
     <DoctorCard />
+    <!-- 我的档案区域 -->
+    <DoctorProfile />
 
     <!-- 统计卡片区域 -->
     <view class="mt-3 flex gap-4 px-3">
@@ -91,7 +94,7 @@ function handleServiceSettingsClick() {
       </view>
 
       <!-- 患者评价卡片 -->
-      <view class="flex-1 rounded-lg bg-white p-4 shadow-sm" @click="handleRatingClick">
+      <view class="flex-1 rounded-lg bg-white p-4 shadow-sm">
         <view class="flex items-center">
           <view class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-100">
             <text class="text-yellow-500">💬</text>
