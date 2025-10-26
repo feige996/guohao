@@ -98,7 +98,7 @@ export const customTabbarList: CustomTabBarItem[] = [
   },
   {
     text: '我的',
-    pagePath: 'pages/normal/me/me',
+    pagePath: 'pages/me/index',
     iconType: 'image',
     icon: '/static/tabbar/me.png',
     iconActive: '/static/tabbar/meHL.png',
