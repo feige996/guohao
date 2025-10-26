@@ -26,7 +26,7 @@ function handleMessageClick() {
     <StatisticCard />
 
     <!-- 温馨提醒区域 -->
-    <view class="mt-2 rounded-lg bg-white px-4 py-3">
+    <view class="mt-3 rounded-lg bg-white px-4 py-3">
       <view class="flex items-center">
         <text class="text-base text-#AE956D font-medium">温馨提醒</text>
       </view>
@@ -38,7 +38,7 @@ function handleMessageClick() {
     </view>
 
     <!-- 功能模块区域 -->
-    <view class="mt-2 px-4 py-4">
+    <view class="mt-3">
       <view class="grid grid-cols-2 gap-4">
         <!-- 看诊安排 - 左侧正方形卡片 -->
         <view class="flex flex-col items-center gap-3 rounded-lg bg-white pt-4" @click="handleConsultationClick">

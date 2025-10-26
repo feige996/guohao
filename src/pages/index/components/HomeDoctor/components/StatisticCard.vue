@@ -21,7 +21,7 @@ const dataList = [
 <template>
   <view class="mt-3">
     <view class="grid grid-cols-3 gap-2">
-      <view v-for="item in dataList" :key="item.label" class="relative h-15 flex flex-col justify-between bg-white px-3 py-2 rounded-lg border-box overflow-hidden">
+      <view v-for="item in dataList" :key="item.label" class="border-box relative h-15 flex flex-col justify-between overflow-hidden rounded-lg bg-white px-3 py-2">
         <view class="flex items-center gap-2">
           <text class="statistic-dot" />
           <text class="statistic-name">{{ item.label }}</text>
