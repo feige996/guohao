@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import FunctionCard from './components/FunctionCard.vue'
 import SummaryCard from './components/SummaryCard.vue'
 
 // 待诊患者数据
@@ -68,23 +69,17 @@ function navigateToPrescription(): void {
 </script>
 
 <template>
-  <view class="min-h-screen bg-gray-50 pb-20">
+  <view class="">
     <!-- 问诊数据区域 -->
     <SummaryCard />
 
     <!-- 功能按钮区域 -->
-    <view class="mb-4 flex gap-3 px-4">
-      <view class="flex flex-1 rounded-lg bg-blue-50 p-4 px-3" @click="navigateToConsultationRoom">
-        <view class="flex items-center">
-          <image src="/static/images/diagnosis-doctor/wdzs.png" class="mr-2 h-38px w-38px" />
-          <text class="text-gray-800 font-medium">我的诊室</text>
-          <image src="/static/images/diagnosis-doctor/wdzs-arrow.png" class="ml-auto h-22px w-22px" />
-        </view>
-      </view>
+    <view class="mt-4">
+      <FunctionCard />
     </view>
 
     <!-- 待诊患者区域 -->
-    <view class="bg-white p-4">
+    <view class="mt-3 bg-white p-4">
       <view class="mb-4 text-base font-medium">
         待诊患者
       </view>
