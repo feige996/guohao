@@ -25,7 +25,7 @@ function handleSwitchChange(type: string, value: boolean) {
 </script>
 
 <template>
-  <view class="mt-3 bg-white">
+  <view class="card-bg mt-3 text-white">
     <!-- 标题区域 - 可点击跳转 -->
     <view class="p-4">
       <view class="flex items-center justify-between">
@@ -76,3 +76,12 @@ function handleSwitchChange(type: string, value: boolean) {
     </view>
   </view>
 </template>
+
+<style scoped lang="scss">
+.card-bg {
+  background-image: url('/static/images/me-doctor/card-bg.png');
+  background-size: 100% 100%;
+  background-position: left top;
+  background-repeat: no-repeat;
+}
+</style>
