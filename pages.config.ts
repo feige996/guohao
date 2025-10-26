@@ -18,13 +18,14 @@ export default defineUniPages({
     },
   },
   // 预加载规则
-  preloadRule: {
-  // 可以配置多个触发页面
-    'pages/index/index': {
-      network: 'all',
-      packages: ['TUIKit'],
-    },
-  },
+  // TODO: 以后需要时候再放开，暂时先关闭，影响开发。
+  // preloadRule: {
+  // // 可以配置多个触发页面
+  //   'pages/index/index': {
+  //     network: 'all',
+  //     packages: ['TUIKit'],
+  //   },
+  // },
   // tabbar 的配置统一在 “./src/tabbar/config.ts” 文件中
   // 无tabbar模式下，h5 设置为 {} 为了防止浏览器报错导致白屏
   tabBar: tabBar || (isH5 ? {} : undefined) as any,
