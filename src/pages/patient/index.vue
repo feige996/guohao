@@ -1,19 +1,5 @@
 <script setup lang="ts">
-definePage({
-  style: {
-    navigationBarTitleText: '患者',
-  },
-  // 登录授权(可选)：跟以前的 needLogin 类似功能，但是同时支持黑白名单，详情请见 arc/router 文件夹
-  excludeLoginPath: false,
-})
-
-// 患者数据统计
-const patientStats = {
-  total: 36,
-  revisit: 18,
-  appointment: 6,
-}
-
+import SummaryCard from './components/SummaryCard.vue'
 // 患者信息列表
 const patientList = [
   {
@@ -58,7 +44,7 @@ function handleSearch(keyword: string) {
 </script>
 
 <template>
-  <view class="min-h-screen bg-gray-50">
+  <view class="min-h-screen bg-gray-50 px-3">
     <!-- 搜索栏 -->
     <view class="bg-white px-4 pb-2 pt-2">
       <view class="relative">
@@ -76,68 +62,10 @@ function handleSearch(keyword: string) {
     </view>
 
     <!-- 患者数据统计 -->
-    <view class="mt-4 px-4">
-      <view class="mb-2 flex items-center justify-between">
-        <text class="text-lg font-semibold">患者数据</text>
-      </view>
-      <view class="grid grid-cols-3 gap-2 rounded-lg bg-white p-4">
-        <view class="flex flex-col items-center">
-          <view class="mb-1 h-14 w-14 flex items-center justify-center rounded-full bg-red-50">
-            <text class="text-xl text-red-500">👤</text>
-          </view>
-          <text class="text-sm text-gray-500">患者数</text>
-          <text class="text-lg text-gray-800 font-semibold">{{ patientStats.total }}</text>
-        </view>
-        <view class="flex flex-col items-center">
-          <view class="mb-1 h-14 w-14 flex items-center justify-center rounded-full bg-yellow-50">
-            <text class="text-xl text-yellow-500">🔄</text>
-          </view>
-          <text class="text-sm text-gray-500">复诊数</text>
-          <text class="text-lg text-gray-800 font-semibold">{{ patientStats.revisit }}</text>
-        </view>
-        <view class="flex flex-col items-center">
-          <view class="mb-1 h-14 w-14 flex items-center justify-center rounded-full bg-green-50">
-            <text class="text-xl text-green-500">⏰</text>
-          </view>
-          <text class="text-sm text-gray-500">预约数</text>
-          <text class="text-lg text-gray-800 font-semibold">{{ patientStats.appointment }}</text>
-        </view>
-      </view>
-    </view>
+    <SummaryCard class="mt-3" />
 
     <!-- 功能卡片 -->
-    <view class="mt-4 px-4">
-      <view class="grid grid-cols-2 gap-3">
-        <view
-          class="relative overflow-hidden rounded-lg from-orange-100 to-red-100 bg-gradient-to-br p-4"
-          @click="handleCardClick('patients')"
-        >
-          <view class="absolute right-1 top-1">
-            <text class="rounded-full bg-red-500 px-1.5 py-0.5 text-xs text-white">NEW</text>
-          </view>
-          <text class="text-lg text-gray-800 font-bold">我的患者</text>
-          <text class="mt-1 text-sm text-gray-600">已接诊366名患者</text>
-          <view class="mt-3 flex items-center justify-between">
-            <text class="text-xs text-gray-500">查看全部</text>
-            <text class="text-gray-700">›</text>
-          </view>
-        </view>
-        <view
-          class="relative overflow-hidden rounded-lg from-amber-100 to-yellow-100 bg-gradient-to-br p-4"
-          @click="handleCardClick('ratings')"
-        >
-          <view class="absolute right-1 top-1">
-            <text class="rounded-full bg-red-500 px-1.5 py-0.5 text-xs text-white">NEW</text>
-          </view>
-          <text class="text-lg text-gray-800 font-bold">患者评价</text>
-          <text class="mt-1 text-sm text-gray-600">接收366条评价</text>
-          <view class="mt-3 flex items-center justify-between">
-            <text class="text-xs text-gray-500">查看全部</text>
-            <text class="text-gray-700">›</text>
-          </view>
-        </view>
-      </view>
-    </view>
+    <FunctionCard class="mt-3" />
 
     <!-- 患者列表 -->
     <view class="mt-4 px-4">
