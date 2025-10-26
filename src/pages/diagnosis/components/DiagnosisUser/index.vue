@@ -330,7 +330,7 @@ onMounted(async () => {
         <span class="whitespace-pre text-center text-[#999999] font-light text-[24rpx] leading-[32rpx]"> 所有 </span>
         <img
           class="ml-[8rpx] h-[24rpx] w-[24rpx]"
-          src="@img/homepage/settings-arrow.png"
+          src="/static/home-user/settings-arrow.png"
         >
       </view>
     </div>

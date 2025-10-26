@@ -82,25 +82,25 @@ const functionCards: FunctionCardItem[] = [
   {
     id: 'appointment',
     title: '预约问诊',
-    backgroundImage: '@img/homepage/appointment-icon.png',
+    backgroundImage: '/static/homepage/appointment-icon.png',
     enabled: true,
   },
   {
     id: 'message',
     title: '我的消息',
-    backgroundImage: '@img/homepage/message-icon.png',
+    backgroundImage: '/static/homepage/message-icon.png',
     enabled: true,
   },
   {
     id: 'collection',
     title: '养生收藏',
-    backgroundImage: '@img/homepage/collection-icon.png',
+    backgroundImage: '/static/homepage/collection-icon.png',
     enabled: true,
   },
   {
     id: 'product',
     title: '关注商品',
-    backgroundImage: '@img/homepage/product-icon.png',
+    backgroundImage: '/static/homepage/product-icon.png',
     enabled: false, // 禁用状态
   },
 ]
@@ -138,7 +138,7 @@ const customCards: FunctionCardItem[] = [
   {
     id: 'consult',
     title: '在线咨询',
-    backgroundImage: '@img/custom/consult.png',
+    backgroundImage: '/static/custom/consult.png',
     enabled: true,
     textStyle: {
       marginLeft: '20rpx',
@@ -149,7 +149,7 @@ const customCards: FunctionCardItem[] = [
   {
     id: 'health',
     title: '健康档案',
-    backgroundImage: '@img/custom/health.png',
+    backgroundImage: '/static/custom/health.png',
     enabled: true,
     className: 'custom-card-style',
   },
@@ -159,9 +159,9 @@ const customAllFunction: AllFunctionCard = {
   title: '更多服务',
   subtitle1: '专业团队',
   subtitle2: '贴心服务',
-  backgroundImage1: '@img/custom/bg1.png',
-  backgroundImage2: '@img/custom/bg2.png',
-  decorationIcon: '@img/custom/icon.png',
+  backgroundImage1: '/static/custom/bg1.png',
+  backgroundImage2: '/static/custom/bg2.png',
+  decorationIcon: '/static/custom/icon.png',
 }
 
 function handleCardClick(item: FunctionCardItem) {

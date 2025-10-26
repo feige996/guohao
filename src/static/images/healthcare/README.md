@@ -29,7 +29,7 @@
 
 在 Vue 文件中使用 `@img` 别名引用：
 ```vue
-<image src="@img/healthcare/guide-bg.png" mode="aspectFill" />
+<image src="/static/healthcare/guide-bg.png" mode="aspectFill" />
 ```
 
 ## 注意事项

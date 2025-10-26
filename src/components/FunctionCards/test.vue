@@ -24,7 +24,7 @@
       </h3>
       <div
         class="h-[156rpx] w-[328rpx] border border-gray-300 bg-cover bg-center bg-no-repeat"
-        style="background-image: url('@img/homepage/appointment-icon.png')"
+        style="background-image: url('/static/homepage/appointment-icon.png')"
       >
         <span class="block p-4 text-white">别名路径</span>
       </div>
@@ -63,7 +63,7 @@
         img 标签测试
       </h3>
       <img
-        src="@img/homepage/appointment-icon.png"
+        src="/static/homepage/appointment-icon.png"
         alt="测试图片"
         class="h-[156rpx] w-[328rpx] border border-gray-300 object-cover"
       >
@@ -86,7 +86,7 @@ const testCards: FunctionCardItem[] = [
   {
     id: 'test1',
     title: '测试卡片1',
-    backgroundImage: '@img/homepage/appointment-icon.png',
+    backgroundImage: '/static/homepage/appointment-icon.png',
     enabled: true,
   },
   {

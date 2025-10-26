@@ -72,7 +72,7 @@ function handleFunctionCardClick(item: FunctionCardItem) {
     case 'product':
       console.log('跳转到关注商品')
       uni.navigateTo({
-        url: '/pages/normal/index/favoriteProducts'
+        url: '/pages/normal/index/favoriteProducts',
       })
       break
     default:
@@ -185,7 +185,7 @@ const functionCards: FunctionCardItem[] = [
           <span class="relative ml-auto mt-[6rpx] h-[32rpx] w-[48rpx] whitespace-pre text-center text-[#999999] font-light text-[24rpx] leading-[32rpx]"> 设置 </span>
           <img
             class="relative ml-[8rpx] mt-[10rpx] h-[24rpx] w-[24rpx]"
-            src="@img/homepage/settings-arrow.png"
+            src="/static/home-user/settings-arrow.png"
           >
         </div>
 
@@ -197,7 +197,5 @@ const functionCards: FunctionCardItem[] = [
         />
       </div>
     </div>
-
-
   </view>
 </template>

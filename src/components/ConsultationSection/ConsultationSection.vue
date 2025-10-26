@@ -59,7 +59,7 @@ function handleHealthManagerClick() {
     <!-- 医生图片 -->
     <img
       class="relative ml-[410rpx] h-[262rpx] w-[274rpx] flex-shrink-0 object-cover -mt-[52rpx]"
-      src="@img/homepage/decoration.png"
+      src="/static/homepage/decoration.png"
       alt="医生装饰图"
       style="z-index: 4;"
     >
@@ -84,13 +84,13 @@ function handleHealthManagerClick() {
     >
       <img
         class="relative z-1 ml-[540rpx] h-[20rpx] w-[36rpx] -mt-[13rpx]"
-        src="@img/homepage/arrow-icon.png"
+        src="/static/home-user/arrow-icon.png"
         alt="箭头图标"
       >
       <div class="relative isolate z-0 ml-0 h-[80rpx] w-[654rpx] flex flex-row items-start rounded-[40rpx] from-white to-[#fef9eb] bg-gradient-to-b -mt-[7rpx]">
         <img
           class="relative z-2 ml-[16rpx] mt-[20rpx] h-[40rpx] w-[40rpx]"
-          src="@img/homepage/health-manager-icon.png"
+          src="/static/home-user/health-manager-icon.png"
           alt="健康管家图标"
         >
         <span class="relative z-0 ml-[16rpx] mt-[28rpx] whitespace-pre text-[#967f64] font-normal text-[22rpx] leading-[24rpx]">
@@ -120,7 +120,7 @@ function handleHealthManagerClick() {
       </span>
       <img
         class="relative z-2 ml-[8rpx] mt-[50rpx] h-[24rpx] w-[24rpx]"
-        src="@img/homepage/upgrade-arrow.png"
+        src="/static/homepage/upgrade-arrow.png"
         alt="升级箭头"
       >
     </div>

@@ -99,10 +99,10 @@ const handleHealthManagerClick = () => {
 ## 依赖资源
 
 确保项目中存在以下图片资源：
-- `@img/homepage/decoration.png` - 医生装饰图
-- `@img/homepage/arrow-icon.png` - 箭头图标
-- `@img/homepage/health-manager-icon.png` - 健康管家头像
-- `@img/homepage/upgrade-arrow.png` - 升级箭头图标
+- `/static/homepage/decoration.png` - 医生装饰图
+- `/static/homepage/arrow-icon.png` - 箭头图标
+- `/static/homepage/health-manager-icon.png` - 健康管家头像
+- `/static/homepage/upgrade-arrow.png` - 升级箭头图标
 
 ## 注意事项
 

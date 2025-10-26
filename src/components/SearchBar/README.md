@@ -81,6 +81,6 @@ const handleSearchBarClick = () => {
 
 ## 注意事项
 
-1. 确保项目中存在搜索图标文件：`@img/homepage/search-icon.png`
+1. 确保项目中存在搜索图标文件：`/static/homepage/search-icon.png`
 2. 组件使用了 rpx 单位，适配小程序和移动端
 3. 事件处理函数需要在父组件中定义

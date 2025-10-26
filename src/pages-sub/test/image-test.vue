@@ -22,7 +22,7 @@
       <view class="mb-[24rpx]">
         <text class="mb-[12rpx] block text-gray-600 text-[24rpx]">别名路径测试：</text>
         <image
-          src="@img/healthcare/guide-bg.png"
+          src="/static/healthcare/guide-bg.png"
           class="h-[100rpx] w-[200rpx] border border-gray-300"
           mode="aspectFit"
           @error="handleImageError"
