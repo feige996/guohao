@@ -2,12 +2,12 @@ import { isMp } from '@uni-helper/uni-env'
 /**
  * by 菲鸽 on 2025-08-19
  * 路由拦截，通常也是登录拦截
- * 黑白名单的配置，请看 config.ts 文件， EXCLUDE_LOGIN_PATH_LIST
+ * 黑、白名单的配置，请看 config.ts 文件， EXCLUDE_LOGIN_PATH_LIST
  */
-import { useUserStore } from '@/store/userStore'
+import { useTokenStore } from '@/store/token'
 import { isPageTabbar, tabbarStore } from '@/tabbar/store'
 import { getAllPages, getLastPage, HOME_PAGE, parseUrlToObj } from '@/utils/index'
-import { EXCLUDE_LOGIN_PATH_LIST, isNeedLoginMode, LOGIN_PAGE, LOGIN_PAGE_ENABLE_IN_MP } from './config'
+import { EXCLUDE_LOGIN_PATH_LIST, isNeedLoginMode, LOGIN_PAGE, LOGIN_PAGE_ENABLE_IN_MP, NOT_FOUND_PAGE } from './config'
 
 export const FG_LOG_ENABLE = false
 export function judgeIsExcludePath(path: string) {
@@ -28,50 +28,6 @@ export const navigateToInterceptor = {
     }
     let { path, query: _query } = parseUrlToObj(url)
 
-    // console.log('path==========================', path)
-
-    // // 处理根路径访问
-    // if (path === '/pages/normal/index/index') {
-    //   const userStore = useUserStore()
-    //   const defaultPage = userStore.userDefaultIndexPage
-    //   console.log('defaultPage==========================', defaultPage)
-
-    //   if (isPageTabbar(defaultPage)) {
-    //     uni.switchTab({ url: defaultPage })
-    //   }
-    //   else {
-    //     uni.navigateTo({ url: defaultPage })
-    //   }
-    //   return false // 阻止原路由
-    //   // return true // 明确表示允许路由继续执行
-    // }
-
-    // 处理根路径访问
-    // H5的路由机制可能对重复跳转有保护机制，不会无限循环,解决小程序会无限循环
-    // 微信小程序 return true 允许路由继续执行，会真正跳转到 /pages/normal/index/index
-    // 代码中调用了 uni.switchTab() 跳转到其他页面
-    // 这导致了路由循环：跳转 → 拦截 → 再跳转 → 再拦截...
-    // H5的路由机制可能对重复跳转有保护机制，不会无限循环
-    if (path === '/pages/normal/index/index') {
-      const userStore = useUserStore()
-      const defaultPage = userStore.userDefaultIndexPage
-      // console.log('defaultPage==========================', defaultPage)
-
-      // 如果默认页面就是当前页面，允许继续执行
-      if (defaultPage === '/pages/normal/index/index') {
-        return true
-      }
-
-      // 否则跳转到正确的默认页面
-      if (isPageTabbar(defaultPage)) {
-        uni.switchTab({ url: defaultPage })
-      }
-      else {
-        uni.navigateTo({ url: defaultPage })
-      }
-      return false // 阻止原路由
-    }
-
     FG_LOG_ENABLE && console.log('\n\n路由拦截器:-------------------------------------')
     FG_LOG_ENABLE && console.log('路由拦截器 1: url->', url, ', query ->', query)
     const myQuery = { ..._query, ...query }
@@ -87,19 +43,26 @@ export const navigateToInterceptor = {
       path = `${baseDir}/${path}`
     }
 
+    // 处理路由不存在的情况
+    if (getAllPages().every(page => page.path !== path) && path !== '/') {
+      console.warn('路由不存在:', path)
+      uni.navigateTo({ url: NOT_FOUND_PAGE })
+      return false // 明确表示阻止原路由继续执行
+    }
+
     // 处理直接进入路由非首页时，tabbarIndex 不正确的问题
     tabbarStore.setAutoCurIdx(path)
 
     // 小程序里面使用平台自带的登录，则不走下面的逻辑
-    if (isMp && LOGIN_PAGE_ENABLE_IN_MP) {
+    if (isMp && !LOGIN_PAGE_ENABLE_IN_MP) {
       return true // 明确表示允许路由继续执行
     }
 
-    const userStore = useUserStore()
-    FG_LOG_ENABLE && console.log('userStore.isLoggedIn:', userStore.isLoggedIn)
+    const tokenStore = useTokenStore()
+    FG_LOG_ENABLE && console.log('tokenStore.hasLogin:', tokenStore.hasLogin)
 
     // 不管黑白名单，登录了就直接去吧（但是当前不能是登录页）
-    if (userStore.isLoggedIn) {
+    if (tokenStore.hasLogin) {
       if (path !== LOGIN_PAGE) {
         return true // 明确表示允许路由继续执行
       }
@@ -148,9 +111,9 @@ export const navigateToInterceptor = {
         uni.navigateTo({ url: redirectUrl })
         return false // 修改为false，阻止原路由继续执行
       }
+      return true // 明确表示允许路由继续执行
     }
     // #endregion 2/2 默认不需要登录的情况(黑名单策略) ---------------------------
-    return true // 明确表示允许路由继续执行
   },
 }
 
