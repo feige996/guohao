@@ -69,7 +69,7 @@ export function parseUrlToObj(url: string) {
  * 这里设计得通用一点，可以传递 key 作为判断依据，默认是 excludeLoginPath, 与 route-block 配对使用
  * 如果没有传 key，则表示所有的 pages，如果传递了 key, 则表示通过 key 过滤
  */
-export function getAllPages(key = 'excludeLoginPath') {
+export function getAllPages(key?: string) {
   // 这里处理主包
   const mainPages = pages
     .filter(page => !key || page[key])
