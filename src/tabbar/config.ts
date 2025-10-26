@@ -82,13 +82,6 @@ export const customTabbarList: CustomTabBarItem[] = [
     roles: [AppRoleEnum.NormalUser],
   },
   {
-    text: '问诊',
-    pagePath: 'pages/diagnosis/index',
-    iconType: 'image',
-    icon: '/static/tabbar/diagnosis.png',
-    iconActive: '/static/tabbar/diagnosisHL.png',
-  },
-  {
     text: '患者',
     pagePath: 'pages/patient/index',
     iconType: 'image',
@@ -96,6 +89,14 @@ export const customTabbarList: CustomTabBarItem[] = [
     iconActive: '/static/tabbar/patientHL.png',
     roles: [AppRoleEnum.Doctor],
   },
+  {
+    text: '问诊',
+    pagePath: 'pages/diagnosis/index',
+    iconType: 'image',
+    icon: '/static/tabbar/diagnosis.png',
+    iconActive: '/static/tabbar/diagnosisHL.png',
+  },
+
   {
     text: '我的',
     pagePath: 'pages/me/index',

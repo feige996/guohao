@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import SearchBar from '@/components-bak/SearchBar'
+import SearchBar from 'components-bak/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({

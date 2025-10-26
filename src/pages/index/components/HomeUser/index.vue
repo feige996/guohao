@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { FunctionCardItem } from '@/components-bak/FunctionCards'
+import type { FunctionCardItem } from 'components-bak/FunctionCards'
 import { ref } from 'vue'
-import ConsultationSection from '@/components-bak/ConsultationSection'
-import FunctionCards from '@/components-bak/FunctionCards'
-import SearchBar from '@/components-bak/SearchBar'
+import ConsultationSection from 'components-bak/ConsultationSection'
+import FunctionCards from 'components-bak/FunctionCards'
+import SearchBar from 'components-bak/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 import DateStatus from './components/DateStatus.vue'
 import VIPmember from './components/VIPmember.vue'

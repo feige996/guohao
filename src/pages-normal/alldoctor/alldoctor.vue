@@ -3,7 +3,7 @@ import type { App_DoctorAuditingOutput, SysDictData } from '@/api/guohao-api/glo
 import type { DoctorCardConfig } from '@/components/DoctorCard'
 import { useRequest } from 'alova/client'
 import { DoctorCardList } from '@/components/DoctorCard'
-import SearchBar from '@/components-bak/SearchBar'
+import SearchBar from 'components-bak/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({

@@ -1,17 +1,5 @@
 <script lang="ts" setup>
-definePage({
-  style: {
-    navigationBarTitleText: '医生问诊',
-  },
-})
-
-// 问诊数据
-const consultationData = {
-  todayConsult: 36,
-  remainingConsult: 18,
-  todayPrescription: 6,
-}
-
+import DiagnosisCard from './components/DiagnosisCard.vue'
 // 待诊患者数据
 const waitingPatients = [
   {
@@ -65,7 +53,7 @@ function handleSendReminder(patientId: number) {
 function navigateToConsultationRoom() {
   console.log('导航到我的诊室')
   uni.navigateTo({
-    url: '/pages/doctor/diagnosis/consultationRoom'
+    url: '/pages/doctor/diagnosis/consultationRoom',
   })
 }
 
@@ -73,7 +61,7 @@ function navigateToConsultationRoom() {
 function navigateToPrescription(): void {
   console.log('导航到开方页面')
   uni.navigateTo({
-    url: '/pages/doctor/diagnosis/newPrescription'
+    url: '/pages/doctor/diagnosis/newPrescription',
   })
 }
 </script>
@@ -81,39 +69,7 @@ function navigateToPrescription(): void {
 <template>
   <view class="min-h-screen bg-gray-50 pb-20">
     <!-- 问诊数据区域 -->
-    <view class="mb-3 p-4 border border-blue-200 rounded-xl bg-gradient-to-r from-blue-50 to-cyan-50">
-      <view class="mb-4 text-base font-medium">
-        问诊数据
-      </view>
-      <view class="grid grid-cols-3 gap-3">
-        <!-- 今日接诊 -->
-        <view class="flex flex-col items-center">
-          <view class="mb-2 h-12 w-12 flex items-center justify-center rounded-full bg-red-50">
-            <text class="text-lg text-red-500">👤</text>
-          </view>
-          <text class="text-sm text-gray-500">今日接诊</text>
-          <text class="text-lg text-gray-800 font-medium">{{ consultationData.todayConsult }}</text>
-        </view>
-
-        <!-- 剩余问诊 -->
-        <view class="flex flex-col items-center">
-          <view class="mb-2 h-12 w-12 flex items-center justify-center rounded-full bg-yellow-50">
-            <text class="text-lg text-yellow-500">📞</text>
-          </view>
-          <text class="text-sm text-gray-500">剩余问诊</text>
-          <text class="text-lg text-gray-800 font-medium">{{ consultationData.remainingConsult }}</text>
-        </view>
-
-        <!-- 今日开方 -->
-        <view class="flex flex-col items-center">
-          <view class="mb-2 h-12 w-12 flex items-center justify-center rounded-full bg-green-50">
-            <text class="text-lg text-green-500">📋</text>
-          </view>
-          <text class="text-sm text-gray-500">今日开方</text>
-          <text class="text-lg text-gray-800 font-medium">{{ consultationData.todayPrescription }}</text>
-        </view>
-      </view>
-    </view>
+    <DiagnosisCard />
 
     <!-- 功能按钮区域 -->
     <view class="mb-4 flex gap-3 px-4">
