@@ -5,12 +5,6 @@ import ToggleRole from '../ToggleRole.vue'
 import DoctorProfile from './Components/DoctorProfile.vue'
 import ServiceSetting from './Components/ServiceSetting.vue'
 
-definePage({
-  style: {
-    navigationBarTitleText: '医生我的',
-  },
-})
-
 // 模拟收入数据
 const incomeData = ref({
   month: '50.00',

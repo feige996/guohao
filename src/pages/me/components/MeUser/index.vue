@@ -8,13 +8,6 @@ import MenuCard from './components/MenuCard/index.vue'
 import ServiceCard from './components/ServiceCard/index.vue'
 import VipCard from './components/VipCard/index.vue'
 
-definePage({
-  style: {
-    navigationStyle: 'custom',
-    navigationBarTitleText: '个人中心',
-  },
-})
-
 const userStore = useUserStore()
 // 使用storeToRefs解构userInfo
 const { userInfo, displayName, userAvatar, isLoggedIn } = storeToRefs(userStore)
