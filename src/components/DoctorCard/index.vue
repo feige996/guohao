@@ -32,7 +32,7 @@ function handleRecordClick() {
 </script>
 
 <template>
-  <view class="bg-white p-4">
+  <view class="linear-bg p-4">
     <view class="flex items-center">
       <!-- 医生头像 -->
       <image
@@ -42,21 +42,32 @@ function handleRecordClick() {
 
       <!-- 医生信息 -->
       <view class="ml-4 flex-1">
-        <view class="flex items-center">
-          <text class="text-xl font-semibold">{{ doctorInfo.name }}</text>
-          <text class="ml-2 text-base text-gray-600">{{ doctorInfo.title }}</text>
+        <view class="flex items-center gap-2">
+          <text class="text-xl text-#484848 font-bold">{{ doctorInfo.name }}</text>
+          <text class="text-base text-#999999">{{ doctorInfo.title }}</text>
         </view>
-        <view class="mt-1 flex items-center">
-          <text class="mr-3 text-sm text-blue-500">{{ doctorInfo.department }}</text>
-          <text class="text-sm text-gray-500">{{ doctorInfo.hospital }}</text>
+        <view class="mt-1 flex items-center gap-1 text-xs">
+          <text class="rounded bg-#E7F0FF px-3 py-1 text-#69B0F7">{{ doctorInfo.department }}</text>
+          <text class="rounded bg-#EFEDFA px-3 py-1 text-#9F80EF">{{ doctorInfo.hospital }}</text>
         </view>
-        <view class="mt-2 flex items-center">
-          <text class="text-xs text-gray-500">好评:</text>
-          <text class="ml-1 text-xs text-green-500">{{ doctorInfo.rating }}</text>
-          <text class="ml-3 text-xs text-gray-500">接诊:</text>
-          <text class="ml-1 text-xs text-blue-500">{{ formatNumber(doctorInfo.consultationCount) }}</text>
+        <view class="mt-2 flex items-center gap-3">
+          <view class="flex items-center">
+            <text class="text-xs text-#999999">好评：</text>
+            <text class="text-sm text-#FD6302 font-bold">{{ doctorInfo.rating }}</text>
+          </view>
+          <view class="flex items-center">
+            <text class="text-xs text-#999999">接诊：</text>
+            <text class="text-sm text-#FD6302 font-bold">{{ doctorInfo.consultationCount }}</text>
+          </view>
         </view>
       </view>
     </view>
   </view>
 </template>
+
+<style scoped lang="scss">
+.linear-bg {
+  background-image: linear-gradient(180deg, #fcf1e8 0%, #ffffff 100%);
+  border-radius: 8px;
+}
+</style>

@@ -34,7 +34,7 @@ function handleIncomeClick() {
 </script>
 
 <template>
-  <view class="min-h-screen bg-gray-100 px-3 pt-4">
+  <view class="px-3 pt-4">
     <!-- 顶部医生信息卡片 -->
     <DoctorCard />
     <!-- 我的档案区域 -->
