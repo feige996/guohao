@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import FunctionCard from './components/FunctionCard.vue'
 import SummaryCard from './components/SummaryCard.vue'
+
 // 患者信息列表
 const patientList = [
   {
