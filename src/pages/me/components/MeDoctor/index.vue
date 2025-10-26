@@ -72,7 +72,7 @@ function handleServiceSettingsClick() {
     <DoctorProfile />
 
     <!-- 统计卡片区域 -->
-    <view class="mt-3 flex gap-4 px-3">
+    <view class="mt-3 flex gap-4">
       <!-- 我的收入卡片 -->
       <view class="flex-1 rounded-lg bg-white p-4 shadow-sm" @click="handleIncomeClick">
         <view class="flex items-center">
