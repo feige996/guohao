@@ -7,13 +7,13 @@ const userStore = useUserStore()
 
 definePage({
   style: {
-    navigationBarTitleText: '首页',
+    navigationBarTitleText: '问诊',
   },
 })
 </script>
 
 <template>
-  <view class="home">
+  <view class="page-diagnosis">
     <DiagnosisDoctor v-if="userStore.isDoctor" />
     <DiagnosisUser v-else />
   </view>

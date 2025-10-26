@@ -13,7 +13,7 @@ definePage({
 </script>
 
 <template>
-  <view class="home">
+  <view class="page-me">
     <MeDoctor v-if="userStore.isDoctor" />
     <MeUser v-else />
   </view>
