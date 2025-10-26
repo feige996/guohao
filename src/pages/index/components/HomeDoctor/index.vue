@@ -1,11 +1,5 @@
 <script lang="ts" setup>
-import { safeAreaInsets } from '@/utils/systemInfo'
-
-definePage({
-  style: {
-    navigationBarTitleText: '工作台',
-  },
-})
+import StatisticCard from './components/StatisticCard.vue'
 
 // 处理看诊安排点击
 function handleConsultationClick() {
@@ -24,47 +18,12 @@ function handleMessageClick() {
 </script>
 
 <template>
-  <view class="min-h-screen bg-[#f8f8f8]" :style="{ paddingTop: `${safeAreaInsets?.top || 0}px` }">
-    <!-- 医生信息区域 -->
-    <view class="bg-white px-4 py-5">
-      <view class="flex items-center">
-        <image src="https://via.placeholder.com/100" alt="医生头像" class="h-16 w-16 border-2 border-[#f0f0f0] rounded-full" />
-        <view class="ml-4 flex-1">
-          <view class="flex items-center">
-            <text class="text-lg font-semibold">李浩</text>
-            <text class="ml-2 rounded bg-blue-100 px-2 py-0.5 text-xs text-blue-600">主任医师</text>
-          </view>
-          <text class="mt-1 text-sm text-gray-500">内分泌科 | 团结中国医院</text>
-          <view class="mt-2 flex items-center">
-            <text class="text-sm text-gray-600">好评：</text>
-            <text class="text-sm text-red-500">100%</text>
-            <text class="ml-3 text-sm text-gray-600">接诊：</text>
-            <text class="text-sm text-red-500">56800</text>
-          </view>
-        </view>
-      </view>
-    </view>
+  <view class="px-3 pt-6">
+    <!-- 顶部医生信息卡片 -->
+    <DoctorCard />
 
     <!-- 统计卡片区域 -->
-    <view class="mt-2 bg-white px-4 py-4">
-      <view class="grid grid-cols-3 gap-2">
-        <view class="flex flex-col items-center">
-          <text class="text-lg font-semibold">36</text>
-          <text class="mt-1 text-sm text-gray-500">开方数</text>
-          <image src="/static/tabbar/index.png" alt="开方" class="mt-1 h-8 w-8" />
-        </view>
-        <view class="flex flex-col items-center">
-          <text class="text-lg font-semibold">18</text>
-          <text class="mt-1 text-sm text-gray-500">患者数</text>
-          <image src="/static/tabbar/index.png" alt="患者" class="mt-1 h-8 w-8" />
-        </view>
-        <view class="flex flex-col items-center">
-          <text class="text-lg font-semibold">6</text>
-          <text class="mt-1 text-sm text-gray-500">接诊数</text>
-          <image src="/static/tabbar/index.png" alt="接诊" class="mt-1 h-8 w-8" />
-        </view>
-      </view>
-    </view>
+    <StatisticCard />
 
     <!-- 温馨提醒区域 -->
     <view class="mt-2 bg-white px-4 py-3">

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import FgTabbar from '@/tabbar/index.vue'
+import { safeAreaInsets } from '@/utils/systemInfo'
 import { isPageTabbar } from './tabbar/store'
 import { currRoute } from './utils'
 
@@ -14,7 +15,7 @@ onShow(() => {
 </script>
 
 <template>
-  <view class="page-container">
+  <view class="page-container" :style="{ paddingTop: isCurrentPageTabbar ? `${safeAreaInsets.top}px` : '0px' }">
     <KuRootView />
 
     <FgTabbar v-if="isCurrentPageTabbar" />
