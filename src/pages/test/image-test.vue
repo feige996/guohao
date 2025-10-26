@@ -1,18 +1,18 @@
 <template>
   <view class="min-h-screen bg-gray-100 p-[24rpx]">
     <view class="mb-[32rpx]">
-      <text class="text-[32rpx] font-bold text-gray-800">图片路径测试</text>
+      <text class="text-gray-800 font-bold text-[32rpx]">图片路径测试</text>
     </view>
 
     <!-- 直接图片测试 -->
     <view class="mb-[48rpx]">
-      <text class="text-[28rpx] font-medium text-gray-700 mb-[24rpx] block">直接图片路径测试</text>
-      
+      <text class="mb-[24rpx] block text-gray-700 font-medium text-[28rpx]">直接图片路径测试</text>
+
       <view class="mb-[24rpx]">
-        <text class="text-[24rpx] text-gray-600 mb-[12rpx] block">绝对路径测试：</text>
-        <image 
+        <text class="mb-[12rpx] block text-gray-600 text-[24rpx]">绝对路径测试：</text>
+        <image
           src="/static/images/healthcare/guide-bg.png"
-          class="w-[200rpx] h-[100rpx] border border-gray-300"
+          class="h-[100rpx] w-[200rpx] border border-gray-300"
           mode="aspectFit"
           @error="handleImageError"
           @load="handleImageLoad"
@@ -20,10 +20,10 @@
       </view>
 
       <view class="mb-[24rpx]">
-        <text class="text-[24rpx] text-gray-600 mb-[12rpx] block">别名路径测试：</text>
-        <image 
+        <text class="mb-[12rpx] block text-gray-600 text-[24rpx]">别名路径测试：</text>
+        <image
           src="@img/healthcare/guide-bg.png"
-          class="w-[200rpx] h-[100rpx] border border-gray-300"
+          class="h-[100rpx] w-[200rpx] border border-gray-300"
           mode="aspectFit"
           @error="handleImageError"
           @load="handleImageLoad"
@@ -31,10 +31,10 @@
       </view>
 
       <view class="mb-[24rpx]">
-        <text class="text-[24rpx] text-gray-600 mb-[12rpx] block">相对路径测试：</text>
-        <image 
+        <text class="mb-[12rpx] block text-gray-600 text-[24rpx]">相对路径测试：</text>
+        <image
           src="../../static/images/healthcare/guide-bg.png"
-          class="w-[200rpx] h-[100rpx] border border-gray-300"
+          class="h-[100rpx] w-[200rpx] border border-gray-300"
           mode="aspectFit"
           @error="handleImageError"
           @load="handleImageLoad"
@@ -44,13 +44,13 @@
 
     <!-- 动态路径测试 -->
     <view class="mb-[48rpx]">
-      <text class="text-[28rpx] font-medium text-gray-700 mb-[24rpx] block">动态路径测试</text>
-      
+      <text class="mb-[24rpx] block text-gray-700 font-medium text-[28rpx]">动态路径测试</text>
+
       <view class="mb-[24rpx]">
-        <text class="text-[24rpx] text-gray-600 mb-[12rpx] block">通过变量绑定：</text>
-        <image 
+        <text class="mb-[12rpx] block text-gray-600 text-[24rpx]">通过变量绑定：</text>
+        <image
           :src="imagePath"
-          class="w-[200rpx] h-[100rpx] border border-gray-300"
+          class="h-[100rpx] w-[200rpx] border border-gray-300"
           mode="aspectFit"
           @error="handleImageError"
           @load="handleImageLoad"
@@ -59,8 +59,8 @@
     </view>
 
     <!-- 日志 -->
-    <view class="mt-[48rpx] p-[24rpx] bg-white rounded-[16rpx]">
-      <text class="text-[24rpx] font-medium text-gray-700 mb-[16rpx] block">加载日志</text>
+    <view class="mt-[48rpx] rounded-[16rpx] bg-white p-[24rpx]">
+      <text class="mb-[16rpx] block text-gray-700 font-medium text-[24rpx]">加载日志</text>
       <view v-if="logs.length === 0" class="text-gray-500">
         暂无日志
       </view>
@@ -68,7 +68,7 @@
         <view
           v-for="(log, index) in logs"
           :key="index"
-          class="mb-[8rpx] p-[12rpx] rounded-[8rpx]"
+          class="mb-[8rpx] rounded-[8rpx] p-[12rpx]"
           :class="log.type === 'error' ? 'bg-red-50 text-red-600' : 'bg-green-50 text-green-600'"
         >
           <text class="text-[20rpx]">
@@ -103,11 +103,11 @@ const imagePath = ref('/static/images/healthcare/guide-bg.png')
 function addLog(message: string, type: 'success' | 'error') {
   const now = new Date()
   const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`
-  
+
   logs.value.unshift({
     time: timeString,
     message,
-    type
+    type,
   })
 
   // 只保留最近20条记录
