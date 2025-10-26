@@ -1,13 +1,13 @@
 <script lang="ts" setup>
 import type { App_DoctorAuditing, SysDictData } from '@/api/guohao-api/globals.d'
 import type { DoctorCardConfig } from '@/components/DoctorCard'
-import type { HealthcareCardConfig } from '@/components/HealthcareCard'
-import type { MedicalServiceCardConfig } from '@/components/MedicalServiceCards'
+import type { HealthcareCardConfig } from '@/components-bak/HealthcareCard'
+import type { MedicalServiceCardConfig } from '@/components-bak/MedicalServiceCards'
 import { useRequest } from 'alova/client'
 import { DoctorCardList } from '@/components/DoctorCard'
-import { HEALTHCARE_CARD_CONFIGS, HealthcareCardGroup } from '@/components/HealthcareCard'
-import { MEDICAL_SERVICE_CARDS_CONFIG, MedicalServiceCards } from '@/components/MedicalServiceCards'
-import SearchBar from '@/components/SearchBar'
+import { HEALTHCARE_CARD_CONFIGS, HealthcareCardGroup } from '@/components-bak/HealthcareCard'
+import { MEDICAL_SERVICE_CARDS_CONFIG, MedicalServiceCards } from '@/components-bak/MedicalServiceCards'
+import SearchBar from '@/components-bak/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({

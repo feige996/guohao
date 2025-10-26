@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SearchBar from '@/components/SearchBar'
+import SearchBar from '@/components-bak/SearchBar'
 
 definePage({
   style: {

@@ -67,9 +67,9 @@
 </template>
 
 <script setup lang="ts">
-import type { HealthcareCardConfig } from '@/components/HealthcareCard'
+import type { HealthcareCardConfig } from '@/components-bak/HealthcareCard'
 import { ref } from 'vue'
-import HealthcareCard, { HEALTHCARE_CARD_CONFIGS, HealthcareCardGroup } from '@/components/HealthcareCard'
+import HealthcareCard, { HEALTHCARE_CARD_CONFIGS, HealthcareCardGroup } from '@/components-bak/HealthcareCard'
 
 definePage({
   style: {

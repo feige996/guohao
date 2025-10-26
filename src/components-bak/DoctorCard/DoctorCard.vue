@@ -2,10 +2,23 @@
 import type { DoctorCardConfig } from './types'
 
 interface Props {
-  config: DoctorCardConfig
+  config?: DoctorCardConfig // 标记为可选属性
 }
 
-const props = defineProps<Props>()
+// 直接在 withDefaults 中使用内联默认值，不引用外部变量
+const props = withDefaults(defineProps<Props>(), {
+  config: () => ({
+    id: 'doctor1',
+    name: '陈广志',
+    title: '主任医师',
+    department: '内分泌科',
+    hospital: '佛山中医院主治医师',
+    consultationCount: 56800,
+    rating: 100,
+    specialty: '长期从事内分泌、代谢性疾病的诊断和中西医结合治疗，在糖尿病等疾病...',
+    avatar: '/static/images/healthcare/doctor-avatar.png',
+  })
+})
 
 const emit = defineEmits<{
   click: [config: DoctorCardConfig]
