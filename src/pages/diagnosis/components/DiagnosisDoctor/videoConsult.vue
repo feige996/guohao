@@ -106,20 +106,20 @@ function sendMessage() {
   messageInput.value = ''
 
   // 发送消息后滚动到底部
-  setTimeout(() => {
-    uni.createSelectorQuery().in(getCurrentInstance() as any).select('.message-list').boundingClientRect((rect: any) => {
-      if (rect && typeof rect === 'object') {
-        uni.createSelectorQuery().in(getCurrentInstance() as any).select('.message-list').scrollOffset((offset: any) => {
-          if (offset && typeof offset === 'object') {
-            uni.createSelectorQuery().in(getCurrentInstance() as any).select('.message-list').scrollTo({
-              scrollTop: (offset.scrollTop || 0) + (rect.height || 0),
-              duration: 0,
-            })
-          }
-        }).exec()
-      }
-    }).exec()
-  }, 100)
+  // setTimeout(() => {
+  //   uni.createSelectorQuery().in(getCurrentInstance() as any).select('.message-list').boundingClientRect((rect: any) => {
+  //     if (rect && typeof rect === 'object') {
+  //       uni.createSelectorQuery().in(getCurrentInstance() as any).select('.message-list').scrollOffset((offset: any) => {
+  //         if (offset && typeof offset === 'object') {
+  //           uni.createSelectorQuery().in(getCurrentInstance() as any).select('.message-list').scrollTo({
+  //             scrollTop: (offset.scrollTop || 0) + (rect.height || 0),
+  //             duration: 0,
+  //           })
+  //         }
+  //       }).exec()
+  //     }
+  //   }).exec()
+  // }, 100)
 }
 
 // 组件挂载

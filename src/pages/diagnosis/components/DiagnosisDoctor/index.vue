@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import DiagnosisCard from './components/DiagnosisCard.vue'
+import SummaryCard from './components/SummaryCard.vue'
+
 // 待诊患者数据
 const waitingPatients = [
   {
@@ -69,28 +70,16 @@ function navigateToPrescription(): void {
 <template>
   <view class="min-h-screen bg-gray-50 pb-20">
     <!-- 问诊数据区域 -->
-    <DiagnosisCard />
+    <SummaryCard />
 
     <!-- 功能按钮区域 -->
     <view class="mb-4 flex gap-3 px-4">
-      <view class="flex flex-1 items-center justify-between rounded-lg bg-blue-50 p-3" @click="navigateToConsultationRoom">
+      <view class="flex flex-1 rounded-lg bg-blue-50 p-4 px-3" @click="navigateToConsultationRoom">
         <view class="flex items-center">
-          <view class="mr-2 h-8 w-8 flex items-center justify-center rounded-full bg-blue-100">
-            <text class="text-blue-500">👨‍⚕️</text>
-          </view>
+          <image src="/static/images/diagnosis-doctor/wdzs.png" class="mr-2 h-38px w-38px" />
           <text class="text-gray-800 font-medium">我的诊室</text>
+          <image src="/static/images/diagnosis-doctor/wdzs-arrow.png" class="ml-auto h-22px w-22px" />
         </view>
-        <text class="text-blue-500">›</text>
-      </view>
-
-      <view class="flex flex-1 items-center justify-between rounded-lg bg-orange-50 p-3" @click="navigateToPrescription">
-        <view class="flex items-center">
-          <view class="mr-2 h-8 w-8 flex items-center justify-center rounded-full bg-orange-100">
-            <text class="text-orange-500">📝</text>
-          </view>
-          <text class="text-gray-800 font-medium">我要开方</text>
-        </view>
-        <text class="text-orange-500">›</text>
       </view>
     </view>
 
