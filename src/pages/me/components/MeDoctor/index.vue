@@ -35,45 +35,48 @@ function handleIncomeClick() {
     <DoctorProfile />
 
     <!-- 统计卡片区域 -->
-    <view class="mt-3 flex gap-4">
+    <view class="mt-3 h-[124px] flex gap-4">
       <!-- 我的收入卡片 -->
-      <view class="flex-1 rounded-lg bg-white p-4 shadow-sm" @click="handleIncomeClick">
-        <view class="flex items-center">
-          <view class="h-10 w-10 flex items-center justify-center rounded-full bg-orange-100">
-            <text class="text-orange-500">💰</text>
-          </view>
-          <text class="ml-3 text-base font-medium">我的收入</text>
+      <view class="flex flex-1 flex-col justify-between gap-2px rounded-lg bg-white p-3">
+        <view class="flex items-center gap-2">
+          <image src="/static/images/me-doctor/pocket.png" class="h-7 w-7" />
+          <text class="text-base text-#070707 font-medium">我的收入</text>
         </view>
-        <view class="mt-2">
-          <view class="flex items-center justify-between">
-            <text class="text-xs text-gray-500">本月:</text>
-            <text class="text-sm text-orange-500">¥{{ incomeData.month }}</text>
+        <view class="flex items-center">
+          <text class="text-8px text-yellow-400 opacity-0">{{ 'sdfasdf ' }}</text>
+        </view>
+        <view class="flex items-center gap-1 text-xs">
+          <view class="text-xs text-#484848 font-500">
+            本月:
           </view>
-          <view class="mt-1 flex items-center justify-between">
-            <text class="text-xs text-gray-500">今日:</text>
-            <text class="text-sm text-orange-500">¥{{ incomeData.today }}</text>
+          <view class="text-sm text-#FD6302">
+            ¥<text class="text-lg font-500">{{ incomeData.month }}</text>
+          </view>
+        </view>
+        <view class="flex items-center gap-1 text-xs">
+          <view class="text-xs text-#484848 font-500">
+            今日:
+          </view>
+          <view class="text-sm text-#FD6302">
+            ¥<text class="text-lg font-500">{{ incomeData.today }}</text>
           </view>
         </view>
       </view>
 
       <!-- 患者评价卡片 -->
-      <view class="flex-1 rounded-lg bg-white p-4 shadow-sm">
-        <view class="flex items-center">
-          <view class="h-10 w-10 flex items-center justify-center rounded-full bg-yellow-100">
-            <text class="text-yellow-500">💬</text>
-          </view>
-          <text class="ml-3 text-base font-medium">患者评价</text>
+      <view class="flex flex-1 flex-col justify-between gap-1 rounded-lg bg-white p-3">
+        <view class="flex items-center gap-2">
+          <image src="/static/images/me-doctor/message.png" class="h-7 w-7" />
+          <text class="text-base text-#070707 font-medium">患者评价</text>
         </view>
-        <view class="mt-2">
-          <view class="flex items-center">
-            <text class="text-xs text-yellow-400">⭐⭐⭐⭐⭐</text>
-          </view>
-          <view class="mt-1">
-            <text class="text-xs text-gray-500">累计好评: {{ ratingData.goodCount }}条</text>
-          </view>
-          <view class="mt-1">
-            <text class="text-xs text-gray-500">累计回复: {{ ratingData.replyCount }}条</text>
-          </view>
+        <view class="flex items-center">
+          <text class="text-xs text-yellow-400">⭐⭐⭐⭐⭐</text>
+        </view>
+        <view class="text-xs text-#484848 font-500">
+          累计好评: {{ ratingData.goodCount }}条
+        </view>
+        <view class="text-xs text-#484848 font-500">
+          累计回复: {{ ratingData.replyCount }}条
         </view>
       </view>
     </view>
