@@ -12,7 +12,7 @@ const doctorInfo = ref({
 })
 
 // 点击档案区域
-function handleRecordClick() {
+function handleClickCard() {
   console.log('点击了档案区域')
   // 跳转到详细档案页面
   uni.navigateTo({
@@ -22,22 +22,37 @@ function handleRecordClick() {
 </script>
 
 <template>
-  <view class="mt-3 bg-white p-4" @click="handleRecordClick">
-    <view class="flex items-center">
-      <view class="h-10 w-10 flex items-center justify-center rounded-full bg-blue-100">
-        <text class="text-blue-500">👤</text>
-      </view>
-      <view class="ml-4 flex-1">
-        <view class="flex items-center justify-between">
-          <text class="text-base font-medium">我的档案</text>
-          <text class="text-xs text-gray-500">{{ doctorInfo.name }} {{ doctorInfo.title }}</text>
+  <view class="bg-img mt-3 rounded-lg bg-white p-4" @click="handleClickCard">
+    <view class="flex items-start gap-2">
+      <image
+        src="/static/images/me-doctor/people.png"
+        class="h-7 w-7 rounded-full object-cover"
+      />
+      <view class="flex-1">
+        <view class="text-base text-#070707 font-medium">
+          我的档案
         </view>
-        <view class="mt-1 flex items-center">
-          <text class="mr-3 text-xs text-gray-500">{{ doctorInfo.department }}</text>
-          <text class="text-xs text-gray-500">{{ doctorInfo.hospital }}</text>
+        <view class="mt-1 flex items-center gap-2">
+          <text class="text-base text-#484848 font-500">{{ doctorInfo.name }}</text>
+          <text class="text-base text-#999999">{{ doctorInfo.title }}</text>
         </view>
-        <text class="mt-1 text-xs text-gray-400">{{ doctorInfo.recordDate }}</text>
+        <view class="mt-1 flex items-center gap-1 text-xs">
+          <text class="rounded bg-#E7F0FF px-3 py-1 text-#69B0F7">{{ doctorInfo.department }}</text>
+          <text class="rounded bg-#EFEDFA px-3 py-1 text-#9F80EF">{{ doctorInfo.hospital }}</text>
+        </view>
+        <view class="mt-3 text-xs text-#B0B0B0">
+          {{ doctorInfo.recordDate }}
+        </view>
       </view>
     </view>
   </view>
 </template>
+
+<style scoped lang="scss">
+.bg-img {
+  background-image: url('/static/images/me-doctor/card-bg-icon.png');
+  background-size: 100px 100px;
+  background-position: bottom right;
+  background-repeat: no-repeat;
+}
+</style>

@@ -37,7 +37,7 @@ function handleRecordClick() {
       <!-- 医生头像 -->
       <image
         :src="doctorInfo.avatar"
-        class="h-20 w-20 border-2 border-gray-200 rounded-full object-cover"
+        class="h-20 w-20 border-2 border-white rounded-full border-solid object-cover"
       />
 
       <!-- 医生信息 -->
