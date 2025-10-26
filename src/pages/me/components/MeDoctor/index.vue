@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import ToggleRole from '../ToggleRole.vue'
 
 definePage({
   style: {
@@ -239,5 +240,7 @@ function handleServiceSettingsClick() {
         </view>
       </view>
     </view>
+
+    <ToggleRole />
   </view>
 </template>

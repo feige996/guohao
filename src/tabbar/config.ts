@@ -102,7 +102,6 @@ export const customTabbarList: CustomTabBarItem[] = [
     iconType: 'image',
     icon: '/static/tabbar/me.png',
     iconActive: '/static/tabbar/meHL.png',
-    roles: [AppRoleEnum.NormalUser],
   },
   // 其他类型演示
   // 1、uiLib
