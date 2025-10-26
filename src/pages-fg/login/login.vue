@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { useTokenStore } from '@/store/token'
-import { useUserStore } from '@/store/user'
+import { useUserStore } from '@/store/userStore'
 import { tabbarList } from '@/tabbar/config'
 import { isPageTabbar } from '@/tabbar/store'
 import { ensureDecodeURIComponent } from '@/utils'
@@ -25,15 +24,14 @@ onLoad((options) => {
 })
 
 const userStore = useUserStore()
-const tokenStore = useTokenStore()
 async function doLogin() {
-  if (tokenStore.hasLogin) {
+  if (userStore.isLoggedIn) {
     uni.navigateBack()
     return
   }
   try {
     // 调用登录接口
-    await tokenStore.login({
+    await userStore.login({
       username: '菲鸽',
       password: '123456',
     })
