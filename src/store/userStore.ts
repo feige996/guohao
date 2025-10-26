@@ -96,6 +96,10 @@ export const useUserStore = defineStore('user', () => {
     return false
   })
 
+  const isDoctor = computed(() => {
+    return userInfo.value?.defaultRole === 888
+  })
+
   // 计算属性：是否已登录
   const isLoggedIn = computed(() => {
     return !!(accessToken.value && userInfo.value?.id && isTokenExpired.value === false)
@@ -253,6 +257,7 @@ export const useUserStore = defineStore('user', () => {
     displayName,
     userAvatar,
     isTokenExpired,
+    isDoctor,
 
     // 核心API方法
     login,
