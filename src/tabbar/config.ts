@@ -26,61 +26,7 @@ type NativeTabBarItem = TabBar['list'][number]
 
 // TODO: 2/3. 使用 NATIVE_TABBAR 时，更新下面的 tabbar 配置
 export const nativeTabbarList: NativeTabBarItem[] = [
-  {
-    iconPath: 'static/tabbar/home.png',
-    selectedIconPath: 'static/tabbar/homeHL.png',
-    pagePath: 'pages/normal/index/index',
-    text: '首页',
-  },
-  {
-    iconPath: 'static/tabbar/doctor-home.png',
-    selectedIconPath: 'static/tabbar/doctor-homeHL.png',
-    pagePath: 'pages/doctor/index/index',
-    text: '首页',
-  },
-  {
-    iconPath: 'static/tabbar/healthcare.png',
-    selectedIconPath: 'static/tabbar/healthcareHL.png',
-    pagePath: 'pages/normal/healthcare/healthcare',
-    text: '养生',
-  },
-  {
-    iconPath: 'static/tabbar/shop.png',
-    selectedIconPath: 'static/tabbar/shopHL.png',
-    pagePath: 'pages/shop/shop',
-    text: '商城',
-  },
-  {
-    iconPath: 'static/tabbar/diagnosis.png',
-    selectedIconPath: 'static/tabbar/diagnosisHL.png',
-    pagePath: 'pages/normal/diagnosis/diagnosis',
-    text: '问诊',
-  },
-  {
-    iconPath: 'static/tabbar/doctor-diagnosis.png',
-    selectedIconPath: 'static/tabbar/doctor-diagnosisHL.png',
-    pagePath: 'pages/doctor/diagnosis/diagnosis',
-    text: '问诊',
-  },
 
-  {
-    iconPath: 'static/tabbar/patient.png',
-    selectedIconPath: 'static/tabbar/patientHL.png',
-    pagePath: 'pages/doctor/patient/patient',
-    text: '患者',
-  },
-  {
-    iconPath: 'static/tabbar/personal.png',
-    selectedIconPath: 'static/tabbar/personalHL.png',
-    pagePath: 'pages/normal/me/me',
-    text: '我的',
-  },
-  {
-    iconPath: 'static/tabbar/doctor-me.png',
-    selectedIconPath: 'static/tabbar/doctor-meHL.png',
-    pagePath: 'pages/doctor/me/me',
-    text: '我的',
-  },
 ]
 
 // badge 显示一个数字或 小红点（样式可以直接在 tabbar/index.vue 里面修改）
@@ -101,34 +47,24 @@ export interface CustomTabBarItem {
   iconActive?: string // 只有在 image 模式下才需要，传递的是高亮的图片（PS： 不建议用 image 模式）
   badge?: CustomTabBarItemBadge
   isBulge?: boolean // 是否是中间的鼓包tabbarItem
-  roles: AppRoleEnum[] // 拥有此tabbar的角色
+  roles?: AppRoleEnum[] // 拥有此tabbar的角色
 }
 // TODO: 3/3. 使用 CUSTOM_TABBAR(2,3) 时，更新下面的 tabbar 配置
 // 如果需要配置鼓包，需要在 'tabbar/store.ts' 里面设置，最后在 `tabbar/index.vue` 里面更改鼓包的图片
 export const customTabbarList: CustomTabBarItem[] = [
   {
     text: '首页',
-    pagePath: 'pages/normal/index/index',
+    pagePath: 'pages/index/index',
     // 本框架内置了 uniapp 官方UI库 （uni-ui)的图标库
     // 使用方式如：<uni-icons type="home" size="30"/>
     // 图标列表地址：https://uniapp.dcloud.net.cn/component/uniui/uni-icons.html
     iconType: 'image',
     icon: '/static/tabbar/home.png',
     iconActive: '/static/tabbar/homeHL.png',
-    roles: [AppRoleEnum.NormalUser],
-    // badge: 'dot',
-  },
-  {
-    text: '首页',
-    pagePath: 'pages/doctor/index/index',
-    iconType: 'image',
-    icon: '/static/tabbar/home.png',
-    iconActive: '/static/tabbar/homeHL.png',
-    roles: [AppRoleEnum.Doctor],
   },
   {
     text: '养生',
-    pagePath: 'pages/normal/healthcare/healthcare',
+    pagePath: 'pages/healthcare/index',
     iconType: 'image',
     icon: '/static/tabbar/healthcare.png',
     iconActive: '/static/tabbar/healthcareHL.png',
@@ -144,30 +80,20 @@ export const customTabbarList: CustomTabBarItem[] = [
     icon: '/static/tabbar/shop.png',
     iconActive: '/static/tabbar/shopHL.png',
     roles: [AppRoleEnum.NormalUser],
-    // badge: 10,
   },
   {
     text: '问诊',
-    pagePath: 'pages/normal/diagnosis/diagnosis',
+    pagePath: 'pages/diagnosis/index',
     iconType: 'image',
     icon: '/static/tabbar/diagnosis.png',
     iconActive: '/static/tabbar/diagnosisHL.png',
-    roles: [AppRoleEnum.NormalUser],
   },
   {
     text: '患者',
-    pagePath: 'pages/doctor/patient/patient',
+    pagePath: 'pages/patient/index',
     iconType: 'image',
     icon: '/static/tabbar/patient.png',
     iconActive: '/static/tabbar/patientHL.png',
-    roles: [AppRoleEnum.Doctor],
-  },
-  {
-    text: '问诊',
-    pagePath: 'pages/doctor/diagnosis/diagnosis',
-    iconType: 'image',
-    icon: '/static/tabbar/diagnosis.png',
-    iconActive: '/static/tabbar/diagnosisHL.png',
     roles: [AppRoleEnum.Doctor],
   },
   {
@@ -177,14 +103,6 @@ export const customTabbarList: CustomTabBarItem[] = [
     icon: '/static/tabbar/me.png',
     iconActive: '/static/tabbar/meHL.png',
     roles: [AppRoleEnum.NormalUser],
-    // badge: 100,
-  },
-  {
-    text: '我的',
-    pagePath: 'pages/doctor/me/me',
-    iconType: 'uniUi',
-    icon: 'contact-filled',
-    roles: [AppRoleEnum.Doctor],
   },
   // 其他类型演示
   // 1、uiLib
