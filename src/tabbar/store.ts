@@ -32,6 +32,9 @@ const tabbarList = computed<CustomTabBarItem[]>(() => {
 
   const list = customTabbarList
     .filter((item) => {
+      if (!item.roles || item.roles.length === 0) {
+        return true
+      }
       const shouldInclude = item.roles.includes(targetRole)
       // console.log(`Filter ${item.text}:`, shouldInclude)
       return shouldInclude

@@ -1,13 +1,13 @@
 <template>
   <view class="min-h-screen bg-gray-100 p-[24rpx]">
     <view class="mb-[32rpx]">
-      <text class="text-[32rpx] font-bold text-gray-800">HealthcareCard 测试页面</text>
+      <text class="text-gray-800 font-bold text-[32rpx]">HealthcareCard 测试页面</text>
     </view>
 
     <!-- 单个卡片测试 -->
     <view class="mb-[48rpx]">
-      <text class="text-[28rpx] font-medium text-gray-700 mb-[24rpx] block">单个卡片测试</text>
-      <view class="flex flex-row gap-[14rpx] flex-wrap">
+      <text class="mb-[24rpx] block text-gray-700 font-medium text-[28rpx]">单个卡片测试</text>
+      <view class="flex flex-row flex-wrap gap-[14rpx]">
         <HealthcareCard
           :config="HEALTHCARE_CARD_CONFIGS.GUIDE"
           @click="handleCardClick"
@@ -21,7 +21,7 @@
 
     <!-- 卡片组测试 -->
     <view class="mb-[48rpx]">
-      <text class="text-[28rpx] font-medium text-gray-700 mb-[24rpx] block">卡片组测试</text>
+      <text class="mb-[24rpx] block text-gray-700 font-medium text-[28rpx]">卡片组测试</text>
       <HealthcareCardGroup
         :configs="healthcareCards"
         @click="handleCardClick"
@@ -30,24 +30,24 @@
 
     <!-- 图片路径测试 -->
     <view class="mb-[48rpx]">
-      <text class="text-[28rpx] font-medium text-gray-700 mb-[24rpx] block">图片路径测试</text>
+      <text class="mb-[24rpx] block text-gray-700 font-medium text-[28rpx]">图片路径测试</text>
       <view class="grid grid-cols-3 gap-[16rpx]">
         <view v-for="(imagePath, index) in testImages" :key="index" class="text-center">
-          <image 
-            :src="imagePath" 
-            class="w-[100rpx] h-[100rpx] mx-auto mb-[8rpx]"
+          <image
+            :src="imagePath"
+            class="mx-auto mb-[8rpx] h-[100rpx] w-[100rpx]"
             mode="aspectFit"
             @error="handleImageError"
             @load="handleImageLoad"
           />
-          <text class="text-[20rpx] text-gray-600 block">{{ imagePath.split('/').pop() }}</text>
+          <text class="block text-gray-600 text-[20rpx]">{{ imagePath.split('/').pop() }}</text>
         </view>
       </view>
     </view>
 
     <!-- 点击日志 -->
-    <view class="mt-[48rpx] p-[24rpx] bg-white rounded-[16rpx]">
-      <text class="text-[24rpx] font-medium text-gray-700 mb-[16rpx] block">点击日志</text>
+    <view class="mt-[48rpx] rounded-[16rpx] bg-white p-[24rpx]">
+      <text class="mb-[16rpx] block text-gray-700 font-medium text-[24rpx]">点击日志</text>
       <view v-if="clickLogs.length === 0" class="text-gray-500">
         暂无点击记录
       </view>
@@ -55,9 +55,9 @@
         <view
           v-for="(log, index) in clickLogs"
           :key="index"
-          class="mb-[8rpx] p-[12rpx] bg-gray-50 rounded-[8rpx]"
+          class="mb-[8rpx] rounded-[8rpx] bg-gray-50 p-[12rpx]"
         >
-          <text class="text-[20rpx] text-gray-600">
+          <text class="text-gray-600 text-[20rpx]">
             {{ log.time }} - 点击了 "{{ log.title }}" ({{ log.id }})
           </text>
         </view>
@@ -67,8 +67,9 @@
 </template>
 
 <script setup lang="ts">
+import type { HealthcareCardConfig } from '@/components/HealthcareCard'
 import { ref } from 'vue'
-import HealthcareCard, { HealthcareCardGroup, HEALTHCARE_CARD_CONFIGS, type HealthcareCardConfig } from '@/components/HealthcareCard'
+import HealthcareCard, { HEALTHCARE_CARD_CONFIGS, HealthcareCardGroup } from '@/components/HealthcareCard'
 
 definePage({
   style: {
@@ -88,7 +89,7 @@ const clickLogs = ref<ClickLog[]>([])
 // 卡片配置
 const healthcareCards = [
   HEALTHCARE_CARD_CONFIGS.GUIDE,
-  HEALTHCARE_CARD_CONFIGS.CONSULT
+  HEALTHCARE_CARD_CONFIGS.CONSULT,
 ]
 
 // 测试图片路径
@@ -98,18 +99,18 @@ const testImages = [
   '/static/images/healthcare/guide-avatar.png',
   '/static/images/healthcare/consult-bg.png',
   '/static/images/healthcare/consult-decoration.png',
-  '/static/images/healthcare/consult-avatar.png'
+  '/static/images/healthcare/consult-avatar.png',
 ]
 
 // 处理卡片点击
 function handleCardClick(config: HealthcareCardConfig) {
   const now = new Date()
   const timeString = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}`
-  
+
   clickLogs.value.unshift({
     id: config.id,
     title: config.title,
-    time: timeString
+    time: timeString,
   })
 
   // 只保留最近10条记录

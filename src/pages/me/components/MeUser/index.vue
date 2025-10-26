@@ -3,6 +3,7 @@ import { storeToRefs } from 'pinia'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
 import { safeAreaInsets } from '@/utils/systemInfo'
+import ToggleRole from '../ToggleRole.vue'
 import MenuCard from './components/MenuCard/index.vue'
 import ServiceCard from './components/ServiceCard/index.vue'
 import VipCard from './components/VipCard/index.vue'
@@ -92,6 +93,7 @@ function login() {
         登录
       </wd-button>
     </view>
+    <ToggleRole />
 
     <!-- 底部安全区域 -->
     <view class="h-[32rpx]" />

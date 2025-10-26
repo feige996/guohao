@@ -96,6 +96,22 @@ export const useUserStore = defineStore('user', () => {
     return false
   })
 
+  const isDoctor = computed(() => {
+    return userInfo.value?.defaultRole === 888
+  })
+  const userDefaultRole = computed(() => {
+    // 优先使用后端返回的defaultRole，如果没有则使用普通用户
+    const targetRole = userInfo.value?.defaultRole || 777
+
+    // 根据用户角色返回对应的 userDefaultIndexPage 配置
+    switch (targetRole) {
+      case 777: // NormalUser (普通用户)
+        return '普通用户'
+      case 888: // Doctor (医生)
+        return '医生'
+    }
+  })
+
   // 计算属性：是否已登录
   const isLoggedIn = computed(() => {
     return !!(accessToken.value && userInfo.value?.id && isTokenExpired.value === false)
@@ -253,6 +269,8 @@ export const useUserStore = defineStore('user', () => {
     displayName,
     userAvatar,
     isTokenExpired,
+    isDoctor,
+    userDefaultRole,
 
     // 核心API方法
     login,

@@ -2,6 +2,7 @@ import path from 'node:path'
 import process from 'node:process'
 import Uni from '@uni-helper/plugin-uni'
 import Components from '@uni-helper/vite-plugin-uni-components'
+import { WotResolver } from '@uni-helper/vite-plugin-uni-components/resolvers'
 // @see https://uni-helper.js.org/vite-plugin-uni-layouts
 import UniLayouts from '@uni-helper/vite-plugin-uni-layouts'
 // @see https://github.com/uni-helper/vite-plugin-uni-manifest
@@ -65,7 +66,7 @@ export default ({ command, mode }) => {
         exclude: ['**/components/**/**.*'],
         // homePage 通过 vue 文件的 route-block 的type="home"来设定
         // pages 目录为 src/pages，分包目录不能配置在pages目录下
-        subPackages: ['src/pages-sub'], // 是个数组，可以配置多个，但是不能为pages里面的目录
+        subPackages: ['src/pages-fg', 'src/TUIKit'], // 是个数组，可以配置多个，但是不能为pages里面的目录
         dts: 'src/types/uni-pages.d.ts',
       }),
       UniLayouts(),
@@ -127,6 +128,7 @@ export default ({ command, mode }) => {
       // 只有在 app 平台时才启用 copyNativeRes 插件
       // UNI_PLATFORM === 'app' && copyNativeRes(),
       Components({
+        resolvers: [WotResolver()],
         extensions: ['vue'],
         deep: true, // 是否递归扫描子目录，
         directoryAsNamespace: false, // 是否把目录名作为命名空间前缀，true 时组件名为 目录名+组件名，

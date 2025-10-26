@@ -1,11 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useUserStore } from '@/store'
 import FgTabbar from '@/tabbar/index.vue'
 import { isPageTabbar } from './tabbar/store'
 import { currRoute } from './utils'
-
-const userStore = useUserStore()
 
 const isCurrentPageTabbar = ref(true)
 onShow(() => {
@@ -18,12 +15,6 @@ onShow(() => {
 
 <template>
   <view class="page-container">
-    <wd-fab :draggable="true" position="right-center">
-      <wd-button type="primary" @click="userStore.toggleUserDefaultRole">
-        切换角色
-      </wd-button>
-    </wd-fab>
-
     <KuRootView />
 
     <FgTabbar v-if="isCurrentPageTabbar" />
