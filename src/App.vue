@@ -10,7 +10,7 @@ onLaunch((options) => {
   const userStore = useUserStore()
   // console.log('App Launch', options)
   // console.log('检查令牌 accessToken 是否过期 : ', userStore.isTokenExpired)
-  
+
   // 检查token是否过期，如果过期则清除用户信息
   if (userStore.isTokenExpired) {
     console.log('Token已过期，清除用户信息')
@@ -28,7 +28,8 @@ onLaunch((options) => {
     try {
       // 动态导入 TUIKit 模块
       const { initTUIKitAuto } = await import('@/utils/tuikit')
-      await initTUIKitAuto()
+      // TODO: 放开
+      // await initTUIKitAuto()
       // console.log('TUIKit 动态加载并初始化成功')
     }
     catch (error) {
