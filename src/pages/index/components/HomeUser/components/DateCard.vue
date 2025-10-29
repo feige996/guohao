@@ -47,8 +47,10 @@ onMounted(() => {
         <text class="">{{ lunarYear }}</text>
       </view>
       <!-- 天气状况标签 -->
-      <view class="rounded-full bg-[#6495ED] px-[12rpx] py-[4rpx]">
-        <text class="text-white text-[24rpx]">{{ weatherCondition }}</text>
+      <view class="w-[36rpx] rounded-lg bg-[#8bafd7] px-1 py-2 text-center font-500">
+        <text v-for="char in weatherCondition" :key="char" class="block text-white text-[26rpx] leading-[32rpx]">
+          {{ char }}
+        </text>
       </view>
     </view>
     <div class="rounded-lg bg-white p-2 text-[#286bab]">
