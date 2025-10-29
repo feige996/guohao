@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { safeAreaInsets } from '@/utils/systemInfo'
-import DateAndConstitutionSection from './components/DateAndConstitutionSection.vue'
+import ConstitutionCard from './components/ConstitutionCard.vue'
+import DateCard from './components/DateCard.vue'
 import ExclusiveBenefitsSection from './components/ExclusiveBenefitsSection.vue'
 
 // 搜索栏事件处理
@@ -129,8 +130,11 @@ const functionCards: FunctionCardItem[] = [
     <ConsultationSection />
 
     <!-- 日期和体质区域 -->
-    <DateAndConstitutionSection />
+    <view class="mt-3 flex gap-4">
+      <DateCard />
+      <ConstitutionCard />
+    </view>
     <!-- 专属权益区域 -->
-    <ExclusiveBenefitsSection />
+    <ExclusiveBenefitsSection class="mt-[14px]" />
   </view>
 </template>
