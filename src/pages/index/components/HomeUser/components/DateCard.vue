@@ -39,10 +39,10 @@ onMounted(() => {
 
 <template>
   <!-- 左侧日期卡片 -->
-  <view class="rounded-lg bg-[#ebf4ff] p-2">
+  <view class="flex flex-1 flex-col justify-between rounded-lg bg-[#ebf4ff] p-2">
     <!-- 农历信息区域 -->
     <view class="mb-[12rpx] flex items-center justify-between">
-      <view class="flex flex-col gap-1 text-[#999999] font-medium text-[28rpx]">
+      <view class="flex flex-col gap-1 text-[#999999] font-medium text-[32rpx]">
         <text class="">{{ lunarMonth }}{{ lunarDay }}</text>
         <text class="">{{ lunarYear }}</text>
       </view>
@@ -51,17 +51,18 @@ onMounted(() => {
         <text class="text-white text-[24rpx]">{{ weatherCondition }}</text>
       </view>
     </view>
+    <div class="rounded-lg bg-white p-2 text-[#286bab]">
+      <!-- 公历日期显示 -->
+      <view class="mb-[12rpx] flex items-end gap-[4rpx]">
+        <text class="font-bold text-[26rpx]">{{ year }}</text>
+      </view>
 
-    <!-- 公历日期显示 -->
-    <view class="mb-[24rpx] flex items-end gap-[4rpx]">
-      <text class="text-[#3366CC] font-bold text-[56rpx]">{{ year }}</text>
-    </view>
-
-    <!-- 主要日期显示 -->
-    <view class="flex items-baseline gap-[8rpx]">
-      <text class="text-[#3366CC] font-bold text-[72rpx]">{{ day }}</text>
-      <text class="text-[#3366CC] font-bold text-[48rpx]">/</text>
-      <text class="text-[#3366CC] font-bold text-[48rpx]">{{ month }}</text>
-    </view>
+      <!-- 主要日期显示 -->
+      <view class="flex items-baseline gap-[8rpx] font-bold text-[48rpx]">
+        <text class="">{{ day }}</text>
+        <text class="">/</text>
+        <text class="">{{ month }}</text>
+      </view>
+    </div>
   </view>
 </template>
