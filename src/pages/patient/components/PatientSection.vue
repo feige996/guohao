@@ -1,11 +1,15 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import WaitingPatientItem from './PatientItem.vue'
 
+// tab 配置数据
 const tabs = [{
   name: '新增患者',
 }, {
   name: '患者反馈',
 }]
+
+// 当前激活的 tab 索引
 const activeTabIndex = ref(0)
 
 // 待诊患者数据
@@ -45,23 +49,34 @@ const patientList = [
 
 <template>
   <view class="rounded-lg bg-[#FFFFFF] p-3">
-    <view class="mb-2 flex border-b border-[#E5E5E5] border-b-solid">
+    <view class="relative mb-2 flex border-b border-[#E5E5E5] border-b-solid">
+      <!-- Tab 切换按钮 -->
       <view
         v-for="(tab, index) in tabs"
         :key="tab.name"
+        class="relative flex-1"
       >
+        <!-- Tab 文本 -->
         <view
-          class="text-base text-[#9FA9B5] font-500"
-          :class="{ '!text-[#333333]': activeTabIndex === index }"
+          class="cursor-pointer py-3 text-center text-base font-500 transition-colors"
+          :class="{
+            'text-[#333333]': activeTabIndex === index,
+            'text-[#9FA9B5]': activeTabIndex !== index,
+          }"
           @click="activeTabIndex = index"
         >
           {{ tab.name }}
         </view>
+
+        <!-- 激活状态下划线 -->
         <view
-          v-if=" index > 0"
-          class="absolute bottom-0 left-1/2 h-[2px] w-[24px] transform bg-[#97493D] -translate-x-1/2"
+          v-if="activeTabIndex === index"
+          class="absolute bottom-0 left-1/2 h-[2px] w-[24px] transform bg-[#97493D] transition-all duration-300 -translate-x-1/2"
         />
       </view>
+
+      <!-- Tab 中间分割线 -->
+      <view class="absolute left-1/2 top-1/2 h-[30px] w-[1px] transform bg-[#D8D8D8] -translate-x-1/2 -translate-y-1/2" />
     </view>
 
     <view
@@ -74,6 +89,4 @@ const patientList = [
   </view>
 </template>
 
-<style lang="scss" scoped>
-//
-</style>
+<!-- 使用 UnoCSS 原子化类，无需单独的样式标签 -->
