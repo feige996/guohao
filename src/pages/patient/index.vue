@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import SearchBar from '@/components/SearchBar/index.vue'
 import FunctionCard from './components/FunctionCard.vue'
 import SummaryCard from './components/SummaryCard.vue'
 
@@ -46,23 +47,9 @@ function handleSearch(keyword: string) {
 </script>
 
 <template>
-  <view class="min-h-screen bg-gray-50 px-3">
-    <!-- 搜索栏 -->
-    <view class="bg-white px-4 pb-2 pt-2">
-      <view class="relative">
-        <input
-          type="text"
-          placeholder="搜索患者名称/疾病"
-          class="h-10 w-full rounded-full bg-gray-100 pl-10 pr-4 text-sm focus:outline-none"
-          @confirm="handleSearch($event.target.value)"
-        >
-        <text class="absolute left-3 top-1/2 transform text-gray-400 -translate-y-1/2">🔍</text>
-        <button class="absolute right-2 top-1/2 transform rounded-full bg-amber-700 px-3 py-1 text-sm text-white -translate-y-1/2">
-          搜索
-        </button>
-      </view>
-    </view>
-
+  <view class="page-patient px-3 pt-6">
+    <!-- 搜索组件 -->
+    <SearchBar />
     <!-- 患者数据统计 -->
     <SummaryCard class="mt-3" />
 
