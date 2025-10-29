@@ -76,7 +76,7 @@ function handleClickItem(jumpPath: string, patientId: number) {
 </script>
 
 <template>
-  <view class="flex gap-2 border-[#F5F5F5] border-t-solid py-4">
+  <view class="flex gap-2">
     <image
       :src="patient.avatar"
       class="mr-3 h-10 w-10 rounded-full object-cover"

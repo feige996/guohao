@@ -48,6 +48,7 @@ function handleClickItem(path: string) {
     <view
       v-for="item in waitingPatients"
       :key="item.id"
+      class="border-b border-[#F5F5F5] border-b-solid py-4 last:border-b-0 first:pt-0"
     >
       <WaitingPatientItem :patient="item" />
     </view>
