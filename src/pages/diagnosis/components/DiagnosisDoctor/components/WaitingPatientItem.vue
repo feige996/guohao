@@ -84,10 +84,10 @@ function handleClickItem(jumpPath: string, patientId: number) {
     <view class="flex-1">
       <view class="flex items-center">
         <view>
-          <view class="flex items-center">
-            <text class="mr-2 text-base font-medium">{{ patient.name }}</text>
-            <text :class="patient.gender === '男' ? 'text-blue-500' : 'text-pink-500'">
-              {{ patient.gender === '男' ? '男' : '女' }}
+          <view class="flex items-center text-sm">
+            <text class="mr-2">{{ patient.name }}</text>
+            <text class="font-700" :class="patient.gender === '男' ? 'text-[#00AAB2]' : 'text-[#ED5ACB]'">
+              {{ patient.gender }}
             </text>
           </view>
           <view class="mt-1 flex items-center gap-1 text-xs">
