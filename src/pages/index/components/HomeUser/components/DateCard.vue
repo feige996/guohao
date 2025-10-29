@@ -39,7 +39,7 @@ onMounted(() => {
 
 <template>
   <!-- 左侧日期卡片 -->
-  <view class="flex flex-1 flex-col justify-between rounded-lg bg-[#ebf4ff] p-2">
+  <view class="w-[120px] flex flex-col justify-between rounded-lg bg-[#ebf4ff] p-2">
     <!-- 农历信息区域 -->
     <view class="mb-[12rpx] flex items-center justify-between">
       <view class="flex flex-col gap-1 text-[#999999] font-medium text-[32rpx]">
