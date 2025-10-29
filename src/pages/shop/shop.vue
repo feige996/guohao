@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import SearchBar from 'components-bak/SearchBar'
+import SearchBar from '@/components/SearchBar/index.vue'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({
@@ -260,118 +260,105 @@ function handleBack() {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <div class="pt-4">
     <!-- 主容器 -->
-    <div class="relative w-full flex flex-col items-start">
-      <!-- 顶部渐变区域 -->
-      <div class="relative h-[200rpx] w-full flex flex-col items-start from-[#f6e2d3] to-transparent bg-gradient-to-b">
-        <!-- 自定义导航栏 -->
-        <div class="absolute left-[32rpx] top-[20rpx] z-10">
-          <view class="h-[64rpx] w-[64rpx] flex items-center justify-center" @click="handleBack">
-            <image src="/static/app/back.png" class="h-[24rpx] w-[24rpx]" mode="aspectFill" />
-          </view>
-        </div>
-        <!-- 搜索栏 -->
-        <SearchBar
-          placeholder="搜索商品、品牌、分类等"
-          @search="handleSearch"
-          @click="handleSearchBarClick"
-        />
-      </div>
+    <view class="px-3">
+      <!-- 搜索栏 -->
+      <SearchBar placeholder="搜索商品、品牌、分类等" />
+    </view>
 
-      <!-- 轮播图区域 -->
-      <div class="relative ml-[24rpx] w-[702rpx] -mt-[40rpx]">
-        <swiper
-          class="h-[300rpx] overflow-hidden rounded-[16rpx]"
-          indicator-dots
-          autoplay
-          :interval="3000"
-          :duration="500"
-          indicator-color="rgba(255, 255, 255, 0.5)"
-          indicator-active-color="#97493d"
+    <!-- 轮播图区域 -->
+    <div class="">
+      <swiper
+        class="h-[300rpx] overflow-hidden rounded-[16rpx]"
+        indicator-dots
+        autoplay
+        :interval="3000"
+        :duration="500"
+        indicator-color="rgba(255, 255, 255, 0.5)"
+        indicator-active-color="#97493d"
+      >
+        <swiper-item
+          v-for="item in swiperList"
+          :key="item.id"
+          @click="handleSwiperClick(item)"
         >
-          <swiper-item
-            v-for="item in swiperList"
-            :key="item.id"
-            @click="handleSwiperClick(item)"
+          <image
+            :src="item.image"
+            class="h-full w-full object-cover"
+            mode="aspectFill"
+          />
+        </swiper-item>
+      </swiper>
+    </div>
+
+    <!-- Tabs切换区域 -->
+    <div class="relative ml-[24rpx] mt-[32rpx] w-[702rpx] flex flex-row items-center rounded-[16rpx] bg-white p-[8rpx]">
+      <div
+        v-for="tab in tabList"
+        :key="tab.id"
+        class="h-[72rpx] flex flex-1 cursor-pointer items-center justify-center rounded-[12rpx] transition-all duration-300"
+        :class="activeTab === tab.id ? 'bg-[#97493d] text-white' : 'text-[#666666]'"
+        @click="handleTabClick(tab)"
+      >
+        <span class="font-medium text-[28rpx]">{{ tab.name }}</span>
+      </div>
+    </div>
+
+    <!-- 商品列表区域 -->
+    <div class="relative ml-[12rpx] mt-[24rpx] w-[726rpx] flex flex-col">
+      <scroll-view
+        scroll-y
+        class="h-[1000rpx]"
+        enable-back-to-top
+      >
+        <div class="product-grid pb-[40rpx]">
+          <div
+            v-for="product in productList"
+            :key="product.id"
+            class="product-item cursor-pointer overflow-hidden rounded-[16rpx] bg-white shadow-sm"
+            @click="handleProductClick(product)"
           >
-            <image
-              :src="item.image"
-              class="h-full w-full object-cover"
-              mode="aspectFill"
-            />
-          </swiper-item>
-        </swiper>
-      </div>
+            <!-- 商品图片 -->
+            <div class="relative h-[280rpx] w-full">
+              <image
+                :src="product.image"
+                class="h-full w-full object-cover"
+                mode="aspectFill"
+              />
+              <!-- 标签 -->
+              <div class="absolute left-[16rpx] top-[16rpx] flex flex-wrap gap-[8rpx]">
+                <span
+                  v-for="tag in product.tags"
+                  :key="tag"
+                  class="rounded-[8rpx] bg-[#97493d] px-[12rpx] py-[4rpx] text-white text-[20rpx]"
+                >
+                  {{ tag }}
+                </span>
+              </div>
+            </div>
 
-      <!-- Tabs切换区域 -->
-      <div class="relative ml-[24rpx] mt-[32rpx] w-[702rpx] flex flex-row items-center rounded-[16rpx] bg-white p-[8rpx]">
-        <div
-          v-for="tab in tabList"
-          :key="tab.id"
-          class="h-[72rpx] flex flex-1 cursor-pointer items-center justify-center rounded-[12rpx] transition-all duration-300"
-          :class="activeTab === tab.id ? 'bg-[#97493d] text-white' : 'text-[#666666]'"
-          @click="handleTabClick(tab)"
-        >
-          <span class="font-medium text-[28rpx]">{{ tab.name }}</span>
-        </div>
-      </div>
-
-      <!-- 商品列表区域 -->
-      <div class="relative ml-[12rpx] mt-[24rpx] w-[726rpx] flex flex-col">
-        <scroll-view
-          scroll-y
-          class="h-[1000rpx]"
-          enable-back-to-top
-        >
-          <div class="product-grid pb-[40rpx]">
-            <div
-              v-for="product in productList"
-              :key="product.id"
-              class="product-item cursor-pointer overflow-hidden rounded-[16rpx] bg-white shadow-sm"
-              @click="handleProductClick(product)"
-            >
-              <!-- 商品图片 -->
-              <div class="relative h-[280rpx] w-full">
-                <image
-                  :src="product.image"
-                  class="h-full w-full object-cover"
-                  mode="aspectFill"
-                />
-                <!-- 标签 -->
-                <div class="absolute left-[16rpx] top-[16rpx] flex flex-wrap gap-[8rpx]">
-                  <span
-                    v-for="tag in product.tags"
-                    :key="tag"
-                    class="rounded-[8rpx] bg-[#97493d] px-[12rpx] py-[4rpx] text-white text-[20rpx]"
-                  >
-                    {{ tag }}
-                  </span>
-                </div>
+            <!-- 商品信息 -->
+            <div class="p-[24rpx]">
+              <!-- 商品名称 -->
+              <div class="mb-[16rpx] line-clamp-2 text-[#333333] font-medium text-[28rpx]">
+                {{ product.name }}
               </div>
 
-              <!-- 商品信息 -->
-              <div class="p-[24rpx]">
-                <!-- 商品名称 -->
-                <div class="mb-[16rpx] line-clamp-2 text-[#333333] font-medium text-[28rpx]">
-                  {{ product.name }}
-                </div>
+              <!-- 价格信息 -->
+              <div class="mb-[12rpx] flex items-center">
+                <span class="text-[#97493d] font-bold text-[32rpx]">¥{{ product.price }}</span>
+                <span class="ml-[12rpx] text-[#999999] line-through text-[24rpx]">¥{{ product.originalPrice }}</span>
+              </div>
 
-                <!-- 价格信息 -->
-                <div class="mb-[12rpx] flex items-center">
-                  <span class="text-[#97493d] font-bold text-[32rpx]">¥{{ product.price }}</span>
-                  <span class="ml-[12rpx] text-[#999999] line-through text-[24rpx]">¥{{ product.originalPrice }}</span>
-                </div>
-
-                <!-- 销量信息 -->
-                <div class="text-[#999999] text-[24rpx]">
-                  已售{{ product.sales }}件
-                </div>
+              <!-- 销量信息 -->
+              <div class="text-[#999999] text-[24rpx]">
+                已售{{ product.sales }}件
               </div>
             </div>
           </div>
-        </scroll-view>
-      </div>
+        </div>
+      </scroll-view>
     </div>
   </div>
 </template>
