@@ -39,13 +39,12 @@ onMounted(() => {
 
 <template>
   <!-- 左侧日期卡片 -->
-  <view class="relative flex-1 overflow-hidden rounded-lg bg-[#F2F6FF] p-[16rpx]">
+  <view class="rounded-lg bg-[#ebf4ff] p-2">
     <!-- 农历信息区域 -->
     <view class="mb-[12rpx] flex items-center justify-between">
-      <view class="flex items-center">
-        <text class="text-[#666666] font-medium text-[28rpx]">{{ lunarMonth }}{{ lunarDay }}</text>
-        <text class="mx-[12rpx] text-[#666666] text-[24rpx]">·</text>
-        <text class="text-[#666666] font-medium text-[28rpx]">{{ lunarYear }}</text>
+      <view class="flex flex-col gap-1 text-[#999999] font-medium text-[28rpx]">
+        <text class="">{{ lunarMonth }}{{ lunarDay }}</text>
+        <text class="">{{ lunarYear }}</text>
       </view>
       <!-- 天气状况标签 -->
       <view class="rounded-full bg-[#6495ED] px-[12rpx] py-[4rpx]">

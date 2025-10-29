@@ -14,7 +14,7 @@ import ExclusiveBenefitsSection from './components/ExclusiveBenefitsSection.vue'
     <ConsultationSection />
 
     <!-- 日期和体质区域 -->
-    <view class="mt-3 flex gap-4">
+    <view class="mt-3 flex gap-3 rounded-lg bg-white p-4">
       <DateCard />
       <ConstitutionCard />
     </view>
