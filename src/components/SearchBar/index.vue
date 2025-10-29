@@ -2,6 +2,13 @@
 import { ref } from 'vue'
 import searchIcon from './search.png'
 
+defineProps({
+  placeholder: {
+    type: String,
+    default: '搜索患者名称/疾病',
+  },
+})
+
 // 响应式变量用于存储搜索输入框的值
 const searchQuery = ref('')
 
@@ -22,7 +29,7 @@ function handleSearch() {
       <input
         v-model="searchQuery"
         type="text"
-        placeholder="搜索患者名称/疾病"
+        :placeholder="placeholder"
         class="box-border h-10 w-full rounded-full bg-[#F8F8F880] pl-8 pr-4 text-sm text-[#A59D8B] focus:outline-none"
       >
       <view class="absolute left-3 top-1/2 center transform -translate-y-1/2">

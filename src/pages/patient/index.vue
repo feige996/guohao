@@ -8,7 +8,7 @@ import SummaryCard from './components/SummaryCard.vue'
 <template>
   <view class="page-patient px-3 pt-6">
     <!-- 搜索组件 -->
-    <SearchBar />
+    <SearchBar placeholder="搜索患者名称/疾病" />
     <!-- 患者数据统计 -->
     <SummaryCard class="mt-3" />
 
