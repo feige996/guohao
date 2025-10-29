@@ -260,40 +260,35 @@ function handleBack() {
 </script>
 
 <template>
-  <div class="pt-4">
-    <!-- 主容器 -->
-    <view class="px-3">
-      <!-- 搜索栏 -->
-      <SearchBar placeholder="搜索商品、品牌、分类等" />
-    </view>
+  <div class="px-3 pt-4">
+    <!-- 搜索栏 -->
+    <SearchBar placeholder="搜索商品、品牌、分类等" />
 
     <!-- 轮播图区域 -->
-    <div class="">
-      <swiper
-        class="h-[300rpx] overflow-hidden rounded-[16rpx]"
-        indicator-dots
-        autoplay
-        :interval="3000"
-        :duration="500"
-        indicator-color="rgba(255, 255, 255, 0.5)"
-        indicator-active-color="#97493d"
+    <swiper
+      class="h-[300rpx] overflow-hidden rounded-[16rpx]"
+      indicator-dots
+      autoplay
+      :interval="3000"
+      :duration="500"
+      indicator-color="rgba(255, 255, 255, 0.5)"
+      indicator-active-color="#97493d"
+    >
+      <swiper-item
+        v-for="item in swiperList"
+        :key="item.id"
+        @click="handleSwiperClick(item)"
       >
-        <swiper-item
-          v-for="item in swiperList"
-          :key="item.id"
-          @click="handleSwiperClick(item)"
-        >
-          <image
-            :src="item.image"
-            class="h-full w-full object-cover"
-            mode="aspectFill"
-          />
-        </swiper-item>
-      </swiper>
-    </div>
+        <image
+          :src="item.image"
+          class="h-full w-full object-cover"
+          mode="aspectFill"
+        />
+      </swiper-item>
+    </swiper>
 
     <!-- Tabs切换区域 -->
-    <div class="relative ml-[24rpx] mt-[32rpx] w-[702rpx] flex flex-row items-center rounded-[16rpx] bg-white p-[8rpx]">
+    <div class="mt-[32rpx] flex flex-row items-center rounded-[16rpx] bg-white p-[8rpx]">
       <div
         v-for="tab in tabList"
         :key="tab.id"
@@ -306,7 +301,7 @@ function handleBack() {
     </div>
 
     <!-- 商品列表区域 -->
-    <div class="relative ml-[12rpx] mt-[24rpx] w-[726rpx] flex flex-col">
+    <div class="mt-[24rpx] flex flex-col">
       <scroll-view
         scroll-y
         class="h-[1000rpx]"
