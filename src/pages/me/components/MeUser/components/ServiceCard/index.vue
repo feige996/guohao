@@ -7,25 +7,25 @@ const list = [
   {
     id: 'consultation-record',
     title: '问诊记录',
-    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650226508/77bc/5dd6/9844/c4a72f29c70308915a12d88e1bf7f368.png',
+    icon: '/static/images/me-user/diagnosis-record.png',
     bgColor: 'bg-[#fff0f0]',
   },
   {
     id: 'order',
     title: '商品订单',
-    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650223673/8c52/9644/88b4/95fa6e626f409bfcabe3ab2b20269ed2.png',
+    icon: '/static/images/me-user/order-list.png',
     bgColor: 'bg-[#f8f4e6]',
   },
   {
     id: 'health-record',
     title: '健康档案',
-    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650228089/e392/c333/b6d3/06fc2f16d63579eacfc1f05951fca735.png',
+    icon: '/static/images/me-user/jkda.png',
     bgColor: 'bg-[#f0f7f0]',
   },
   {
     id: 'address',
     title: '地址管理',
-    icon: 'https://seal-img.nos-jd.163yun.com/obj/w5rCgMKVw6DCmGzCmsK-/62650224797/4274/2528/339b/600c29854c72cbe3017db993e255c8cd.png',
+    icon: '/static/images/me-user/address.png',
     bgColor: 'bg-[#f0f5ff]',
   },
 ]

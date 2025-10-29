@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 // 菜单项配置
 const list = [
-  {    title: '意见反馈',    desc: '欢迎提供改进意见',    path: '/pages/normal/me/feedback',  },
+  { title: '意见反馈', desc: '欢迎提供改进意见', path: '/pages/normal/me/feedback' },
   {
     title: '在线客服',
     desc: '24小时在线',
@@ -40,7 +40,7 @@ function handleClick(item: { path: string }) {
       </view>
       <text class="ml-auto text-xs text-[#ccc]">{{ item.desc }}</text>
       <image
-        src="/static/images/homepage/arrow-right.png"
+        src="/static/images/common/right.png"
         class="h-[24rpx] w-[24rpx]"
       />
     </view>
