@@ -118,6 +118,9 @@ export const useUserStore = defineStore('user', () => {
   })
 
   const toggleUserDefaultRole = () => {
+    if (!userInfo.value) {
+      userInfo.value = {} as AppUserInfo
+    }
     if (userInfo.value?.defaultRole === 777) {
       userInfo.value.defaultRole = 888
     }
