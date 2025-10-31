@@ -28,7 +28,7 @@ function handleSearch() {
 
 <template>
   <!-- 搜索栏 -->
-  <view class="bg-transparent pb-2 pt-2">
+  <view class="bg-transparent">
     <view class="relative">
       <input
         v-model="searchQuery"
