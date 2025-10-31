@@ -38,8 +38,8 @@ function handleSearch() {
         :class="isAskDoctor ? 'bg-[#ffffff]' : 'bg-[#F8F8F880]'"
       >
       <view class="absolute top-1/2 center transform -translate-y-1/2" :class="isAskDoctor ? 'left-2' : 'left-3'">
-        <image v-if="isAskDoctor" :src="alertIcon" class="h-5 w-5" />
-        <image v-else :src="searchIcon" class="h-4 w-4" />
+        <image v-if="isAskDoctor" :src="alertIcon" class="mb-[3px] h-5 w-5" />
+        <image v-else :src="searchIcon" class="mb-[2px] h-4 w-4" />
       </view>
 
       <button class="absolute right-1 top-1/2 transform rounded-full px-4 py-[6px] text-sm text-white -translate-y-1/2" :class="isAskDoctor ? 'linearBg' : 'bg-[#97493D]'" @click="handleSearch">

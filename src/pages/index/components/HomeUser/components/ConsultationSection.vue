@@ -1,16 +1,21 @@
 <script lang="ts" setup>
-
 </script>
 
 <template>
-  <view class="consultation-section rounded-lg p-3 pt-6">
+  <view class="consultation-section relative mt-6 rounded-lg p-3 pt-6">
     <view class="consultation-title">
       专业咨询
     </view>
     <view class="consultation-subtitle mt-2">
       为您及家人健康提供专属服务
     </view>
-    <SearchBar class="mt-4" placeholder="[健康管家]您最近身体怎么样？" is-ask-doctor search-text="问医生" />
+    <view class="relative mt-4">
+      <!-- 右侧的一个医生图片 -->
+      <view class="absolute bottom-12 right-2">
+        <image src="/static/images/home-user/doctor-avatar.png" class="mt-4 h-[131px] w-[137px]" />
+      </view>
+      <SearchBar placeholder="[健康管家]您最近身体怎么样？" is-ask-doctor search-text="问医生" />
+    </view>
   </view>
 </template>
 
