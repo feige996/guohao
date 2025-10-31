@@ -1,37 +1,37 @@
 <script lang="ts" setup>
 // 功能卡片事件处理
-function handleFunctionCardClick(item: FunctionCardItem) {
-  console.log('点击功能卡片:', item)
-  // 根据卡片 ID 处理不同的业务逻辑
-  switch (item.id) {
-    case 'appointment':
-      console.log('跳转到预约问诊')
-      uni.navigateTo({
-        url: '/pages/normal/index/appointmentConsult',
-      })
-      break
-    case 'message':
-      console.log('跳转到我的消息')
-      uni.navigateTo({
-        url: '/pages/normal/index/message',
-      })
-      break
-    case 'collection':
-      console.log('跳转到养生收藏')
-      uni.navigateTo({
-        url: '/pages/normal/healthcare/favorites',
-      })
-      break
-    case 'product':
-      console.log('跳转到关注商品')
-      uni.navigateTo({
-        url: '/pages/normal/index/favoriteProducts',
-      })
-      break
-    default:
-      console.log('未知功能:', item.id)
-  }
-}
+// function handleFunctionCardClick(item: FunctionCardItem) {
+//   console.log('点击功能卡片:', item)
+//   // 根据卡片 ID 处理不同的业务逻辑
+//   switch (item.id) {
+//     case 'appointment':
+//       console.log('跳转到预约问诊')
+//       uni.navigateTo({
+//         url: '/pages/normal/index/appointmentConsult',
+//       })
+//       break
+//     case 'message':
+//       console.log('跳转到我的消息')
+//       uni.navigateTo({
+//         url: '/pages/normal/index/message',
+//       })
+//       break
+//     case 'collection':
+//       console.log('跳转到养生收藏')
+//       uni.navigateTo({
+//         url: '/pages/normal/healthcare/favorites',
+//       })
+//       break
+//     case 'product':
+//       console.log('跳转到关注商品')
+//       uni.navigateTo({
+//         url: '/pages/normal/index/favoriteProducts',
+//       })
+//       break
+//     default:
+//       console.log('未知功能:', item.id)
+//   }
+// }
 // 专属权益列表
 const zsqyList = [
   {

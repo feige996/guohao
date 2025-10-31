@@ -1,12 +1,16 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import alertIcon from './alert.png'
 import searchIcon from './search.png'
 
-defineProps({
-  placeholder: {
-    type: String,
-    default: '搜索患者名称/疾病',
-  },
+withDefaults(defineProps<{
+  placeholder?: string
+  isAskDoctor?: boolean
+  searchText?: string
+}>(), {
+  placeholder: '搜索患者名称/疾病',
+  isAskDoctor: false,
+  searchText: '搜索',
 })
 
 // 响应式变量用于存储搜索输入框的值
@@ -30,14 +34,23 @@ function handleSearch() {
         v-model="searchQuery"
         type="text"
         :placeholder="placeholder"
-        class="box-border h-10 w-full rounded-full bg-[#F8F8F880] pl-8 pr-4 text-sm text-[#A59D8B] focus:outline-none"
+        class="box-border h-10 w-full rounded-full pl-8 pr-4 text-sm text-[#A59D8B] focus:outline-none"
+        :class="isAskDoctor ? 'bg-[#ffffff]' : 'bg-[#F8F8F880]'"
       >
-      <view class="absolute left-3 top-1/2 center transform -translate-y-1/2">
-        <image :src="searchIcon" class="h-4 w-4" />
+      <view class="absolute top-1/2 center transform -translate-y-1/2" :class="isAskDoctor ? 'left-2' : 'left-3'">
+        <image v-if="isAskDoctor" :src="alertIcon" class="h-5 w-5" />
+        <image v-else :src="searchIcon" class="h-4 w-4" />
       </view>
-      <button class="absolute right-1 top-1/2 transform rounded-full bg-[#97493D] px-4 py-[6px] text-sm text-white -translate-y-1/2" @click="handleSearch">
-        搜索
+
+      <button class="absolute right-1 top-1/2 transform rounded-full px-4 py-[6px] text-sm text-white -translate-y-1/2" :class="isAskDoctor ? 'linearBg' : 'bg-[#97493D]'" @click="handleSearch">
+        {{ searchText }}
       </button>
     </view>
   </view>
 </template>
+
+<style lang="scss" scoped>
+.linearBg {
+  background: linear-gradient(180deg, #f0c67a 0%, #eba54b 98%);
+}
+</style>

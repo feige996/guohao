@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { safeAreaInsets } from '@/utils/systemInfo'
 import ConstitutionCard from './components/ConstitutionCard.vue'
+import ConsultationSection from './components/ConsultationSection.vue'
 import DateCard from './components/DateCard.vue'
 import ExclusiveBenefitsSection from './components/ExclusiveBenefitsSection.vue'
 </script>
