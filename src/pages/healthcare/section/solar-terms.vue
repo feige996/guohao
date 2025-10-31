@@ -104,16 +104,18 @@ function handleBack() {
 <template>
   <view class="solar-terms-page">
     <!-- 返回栏 -->
-      <view class="sticky top-0 z-10 bg-white border-b border-gray-100">
-        <view class="px-4 h-12 flex items-center justify-between">
-          <view @click="handleBack" class="text-gray-700 text-2xl">
-            &lt;
-          </view>
-          <view class="text-lg font-medium text-gray-800">节气养生</view>
-          <view class="w-6"></view> <!-- 占位元素，保持标题居中 -->
+    <view class="sticky top-0 z-10 border-b border-gray-100 bg-white">
+      <view class="h-12 flex items-center justify-between px-4">
+        <view class="text-2xl text-gray-700" @click="handleBack">
+          &lt;
         </view>
+        <view class="text-lg text-gray-800 font-medium">
+          节气养生
+        </view>
+        <view class="w-6" /> <!-- 占位元素，保持标题居中 -->
       </view>
-    <view class="px-4 py-4 mb-2">
+    </view>
+    <view class="mb-2 px-4 py-4">
       <!-- 搜索框 -->
       <view class="relative mb-4 flex justify-center">
         <input
