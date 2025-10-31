@@ -76,10 +76,10 @@ function handleClickItem(jumpPath: string, patientId: number) {
 </script>
 
 <template>
-  <view class="flex gap-2">
+  <view class="flex gap-3">
     <image
       :src="patient.avatar"
-      class="mr-3 h-10 w-10 rounded-full object-cover"
+      class="h-10 w-10 rounded-full object-cover"
     />
     <view class="flex-1">
       <view class="flex items-center">
