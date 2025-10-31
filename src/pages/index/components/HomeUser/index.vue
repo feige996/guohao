@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import { safeAreaInsets } from '@/utils/systemInfo'
 import ConstitutionCard from './components/ConstitutionCard.vue'
 import ConsultationSection from './components/ConsultationSection.vue'
 import DateCard from './components/DateCard.vue'
@@ -7,7 +6,7 @@ import ExclusiveBenefitsSection from './components/ExclusiveBenefitsSection.vue'
 </script>
 
 <template>
-  <view class="px-3 pb-6" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <view class="">
     <!-- 搜索区域 -->
     <SearchBar placeholder="搜索疾病、症状、科室等" />
 

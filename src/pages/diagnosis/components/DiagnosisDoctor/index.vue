@@ -5,7 +5,7 @@ import WaitingPatients from './components/WaitingPatients.vue'
 </script>
 
 <template>
-  <view class="pb-4">
+  <view class="">
     <!-- 问诊数据区域 -->
     <SummaryCard />
 

@@ -6,7 +6,7 @@ import SummaryCard from './components/SummaryCard.vue'
 </script>
 
 <template>
-  <view class="page-patient px-3 pt-6">
+  <view class="page-patient px-3 pt-4">
     <!-- 搜索组件 -->
     <SearchBar placeholder="搜索患者名称/疾病" />
     <!-- 患者数据统计 -->

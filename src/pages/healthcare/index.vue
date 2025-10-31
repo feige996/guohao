@@ -36,7 +36,7 @@ function handleTabClick(index: number) {
 </script>
 
 <template>
-  <view class="px-3 pt-6">
+  <view class="px-3 pt-4">
     <!-- 固定头部区域 -->
     <view class="header-fixed">
       <!-- 搜索栏 -->

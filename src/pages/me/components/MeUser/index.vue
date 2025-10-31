@@ -2,7 +2,6 @@
 import { storeToRefs } from 'pinia'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
-import { safeAreaInsets } from '@/utils/systemInfo'
 import ToggleRole from '../ToggleRole.vue'
 import MenuCard from './components/MenuCard/index.vue'
 import ServiceCard from './components/ServiceCard/index.vue'
@@ -38,9 +37,9 @@ function login() {
 </script>
 
 <template>
-  <view class="px-3" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
+  <view class="">
     <!-- 主容器 -->
-    <view class="pt-10">
+    <view class="">
       <!-- 头像区域 -->
       <view class="ml-5 flex flex-row items-center gap-2">
         <img

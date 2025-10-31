@@ -18,7 +18,7 @@ function handleMessageClick() {
 </script>
 
 <template>
-  <view class="px-3 pt-6">
+  <view class="">
     <!-- 顶部医生信息卡片 -->
     <DoctorCard />
 

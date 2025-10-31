@@ -262,36 +262,40 @@ function handleBack() {
     <SearchBar placeholder="搜索商品、品牌、分类等" />
 
     <!-- 轮播图区域 -->
-    <swiper
-      class="h-[300rpx] overflow-hidden rounded-[16rpx]"
-      indicator-dots
-      autoplay
-      :interval="3000"
-      :duration="500"
-      indicator-color="rgba(255, 255, 255, 0.5)"
-      indicator-active-color="#97493d"
-    >
-      <swiper-item
-        v-for="item in swiperList"
-        :key="item.id"
-        @click="handleSwiperClick(item)"
+    <view class="mt-4">
+      <swiper
+        class="h-[300rpx] overflow-hidden rounded-[16rpx]"
+        indicator-dots
+        autoplay
+        :interval="3000"
+        :duration="500"
+        indicator-color="rgba(255, 255, 255, 0.5)"
+        indicator-active-color="#97493d"
       >
-        <image
-          :src="item.image"
-          class="h-full w-full object-cover"
-          mode="aspectFill"
-        />
-      </swiper-item>
-    </swiper>
+        <swiper-item
+          v-for="item in swiperList"
+          :key="item.id"
+          @click="handleSwiperClick(item)"
+        >
+          <image
+            :src="item.image"
+            class="h-full w-full object-cover"
+            mode="aspectFill"
+          />
+        </swiper-item>
+      </swiper>
+    </view>
 
     <!-- Tabs切换区域 -->
-    <Tabs
-      :tab-list="tabList"
-      @change="handleTabClick"
-    />
+    <view class="mt-4">
+      <Tabs
+        :tab-list="tabList"
+        @change="handleTabClick"
+      />
+    </view>
 
     <!-- 商品列表区域 -->
-    <div class="mt-[24rpx] flex flex-col">
+    <div class="mt-3 flex flex-col">
       <scroll-view
         scroll-y
         class="h-[1000rpx]"

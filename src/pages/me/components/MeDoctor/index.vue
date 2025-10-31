@@ -28,7 +28,7 @@ function handleIncomeClick() {
 </script>
 
 <template>
-  <view class="px-3 pt-6">
+  <view class="">
     <!-- 顶部医生信息卡片 -->
     <DoctorCard />
     <!-- 我的档案区域 -->
