@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import SearchBar from '@/components/SearchBar/index.vue'
-import { safeAreaInsets } from '@/utils/systemInfo'
+import Tabs from '@/components/Tabs/index.vue'
 
 definePage({
   style: {
@@ -41,7 +41,7 @@ const tabList = ref([
 ])
 
 // 当前选中的tab
-const activeTab = ref('all')
+const activeTabIndex = ref(0)
 
 // 不同分类的商品数据
 const allProducts = {
@@ -237,11 +237,8 @@ function handleSwiperClick(item: any) {
 }
 
 // tab切换事件
-function handleTabClick(tab: any) {
-  activeTab.value = tab.id
-  // 根据选中的tab切换商品数据
-  productList.value = allProducts[tab.id as keyof typeof allProducts] || allProducts.all
-  console.log('切换tab:', tab, '商品数量:', productList.value.length)
+function handleTabClick(index: number) {
+  activeTabIndex.value = index
 }
 
 // 商品点击事件
@@ -288,17 +285,10 @@ function handleBack() {
     </swiper>
 
     <!-- Tabs切换区域 -->
-    <div class="mt-[32rpx] flex flex-row items-center rounded-[16rpx] bg-white p-[8rpx]">
-      <div
-        v-for="tab in tabList"
-        :key="tab.id"
-        class="h-[72rpx] flex flex-1 cursor-pointer items-center justify-center rounded-[12rpx] transition-all duration-300"
-        :class="activeTab === tab.id ? 'bg-[#97493d] text-white' : 'text-[#666666]'"
-        @click="handleTabClick(tab)"
-      >
-        <span class="font-medium text-[28rpx]">{{ tab.name }}</span>
-      </div>
-    </div>
+    <Tabs
+      :tab-list="tabList"
+      @change="handleTabClick"
+    />
 
     <!-- 商品列表区域 -->
     <div class="mt-[24rpx] flex flex-col">
