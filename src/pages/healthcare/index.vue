@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import SearchBar from '@/components/SearchBar/SearchBar.vue'
+import SearchBar from '@/components/SearchBar/index.vue'
 import Tabs from '@/components/Tabs/index.vue'
 import SwiperList from './components/SwiperList.vue'
 
