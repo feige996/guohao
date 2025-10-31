@@ -27,7 +27,7 @@ function handleClick(index: number) {
       <!-- 激活状态底部横线 -->
       <div
         v-if="activeTabIndex === index"
-        class="absolute bottom-0 left-1/2 h-[6rpx] w-[100rpx] transform rounded-full bg-[#8C2303] -translate-x-1/2"
+        class="absolute bottom-0 left-1/2 h-[6rpx] w-[100rpx] transform rounded rounded-full bg-[#8C2303] -translate-x-1/2"
       />
     </div>
   </div>
