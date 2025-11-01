@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { App_HealthArticle } from '@/api/guohao-api/globals.d'
 import { useRequest } from 'alova/client'
-import SearchBar from '@/components/SearchBar/SearchBar.vue'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
 import { safeAreaInsets } from '@/utils/systemInfo'
@@ -107,7 +106,7 @@ const mockFavoriteArticles: Partial<App_HealthArticle>[] = [
     likeCount: 56,
     viewCount: 3421,
     publishTime: '2025-3-12',
-    tags: ['春季养生', '肝脏调理']
+    tags: ['春季养生', '肝脏调理'],
   },
   {
     id: 2,
@@ -118,7 +117,7 @@ const mockFavoriteArticles: Partial<App_HealthArticle>[] = [
     likeCount: 42,
     viewCount: 2156,
     publishTime: '2025-3-12',
-    tags: ['高血压', '中医治疗']
+    tags: ['高血压', '中医治疗'],
   },
   {
     id: 3,
@@ -129,8 +128,8 @@ const mockFavoriteArticles: Partial<App_HealthArticle>[] = [
     likeCount: 67,
     viewCount: 4213,
     publishTime: '2025-3-16',
-    tags: ['脾胃调理', '中医养生']
-  }
+    tags: ['脾胃调理', '中医养生'],
+  },
 ]
 
 // 过滤收藏的文章
@@ -164,9 +163,9 @@ function filterFavoriteArticles() {
   if (favoriteArticles.value.length === 0) {
     console.log('没有找到收藏的文章，使用模拟数据')
     favoriteArticles.value = mockFavoriteArticles as App_HealthArticle[]
-    
+
     // 将模拟文章保存到本地存储
-    mockFavoriteArticles.forEach(article => {
+    mockFavoriteArticles.forEach((article) => {
       if (article.id) {
         const favoriteKey = `article_favorite_${article.id}_${userId}`
         uni.setStorageSync(favoriteKey, 'true')
@@ -329,10 +328,10 @@ function goToArticleList() {
 // 页面初始化
 onMounted(() => {
   // 不检查登录状态，允许未登录用户查看模拟数据
-  
+
   // 直接调用filterFavoriteArticles显示模拟数据
   filterFavoriteArticles()
-  
+
   // 开始加载文章数据（如果需要）
   isLoading.value = true
   fetchAllArticles(1, pageSize.value).finally(() => {

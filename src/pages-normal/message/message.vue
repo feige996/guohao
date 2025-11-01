@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { App_Message } from '@/api/guohao-api/globals.d'
 import { useRequest } from 'alova/client'
-import SearchBar from '@/components/SearchBar/SearchBar.vue'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
 import { safeAreaInsets } from '@/utils/systemInfo'
