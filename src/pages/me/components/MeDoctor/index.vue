@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import DoctorCard from '@/components/DoctorCard/index.vue'
-import ToggleRole from '../ToggleRole.vue'
-import DoctorProfile from './Components/DoctorProfile.vue'
-import ServiceSetting from './Components/ServiceSetting.vue'
+import LoginAndLogout from '../LoginAndLogout/index.vue'
+import DoctorProfile from './components/DoctorProfile.vue'
+import ServiceSetting from './components/ServiceSetting.vue'
 
 // 模拟收入数据
 const incomeData = ref({
@@ -84,6 +84,10 @@ function handleIncomeClick() {
     <!-- 服务设置区域 -->
     <ServiceSetting />
 
-    <ToggleRole />
+    <!-- 登录登出按钮 -->
+    <LoginAndLogout />
+
+    <!-- 底部安全区域 -->
+    <view class="h-[32rpx]" />
   </view>
 </template>
