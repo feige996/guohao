@@ -25,31 +25,32 @@ function handleClick() {
     :class="id === 'smartDiagnosis' ? 'from-[#DBEAFE] to-[#BFDBFE]' : 'from-[#FCE7F3] to-[#FBCFE8]'"
     @click="handleClick"
   >
-    <view class="p-4">
-      <view class="mb-2 flex items-start justify-between">
-        <view>
+    <view class="p-3">
+      <view class="mb-1 flex items-center justify-between">
+        <view class="flex-1">
           <text
-            class="block text-lg font-bold"
-            :class="id === 'smartDiagnosis' ? 'text-[#2563EB]' : 'text-[#BE123C]'"
+            class="block text-base font-bold"
+            :class="id === 'smartDiagnosis' ? 'text-[#2B496B]' : 'text-[#5F2D31]'"
+            style="font-size: 12px;"
           >
             {{ title }}
           </text>
-          <text v-for="(subtitle, index) in subtitleList" :key="index" class="block text-sm text-gray-600">
+          <text v-for="(subtitle, index) in subtitleList" :key="index" class="block whitespace-nowrap text-sm" :class="id === 'smartDiagnosis' ? 'text-[#89A2BE]' : 'text-[#DBA5A9]' " style="font-size: 12px;">
             {{ subtitle }}
           </text>
         </view>
         <view
-          class="h-14 w-14 flex items-center justify-center rounded-full"
+          class="ml-2 h-12 w-12 flex items-center justify-center rounded-full"
           :class="id === 'smartDiagnosis' ? 'bg-[#93C5FD]' : 'bg-[#F9A8D4]'"
         >
-          <image v-if="icon" :src="icon" class="h-8 w-8" mode="aspectFit" />
+          <image v-if="icon" :src="icon" class="h-6 w-6" mode="aspectFit" />
           <!-- 图标占位 -->
         </view>
       </view>
 
-      <view class="mt-6 flex justify-end">
+      <view class="mt-2 flex justify-end">
         <button
-          class="rounded-full px-4 py-1.5 text-sm text-white font-medium" :class="[id === 'smartDiagnosis' ? 'bg-[#3B82F6]' : 'bg-[#EC4899]']"
+          class="rounded-full px-3 py-1 text-xs text-white font-medium" :class="[id === 'smartDiagnosis' ? 'bg-[#3B82F6]' : 'bg-[#EC4899]']"
         >
           {{ buttonText }}
         </button>
