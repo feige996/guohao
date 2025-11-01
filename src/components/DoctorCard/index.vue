@@ -1,6 +1,12 @@
 <script setup lang="ts">
+import type { AppUserInfo } from '@/api/guohao-api/globals'
+
+defineProps<{
+  doctorInfo?: AppUserInfo
+}>()
+
 // 模拟医生信息数据
-const doctorInfo = ref({
+const doctorInfoDemo = ref({
   name: '李浩',
   title: '主任医师',
   department: '内分泌科',
@@ -43,21 +49,21 @@ function handleRecordClick() {
       <!-- 医生信息 -->
       <view class="ml-4 flex-1">
         <view class="flex items-center gap-2">
-          <text class="text-xl text-#484848 font-bold">{{ doctorInfo.name }}</text>
-          <text class="text-base text-#999999">{{ doctorInfo.title }}</text>
+          <text class="text-xl text-#484848 font-bold">{{ doctorInfo?.nickName || '未登录' }}</text>
+          <text class="text-base text-#999999">{{ doctorInfoDemo?.title }}</text>
         </view>
         <view class="mt-1 flex items-center gap-1 text-xs">
-          <text class="rounded bg-#E7F0FF px-3 py-1 text-#69B0F7">{{ doctorInfo.department }}</text>
-          <text class="rounded bg-#EFEDFA px-3 py-1 text-#9F80EF">{{ doctorInfo.hospital }}</text>
+          <text class="rounded bg-#E7F0FF px-3 py-1 text-#69B0F7">{{ doctorInfoDemo.department }}</text>
+          <text class="rounded bg-#EFEDFA px-3 py-1 text-#9F80EF">{{ doctorInfoDemo.hospital }}</text>
         </view>
         <view class="mt-2 flex items-center gap-3">
           <view class="flex items-center">
             <text class="text-xs text-#999999">好评：</text>
-            <text class="text-sm text-#FD6302 font-bold">{{ doctorInfo.rating }}</text>
+            <text class="text-sm text-#FD6302 font-bold">{{ doctorInfoDemo.rating }}</text>
           </view>
           <view class="flex items-center">
             <text class="text-xs text-#999999">接诊：</text>
-            <text class="text-sm text-#FD6302 font-bold">{{ doctorInfo.consultationCount }}</text>
+            <text class="text-sm text-#FD6302 font-bold">{{ doctorInfoDemo.consultationCount }}</text>
           </view>
         </view>
       </view>

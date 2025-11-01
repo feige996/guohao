@@ -1,6 +1,8 @@
 <script lang="ts" setup>
+import { useUserStore } from '@/store'
 import StatisticCard from './components/StatisticCard.vue'
 
+const userStore = useUserStore()
 // 处理看诊安排点击
 function handleConsultationClick() {
   console.log('点击看诊安排')
@@ -20,7 +22,7 @@ function handleMessageClick() {
 <template>
   <view class="">
     <!-- 顶部医生信息卡片 -->
-    <DoctorCard />
+    <DoctorCard :doctor-info="userStore.userInfo" />
 
     <!-- 统计卡片区域 -->
     <StatisticCard />

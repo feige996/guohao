@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import DoctorCard from '@/components/DoctorCard/index.vue'
+import { useUserStore } from '@/store'
 import LoginAndLogout from '../LoginAndLogout/index.vue'
 import DoctorProfile from './components/DoctorProfile.vue'
 import ServiceSetting from './components/ServiceSetting.vue'
 
+const userStore = useUserStore()
 // 模拟收入数据
 const incomeData = ref({
   month: '50.00',
@@ -30,7 +32,7 @@ function handleIncomeClick() {
 <template>
   <view class="">
     <!-- 顶部医生信息卡片 -->
-    <DoctorCard />
+    <DoctorCard :doctor-info="userStore.userInfo" />
     <!-- 我的档案区域 -->
     <DoctorProfile />
 
