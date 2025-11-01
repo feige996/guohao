@@ -26,8 +26,8 @@ function handleClick() {
 
 <template>
   <view
-    class="overflow-hidden border border-gray-100 rounded-xl bg-white shadow-sm transition-all duration-300 active:scale-[0.98] hover:shadow-md"
-    :style="{ width: '351px', height: '106px' }"
+    class="w-full overflow-hidden border border-gray-100 rounded-xl bg-white shadow-sm transition-all duration-300 active:scale-[0.98] hover:shadow-md"
+    :style="{ height: '106px' }"
     @click="handleClick"
   >
     <view class="h-full flex items-center px-4">
