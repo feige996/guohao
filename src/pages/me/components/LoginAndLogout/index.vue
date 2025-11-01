@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { LOGIN_PAGE } from '@/router/config'
 import { useUserStore } from '@/store/userStore'
+import ToggleRole from './ToggleRole.vue'
 
 const userStore = useUserStore()
 // 使用storeToRefs解构userInfo
