@@ -10,7 +10,7 @@ defineProps<{
   <!-- 头像区域 -->
   <view class="ml-5 flex flex-row items-center gap-2">
     <img
-      class="h-15 w-15 flex-shrink-0 self-stretch rounded"
+      class="h-15 w-15 border-1 border-white rounded-full border-solid object-cover"
       :src="userInfo?.avatar || '/static/default-avatar.png'"
     >
     <view class="">

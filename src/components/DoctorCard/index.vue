@@ -42,8 +42,8 @@ function handleRecordClick() {
     <view class="flex items-center">
       <!-- 医生头像 -->
       <image
-        :src="doctorInfo.avatar"
-        class="h-20 w-20 border-2 border-white rounded-full border-solid object-cover"
+        :src="doctorInfo?.avatar || '/static/default-avatar.png'"
+        class="h-20 w-20 border-1 border-white rounded-full border-solid object-cover"
       />
 
       <!-- 医生信息 -->
