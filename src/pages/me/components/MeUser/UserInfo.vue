@@ -11,7 +11,7 @@ defineProps<{
   <view class="ml-5 flex flex-row items-center gap-2">
     <img
       class="h-15 w-15 flex-shrink-0 self-stretch rounded"
-      :src="userInfo?.avatar || ''"
+      :src="userInfo?.avatar || '/static/default-avatar.png'"
     >
     <view class="">
       <view class="text-[#333333] font-medium text-[36rpx] leading-[52rpx]">
