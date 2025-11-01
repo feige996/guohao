@@ -27,20 +27,20 @@ function handleClick(): void {
   <view
     class="mx-1 flex-1 overflow-hidden rounded-lg bg-gradient-to-br"
     :class="id === 'guide' ? 'from-[#E7F5FF] to-[#DBF0FF]' : 'from-[#FFFBEB] to-[#FEF3C7]'"
-    style="height: 172px;"
+    style="height: 132px;"
     @click="handleClick"
   >
     <view class="p-4">
-      <view class="mb-3 flex items-start justify-between">
-        <view>
+      <view class="flex items-start justify-between">
+        <view class="space-y-1">
           <text
             class="block text-lg font-bold"
-            :class="id === 'guide' ? 'text-[#85B7B0]' : 'text-[#BAA482]'"
-            style="font-size: 12px;"
+            :class="id === 'guide' ? 'text-[#456860]' : 'text-[#BAA482]'"
+            style="font-size: 12px;line-height: 1.2;"
           >
             {{ title }}
           </text>
-          <text v-for="(subtitle, index) in subtitleList" :key="index" class="block whitespace-nowrap text-sm" :class="id === 'guide' ? 'text-[#85B7B0]' : 'text-[#BAA482]'" style="font-size: 12px;">
+          <text v-for="(subtitle, index) in subtitleList" :key="index" class="block whitespace-nowrap text-sm" :class="id === 'guide' ? 'text-[#85B7B0]' : 'text-[#BAA482]'" style="font-size: 12px; line-height: 1.2;">
             {{ subtitle }}
           </text>
         </view>
@@ -53,10 +53,19 @@ function handleClick(): void {
         </view>
       </view>
 
-      <view class="features-container">
-        <view v-for="(func, index) in functions" :key="index" class="mb-1.5 flex items-center">
-          <text :class="id === 'guide' ? 'text-[#85B7B0]' : 'text-[#BAA482]'" class="mr-1.5 text-xs">✓</text>
-          <text class="text-sm text-[#909090]" style="font-size: 12px;">{{ func }}</text>
+      <view class="relative from-white to-white/20 bg-gradient-to-br px-2 py-2 -ml-2 -mr-2 -mt-2">
+        <view class="features-container mt--1.5">
+          <view v-for="(func, index) in functions" :key="index" class="mb-1 flex items-center">
+            <text :class="id === 'guide' ? 'text-[#85B7B0]' : 'text-[#BAA482]'" class="mr-1.5 text-xs">✓</text>
+            <text class="text-sm text-[#909090]" style="font-size: 12px; line-height: 1.2;">{{ func }}</text>
+          </view>
+        </view>
+        <!-- 右侧按钮 -->
+        <view
+          class="absolute right-2 top-1/2 h-5 w-5 flex transform items-center justify-center rounded-full -translate-y-1/2"
+          :class="id === 'guide' ? 'bg-[#85B7B0]' : 'bg-[#BAA482]'"
+        >
+          <text class="text-xs text-white">›</text>
         </view>
       </view>
 

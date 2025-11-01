@@ -39,21 +39,31 @@ function handleClick() {
             {{ subtitle }}
           </text>
         </view>
-        <view
-          class="ml-2 h-12 w-12 flex items-center justify-center rounded-full"
-          :class="id === 'smartDiagnosis' ? 'bg-[#93C5FD]' : 'bg-[#F9A8D4]'"
-        >
-          <image v-if="icon" :src="icon" class="h-6 w-6" mode="aspectFit" />
-          <!-- 图标占位 -->
+        <view class="ml-2 h-12 w-15 flex items-center justify-center">
+          <view
+            class="ml-2 mr-4 h-20 w-25 flex items-center justify-center rounded-full"
+            :class="id === 'smartDiagnosis' ? 'bg-[#93C5FD]' : 'bg-[#F9A8D4]'"
+          >
+            <!-- <image v-if="icon" :src="icon" class="h-6 w-6" mode="aspectFit" /> -->
+            <!-- 图标占位 -->
+            <!-- 椭圆形按钮 -->
+            <view
+              class="h-10 w-20 flex items-center justify-center rounded-full text-white font-medium"
+              :class="id === 'smartDiagnosis' ? 'bg-[#70B9C1] border border-[#60A5FA]' : 'bg-[#C37971] border border-[#F472B6]'"
+              style="font-size: 12px;"
+            >
+              {{ buttonText || '开始自测' }}
+            </view>
+          </view>
         </view>
-      </view>
 
-      <view class="mt-2 flex justify-end">
+      <!-- <view class="mt-2 flex justify-end">
         <button
           class="rounded-full px-3 py-1 text-xs text-white font-medium" :class="[id === 'smartDiagnosis' ? 'bg-[#3B82F6]' : 'bg-[#EC4899]']"
         >
           {{ buttonText }}
         </button>
+      </view> -->
       </view>
     </view>
   </view>
