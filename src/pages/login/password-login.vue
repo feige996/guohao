@@ -1,14 +1,9 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'wot-design-uni/components/wd-form/types'
-import { onLoad } from '@dcloudio/uni-app'
 import { useRequest } from 'alova/client'
 import { sm2 } from 'sm-crypto'
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
-// import { tabbarList } from '@/tabbar/config'
-import { isPageTabbar, tabbarList } from '@/tabbar/store'
-import { ensureDecodeURIComponent } from '@/utils'
-import { parseUrlToObj } from '@/utils/index'
 
 definePage({
   name: 'password-login',
@@ -19,8 +14,6 @@ definePage({
   },
 })
 
-// const router = useRouter()
-
 // 表单数据
 const formData = reactive({
   account: '13927292525',
@@ -30,9 +23,6 @@ const formData = reactive({
 
 // 表单引用
 const formRef = ref<FormInstance>()
-
-// 全局提示store
-// const globalToast = useGlobalToast()
 
 // 表单验证规则
 const rules: FormRules = {
@@ -106,26 +96,8 @@ const {
     await _userStore.saveLoginResult(event.data as any)
 
     // 动态导入并初始化 TUIKit
-    setTimeout(async () => {
-      if (!_userStore.isLoggedIn) {
-        console.log('用户未登录，跳过 TUIKit 初始化')
-        return
-      }
-
-      try {
-      // 动态导入 TUIKit 模块
-        const { initTUIKitAuto } = await import('@/utils/tuikit')
-        await initTUIKitAuto()
-        console.log('TUIKit 动态加载并初始化成功')
-      }
-      catch (error) {
-        console.error('TUIKit 动态加载失败:', error)
-        uni.showToast({
-          title: '即时通讯初始化失败',
-          icon: 'none',
-          duration: 2000,
-        })
-      }
+    setTimeout(() => {
+      loadIm()
     }, 2000) // 延迟 2 秒，确保首屏已渲染
   }
 
@@ -133,6 +105,29 @@ const {
     delta: 1,
   })
 })
+
+async function loadIm() {
+  if (!_userStore.isLoggedIn) {
+    console.log('用户未登录，跳过 TUIKit 初始化')
+    return
+  }
+
+  // 先注释掉，TODO：待需要联调再放开
+  // try {
+  //   // 动态导入 TUIKit 模块
+  //   const { initTUIKitAuto } = await import('@/utils/tuikit')
+  //   await initTUIKitAuto()
+  //   console.log('TUIKit 动态加载并初始化成功')
+  // }
+  // catch (error) {
+  //   console.error('TUIKit 动态加载失败:', error)
+  //   uni.showToast({
+  //     title: '即时通讯初始化失败',
+  //     icon: 'none',
+  //     duration: 2000,
+  //   })
+  // }
+}
 
 // 登录处理函数
 async function handleLogin() {
