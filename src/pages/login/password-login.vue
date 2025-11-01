@@ -74,20 +74,6 @@ const rules: FormRules = {
   ],
 }
 
-const redirectUrl = ref('')
-
-// 页面加载
-onLoad((options) => {
-  console.log('login options: ', options)
-  if (options.redirect) {
-    redirectUrl.value = ensureDecodeURIComponent(options.redirect)
-  }
-  else {
-    redirectUrl.value = tabbarList.value[0].pagePath
-  }
-  console.log('redirectUrl.value: ', redirectUrl.value)
-})
-
 // 用户store
 const _userStore = useUserStore()
 
@@ -143,52 +129,9 @@ const {
     }, 2000) // 延迟 2 秒，确保首屏已渲染
   }
 
-  let path = redirectUrl.value
-  if (!path.startsWith('/')) {
-    path = `/${path}`
-  }
-
-  const foundTabbarItem = tabbarList.value.find(item => item.pagePath === path)
-  path = foundTabbarItem ? path : `${tabbarList.value[0].pagePath}`
-
-  const { path: _path, query } = parseUrlToObj(path)
-  console.log('_path:', _path, 'query:', query, 'path:', path)
-  console.log('isPageTabbar(_path):', isPageTabbar(_path))
-  if (isPageTabbar(_path)) {
-    // 经过我的测试 switchTab 不能带 query 参数, 不管是放到 url  还是放到 query ,
-    // 最后跳转过去的时候都会丢失 query 信息
-    uni.switchTab({
-      url: path,
-    })
-    // uni.switchTab({
-    //   url: _path,
-    //   query,
-    // })
-  }
-  else {
-    console.log('redirectUrl.value:', path)
-    console.log(tabbarList.value)
-
-    // 在 tabbarList 中查找 path，如果不存在则返回第一个项
-    // const targetPath = _path.startsWith('/') ? _path.substring(1) : _path
-    // const foundTabbarItem = tabbarList.value.find(item => item.pagePath === targetPath)
-    // const finalPath = foundTabbarItem ? path : `${tabbarList.value[0].pagePath}`
-
-    console.log('redirectTo:', path)
-    uni.redirectTo({
-      url: path,
-    })
-  }
-
-  // 登录成功提示
-  // globalToast.success('登录成功')
-
-  setTimeout(() => {
-    // 检查用户默认首页是否存在，如果不存在则使用默认页面
-    // const defaultPage = _userStore.userDefaultIndexPage || '/pages/tabbar/index_Normal'
-    // console.log(_userStore.userDefaultIndexPage)
-    // router.pushTab(defaultPage)
-  }, 50)
+  uni.navigateBack({
+    delta: 1,
+  })
 })
 
 // 登录处理函数
