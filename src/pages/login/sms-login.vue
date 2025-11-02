@@ -204,9 +204,6 @@ const {
     })
   }
 
-  // 登录成功提示
-  // globalToast.success('登录成功')
-
   setTimeout(() => {
     // 检查用户默认首页是否存在，如果不存在则使用默认页面
     // const defaultPage = userStore.userDefaultIndexPage || '/pages/tabbar/index_Normal'
@@ -217,8 +214,14 @@ const {
 
 // 发送验证码处理函数
 async function handleSendCode() {
-  if (!canSendCode.value || sendCodeLoading.value)
+  if (!canSendCode.value) {
+    globalToast.error('请输入正确的手机号')
     return
+  }
+  if (sendCodeLoading.value) {
+    globalToast.error('请稍后再试')
+    return
+  }
 
   try {
     // 验证手机号
@@ -343,17 +346,19 @@ function handleClickLeft() {
             <wd-input
               v-model="formData.code" type="number" placeholder="请输入验证码" no-border clearable
               class="flex-1" :adjust-position="false"
-            />
-            <wd-button
-              :disabled="!canSendCode"
-              :loading="sendCodeLoading"
-              type="text"
-              size="small"
-              class="ml-20rpx text-[#3ba662]"
-              @click="handleSendCode"
             >
-              {{ countdownText }}
-            </wd-button>
+              <template #suffix>
+                <wd-button
+                  :loading="sendCodeLoading"
+                  type="text"
+                  size="medium"
+                  class="ml-20rpx text-[#3ba662]"
+                  @click="handleSendCode"
+                >
+                  {{ countdownText }}
+                </wd-button>
+              </template>
+            </wd-input>
           </view>
         </wd-form-item>
 
