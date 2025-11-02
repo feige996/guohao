@@ -7,14 +7,13 @@ import { useUserStore } from '@/store/userStore'
 import { isPageTabbar, tabbarList } from '@/tabbar/store'
 import { ensureDecodeURIComponent } from '@/utils'
 import { parseUrlToObj } from '@/utils/index'
-import PrivacyCheckbox from './components/PrivacyCheckbox.vue'
 import Welcome from './components/Welcome.vue'
 
 definePage({
   name: 'sms-login',
   layout: 'default',
   style: {
-    navigationStyle: 'custom',
+    navigationStyle: 'default',
     navigationBarTitleText: '验证码登录',
   },
 })
@@ -318,8 +317,6 @@ function handleClickLeft() {
   <view
     class="px-3 py-4"
   >
-    <wd-navbar title="" left-text="返回" left-arrow :bordered="false" custom-style="background-color: transparent !important;" @click-left="handleClickLeft" />
-
     <!-- 标题区域 -->
     <Welcome />
 
@@ -361,7 +358,23 @@ function handleClickLeft() {
         </wd-form-item>
 
         <!-- 协议勾选 -->
-        <PrivacyCheckbox />
+        <wd-form-item prop="pactChecked" class="mt-60rpx rounded-lg">
+          <wd-checkbox
+            v-model="formData.pactChecked" shape="circle" checked-color="#3ba662"
+            @change="handlePactChange"
+          >
+            <view class="flex items-center">
+              <view>我已阅读并同意</view>
+              <view class="text-[#3ba662]" @click="handleToUserAgreement">
+                《用户协议》
+              </view>
+              <view>和</view>
+              <view class="text-[#3ba662]" @click="handleToPrivacyPolicy">
+                《隐私协议》
+              </view>
+            </view>
+          </wd-checkbox>
+        </wd-form-item>
       </wd-form>
 
       <view class="mb-3">
