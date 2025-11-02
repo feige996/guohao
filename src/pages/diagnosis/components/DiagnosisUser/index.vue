@@ -57,14 +57,14 @@ function handleDiagnosisCardClick(data: DiagnosisCardData) {
   // 在线问诊卡片点击跳转到在线问诊组件
   if (data.id === 'guide') {
     uni.navigateTo({
-      url: '/pages-normal/wenzhenCard/online-consultation/index',
+      url: '/pages/YwenzhenType/online-consultation/index',
     })
   }
   else if (data.id === 'consult') {
     console.log('跳转到导诊顾问页面')
     // 导诊顾问卡片点击跳转到导诊顾问页面
     uni.navigateTo({
-      url: '/pages-normal/wenzhenCard/consultation-guide/index',
+      url: '/pages/YwenzhenType/consultation-guide/index',
     })
   }
 }
@@ -75,13 +75,13 @@ function handleServiceCardClick(data: ServiceCardData) {
   // 智慧自诊卡片点击跳转到智慧自诊页面
   if (data.id === 'smartDiagnosis') {
     uni.navigateTo({
-      url: '/pages-normal/wenzhenCard/smart-self-diagnosis/index',
+      url: '/pages/YwenzhenType/smart-self-diagnosis/index',
     })
   }
   // 购药服务卡片点击跳转到购药服务页面
   else if (data.id === 'medicine') {
     uni.navigateTo({
-      url: '/pages-normal/wenzhenCard/medication-purchase-service/index',
+      url: '/pages/YwenzhenType/medication-purchase-service/index',
     })
   }
 }

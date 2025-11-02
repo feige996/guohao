@@ -13,7 +13,7 @@ function handleBack() {
 function handleOnlineService() {
   // 跳转到在线客服聊天页面
   uni.navigateTo({
-    url: '/pages-normal/wenzhenCard/consultation-guide/chat',
+    url: '/pages/YwenzhenType/consultation-guide/chat',
   })
 }
 
@@ -21,7 +21,7 @@ function handleOnlineService() {
 function handleWechatService() {
   // 跳转到微信客服页面
   uni.navigateTo({
-    url: '/pages-normal/wenzhenCard/consultation-guide/wechat-service',
+    url: '/pages/YwenzhenType/consultation-guide/wechat-service',
   })
 }
 
@@ -29,7 +29,7 @@ function handleWechatService() {
 function handleMessage() {
   // 跳转到留言确认页面
   uni.navigateTo({
-    url: '/pages-normal/wenzhenCard/consultation-guide/message-confirm',
+    url: '/pages/YwenzhenType/consultation-guide/message-confirm',
   })
 }
 </script>
