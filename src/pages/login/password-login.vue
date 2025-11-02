@@ -4,6 +4,7 @@ import { useRequest } from 'alova/client'
 import { sm2 } from 'sm-crypto'
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
+import Welcome from './components/Welcome.vue'
 
 definePage({
   name: 'password-login',
@@ -198,22 +199,18 @@ function handleClickLeft() {
 
 <template>
   <view
-    class="min-h-screen flex flex-col justify-between from-[rgba(255,250,235,1)] via-[rgba(227,255,224,0)] to-white bg-gradient-to-b"
+    class="px-3 py-4"
   >
     <wd-navbar title="" left-text="返回" left-arrow :bordered="false" custom-style="background-color: transparent !important;" @click-left="handleClickLeft" />
     <!-- 标题区域 -->
-    <view class="pb-130rpx pt-220rpx">
-      <view class="pl-64rpx text-48rpx text-[#383838] font-bold">
-        Hello！<br>欢迎来到国浩中医
-      </view>
-    </view>
+    <Welcome />
 
     <!-- 表单区域 -->
     <view class="flex-1 px-64rpx">
       <!-- WotUI表单 -->
       <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast">
         <!-- 手机号输入 -->
-        <wd-form-item prop="account" class="mb-48rpx">
+        <wd-form-item prop="account" class="mb-48rpx rounded-lg">
           <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
             <view class="mr-20rpx border-r border-[#cdcdcd] pr-20rpx text-28rpx text-[#666]">
               +86
@@ -226,7 +223,7 @@ function handleClickLeft() {
         </wd-form-item>
 
         <!-- 密码输入 -->
-        <wd-form-item prop="password">
+        <wd-form-item prop="password" class="mb-48rpx rounded-lg">
           <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
             <wd-input
               v-model="formData.password" type="text" placeholder="请输入密码" no-border clearable show-password
@@ -236,18 +233,18 @@ function handleClickLeft() {
         </wd-form-item>
 
         <!-- 协议勾选 -->
-        <wd-form-item prop="pactChecked" class="mt-60rpx">
-          <view class="flex items-center justify-center text-24rpx">
+        <wd-form-item prop="pactChecked" class="mt-60rpx rounded-lg">
+          <view class="flex items-center text-24rpx">
             <wd-checkbox
               v-model="formData.pactChecked" shape="circle" checked-color="#3ba662"
               @change="handlePactChange"
             />
             <view class="ml-10rpx">
-              我已阅读并同意
+              <text>我已阅读并同意</text>
               <text class="text-[#3ba662]" @click="handleToUserAgreement">
                 《用户协议》
               </text>
-              和
+              <text> 和</text>
               <text class="text-[#3ba662]" @click="handleToPrivacyPolicy">
                 《隐私协议》
               </text>
