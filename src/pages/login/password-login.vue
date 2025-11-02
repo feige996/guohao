@@ -168,7 +168,7 @@ function handleForgetPassword() {
 
 // 验证码登录
 function handleSmsLogin() {
-  uni.navigateTo({
+  uni.redirectTo({
     url: '/pages/login/sms-login',
   })
 }
@@ -201,7 +201,7 @@ function handleToPrivacyPolicy() {
     <Welcome />
 
     <!-- 表单区域 -->
-    <view class="flex-1 px-64rpx">
+    <view class="flex-1 px-3">
       <!-- WotUI表单 -->
       <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast">
         <!-- 手机号输入 -->
@@ -229,22 +229,21 @@ function handleToPrivacyPolicy() {
 
         <!-- 协议勾选 -->
         <wd-form-item prop="pactChecked" class="mt-60rpx rounded-lg">
-          <view class="flex items-center text-24rpx">
-            <wd-checkbox
-              v-model="formData.pactChecked" shape="circle" checked-color="#3ba662"
-              @change="handlePactChange"
-            />
-            <view class="ml-10rpx">
-              <text>我已阅读并同意</text>
-              <text class="text-[#3ba662]" @click="handleToUserAgreement">
+          <wd-checkbox
+            v-model="formData.pactChecked" shape="circle" checked-color="#3ba662"
+            @change="handlePactChange"
+          >
+            <view class="flex items-center">
+              <view>我已阅读并同意</view>
+              <view class="text-[#3ba662]" @click="handleToUserAgreement">
                 《用户协议》
-              </text>
-              <text> 和</text>
-              <text class="text-[#3ba662]" @click="handleToPrivacyPolicy">
+              </view>
+              <view>和</view>
+              <view class="text-[#3ba662]" @click="handleToPrivacyPolicy">
                 《隐私协议》
-              </text>
+              </view>
             </view>
-          </view>
+          </wd-checkbox>
         </wd-form-item>
       </wd-form>
 

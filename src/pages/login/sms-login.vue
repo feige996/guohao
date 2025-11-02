@@ -13,7 +13,7 @@ definePage({
   name: 'sms-login',
   layout: 'default',
   style: {
-    navigationStyle: 'custom',
+    navigationStyle: 'default',
     navigationBarTitleText: '验证码登录',
   },
 })
@@ -204,9 +204,6 @@ const {
     })
   }
 
-  // 登录成功提示
-  // globalToast.success('登录成功')
-
   setTimeout(() => {
     // 检查用户默认首页是否存在，如果不存在则使用默认页面
     // const defaultPage = userStore.userDefaultIndexPage || '/pages/tabbar/index_Normal'
@@ -217,8 +214,14 @@ const {
 
 // 发送验证码处理函数
 async function handleSendCode() {
-  if (!canSendCode.value || sendCodeLoading.value)
+  if (!canSendCode.value) {
+    globalToast.error('请输入正确的手机号')
     return
+  }
+  if (sendCodeLoading.value) {
+    globalToast.error('请稍后再试')
+    return
+  }
 
   try {
     // 验证手机号
@@ -275,7 +278,7 @@ function handlePasswordLogin() {
 
 // 忘记密码
 function handleForgetPassword() {
-  uni.navigateTo({
+  uni.redirectTo({
     url: '/pages/login/forget-password',
   })
 }
@@ -317,17 +320,15 @@ function handleClickLeft() {
   <view
     class="px-3 py-4"
   >
-    <wd-navbar title="" left-text="返回" left-arrow :bordered="false" custom-style="background-color: transparent !important;" @click-left="handleClickLeft" />
-
     <!-- 标题区域 -->
     <Welcome />
 
     <!-- 表单区域 -->
-    <view class="flex-1 px-64rpx">
+    <view class="flex-1 px-3">
       <!-- WotUI表单 -->
       <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast">
         <!-- 手机号输入 -->
-        <wd-form-item prop="mobile" class="mb-48rpx">
+        <wd-form-item prop="mobile" class="mb-48rpx rounded-lg">
           <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
             <view class="mr-20rpx border-r border-[#cdcdcd] pr-20rpx text-28rpx text-[#666]">
               +86
@@ -340,43 +341,44 @@ function handleClickLeft() {
         </wd-form-item>
 
         <!-- 验证码输入 -->
-        <wd-form-item prop="code">
+        <wd-form-item prop="code" class="mb-48rpx rounded-lg">
           <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
             <wd-input
               v-model="formData.code" type="number" placeholder="请输入验证码" no-border clearable
               class="flex-1" :adjust-position="false"
-            />
-            <wd-button
-              :disabled="!canSendCode"
-              :loading="sendCodeLoading"
-              type="text"
-              size="small"
-              class="ml-20rpx text-[#3ba662]"
-              @click="handleSendCode"
             >
-              {{ countdownText }}
-            </wd-button>
+              <template #suffix>
+                <wd-button
+                  :loading="sendCodeLoading"
+                  type="text"
+                  size="medium"
+                  class="ml-20rpx text-[#3ba662]"
+                  @click="handleSendCode"
+                >
+                  {{ countdownText }}
+                </wd-button>
+              </template>
+            </wd-input>
           </view>
         </wd-form-item>
 
         <!-- 协议勾选 -->
-        <wd-form-item prop="pactChecked" class="mt-60rpx">
-          <view class="flex items-center justify-center text-24rpx">
-            <wd-checkbox
-              v-model="formData.pactChecked" shape="circle" checked-color="#3ba662"
-              @change="handlePactChange"
-            />
-            <view class="ml-10rpx">
-              我已阅读并同意
-              <text class="text-[#3ba662]" @click="handleToUserAgreement">
+        <wd-form-item prop="pactChecked" class="mt-60rpx rounded-lg">
+          <wd-checkbox
+            v-model="formData.pactChecked" shape="circle" checked-color="#3ba662"
+            @change="handlePactChange"
+          >
+            <view class="flex items-center">
+              <view>我已阅读并同意</view>
+              <view class="text-[#3ba662]" @click="handleToUserAgreement">
                 《用户协议》
-              </text>
-              和
-              <text class="text-[#3ba662]" @click="handleToPrivacyPolicy">
+              </view>
+              <view>和</view>
+              <view class="text-[#3ba662]" @click="handleToPrivacyPolicy">
                 《隐私协议》
-              </text>
+              </view>
             </view>
-          </view>
+          </wd-checkbox>
         </wd-form-item>
       </wd-form>
 
