@@ -54,15 +54,36 @@ const serviceCardList: ServiceCardData[] = [{
 // 处理诊断卡片点击
 function handleDiagnosisCardClick(data: DiagnosisCardData) {
   console.log('点击了诊断卡片:', data.id, data.title)
-  // 这里可以添加具体的路由跳转或功能逻辑
-  // 例如: navigateTo(`/pages/consult/${data.id}`)
+  // 在线问诊卡片点击跳转到在线问诊组件
+  if (data.id === 'guide') {
+    uni.navigateTo({
+      url: '/pages-normal/wenzhenCard/online-consultation/index',
+    })
+  }
+  else if (data.id === 'consult') {
+    console.log('跳转到导诊顾问页面')
+    // 导诊顾问卡片点击跳转到导诊顾问页面
+    uni.navigateTo({
+      url: '/pages-normal/wenzhenCard/consultation-guide/index',
+    })
+  }
 }
 
 // 处理服务卡片点击
 function handleServiceCardClick(data: ServiceCardData) {
   console.log('点击了服务卡片:', data.id, data.title)
-  // 这里可以添加具体的路由跳转或功能逻辑
-  // 例如: navigateTo(`/pages/service/${data.id}`)
+  // 智慧自诊卡片点击跳转到智慧自诊页面
+  if (data.id === 'smartDiagnosis') {
+    uni.navigateTo({
+      url: '/pages-normal/wenzhenCard/smart-self-diagnosis/index',
+    })
+  }
+  // 购药服务卡片点击跳转到购药服务页面
+  else if (data.id === 'medicine') {
+    uni.navigateTo({
+      url: '/pages-normal/wenzhenCard/medication-purchase-service/index',
+    })
+  }
 }
 </script>
 

@@ -184,9 +184,9 @@ function handleHealthcareCardClick(config: HealthcareCardConfig) {
   switch (config.id) {
     case 'guide':
       // 处理导诊顾问点击逻辑
-      console.log('跳转到导诊顾问页面，URL: /pages/normal/consultation-guide/index')
+      console.log('跳转到导诊顾问页面，URL: /pages-normal/wenzhenCard/consultation-guide/index')
       const guideResult = uni.navigateTo({
-        url: '/pages/normal/consultation-guide/index',
+        url: '/pages-normal/wenzhenCard/consultation-guide/index',
         success: () => console.log('导诊顾问页面跳转成功'),
         fail: err => console.error('导诊顾问页面跳转失败:', err),
       })
@@ -194,9 +194,9 @@ function handleHealthcareCardClick(config: HealthcareCardConfig) {
       break
     case 'consult':
       // 处理在线问诊点击逻辑
-      console.log('跳转到在线问诊页面，URL: /pages/normal/online-consultation/index')
+      console.log('跳转到在线问诊页面，URL: /pages-normal/wenzhenCard/online-consultation/index')
       const consultResult = uni.navigateTo({
-        url: '/pages/normal/online-consultation/index',
+        url: '/pages-normal/wenzhenCard/online-consultation/index',
         success: () => console.log('在线问诊页面跳转成功'),
         fail: err => console.error('在线问诊页面跳转失败:', err),
       })
@@ -213,9 +213,9 @@ function handleMedicalServiceCardClick(card: MedicalServiceCardConfig) {
 
   switch (card.action) {
     case 'goToMedicineService':
-      console.log('跳转到购药服务页面，URL: /pages/normal/medication-purchase-service/index')
+      console.log('跳转到购药服务页面，URL: /pages-normal/wenzhenCard/medication-purchase-service/index')
       const medicineResult = uni.navigateTo({
-        url: '/pages/normal/medication-purchase-service/index',
+        url: '/pages-normal/wenzhenCard/medication-purchase-service/index',
         success: () => console.log('购药服务页面跳转成功'),
         fail: err => console.error('购药服务页面跳转失败:', err),
       })
@@ -223,7 +223,7 @@ function handleMedicalServiceCardClick(card: MedicalServiceCardConfig) {
       break
     case 'goToSmartDiagnosis':
       console.log('跳转到智慧自诊页面')
-      uni.navigateTo({ url: '/pages/normal/smart-self-diagnosis/index' })
+      uni.navigateTo({ url: '/pages-normal/wenzhenCard/smart-self-diagnosis/index' })
       break
     default:
       console.log('未知操作:', card.action)
