@@ -168,7 +168,7 @@ function handleForgetPassword() {
 
 // 验证码登录
 function handleSmsLogin() {
-  uni.navigateTo({
+  uni.redirectTo({
     url: '/pages/login/sms-login',
   })
 }
@@ -195,13 +195,13 @@ function handleToPrivacyPolicy() {
 
 <template>
   <view
-    class="px-0 py-4"
+    class="px-3 py-4"
   >
     <!-- 标题区域 -->
     <Welcome />
 
     <!-- 表单区域 -->
-    <view class="flex-1 px-6">
+    <view class="flex-1 px-3">
       <!-- WotUI表单 -->
       <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast">
         <!-- 手机号输入 -->

@@ -275,7 +275,7 @@ function handlePasswordLogin() {
 
 // 忘记密码
 function handleForgetPassword() {
-  uni.navigateTo({
+  uni.redirectTo({
     url: '/pages/login/forget-password',
   })
 }
@@ -321,9 +321,9 @@ function handleClickLeft() {
     <Welcome />
 
     <!-- 表单区域 -->
-    <view class="flex-1 px-6">
+    <view class="flex-1 px-3">
       <!-- WotUI表单 -->
-      <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast" label-position="left">
+      <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast">
         <!-- 手机号输入 -->
         <wd-form-item prop="mobile" class="mb-48rpx rounded-lg">
           <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
