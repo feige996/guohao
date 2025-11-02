@@ -10,7 +10,7 @@ definePage({
   name: 'password-login',
   layout: 'default',
   style: {
-    navigationStyle: 'custom',
+    navigationStyle: 'default',
     navigationBarTitleText: '密码登录',
   },
 })
@@ -191,17 +191,12 @@ function handleToPrivacyPolicy() {
     url: '/pages/system/agreement/privacy-policy',
   })
 }
-
-function handleClickLeft() {
-  uni.navigateBack()
-}
 </script>
 
 <template>
   <view
     class="px-3 py-4"
   >
-    <wd-navbar title="" left-text="返回" left-arrow :bordered="false" custom-style="background-color: transparent !important;" @click-left="handleClickLeft" />
     <!-- 标题区域 -->
     <Welcome />
 
