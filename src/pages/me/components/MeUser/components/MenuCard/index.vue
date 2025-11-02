@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 // 菜单项配置
 const list = [
-  { title: '意见反馈', desc: '欢迎提供改进意见', path: '/pages/normal/me/feedback' },
+  { title: '意见反馈', desc: '欢迎提供改进意见', path: '/pages-normal/wodeCard/shezhiCard/feedback' },
   {
     title: '在线客服',
     desc: '24小时在线',

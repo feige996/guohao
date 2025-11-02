@@ -36,20 +36,21 @@ function handleServiceClick(title: string) {
   if (title === '健康档案') {
     // 跳转到健康档案详情页面
     uni.navigateTo({
-      url: '/pages/normal/me/HealthRecordDetail',
+      url: '/pages-normal/wodeCard/fuwuCard/HealthRecordModal',
     })
   }
   else if (title === '问诊记录') {
     // 跳转到问诊记录页面
     uni.navigateTo({
-      url: '/pages/normal/me/components/ServiceCard/ConsultationRecord',
+      url: '/pages-normal/wodeCard/fuwuCard/ConsultationRecord',
     })
   }
   else if (title === '地址管理') {
     uni.navigateTo({
-      url: '/pages/normal/me/components/ServiceCard/AddressManagement',
+      url: '/pages-normal/wodeCard/fuwuCard/AddressManagement',
     })
   }
+
   else if (title === '商品订单') {
     // 跳转到购物车页面
     uni.navigateTo({

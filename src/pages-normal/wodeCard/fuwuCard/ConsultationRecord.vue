@@ -131,10 +131,9 @@ function handleBack() {
   uni.navigateBack()
 }
 
-// 切换到健康档案
+// 跳转到健康档案页面
 function switchToHealthRecord() {
-  // 这里可以导航到健康档案页面
-  console.log('切换到健康档案')
+  uni.navigateTo({ url: '/pages-normal/wodeCard/fuwuCard/HealthRecordModal' })
 }
 
 // 组件挂载
@@ -175,7 +174,7 @@ onMounted(() => {
     <!-- 标签切换 -->
     <view class="flex bg-white px-4 pt-4">
       <view class="flex-1" @click="switchToHealthRecord">
-        <view class="w-full border-b-2 border-gray-200 pb-2 text-center text-sm text-gray-500">健康档案</view>
+        <view class="w-full border-b-2 border-blue-500 pb-2 text-center text-sm text-blue-500 font-medium">健康档案</view>
       </view>
       <view class="flex-1">
         <view class="w-full border-b-2 border-blue-500 pb-2 text-center text-sm text-blue-500 font-medium">问诊记录</view>
