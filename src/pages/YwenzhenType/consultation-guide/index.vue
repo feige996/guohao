@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-// 导航栏标题
-const pageTitle = ref('导诊顾问')
+definePage({
+  name: 'consultation-guide',
+  layout: 'default',
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '导诊顾问',
+  },
+})
 
 // 处理返回按钮点击
 function handleBack() {
@@ -35,16 +39,8 @@ function handleMessage() {
 </script>
 
 <template>
-  <div class="min-h-screen from-[#f6e2d3] to-[#f9f0e6] bg-gradient-to-b">
+  <div class="">
     <!-- 导航栏 -->
-    <div class="relative h-[44px] flex items-center justify-center bg-white px-[16px]">
-      <div class="absolute left-[16px] z-10 flex items-center justify-center p-[8px] -ml-[8px]" @click="handleBack">
-        <uni-icons type="back" size="24" color="#333333" />
-      </div>
-      <h1 class="text-[18px] text-[#333333] font-medium">
-        {{ pageTitle }}
-      </h1>
-    </div>
 
     <!-- 页面内容 -->
     <div class="p-[16px]">
