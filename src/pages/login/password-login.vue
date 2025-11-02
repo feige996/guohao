@@ -4,6 +4,7 @@ import { useRequest } from 'alova/client'
 import { sm2 } from 'sm-crypto'
 import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
+import PrivacyCheckbox from './components/PrivacyCheckbox.vue'
 import Welcome from './components/Welcome.vue'
 
 definePage({
@@ -195,13 +196,13 @@ function handleToPrivacyPolicy() {
 
 <template>
   <view
-    class="px-3 py-4"
+    class="px-0 py-4"
   >
     <!-- 标题区域 -->
     <Welcome />
 
     <!-- 表单区域 -->
-    <view class="flex-1 px-64rpx">
+    <view class="flex-1 px-6">
       <!-- WotUI表单 -->
       <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast">
         <!-- 手机号输入 -->
@@ -228,24 +229,7 @@ function handleToPrivacyPolicy() {
         </wd-form-item>
 
         <!-- 协议勾选 -->
-        <wd-form-item prop="pactChecked" class="mt-60rpx rounded-lg">
-          <view class="flex items-center text-24rpx">
-            <wd-checkbox
-              v-model="formData.pactChecked" shape="circle" checked-color="#3ba662"
-              @change="handlePactChange"
-            />
-            <view class="ml-10rpx">
-              <text>我已阅读并同意</text>
-              <text class="text-[#3ba662]" @click="handleToUserAgreement">
-                《用户协议》
-              </text>
-              <text> 和</text>
-              <text class="text-[#3ba662]" @click="handleToPrivacyPolicy">
-                《隐私协议》
-              </text>
-            </view>
-          </view>
-        </wd-form-item>
+        <PrivacyCheckbox />
       </wd-form>
 
       <view class="mb-3">

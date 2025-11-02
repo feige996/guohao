@@ -7,6 +7,7 @@ import { useUserStore } from '@/store/userStore'
 import { isPageTabbar, tabbarList } from '@/tabbar/store'
 import { ensureDecodeURIComponent } from '@/utils'
 import { parseUrlToObj } from '@/utils/index'
+import PrivacyCheckbox from './components/PrivacyCheckbox.vue'
 import Welcome from './components/Welcome.vue'
 
 definePage({
@@ -323,11 +324,11 @@ function handleClickLeft() {
     <Welcome />
 
     <!-- 表单区域 -->
-    <view class="flex-1 px-64rpx">
+    <view class="flex-1 px-6">
       <!-- WotUI表单 -->
-      <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast">
+      <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast" label-position="left">
         <!-- 手机号输入 -->
-        <wd-form-item prop="mobile" class="mb-48rpx">
+        <wd-form-item prop="mobile" class="mb-48rpx rounded-lg">
           <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
             <view class="mr-20rpx border-r border-[#cdcdcd] pr-20rpx text-28rpx text-[#666]">
               +86
@@ -340,7 +341,7 @@ function handleClickLeft() {
         </wd-form-item>
 
         <!-- 验证码输入 -->
-        <wd-form-item prop="code">
+        <wd-form-item prop="code" class="mb-48rpx rounded-lg">
           <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
             <wd-input
               v-model="formData.code" type="number" placeholder="请输入验证码" no-border clearable
@@ -360,24 +361,7 @@ function handleClickLeft() {
         </wd-form-item>
 
         <!-- 协议勾选 -->
-        <wd-form-item prop="pactChecked" class="mt-60rpx">
-          <view class="flex items-center justify-center text-24rpx">
-            <wd-checkbox
-              v-model="formData.pactChecked" shape="circle" checked-color="#3ba662"
-              @change="handlePactChange"
-            />
-            <view class="ml-10rpx">
-              我已阅读并同意
-              <text class="text-[#3ba662]" @click="handleToUserAgreement">
-                《用户协议》
-              </text>
-              和
-              <text class="text-[#3ba662]" @click="handleToPrivacyPolicy">
-                《隐私协议》
-              </text>
-            </view>
-          </view>
-        </wd-form-item>
+        <PrivacyCheckbox />
       </wd-form>
 
       <view class="mb-3">
