@@ -310,7 +310,7 @@ onUnmounted(() => {
 
 <template>
   <view
-    class="min-h-screen flex flex-col justify-between from-[rgba(255,250,235,1)] via-[rgba(227,255,224,0)] to-white bg-gradient-to-b"
+    class="px-3 py-4"
   >
     <!-- 标题区域 -->
     <view class="pb-130rpx pt-220rpx">
@@ -326,7 +326,7 @@ onUnmounted(() => {
       <view v-if="currentStep === 1">
         <wd-form ref="formRef" :model="formData" :rules="rules" label-width="0" class="mb-132rpx" error-type="toast">
           <!-- 手机号输入 -->
-          <wd-form-item prop="mobile" class="mb-48rpx">
+          <wd-form-item prop="mobile" class="mb-48rpx rounded-lg">
             <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
               <view class="mr-20rpx border-r border-[#cdcdcd] pr-20rpx text-28rpx text-[#666]">
                 +86
@@ -339,7 +339,7 @@ onUnmounted(() => {
           </wd-form-item>
 
           <!-- 验证码输入 -->
-          <wd-form-item prop="code">
+          <wd-form-item prop="code" class="mb-48rpx rounded-lg">
             <view class="h-76rpx flex items-center border-b border-[#cdcdcd]">
               <wd-input
                 v-model="formData.code" type="number" placeholder="请输入验证码" no-border clearable

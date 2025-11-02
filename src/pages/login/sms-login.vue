@@ -7,6 +7,7 @@ import { useUserStore } from '@/store/userStore'
 import { isPageTabbar, tabbarList } from '@/tabbar/store'
 import { ensureDecodeURIComponent } from '@/utils'
 import { parseUrlToObj } from '@/utils/index'
+import Welcome from './components/Welcome.vue'
 
 definePage({
   name: 'sms-login',
@@ -304,18 +305,22 @@ onUnmounted(() => {
     clearInterval(countdownTimer.value)
   }
 })
+
+function handleClickLeft() {
+  uni.navigateBack({
+    delta: 1,
+  })
+}
 </script>
 
 <template>
   <view
-    class="min-h-screen flex flex-col justify-between from-[rgba(255,250,235,1)] via-[rgba(227,255,224,0)] to-white bg-gradient-to-b"
+    class="px-3 py-4"
   >
+    <wd-navbar title="" left-text="返回" left-arrow :bordered="false" custom-style="background-color: transparent !important;" @click-left="handleClickLeft" />
+
     <!-- 标题区域 -->
-    <view class="pb-130rpx pt-220rpx">
-      <view class="pl-64rpx text-48rpx text-[#383838] font-bold">
-        Hello！<br>欢迎来到国浩中医
-      </view>
-    </view>
+    <Welcome />
 
     <!-- 表单区域 -->
     <view class="flex-1 px-64rpx">
