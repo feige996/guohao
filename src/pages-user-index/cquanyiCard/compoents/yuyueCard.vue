@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 // 预约卡片组件的Props接口
 interface Props {
   // 预约状态：confirmed(已确认) 或 completed(已完成)
@@ -17,7 +19,7 @@ interface Props {
 
 // 定义组件Props
 const props = withDefaults(defineProps<Props>(), {
-  doctorAvatar: '/src/static/default-avatar.png'
+  doctorAvatar: '/src/static/default-avatar.png',
 })
 
 // 定义组件事件
@@ -30,50 +32,59 @@ const emit = defineEmits<{
   enterConsultationRoom: []
 }>()
 
-// 获取问诊方式的中文文本
-const getConsultationTypeText = (type: string): string => {
-  return type === 'video' ? '视频问诊' : '语音问诊'
-}
-
-// 获取状态样式类
-const getStatusClass = (): string => {
-  return props.status === 'confirmed' 
-    ? 'bg-green-500 text-white' 
-    : 'bg-blue-500 text-white'
-}
-
-// 获取状态文本
-const getStatusText = (): string => {
-  return props.status === 'confirmed' ? '已确认' : '已完成'
-}
-
-// 获取幽灵按钮样式类
-const getGhostButtonClass = (buttonType: 'cancel' | 'reschedule' | 'enter'): string => {
-  // 已完成状态下所有按钮都应禁用
-  if (props.status === 'completed') {
-    return 'border-gray-300 text-gray-400 bg-gray-50 cursor-not-allowed'
+// 计算属性 - 状态标签配置
+const statusConfig = computed(() => {
+  if (props.status === 'confirmed') {
+    return {
+      text: '已确认',
+      class: 'bg-[#2ec573] text-white',
+    }
   }
-  
-  // 已确认状态下按钮颜色不同（幽灵按钮样式）
-  switch (buttonType) {
-    case 'cancel':
-      return 'border-red-500 text-red-500 hover:bg-red-50 hover:text-red-600 transition-all duration-300'
-    case 'reschedule':
-      return 'border-orange-400 text-orange-500 hover:bg-orange-50 hover:text-orange-600 transition-all duration-300'
-    case 'enter':
-      return 'border-green-500 text-green-500 hover:bg-green-50 hover:text-green-600 transition-all duration-300'
-    default:
-      return 'border-gray-300 text-gray-500'
+  else if (props.status === 'completed') {
+    return {
+      text: '已完成',
+      class: 'bg-[#1890ff] text-white',
+    }
   }
-}
+  return {
+    text: '',
+    class: '',
+  }
+})
+
+// 计算属性 - 问诊方式文本
+const consultationTypeText = computed(() => {
+  return props.consultationType === 'video' ? '视频问诊' : '语音问诊'
+})
+
+// 计算属性 - 是否已完成
+const isCompleted = computed(() => {
+  return props.status === 'completed'
+})
+
+// 计算属性 - 按钮颜色配置
+const buttonConfigs = computed(() => ({
+  cancel: { 
+    color: isCompleted.value ? '#999999' : '#ff4d4f', 
+    borderColor: isCompleted.value ? '#d9d9d9' : '#ff4d4f'
+  },
+  reschedule: { 
+    color: isCompleted.value ? '#999999' : '#fa8c16', 
+    borderColor: isCompleted.value ? '#d9d9d9' : '#fa8c16'
+  },
+  enter: { 
+    color: isCompleted.value ? '#999999' : '#409eff', 
+    borderColor: isCompleted.value ? '#d9d9d9' : '#409eff'
+  },
+}))
 
 // 按钮点击处理函数
-const handleButtonClick = (buttonType: 'cancel' | 'reschedule' | 'enter'): void => {
+function handleButtonClick(buttonType: 'cancel' | 'reschedule' | 'enter'): void {
   // 已完成状态下不触发事件
   if (props.status === 'completed') {
     return
   }
-  
+
   switch (buttonType) {
     case 'cancel':
       emit('cancel')
@@ -89,46 +100,71 @@ const handleButtonClick = (buttonType: 'cancel' | 'reschedule' | 'enter'): void 
 </script>
 
 <template>
-  <view class="rounded-lg bg-white shadow-md p-5 mb-4 border border-gray-100">
-    <!-- 医生信息和状态 -->
-    <div class="flex items-start justify-between mb-5">
-      <div class="flex items-center">
-        <image 
-          :src="props.doctorAvatar" 
-          class="w-14 h-14 rounded-full object-cover border-2 border-gray-100"
-          mode="aspectFill"
-        />
-        <div class="ml-4">
-          <div class="font-medium text-gray-800 text-base">预约医师：{{ props.doctorName }}</div>
-          <div class="text-sm text-gray-500 mt-1">问诊方式：{{ getConsultationTypeText(props.consultationType) }}</div>
-          <div class="text-sm text-gray-500 mt-1">预约时间：{{ props.appointmentDate }} {{ props.appointmentTime }}</div>
-        </div>
-      </div>
-      <div :class="['px-4 py-1.5 rounded-full text-sm font-medium', getStatusClass()]">
-        {{ getStatusText() }}
-      </div>
-    </div>
-    
-    <!-- 操作按钮区域 - 使用幽灵按钮样式 -->
-    <div class="flex justify-between mt-6">
-      <button 
-        :class="['flex-1 py-3 rounded-md text-center font-medium transition-all duration-200 mr-3 border', getGhostButtonClass('cancel')]"
+  <view class="mb-[24rpx] overflow-hidden border border-[#f0f0f0] rounded-[20rpx] bg-white">
+    <!-- 卡片头部 -->
+    <view class="flex items-center justify-between p-[24rpx]">
+      <view>
+        <text class="text-[#333333] font-medium text-[32rpx]">预约医师: {{ props.doctorName }}</text>
+        <view class="mt-[8rpx]">
+          <text class="text-[#666666] text-[26rpx]">问诊方式: {{ consultationTypeText }}</text>
+        </view>
+      </view>
+      <view class="rounded-full px-[20rpx] py-[8rpx] font-medium text-[24rpx]" :class="statusConfig.class">
+        {{ statusConfig.text }}
+      </view>
+    </view>
+
+    <!-- 卡片内容 -->
+    <view class="p-[24rpx]">
+      <view class="flex items-center">
+        <text class="text-[#666666] text-[28rpx]">预约时间: </text>
+        <text class="text-[#333333] text-[28rpx]">{{ props.appointmentDate }} {{ props.appointmentTime }}</text>
+      </view>
+    </view>
+
+    <!-- 卡片底部操作 -->
+    <view class="flex justify-end p-[24rpx]">
+      <wot-button
+        :disabled="isCompleted"
+        :style="{
+          color: buttonConfigs.cancel.color,
+          border: `1px solid ${buttonConfigs.cancel.borderColor}`,
+          backgroundColor: 'transparent',
+          borderRadius: '9999rpx',
+          padding: '20rpx 36rpx'
+        }"
+        class="mr-[40rpx]"
         @click="handleButtonClick('cancel')"
       >
         取消
-      </button>
-      <button 
-        :class="['flex-1 py-3 rounded-md text-center font-medium transition-all duration-200 mx-3 border', getGhostButtonClass('reschedule')]"
+      </wot-button>
+      <wot-button
+        :disabled="isCompleted"
+        :style="{
+          color: buttonConfigs.reschedule.color,
+          border: `1px solid ${buttonConfigs.reschedule.borderColor}`,
+          backgroundColor: 'transparent',
+          borderRadius: '9999rpx',
+          padding: '20rpx 36rpx'
+        }"
+        class="mr-[40rpx]"
         @click="handleButtonClick('reschedule')"
       >
         改签
-      </button>
-      <button 
-        :class="['flex-1 py-3 rounded-md text-center font-medium transition-all duration-200 ml-3 border', getGhostButtonClass('enter')]"
+      </wot-button>
+      <wot-button
+        :disabled="isCompleted"
+        :style="{
+          color: buttonConfigs.enter.color,
+          border: `1px solid ${buttonConfigs.enter.borderColor}`,
+          backgroundColor: 'transparent',
+          borderRadius: '9999rpx',
+          padding: '20rpx 36rpx'
+        }"
         @click="handleButtonClick('enter')"
       >
         进入诊室
-      </button>
-    </div>
+      </wot-button>
+    </view>
   </view>
 </template>

@@ -164,6 +164,10 @@ export default defineUniPages({
           path: 'cquanyiCard/index',
           type: 'page',
         },
+        {
+          path: 'cquanyiCard/AppointmentConsult',
+          type: 'page',
+        },
       ],
     },
   ],
