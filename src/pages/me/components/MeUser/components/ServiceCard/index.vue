@@ -36,18 +36,18 @@ function handleServiceClick(title: string) {
   if (title === '健康档案') {
     // 跳转到健康档案详情页面
     uni.navigateTo({
-      url: '/pages/ZwodeType/fuwuCard/HealthRecordModal',
+      url: '/pages-user-home/fuwuCard/HealthRecordModal',
     })
   }
   else if (title === '问诊记录') {
     // 跳转到问诊记录页面
     uni.navigateTo({
-      url: '/pages/ZwodeType/fuwuCard/ConsultationRecord',
+      url: '/pages-user-home/fuwuCard/ConsultationRecord',
     })
   }
   else if (title === '地址管理') {
     uni.navigateTo({
-      url: '/pages/ZwodeType/fuwuCard/AddressManagement',
+      url: '/pages-user-home/fuwuCard/AddressManagement',
     })
   }
 

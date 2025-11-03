@@ -46,7 +46,7 @@ function switchTab(tab: string) {
 
 // 跳转到问诊记录页面
 function switchToConsultation() {
-  uni.navigateTo({ url: '/pages/ZwodeType/fuwuCard/ConsultationRecord' })
+  uni.navigateTo({ url: '/pages-user-home/fuwuCard/ConsultationRecord' })
 }
 
 // 处理编辑

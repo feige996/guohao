@@ -133,7 +133,7 @@ function handleBack() {
 
 // 跳转到健康档案页面
 function switchToHealthRecord() {
-  uni.navigateTo({ url: '/pages/ZwodeType/fuwuCard/HealthRecordModal' })
+  uni.navigateTo({ url: '/pages-user-home/fuwuCard/HealthRecordModal' })
 }
 
 // 组件挂载

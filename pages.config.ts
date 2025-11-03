@@ -26,7 +26,35 @@ export default defineUniPages({
   //     packages: ['TUIKit'],
   //   },
   // },
-  // tabbar 的配置统一在 “./src/tabbar/config.ts” 文件中
+  // 分包配置
+  subPackages: [
+    {
+      root: 'pages-user-home',
+      pages: [
+        {
+          path: 'fuwuCard/AddressManagement',
+          type: 'page'
+        },
+        {
+          path: 'fuwuCard/ConsultationRecord',
+          type: 'page'
+        },
+        {
+          path: 'fuwuCard/HealthRecordEdit',
+          type: 'page'
+        },
+        {
+          path: 'fuwuCard/HealthRecordModal',
+          type: 'page'
+        },
+        {
+          path: 'shezhiCard/feedback',
+          type: 'page'
+        }
+      ]
+    }
+  ],
+  // tabbar 的配置统一在 "./src/tabbar/config.ts" 文件中
   // 无tabbar模式下，h5 设置为 {} 为了防止浏览器报错导致白屏
-  tabBar: tabBar || (isH5 ? {} : undefined) as any,
+  tabBar: tabBar || (isH5 ? {} : undefined) as any
 })
