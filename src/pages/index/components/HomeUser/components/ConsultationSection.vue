@@ -1,8 +1,20 @@
 <script lang="ts" setup>
+// 跳转到健康问答页面
+const goToHealthConsult = () => {
+  uni.navigateTo({
+    url: '/pages-user-index/azixunCard/healthConsult',
+    success: () => {
+      console.log('成功跳转到健康问答页面')
+    },
+    fail: (err) => {
+      console.error('跳转到健康问答页面失败:', err)
+    }
+  })
+}
 </script>
 
 <template>
-  <view class="consultation-section relative mt-6 rounded-lg p-3 pt-6">
+  <view class="consultation-section relative mt-6 rounded-lg p-3 pt-6 cursor-pointer" @click="goToHealthConsult">
     <view class="consultation-title">
       专业咨询
     </view>
@@ -20,7 +32,7 @@
 </template>
 
 <style lang="scss" scoped>
-// 专业咨询卡片
+// ToDo专业咨询卡片
 .consultation-section {
   background: linear-gradient(112deg, #feca75 0%, #d4b477 100%);
   .consultation-title {

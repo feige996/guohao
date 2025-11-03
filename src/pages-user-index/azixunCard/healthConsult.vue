@@ -140,17 +140,17 @@ onMounted(() => {
 
 <template>
   <view class="h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px`, paddingBottom: `${safeAreaInsets?.bottom}px` }">
-    <!-- 顶部导航栏 -->
+    <!-- 顶部导航栏
     <view class="h-[92rpx] flex items-center justify-between border-b border-[#f0f0f0] bg-white px-[32rpx]">
       <view class="h-[44rpx] w-[44rpx] flex touch-none items-center justify-center bg-transparent p-0" style="background: transparent; border: none; outline: none; tap-highlight-color: transparent; -webkit-tap-highlight-color: transparent;" @click="goBack">
         <text class="text-[#333333] font-medium text-[36rpx]">‹</text>
       </view>
-      <text class="text-[#333333] font-medium text-[32rpx]">健康问答</text>
+      <text class="text-[#333333] font-medium text-[32rpx]">专业咨询</text>
       <view class="w-[116rpx] flex items-center space-x-[40rpx]">
         <image src="/static/images/phone-icon.png" class="h-[36rpx] w-[36rpx]" mode="aspectFit" />
         <image src="/static/images/more-icon.png" class="h-[36rpx] w-[36rpx]" mode="aspectFit" />
       </view>
-    </view>
+    </view> -->
 
     <!-- 聊天内容区域 -->
     <scroll-view
@@ -165,22 +165,24 @@ onMounted(() => {
           <view class="flex items-start">
             <image src="/static/images/question-icon.png" class="mt-[4rpx] h-[40rpx] w-[40rpx]" mode="aspectFit" />
             <view class="ml-[16rpx]">
-              <text class="text-[#333333] font-medium text-[28rpx]">健康问答</text>
+              <text class="text-[#333333] font-medium text-[28rpx]">专业咨询</text>
               <text class="mt-[8rpx] block text-[#999999] text-[24rpx]">服务指引，健康咨询</text>
             </view>
           </view>
         </view>
 
         <!-- 预约问诊 -->
-        <view class="relative mb-[32rpx] h-[160rpx] w-full flex items-center overflow-hidden rounded-[16rpx] from-[#fff9f2] to-[#fff9f2] bg-gradient-to-r p-[32rpx]">
-          <image src="/static/images/doctor-avatar.png" class="h-[100rpx] w-[100rpx] rounded-[16rpx] object-cover" mode="aspectFit" />
-          <view class="ml-[24rpx]">
-            <text class="text-[#333333] font-medium text-[32rpx]">预约问诊</text>
-            <text class="mt-[8rpx] block text-[#666666] text-[24rpx]">专业医生一对一视频咨询</text>
+        <view class="mb-[32rpx] rounded-[16rpx] bg-[#fff9f2] p-[32rpx]">
+          <view class="flex items-center">
+            <image src="/static/images/doctor-avatar.png" class="h-[100rpx] w-[100rpx] rounded-[16rpx] object-cover" mode="aspectFit" />
+            <view class="ml-[24rpx] flex-1">
+              <text class="text-[#333333] font-medium text-[32rpx]">预约问诊</text>
+              <text class="mt-[8rpx] block text-[#666666] text-[24rpx]">专业医生一对一视频咨询</text>
+            </view>
+            <button class="ml-[24rpx] h-[80rpx] flex-shrink-0 rounded-[40rpx] bg-[#ff6b3b] px-[32rpx] text-white text-[28rpx]" @click="goToAppointment">
+              立即预约
+            </button>
           </view>
-          <button class="absolute right-[32rpx] top-1/2 h-[80rpx] rounded-[40rpx] bg-[#ff6b3b] px-[32rpx] text-white text-[28rpx] -translate-y-1/2" @click="goToAppointment">
-            立即预约
-          </button>
         </view>
 
         <!-- 消息列表 -->

@@ -70,17 +70,18 @@ export const customTabbarList: CustomTabBarItem[] = [
     iconActive: '/static/tabbar/healthcareHL.png',
     roles: [AppRoleEnum.NormalUser],
   },
-  {
-    text: '商城',
-    pagePath: 'pages/shop/shop',
-    // 注意 unocss 图标需要如下处理：（二选一）
-    // 1）在fg-tabbar.vue页面上引入一下并注释掉（见tabbar/index.vue代码第2行）
-    // 2）配置到 unocss.config.ts 的 safelist 中
-    iconType: 'image',
-    icon: '/static/tabbar/shop.png',
-    iconActive: '/static/tabbar/shopHL.png',
-    roles: [AppRoleEnum.NormalUser],
-  },
+  // 商城tab暂时隐藏，待后续开发
+  // {
+  //   text: '商城',
+  //   pagePath: 'pages/shop/shop',
+  //   // 注意 unocss 图标需要如下处理：（二选一）
+  //   // 1）在fg-tabbar.vue页面上引入一下并注释掉（见tabbar/index.vue代码第2行）
+  //   // 2）配置到 unocss.config.ts 的 safelist 中
+  //   iconType: 'image',
+  //   icon: '/static/tabbar/shop.png',
+  //   iconActive: '/static/tabbar/shopHL.png',
+  //   roles: [AppRoleEnum.NormalUser],
+  // },
   {
     text: '患者',
     pagePath: 'pages/patient/index',

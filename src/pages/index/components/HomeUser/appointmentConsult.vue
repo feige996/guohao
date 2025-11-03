@@ -5,7 +5,7 @@ import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({
   style: {
-    navigationBarTitleText: '我的预约',
+    navigationBarTitleText: '预约问诊',
   },
 })
 
@@ -134,7 +134,7 @@ function enterConsultationRoom(id: string) {
     },
     fail: (err) => {
       console.error('跳转到候诊室失败:', err)
-    }
+    },
   })
 }
 </script>
