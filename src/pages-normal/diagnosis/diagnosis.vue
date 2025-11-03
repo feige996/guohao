@@ -1,13 +1,8 @@
 <script lang="ts" setup>
 import type { App_DoctorAuditing, SysDictData } from '@/api/guohao-api/globals.d'
 import type { DoctorCardConfig } from '@/components/DoctorCard'
-import type { HealthcareCardConfig } from 'components-bak/HealthcareCard'
-import type { MedicalServiceCardConfig } from 'components-bak/MedicalServiceCards'
 import { useRequest } from 'alova/client'
 import { DoctorCardList } from '@/components/DoctorCard'
-import { HEALTHCARE_CARD_CONFIGS, HealthcareCardGroup } from 'components-bak/HealthcareCard'
-import { MEDICAL_SERVICE_CARDS_CONFIG, MedicalServiceCards } from 'components-bak/MedicalServiceCards'
-import SearchBar from 'components-bak/SearchBar'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
 definePage({
@@ -182,9 +177,9 @@ function handleHealthcareCardClick(config: HealthcareCardConfig) {
   console.log('点击了医疗服务卡片:', config.id, config.title)
 
   switch (config.id) {
-    case 'guide':
+    case 'guide': {
       // 处理导诊顾问点击逻辑
-      console.log('跳转到导诊顾问页面，URL: /pages/YwenzhenType/consultation-guide/index')
+      console.log('跳转到导诊顾问页面，URL: /pages-user-diagnosis/consultation-guide/index')
       const guideResult = uni.navigateTo({
         url: '/pages/YwenzhenType/consultation-guide/index',
         success: () => console.log('导诊顾问页面跳转成功'),

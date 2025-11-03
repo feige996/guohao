@@ -5,7 +5,7 @@ import ConstitutionTag from './ConstitutionTag.vue'
 // 跳转到健康状态页面
 function navigateToHealthStatus() {
   uni.navigateTo({
-    url: '/pages/VshouyeType/briqiCard/healthStatus',
+    url: '/pages-user-index/briqiCard/healthStatus',
   })
 }
 

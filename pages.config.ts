@@ -146,6 +146,26 @@ export default defineUniPages({
         },
       ],
     },
+    {
+      root: 'pages-user-index',
+      pages: [
+        // azixunCard 页面
+        {
+          path: 'azixunCard/healthConsult',
+          type: 'page',
+        },
+        // briqiCard 页面
+        {
+          path: 'briqiCard/healthStatus',
+          type: 'page',
+        },
+        // cquanyiCard 页面
+        {
+          path: 'cquanyiCard/index',
+          type: 'page',
+        },
+      ],
+    },
   ],
   // tabbar 的配置统一在 "./src/tabbar/config.ts" 文件中
   // 无tabbar模式下，h5 设置为 {} 为了防止浏览器报错导致白屏
