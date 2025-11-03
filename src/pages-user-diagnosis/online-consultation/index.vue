@@ -1,7 +1,19 @@
 <script setup lang="ts">
 // 在线问诊组件
-import type { DoctorCardConfig } from '@/components/DoctorCard'
 import { ref } from 'vue'
+
+// 医生卡片类型定义
+type DoctorCardConfig = {
+  id: string
+  name: string
+  title: string
+  department: string[]
+  hospital: string
+  consultationCount: number
+  rating: number
+  specialty: string
+  avatar: string
+}
 
 // 页面配置
 definePage({
