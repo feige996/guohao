@@ -17,7 +17,7 @@ function handleBack() {
 function handleOnlineService() {
   // 跳转到在线客服聊天页面
   uni.navigateTo({
-    url: '/pages/YwenzhenType/consultation-guide/chat',
+    url: '/pages-user-diagnosis/consultation-guide/chat',
   })
 }
 
@@ -25,7 +25,7 @@ function handleOnlineService() {
 function handleWechatService() {
   // 跳转到微信客服页面
   uni.navigateTo({
-    url: '/pages/YwenzhenType/consultation-guide/wechat-service',
+    url: '/pages-user-diagnosis/consultation-guide/wechat-service',
   })
 }
 
@@ -33,7 +33,7 @@ function handleWechatService() {
 function handleMessage() {
   // 跳转到留言确认页面
   uni.navigateTo({
-    url: '/pages/YwenzhenType/consultation-guide/message-confirm',
+    url: '/pages-user-diagnosis/consultation-guide/message-confirm',
   })
 }
 </script>

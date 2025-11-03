@@ -97,9 +97,9 @@ function handleConsultClick(doctorId: string) {
   console.log('立即咨询:', doctorId)
   // 跳转到问诊预约页面
   uni.navigateTo({
-    url: `/pages/YwenzhenType/online-consultation/appointment?id=${doctorId}`,
+    url: `/pages-user-diagnosis/online-consultation/appointment?id=${doctorId}`,
     success: () => console.log('跳转问诊预约页面成功'),
-    fail: (err) => console.error('跳转问诊预约页面失败:', err)
+    fail: err => console.error('跳转问诊预约页面失败:', err),
   })
 }
 

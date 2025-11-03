@@ -33,28 +33,121 @@ export default defineUniPages({
       pages: [
         {
           path: 'fuwuCard/AddressManagement',
-          type: 'page'
+          type: 'page',
         },
         {
           path: 'fuwuCard/ConsultationRecord',
-          type: 'page'
+          type: 'page',
         },
         {
           path: 'fuwuCard/HealthRecordEdit',
-          type: 'page'
+          type: 'page',
         },
         {
           path: 'fuwuCard/HealthRecordModal',
-          type: 'page'
+          type: 'page',
         },
         {
           path: 'shezhiCard/feedback',
-          type: 'page'
-        }
-      ]
-    }
+          type: 'page',
+        },
+      ],
+    },
+    {
+      root: 'pages-user-diagnosis',
+      pages: [
+        // consultation-guide 页面
+        {
+          path: 'consultation-guide/index',
+          type: 'page',
+        },
+        {
+          path: 'consultation-guide/chat',
+          type: 'page',
+        },
+        {
+          path: 'consultation-guide/message-confirm',
+          type: 'page',
+        },
+        {
+          path: 'consultation-guide/message-form',
+          type: 'page',
+        },
+        {
+          path: 'consultation-guide/wechat-service',
+          type: 'page',
+        },
+        // medication-purchase-service 页面
+        {
+          path: 'medication-purchase-service/index',
+          type: 'page',
+        },
+        {
+          path: 'medication-purchase-service/follow-up-prescription',
+          type: 'page',
+        },
+        {
+          path: 'medication-purchase-service/health-prescription',
+          type: 'page',
+        },
+        {
+          path: 'medication-purchase-service/prescription-detail',
+          type: 'page',
+        },
+        {
+          path: 'medication-purchase-service/prescription-order',
+          type: 'page',
+        },
+        // online-consultation 页面
+        {
+          path: 'online-consultation/index',
+          type: 'page',
+        },
+        {
+          path: 'online-consultation/appointment',
+          type: 'page',
+        },
+        {
+          path: 'online-consultation/consultation',
+          type: 'page',
+        },
+        {
+          path: 'online-consultation/doctor-rating',
+          type: 'page',
+        },
+        {
+          path: 'online-consultation/payment',
+          type: 'page',
+        },
+        {
+          path: 'online-consultation/phone-consultation',
+          type: 'page',
+        },
+        {
+          path: 'online-consultation/video-consultation',
+          type: 'page',
+        },
+        {
+          path: 'online-consultation/waiting-room',
+          type: 'page',
+        },
+        // smart-self-diagnosis 页面
+        {
+          path: 'smart-self-diagnosis/index',
+          type: 'page',
+        },
+        {
+          path: 'smart-self-diagnosis/diagnosis-result',
+          type: 'page',
+        },
+        {
+          path: 'smart-self-diagnosis/diagnosis-test',
+          type: 'page',
+        },
+      ],
+    },
   ],
   // tabbar 的配置统一在 "./src/tabbar/config.ts" 文件中
   // 无tabbar模式下，h5 设置为 {} 为了防止浏览器报错导致白屏
-  tabBar: tabBar || (isH5 ? {} : undefined) as any
+  tabBar: tabBar || (isH5 ? {} : undefined) as any,
 })

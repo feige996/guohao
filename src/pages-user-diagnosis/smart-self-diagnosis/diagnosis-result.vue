@@ -79,7 +79,7 @@ function generateDiagnosisResult() {
 // 重新自测
 function restartTest() {
   uni.navigateTo({
-    url: '/pages/normal/smart-self-diagnosis/index',
+    url: '/pages-user-diagnosis/consultation-guide/smart-self-diagnosis/index',
   })
 }
 

@@ -45,7 +45,7 @@ function navigateToResult() {
   const yesCount = answers.value.filter(a => a === '是').length
 
   uni.navigateTo({
-    url: `/pages/normal/smart-self-diagnosis/diagnosis-result?symptom=${encodeURIComponent(symptom.value)}&score=${yesCount}`,
+    url: `/pages-user-diagnosis/consultation-guide/smart-self-diagnosis/diagnosis-result?symptom=${encodeURIComponent(symptom.value)}&score=${yesCount}`,
   })
 }
 

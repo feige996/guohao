@@ -54,7 +54,7 @@ function closeSymptoms() {
 // 跳转到自测页面
 function navigateToDiagnosis(symptom: string) {
   uni.navigateTo({
-    url: `/pages/normal/smart-self-diagnosis/diagnosis-test?symptom=${encodeURIComponent(symptom)}`,
+    url: `/pages-user-diagnosis/consultation-guide/smart-self-diagnosis/diagnosis-test?symptom=${encodeURIComponent(symptom)}`,
   })
   closeSymptoms()
 }
