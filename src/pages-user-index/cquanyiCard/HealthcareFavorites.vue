@@ -119,12 +119,6 @@ const filteredFavorites = computed(() => {
   return items
 })
 
-// 是否已全选
-const isAllSelected = computed(() => {
-  return filteredFavorites.value.length > 0
-    && selectedItems.value.size === filteredFavorites.value.length
-})
-
 // 选中数量
 const selectedCount = computed(() => selectedItems.value.size)
 
@@ -168,16 +162,6 @@ function toggleItemSelection(id: string | number) {
   }
   else {
     selectedItems.value.add(id)
-  }
-}
-
-// 全选/取消全选
-function toggleSelectAll() {
-  if (isAllSelected.value) {
-    selectedItems.value.clear()
-  }
-  else {
-    selectedItems.value = new Set(filteredFavorites.value.map(item => item.id))
   }
 }
 
@@ -325,34 +309,24 @@ onMounted(() => {
           </view>
         </view>
 
-        <!-- 管理模式按钮 - 幽灵按钮样式 -->
-        <button
+        <!-- 管理模式按钮 - 幽灵按钮样式(size="small"迷你按钮) -->
+        <wd-button
           v-if="favoritesList.length > 0"
-          class="ml-2 border border-orange-500 rounded-full bg-transparent px-4 py-1 text-sm text-orange-500 transition-all hover:bg-orange-50 active:bg-orange-100"
+          plain
+          size="small"
+          class="ml-2"
           @click="toggleManageMode"
         >
           {{ isManaging ? '完成' : '管理' }}
-        </button>
+        </wd-button>
       </view>
     </view>
 
     <!-- 收藏列表 -->
     <view class="favorites-list px-4 py-3">
-      <!-- 管理模式下的全选 -->
-      <view v-if="isManaging && filteredFavorites.length > 0" class="mb-3 flex items-center rounded-lg bg-white p-2 shadow-sm">
-        <view
-          class="checkbox mr-3 h-5 w-5 flex items-center justify-center border border-gray-300 rounded"
-          :class="{ 'bg-orange-500 border-orange-500': isAllSelected }"
-          @click="toggleSelectAll"
-        >
-          <uni-icons v-if="isAllSelected" type="checkmark" size="14" color="white" />
-        </view>
-        <text class="text-sm font-medium">全选</text>
-      </view>
-
       <!-- 加载状态 -->
       <view v-if="isLoading" class="h-32 flex flex-col items-center justify-center rounded-lg bg-white shadow-sm">
-        <uni-icons type="spinner" size="24" color="#999" />
+        <uni-icons type="refresh" size="24" color="#999" />
         <text class="mt-2 text-sm text-gray-500">加载中...</text>
       </view>
 
@@ -361,18 +335,16 @@ onMounted(() => {
         <view
           v-for="item in filteredFavorites"
           :key="item.id"
-          class="favorite-item mb-3 flex items-start rounded-lg bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-md"
+          class="favorite-item mb-3 flex items-start rounded-lg bg-white p-4 shadow-sm transition-all duration-300 hover:shadow-md" :class="{ 'active:bg-gray-100 touch-active:bg-gray-50': isManaging, 'bg-red-50': isManaging && selectedItems.has(item.id) }"
           @click="handleItemClick(item)"
         >
           <!-- 管理模式下的选择框 -->
-          <view v-if="isManaging" class="mr-3 h-5 w-5 flex flex-shrink-0 items-center justify-center border border-gray-300 rounded">
-            <uni-icons
-              v-if="selectedItems.has(item.id)"
-              type="checkmark"
-              size="14"
-              color="white"
-              class="rounded-full bg-orange-500"
-            />
+          <view v-if="isManaging" class="mr-3 h-24 w-12 flex flex-shrink-0 flex-col items-center justify-center relative">
+            <view v-if="selectedItems.has(item.id)" class="absolute inset-0 flex items-center justify-center">
+              <view class="h-5 w-5 rounded-full bg-red-500 flex items-center justify-center">
+                <text class="text-white text-xs">✓</text>
+              </view>
+            </view>
           </view>
 
           <!-- 图标/图片 -->
@@ -427,20 +399,24 @@ onMounted(() => {
       class="bottom-bar fixed bottom-0 left-0 right-0 flex items-center justify-between border-t border-gray-200 bg-white p-4 shadow-[0_-2px_10px_rgba(0,0,0,0.05)]"
       :style="{ paddingBottom: safeAreaInsets.bottom > 0 ? `${safeAreaInsets.bottom}px` : '16px' }"
     >
-      <button
-        class="border border-red-500 rounded-full bg-white px-6 py-2 text-sm text-red-500"
+      <wd-button
+        plain
+        type="error"
+        class="px-6"
         @click="clearAllFavorites"
       >
         清空收藏
-      </button>
-      <button
-        class="rounded-full bg-orange-500 px-8 py-2 text-sm text-white font-medium"
+      </wd-button>
+      <wd-button
+        plain
+        :type="selectedCount > 0 ? 'primary' : 'default'"
         :disabled="selectedCount === 0"
-        :class="{ 'opacity-50': selectedCount === 0 }"
+        :class="[selectedCount === 0 ? 'opacity-50' : '']"
+        class="px-8"
         @click="deleteSelected"
       >
         删除({{ selectedCount }})
-      </button>
+      </wd-button>
     </view>
   </view>
 </template>
