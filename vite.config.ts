@@ -63,7 +63,12 @@ export default ({ command, mode }) => {
     base: VITE_APP_PUBLIC_BASE,
     plugins: [
       UniPages({
-        exclude: ['src/pages*/components/**/**.*', 'src/pages*/section/**/*.*', 'src/TUIKit/*plugin*/**.*'],
+        exclude: [
+          'src/pages*/components/**/**.*',
+          'src/pages*/section/**/*.*',
+          'TUIKit/plugins/**.*',
+          'TUIKit/tui-customer-service-plugin/**.*',
+        ],
         // homePage 通过 vue 文件的 route-block 的type="home"来设定
         // pages 目录为 src/pages，分包目录不能配置在pages目录下
         subPackages: ['src/pages-fg', 'src/TUIKit', 'src/pages-normal'], // 是个数组，可以配置多个，但是不能为pages里面的目录
@@ -73,6 +78,27 @@ export default ({ command, mode }) => {
       UniPlatform(),
       UniManifest(),
       // UniXXX 需要在 Uni 之前引入
+
+      // Optimization 插件需要 page.json 文件，故应在 UniPages 插件之后执行
+      Optimization({
+        enable: {
+          'optimization': true,
+          'async-import': true,
+          'async-component': true,
+        },
+        dts: {
+          base: 'src/types',
+        },
+        logger: false,
+      }),
+      // 若存在改变 pages.json 的插件，请将 UniKuRoot 放置其后
+      UniKuRoot({
+        excludePages: [
+          'TUIKit/**/*.vue',
+          'pages*/**/components/**/*.vue',
+        ],
+      }),
+      Uni(),
       {
         // 临时解决 dcloudio 官方的 @dcloudio/uni-mp-compiler 出现的编译 BUG
         // 参考 github issue: https://github.com/dcloudio/uni-app/issues/4952
@@ -92,19 +118,6 @@ export default ({ command, mode }) => {
         dirs: ['src/hooks'], // 自动导入 hooks
         vueTemplate: true, // default false
       }),
-      // Optimization 插件需要 page.json 文件，故应在 UniPages 插件之后执行
-      Optimization({
-        enable: {
-          'optimization': true,
-          'async-import': true,
-          'async-component': true,
-        },
-        dts: {
-          base: 'src/types',
-        },
-        logger: false,
-      }),
-
       ViteRestart({
         // 通过这个插件，在修改vite.config.js文件则不需要重新运行也生效配置
         restart: ['vite.config.js'],
@@ -134,13 +147,6 @@ export default ({ command, mode }) => {
         directoryAsNamespace: false, // 是否把目录名作为命名空间前缀，true 时组件名为 目录名+组件名，
         dts: 'src/types/components.d.ts', // 自动生成的组件类型声明文件路径（用于 TypeScript 支持）
       }),
-      // 若存在改变 pages.json 的插件，请将 UniKuRoot 放置其后
-      UniKuRoot({
-        excludePages: [
-          'TUIKit/**/*.vue',
-        ],
-      }),
-      Uni(),
     ],
     define: {
       __UNI_PLATFORM__: JSON.stringify(UNI_PLATFORM),
