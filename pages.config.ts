@@ -3,6 +3,12 @@ import { defineUniPages } from '@uni-helper/vite-plugin-uni-pages'
 import { tabBar } from './src/tabbar/config'
 
 export default defineUniPages({
+  pages: [
+    {
+      path: 'pages/user-chat/index',
+      type: 'page',
+    },
+  ],
   globalStyle: {
     navigationStyle: 'custom',
     backgroundColor: '#f6e2d3',
@@ -28,31 +34,7 @@ export default defineUniPages({
   // },
   // 分包配置
   subPackages: [
-    {
-      root: 'pages-user-home',
-      pages: [
-        {
-          path: 'fuwuCard/AddressManagement',
-          type: 'page',
-        },
-        {
-          path: 'fuwuCard/ConsultationRecord',
-          type: 'page',
-        },
-        {
-          path: 'fuwuCard/HealthRecordEdit',
-          type: 'page',
-        },
-        {
-          path: 'fuwuCard/HealthRecordModal',
-          type: 'page',
-        },
-        {
-          path: 'shezhiCard/feedback',
-          type: 'page',
-        },
-      ],
-    },
+    {      root: 'pages-user-home',      pages: [        {          path: 'fuwuCard/AddressManagement',          type: 'page',        },        {          path: 'fuwuCard/ConsultationRecord',          type: 'page',        },        {          path: 'fuwuCard/HealthRecordEdit',          type: 'page',        },        {          path: 'fuwuCard/HealthRecordModal',          type: 'page',        },        {          path: 'shezhiCard/index',          type: 'page',        },        {          path: 'shezhiCard/chat',          type: 'page',        },        {          path: 'shezhiCard/conversation-list',          type: 'page',        },        {          path: 'shezhiCard/message-service',          type: 'page',        },        {          path: 'shezhiCard/feedback',          type: 'page',        },      ],    },
     {
       root: 'pages-user-diagnosis',
       pages: [

@@ -22,6 +22,7 @@ export const excludeLoginPathList = getAllPages('excludeLoginPath').map(page => 
 export const EXCLUDE_LOGIN_PATH_LIST = [
   '/pages/xxx/index', // 示例值
   '/pages-sub/xxx/index', // 示例值
+  '/pages/user-chat/index', // 聊天页面添加到登录白名单
   ...excludeLoginPathList, // 都是以 / 开头的 path
 ]
 

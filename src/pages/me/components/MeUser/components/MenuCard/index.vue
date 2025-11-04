@@ -5,7 +5,7 @@ const list = [
   {
     title: '在线客服',
     desc: '24小时在线',
-    path: '/pages/xx',
+    path: '/pages-user-home/shezhiCard/message-service',
   },
   {
     title: '系统设置',

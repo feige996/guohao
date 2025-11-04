@@ -122,10 +122,8 @@ class TUIKitManager {
     }
 
     try {
-      // #ifdef APP-PLUS || H5
       // 初始化 TUIChatKit 并等待完成
       TUIChatKit.init()
-      // #endif
 
       setTimeout(async () => {
         await this.performTUIKitLoginWithRetry()
