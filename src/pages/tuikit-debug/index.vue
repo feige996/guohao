@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { wdButton, wdInput } from 'wot-design-uni'
 import { useUserStore } from '@/store/userStore'
 // 使用相对路径导入 JS 文件，并使用类型断言
 import { genTestUserSig } from '@/TUIKit/debug'
-import { initTUIKitAuto, showToast } from '@/utils/tuikit'
+import { initTUIKitAuto } from '@/utils/tuikit'
 
 const userStore = useUserStore()
 
@@ -29,7 +28,10 @@ const loginInfo = ref<LoginInfo>({})
 // 生成测试用户签名
 function generateTestUserSig(): void {
   if (!debugForm.value.secretKey) {
-    showToast('请输入密钥')
+    uni.showToast({
+      title: '请输入密钥',
+      icon: 'none',
+    })
     return
   }
 
@@ -53,18 +55,27 @@ function generateTestUserSig(): void {
       userSig: `${result.userSig.substring(0, 20)}...`,
     }
 
-    showToast('生成成功')
+    uni.showToast({
+      title: '生成成功',
+      icon: 'success',
+    })
   }
   catch (error) {
     console.error('生成测试签名失败:', error)
-    showToast('生成失败')
+    uni.showToast({
+      title: '生成失败',
+      icon: 'none',
+    })
   }
 }
 
 // 初始化TUIKit
 async function initializeTUIKit(): Promise<void> {
   if (!userStore.userSig || !userStore.userInfo?.id) {
-    showToast('请先生成测试签名')
+    uni.showToast({
+      title: '请先生成测试签名',
+      icon: 'none',
+    })
     return
   }
 
@@ -74,12 +85,18 @@ async function initializeTUIKit(): Promise<void> {
   try {
     await initTUIKitAuto()
     initStatus.value = '初始化成功'
-    showToast('初始化成功')
+    uni.showToast({
+      title: '初始化成功',
+      icon: 'success',
+    })
   }
   catch (error) {
     console.error('TUIKit初始化失败:', error)
     initStatus.value = `初始化失败: ${(error as Error).message}`
-    showToast('初始化失败')
+    uni.showToast({
+      title: '初始化失败',
+      icon: 'none',
+    })
   }
   finally {
     isInitializing.value = false
