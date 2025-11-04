@@ -18,6 +18,11 @@ onLaunch((options) => {
     // 跳转将由路由拦截器处理
   }
 
+  // 设置 TUIKit 所需的全局变量
+  uni.$SDKAppID = 1400210571; // Your SDKAppID
+  uni.$userID = userStore.userInfo?.id?.toString() || ''; // Your userID
+  uni.$userSig = userStore.userSig || ''; // Your userSig
+
   // 动态导入并初始化 TUIKit
   setTimeout(async () => {
     if (!userStore.isLoggedIn) {
@@ -28,9 +33,9 @@ onLaunch((options) => {
     try {
       // 动态导入 TUIKit 模块
       const { initTUIKitAuto } = await import('@/utils/tuikit')
-      // TODO: 放开
-      // await initTUIKitAuto()
-      // console.log('TUIKit 动态加载并初始化成功')
+      // 自动初始化 TUIKit
+      await initTUIKitAuto()
+      console.log('TUIKit 动态加载并初始化成功')
     }
     catch (error) {
       console.error('TUIKit 动态加载失败:', error)
