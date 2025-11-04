@@ -32,7 +32,7 @@ function handleFunctionCardClick(item: FunctionCardItem) {
     case 'product':
       console.log('跳转到关注商品')
       uni.navigateTo({
-        url: '/pages/normal/index/favoriteProducts',
+        url: '/pages-user-index/cquanyiCard/favoriteProducts',
       })
       break
     default:
