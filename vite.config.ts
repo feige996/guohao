@@ -63,7 +63,7 @@ export default ({ command, mode }) => {
     base: VITE_APP_PUBLIC_BASE,
     plugins: [
       UniPages({
-        exclude: ['**/components/**/**.*', '**/section/**/*.*'],
+        exclude: ['src/pages*/components/**/**.*', 'src/pages*/section/**/*.*', 'src/TUIKit/*plugin*/**.*'],
         // homePage 通过 vue 文件的 route-block 的type="home"来设定
         // pages 目录为 src/pages，分包目录不能配置在pages目录下
         subPackages: ['src/pages-fg', 'src/TUIKit', 'src/pages-normal'], // 是个数组，可以配置多个，但是不能为pages里面的目录
@@ -135,7 +135,11 @@ export default ({ command, mode }) => {
         dts: 'src/types/components.d.ts', // 自动生成的组件类型声明文件路径（用于 TypeScript 支持）
       }),
       // 若存在改变 pages.json 的插件，请将 UniKuRoot 放置其后
-      UniKuRoot(),
+      UniKuRoot({
+        excludePages: [
+          'TUIKit/**/*.vue',
+        ],
+      }),
       Uni(),
     ],
     define: {
