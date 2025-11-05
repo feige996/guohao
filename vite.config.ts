@@ -62,23 +62,27 @@ export default ({ command, mode }) => {
     envDir: './env', // 自定义env目录
     base: VITE_APP_PUBLIC_BASE,
     plugins: [
-      UniPages({
-        exclude: [
-          'src/pages*/components/**/**.*',
-          'src/pages*/section/**/*.*',
-          'TUIKit/plugins/**.*',
-          'TUIKit/tui-customer-service-plugin/**.*',
-        ],
-        // homePage 通过 vue 文件的 route-block 的type="home"来设定
-        // pages 目录为 src/pages，分包目录不能配置在pages目录下
-        subPackages: ['src/pages-fg', 'src/TUIKit', 'src/pages-normal'], // 是个数组，可以配置多个，但是不能为pages里面的目录
-        dts: 'src/types/uni-pages.d.ts',
-      }),
       UniLayouts(),
       UniPlatform(),
       UniManifest(),
-      // UniXXX 需要在 Uni 之前引入
-
+      UniPages({
+        exclude: [
+          'pages*/**/components/**/*.vue',
+          'pages*/**/sections/**/*.vue',
+          '**/plugins/**',
+        ],
+        // homePage 通过 vue 文件的 route-block 的type="home"来设定
+        // pages 目录为 src/pages，分包目录不能配置在pages目录下
+        subPackages: [
+          'src/pages-fg',
+          'src/TUIKit',
+          'src/pages-user-home',
+          'src/pages-user-diagnosis',
+          'src/pages-user-index',
+          'src/pages-doctor-diagnosis',
+        ], // 是个数组，可以配置多个，但是不能为pages里面的目录
+        dts: 'src/types/uni-pages.d.ts',
+      }),
       // Optimization 插件需要 page.json 文件，故应在 UniPages 插件之后执行
       Optimization({
         enable: {
