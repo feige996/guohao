@@ -4,7 +4,14 @@ import { ref } from 'vue'
 const pendingCount = ref(5)
 const isLoading = ref(false)
 
-const handleReceiveConsultation = () => {
+// 先定义showToast函数
+function showToast(message: string) {
+  // 实际项目中应该使用全局的Toast组件或工具
+  console.log(message)
+}
+
+// 使用function关键字声明函数
+function handleReceiveConsultation() {
   if (isLoading.value) return
   
   isLoading.value = true
@@ -12,13 +19,15 @@ const handleReceiveConsultation = () => {
   setTimeout(() => {
     isLoading.value = false
     showToast('正在为您转接问诊...')
-    // 这里可以添加页面跳转逻辑
+    // 跳转到订单列表页面
+    setTimeout(() => {
+      // 在uni-app中使用页面跳转
+      // 使用正确的uni-app路由格式
+      uni.navigateTo({
+        url: '/pages-doctor-diagnosis/yuyinwenzhen/order-list'
+      })
+    }, 500)
   }, 1500)
-}
-
-const showToast = (message: string) => {
-  // 实际项目中应该使用全局的Toast组件或工具
-  console.log(message)
 }
 </script>
 
