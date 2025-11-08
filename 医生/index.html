@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医生问诊页面</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        /* 焦点状态 - 提升可访问性 */
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid #8E4337;
+            outline-offset: 2px;
+        }
+        
+        /* 移除button默认样式 */
+        button.nav-item {
+            background: none;
+            border: none;
+            padding: 0;
+            font: inherit;
+        }
+        
+        /* Toast 通知 */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            max-width: 300px;
+            text-align: center;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        /* 加载状态 */
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+            pointer-events: none;
+        }
+        
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spinner 0.6s linear infinite;
+        }
+        
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="w-full max-w-[375px] mx-auto min-h-screen bg-[#F9FAFB] relative pb-[60px]">
+        <!-- 顶部导航 -->
+        <div class="w-full h-[56px] flex justify-between items-center px-4 shadow-[0px_1px_2px_0px_rgba(0,0,0,0.05)] bg-white fixed top-0 left-0 right-0 max-w-[375px] mx-auto z-50">
+            <div class="flex items-center">
+                <span class="text-[#8E4337] text-xl font-['Pacifico'] leading-7">logo</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="w-6 h-6 relative cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18" class="w-4 h-[18px]">
+                        <g transform="matrix(1,0,0,-1,0,36)">
+                            <path d="M7.8728523,36Q7.3809037,36,7.064651,35.683592000000004Q6.7483983,35.367188,6.7483983,34.875L6.7483983,34.207031Q4.7806034,33.785156,3.5507319,32.273438Q2.2857208,30.761719,2.2505817,28.687499000000003L2.2505817,28.01953Q2.2154424,25.4882808,0.56390035,23.5546875L0.28278682,23.2382812Q-0.17402267,22.710937,0.10709086,22.0429688Q0.4233436,21.4101562,1.1261275,21.375L14.619576,21.375Q15.322361,21.4101562,15.638614,22.0429688Q15.919726,22.710937,15.462917,23.2382812L15.216943,23.5546875Q13.530262,25.453125,13.495123,28.01953L13.495123,28.687499000000003Q13.459984,30.761719,12.194972,32.273438Q10.9651,33.785156,8.9973059,34.207031L8.9973059,34.875Q8.9973059,35.367188,8.6810541,35.683592000000004Q8.3648014,36,7.8728523,36ZM9.4541159,18.66796869Q10.12176,19.3359374,10.12176,20.25L7.8728523,20.25L5.6239443,20.25Q5.6239443,19.3359374,6.2915888,18.66796869Q6.9592333,18,7.8728523,18Q8.7864714,18,9.4541159,18.66796869Z" fill="#374151"/>
+                        </g>
+                    </svg>
+                    <div class="w-4 h-4 flex justify-center items-center bg-[#EF4444] rounded-full absolute -top-1 -right-1">
+                        <span class="text-white text-xs leading-4">3</span>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-gradient-to-br from-[#8E4337] to-[#6E2F25] flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast 通知 -->
+        <div id="toast" class="toast"></div>
+
+        <!-- 主内容区 -->
+        <div class="pt-[72px] pb-5">
+            <!-- 首页 Tab 内容 -->
+            <div id="tabHome" class="tab-content px-4 flex flex-col gap-5">
+                <!-- 收益概览 -->
+            <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 16" class="w-[18px] h-4">
+                        <g transform="matrix(1,0,0,-1,0,31.5)">
+                            <path d="M2.25,31.5Q1.3007812,31.464844,0.66796875,30.832031Q0.03515625,30.199219,0,29.25L0,18Q0.03515625,17.0507812,0.66796875,16.41796875Q1.3007812,15.78515625,2.25,15.75L15.75,15.75Q16.699219,15.78515625,17.332031,16.41796875Q17.964844,17.0507812,18,18L18,25.875Q17.964844,26.824219,17.332031,27.457031Q16.699219,28.089844,15.75,28.125L2.8125,28.125Q2.2851562,28.160156,2.25,28.6875Q2.2851562,29.214844,2.8125,29.25L15.75,29.25Q16.242188,29.25,16.558594,29.566406Q16.875,29.882812,16.875,30.375Q16.875,30.867188,16.558594,31.183594Q16.242188,31.5,15.75,31.5L2.25,31.5ZM14.625,23.0625Q15.117188,23.0625,15.433594,22.7460938Q15.75,22.4296875,15.75,21.9375Q15.75,21.4453125,15.433594,21.1289062Q15.117188,20.8125,14.625,20.8125Q14.132812,20.8125,13.816406,21.1289062Q13.5,21.4453125,13.5,21.9375Q13.5,22.4296875,13.816406,22.7460938Q14.132812,23.0625,14.625,23.0625Z" fill="#8E4337"/>
+                        </g>
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">收益概览</span>
+                </div>
+                <div class="mb-6">
+                    <div class="text-[#8E4337] text-3xl font-bold leading-9 mb-2">¥ 3,423</div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[#6B7280] text-sm font-medium leading-5">今日收益</span>
+                        <div class="flex items-center gap-1 bg-[#D1FAE5] px-2 py-0.5 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="#10B981" class="w-3 h-3">
+                                <path d="M6 2L10 8H2L6 2Z"/>
+                            </svg>
+                            <span class="text-[#10B981] text-xs font-semibold">+12%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex justify-between gap-4">
+                    <div class="flex-1">
+                        <div class="text-[#9CA3AF] text-xs leading-4 mb-1.5">累计收益</div>
+                        <div class="text-[#1F2937] text-base font-bold leading-5">¥ 10,000</div>
+                    </div>
+                    <div class="w-px bg-[#E5E7EB]"></div>
+                    <div class="flex-1">
+                        <div class="text-[#9CA3AF] text-xs leading-4 mb-1.5">本月收益</div>
+                        <div class="text-[#1F2937] text-base font-bold leading-5">¥ 88,888</div>
+                    </div>
+                    <div class="w-px bg-[#E5E7EB]"></div>
+                    <div class="flex-1">
+                        <div class="text-[#9CA3AF] text-xs leading-4 mb-1.5">开方数量</div>
+                        <div class="text-[#1F2937] text-base font-bold leading-5">343 张</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 接诊统计 -->
+            <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18" class="w-[15px] h-[18px]">
+                            <g transform="matrix(1,0,0,-1,0,36)">
+                                <path d="M8.4375,33.1875L12.058594,33.1875L8.4375,33.1875L12.058594,33.1875Q11.636719,34.242188,10.792969,34.945312L8.4375,33.1875ZM9.7734375,35.578125Q8.8945312,36,7.875,36Q6.4335938,35.964844,5.34375,35.226562Q4.21875,34.453125,3.6914062,33.1875L6.5742188,33.1875L9.7734375,35.578125ZM7.875,27Q9.7734375,27.0351562,11.074219,28.300781Q12.339844,29.601562,12.375,31.5Q12.375,31.78125,12.339844,32.0625L3.4101562,32.0625Q3.375,31.78125,3.375,31.5Q3.4101562,29.601562,4.6757812,28.300781Q5.9765625,27.0351562,7.875,27ZM4.359375,25.03125Q3.8320312,24.8554688,3.375,24.609375L3.375,18L8.578125,18L6.3984375,21.65625L4.359375,25.03125ZM5.5195312,25.2773438L7.171875,22.5L5.5195312,25.2773438L7.171875,22.5L9.5625,22.5Q10.757812,22.4648438,11.566406,21.6914062Q12.339844,20.8828125,12.375,19.6875Q12.375,18.73828125,11.8125,18L14.695312,18Q15.152344,18,15.433594,18.31640625Q15.75,18.59765625,15.75,19.0546875Q15.679688,21.6914062,13.921875,23.484375Q12.128906,25.2421875,9.4921875,25.3125L6.2578125,25.3125Q5.90625,25.3125,5.5195312,25.2773438ZM0,19.0546875Q0,18.59765625,0.31640625,18.31640625Q0.59765625,18,1.0546875,18L2.25,18L2.25,23.8710938Q1.1953125,22.9921875,0.59765625,21.7617188Q0,20.4960938,0,19.0546875ZM11.25,19.6875Q11.214844,20.390625,10.757812,20.8828125Q10.265625,21.3398438,9.5625,21.375L7.875,21.375L9.8789062,18.03515625Q10.476562,18.140625,10.863281,18.59765625Q11.25,19.0546875,11.25,19.6875Z" fill="#8E4337"/>
+                            </g>
+                        </svg>
+                        <span class="text-[#333333] text-lg font-bold leading-7">接诊统计</span>
+                    </div>
+                    <button class="flex items-center gap-1 text-[#8E4337] hover:text-[#6E2F25] transition-colors" onclick="refreshChart()" aria-label="刷新接诊统计">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" class="w-3.5 h-3.5">
+                            <g transform="matrix(1,0,0,-1,0,24.5)">
+                                <path d="M3.7041669,21.4648438Q2.9458334,20.7265625,2.5958335,19.8242188Q2.45,19.4960938,2.1291668,19.3320312Q1.7791668,19.1953125,1.4000001,19.3046875Q1.05,19.4414062,0.87500006,19.7421875Q0.72916669,20.070313,0.84583336,20.4257812Q1.3125001,21.6835938,2.3916669,22.695312Q3.6750002,23.898438,5.3375001,24.308594Q6.9708338,24.691406,8.6333342,24.308594Q10.295834,23.925781,11.579167,22.722656L12.804168,23.871094Q13.154167,24.171875,13.562501,24.007812Q13.970834,23.84375,14.000001,23.40625L14.000001,19.9062505Q13.941668,19.3046875,13.300001,19.25L13.066668,19.25L9.5666676,19.25Q9.1000004,19.2773438,8.9250002,19.6601562Q8.75,20.0429688,9.0708342,20.3710938L10.266667,21.4921875Q8.8375006,22.75,6.9708338,22.75Q5.1333337,22.75,3.7041669,21.4648438ZM0,16.84375Q0.058333337,17.4453125,0.70000005,17.5L0.9333334,17.5L4.4333334,17.5Q4.9000001,17.4726562,5.0750003,17.0898438Q5.2500005,16.7070312,4.9291668,16.3789062L3.7333336,15.2578125Q5.1625004,14,7.0291672,14Q8.8666668,14,10.295834,15.2851562Q11.054167,16.0234375,11.404167,16.9257812Q11.55,17.2539062,11.870834,17.4179688Q12.220834,17.5546875,12.6,17.4453125Q12.950001,17.3085938,13.125001,17.0078125Q13.300001,16.6796875,13.154167,16.3242188Q12.687501,15.0664062,11.608334,14.0546875Q10.325001,12.8515625,8.6625004,12.44140625Q7.0291672,12.05859375,5.3666668,12.44140625Q3.7041669,12.82421875,2.4208333,14.0273438L1.1958334,12.87890625Q0.84583336,12.578125,0.43750003,12.74218747Q0.029166669,12.90625,0,13.34375L0,16.625L0,16.84375Z" fill="currentColor"/>
+                            </g>
+                        </svg>
+                        <span class="text-sm leading-5">刷新</span>
+                    </button>
+                </div>
+                <div class="flex gap-4 mb-5">
+                    <div class="flex-1 p-3 bg-[#F5EBE9] rounded-2xl">
+                        <div class="text-[#6B7280] text-sm leading-5 mb-2">今日接诊</div>
+                        <div class="text-[#1F2937] text-2xl font-bold leading-8">8 人</div>
+                    </div>
+                    <div class="flex-1 p-3 bg-[#F5EBE9] rounded-2xl">
+                        <div class="text-[#6B7280] text-sm leading-5 mb-2">累计接诊</div>
+                        <div class="text-[#1F2937] text-2xl font-bold leading-8">1,256 人</div>
+                    </div>
+                </div>
+                <div class="relative h-[160px] flex items-end justify-around gap-1 pt-6">
+                    <!-- 平均值参考线 -->
+                    <div class="absolute top-6 left-0 right-0 h-px bg-[#E5E7EB] opacity-50"></div>
+                    <div class="absolute top-6 -left-1 text-[#9CA3AF] text-[10px]">平均</div>
+                    
+                    <div class="flex flex-col items-center gap-1 flex-1 relative group">
+                        <span class="absolute -top-5 text-[#8E4337] text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">11</span>
+                        <div class="w-5 bg-gradient-to-t from-[#8E4337] to-[#B85C4F] rounded-t hover:from-[#6E2F25] hover:to-[#8E4337] transition-all cursor-pointer shadow-sm" style="height: 55px;"></div>
+                        <span class="text-[#6B7280] text-xs">周一</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 flex-1 relative group">
+                        <span class="absolute -top-5 text-[#8E4337] text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">14</span>
+                        <div class="w-5 bg-gradient-to-t from-[#8E4337] to-[#B85C4F] rounded-t hover:from-[#6E2F25] hover:to-[#8E4337] transition-all cursor-pointer shadow-sm" style="height: 70px;"></div>
+                        <span class="text-[#6B7280] text-xs">周二</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 flex-1 relative group">
+                        <span class="absolute -top-5 text-[#8E4337] text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">10</span>
+                        <div class="w-5 bg-gradient-to-t from-[#8E4337] to-[#B85C4F] rounded-t hover:from-[#6E2F25] hover:to-[#8E4337] transition-all cursor-pointer shadow-sm" style="height: 50px;"></div>
+                        <span class="text-[#6B7280] text-xs">周三</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 flex-1 relative group">
+                        <span class="absolute -top-5 text-[#8E4337] text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">18</span>
+                        <div class="w-5 bg-gradient-to-t from-[#8E4337] to-[#B85C4F] rounded-t hover:from-[#6E2F25] hover:to-[#8E4337] transition-all cursor-pointer shadow-sm" style="height: 90px;"></div>
+                        <span class="text-[#6B7280] text-xs">周四</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 flex-1 relative group">
+                        <span class="absolute -top-5 text-[#8E4337] text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">13</span>
+                        <div class="w-5 bg-gradient-to-t from-[#8E4337] to-[#B85C4F] rounded-t hover:from-[#6E2F25] hover:to-[#8E4337] transition-all cursor-pointer shadow-sm" style="height: 65px;"></div>
+                        <span class="text-[#6B7280] text-xs">周五</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 flex-1 relative group">
+                        <span class="absolute -top-5 text-[#8E4337] text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">17</span>
+                        <div class="w-5 bg-gradient-to-t from-[#8E4337] to-[#B85C4F] rounded-t hover:from-[#6E2F25] hover:to-[#8E4337] transition-all cursor-pointer shadow-sm" style="height: 85px;"></div>
+                        <span class="text-[#6B7280] text-xs">周六</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-1 flex-1 relative group">
+                        <span class="absolute -top-5 text-[#8E4337] text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity">15</span>
+                        <div class="w-5 bg-gradient-to-t from-[#8E4337] to-[#B85C4F] rounded-t hover:from-[#6E2F25] hover:to-[#8E4337] transition-all cursor-pointer shadow-sm" style="height: 75px;"></div>
+                        <span class="text-[#6B7280] text-xs">周日</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 待处理事务 -->
+            <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18" class="w-[18px] h-[18px]">
+                        <g transform="matrix(1,0,0,-1,0,36)">
+                            <path d="M9,18Q11.460938,18.03515625,13.5,19.1953125Q15.539062,20.390625,16.804688,22.5Q18,24.6445312,18,27Q18,29.355469,16.804688,31.5Q15.539062,33.609375,13.5,34.804688Q11.460938,35.964844,9,36Q6.5390625,35.964844,4.5,34.804688Q2.4609375,33.609375,1.1953125,31.5Q0,29.355469,0,27Q0,24.6445312,1.1953125,22.5Q2.4609375,20.390625,4.5,19.1953125Q6.5390625,18.03515625,9,18ZM9,31.5Q9.7734375,31.429688,9.84375,30.65625L9.84375,26.71875Q9.7734375,25.9453125,9,25.875Q8.2265625,25.9453125,8.15625,26.71875L8.15625,30.65625Q8.2265625,31.429688,9,31.5ZM7.875,23.625Q7.875,24.1171875,8.1914062,24.4335938Q8.5078125,24.75,9,24.75Q9.4921875,24.75,9.8085938,24.4335938Q10.125,24.1171875,10.125,23.625Q10.125,23.1328125,9.8085938,22.8164062Q9.4921875,22.5,9,22.5Q8.5078125,22.5,8.1914062,22.8164062Q7.875,23.1328125,7.875,23.625Z" fill="#EF4444"/>
+                        </g>
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">待处理事务</span>
+                </div>
+                <div class="mb-6">
+                    <p class="text-[#4B5563] text-sm leading-[21px]">您有 <span class="text-[#EF4444] text-lg font-bold leading-7">5 条</span> 待处理事务</p>
+                </div>
+                <button 
+                    class="w-full py-3 bg-[#8E4337] rounded text-white text-sm font-medium leading-5 cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98 flex items-center justify-center gap-2"
+                    onclick="handlePendingOrders(this)"
+                    aria-label="查看待处理事务">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clip-rule="evenodd" />
+                    </svg>
+                    查看详情
+                </button>
+            </div>
+            </div>
+
+            <!-- 问诊 Tab 内容 -->
+            <div id="tabConsultation" class="tab-content px-4 flex flex-col gap-5 hidden">
+            <!-- 图文语音消息接诊 - 重点卡片 -->
+            <div class="w-full p-5 rounded-[20px] shadow-[0px_8px_24px_0px_rgba(142,67,55,0.15)] bg-gradient-to-br from-[#8E4337] to-[#6E2F25] relative overflow-hidden">
+                <!-- 装饰圆形 -->
+                <div class="absolute top-0 right-0 w-32 h-32 -mr-16 -mt-16 bg-white opacity-10 rounded-full"></div>
+                <div class="absolute bottom-0 left-0 w-24 h-24 -ml-12 -mb-12 bg-white opacity-5 rounded-full"></div>
+                
+                <div class="relative z-10">
+                    <div class="flex items-center gap-2 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="white" class="w-5 h-5">
+                            <path d="M3.505 2.365A41.369 41.369 0 019 2c1.863 0 3.697.124 5.495.365 1.247.167 2.18 1.108 2.435 2.268a4.45 4.45 0 00-.577-.069 43.141 43.141 0 00-4.706 0C9.229 4.696 7.5 6.727 7.5 8.998v2.24c0 1.413.67 2.735 1.76 3.562l-2.98 2.98A.75.75 0 015 17.25v-3.443c-.501-.048-1-.106-1.495-.172C2.033 13.438 1 12.162 1 10.72V5.28c0-1.441 1.033-2.717 2.505-2.914z" />
+                            <path d="M14 6c-.762 0-1.52.02-2.271.062C10.157 6.148 9 7.472 9 8.998v2.24c0 1.519 1.147 2.839 2.71 2.935.214.013.428.024.642.034.2.009.385.09.518.224l2.35 2.35a.75.75 0 001.28-.531v-2.07c1.453-.195 2.5-1.463 2.5-2.915V8.998c0-1.526-1.157-2.85-2.729-2.936A41.645 41.645 0 0014 6z" />
+                        </svg>
+                        <span class="text-white text-lg font-bold leading-7">图文语音消息接诊</span>
+                        <div class="ml-auto px-2.5 py-1 bg-white/20 rounded-full backdrop-blur-sm">
+                            <span class="text-white text-xs font-bold">待接诊</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <div class="text-white text-3xl font-bold leading-9 mb-3">5 人</div>
+                        <p class="text-white/80 text-sm leading-[21px]">等待您的接诊</p>
+                    </div>
+                    
+                    <button 
+                        class="w-full py-3 bg-white rounded-xl text-[#8E4337] text-sm font-bold leading-5 cursor-pointer hover:bg-white/90 transition-all active:scale-98 shadow-lg flex items-center justify-center gap-2"
+                        onclick="handleDispatch(this)"
+                        aria-label="立即接诊">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clip-rule="evenodd" />
+                        </svg>
+                        立即接诊
+                    </button>
+                </div>
+            </div>
+
+            <!-- 在线坐诊 -->
+            <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white">
+                <div class="flex justify-between items-center mb-8">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18" class="w-[15px] h-[18px]">
+                            <g transform="matrix(1,0,0,-1,0,36)">
+                                <path d="M7.875,27Q9.1054688,27,10.125,27.5976562Q11.144531,28.195312,11.777344,29.25Q12.375,30.304688,12.375,31.5Q12.375,32.695312,11.777344,33.75Q11.144531,34.804688,10.125,35.402344Q9.1054688,36,7.875,36Q6.6445312,36,5.625,35.402344Q4.6054688,34.804688,3.9726562,33.75Q3.375,32.695312,3.375,31.5Q3.375,30.304688,3.9726562,29.25Q4.6054688,28.195312,5.625,27.5976562Q6.6445312,27,7.875,27ZM4.5,25.0664062Q2.4960938,24.4335938,1.265625,22.8164062Q0.03515625,21.234375,0,19.0546875Q0,18.59765625,0.31640625,18.31640625Q0.59765625,18,1.0546875,18L14.695312,18Q15.152344,18,15.433594,18.31640625Q15.75,18.59765625,15.75,19.0546875Q15.714844,21.234375,14.484375,22.8164062Q13.253906,24.4335938,11.25,25.0664062L11.25,23.2734375Q11.988281,23.0625,12.445312,22.5Q12.9375,21.9023438,12.9375,21.09375L12.9375,19.6875Q12.902344,19.1601562,12.375,19.125L11.8125,19.125Q11.285156,19.1601562,11.25,19.6875Q11.285156,20.2148438,11.8125,20.25L11.8125,21.09375Q11.8125,21.5859375,11.496094,21.9023438Q11.179688,22.21875,10.6875,22.21875Q10.195312,22.21875,9.8789062,21.9023438Q9.5625,21.5859375,9.5625,21.09375L9.5625,20.25Q10.089844,20.2148438,10.125,19.6875Q10.089844,19.1601562,9.5625,19.125L9,19.125Q8.4726562,19.1601562,8.4375,19.6875L8.4375,21.09375Q8.4375,21.9023438,8.9296875,22.5Q9.3867188,23.0625,10.125,23.2734375L10.125,25.2773438Q9.8085938,25.3125,9.4921875,25.3125L6.2578125,25.3125Q5.9414062,25.3125,5.625,25.2773438L5.625,22.9921875Q6.2578125,22.78125,6.6445312,22.2890625Q7.03125,21.7617188,7.03125,21.09375Q6.9960938,20.25,6.46875,19.6875Q5.90625,19.1601562,5.0625,19.125Q4.21875,19.1601562,3.65625,19.6875Q3.1289062,20.25,3.09375,21.09375Q3.09375,21.7617188,3.4804688,22.2890625Q3.8671875,22.78125,4.5,22.9921875L4.5,25.0664062ZM5.0625,20.25Q5.8359375,20.3203125,5.90625,21.09375Q5.8359375,21.8671875,5.0625,21.9375Q4.2890625,21.8671875,4.21875,21.09375Q4.2890625,20.3203125,5.0625,20.25Z" fill="#8E4337"/>
+                            </g>
+                        </svg>
+                        <span class="text-[#333333] text-lg font-bold leading-7">在线坐诊</span>
+                    </div>
+                    <button 
+                        class="relative w-12 h-6 bg-[#D1D5DB] rounded-full cursor-pointer transition-colors" 
+                        id="onlineToggle" 
+                        onclick="toggleOnline()"
+                        aria-label="在线坐诊开关"
+                        role="switch"
+                        aria-checked="false">
+                        <div class="absolute w-5 h-5 bg-white rounded-full top-0.5 left-0.5 transition-transform border border-[#D1D5DB] shadow-sm" id="toggleSlider"></div>
+                    </button>
+                </div>
+                <div class="mb-4">
+                    <div class="text-[#FF0000] text-sm font-bold leading-4 mb-2">当前排队人数: 3人</div>
+                    <div class="text-[#6B7280] text-sm leading-[21px]">开启后可接收新的在线问诊</div>
+                </div>
+                <button 
+                    id="workbenchButton"
+                    class="w-full py-3 bg-[#E5E7EB] rounded text-[#9CA3AF] text-sm font-medium leading-5 cursor-not-allowed transition-colors flex items-center justify-center gap-2"
+                    onclick="enterWorkbench(this)"
+                    disabled
+                    aria-label="进入坐诊工作台（请先开启在线坐诊）">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                    </svg>
+                    进入坐诊工作台
+                </button>
+            </div>
+
+            <!-- 问诊会话记录 -->
+            <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white">
+                <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                            <path d="M3.505 2.365A41.369 41.369 0 019 2c1.863 0 3.697.124 5.495.365 1.247.167 2.18 1.108 2.435 2.268a4.45 4.45 0 00-.577-.069 43.141 43.141 0 00-4.706 0C9.229 4.696 7.5 6.727 7.5 8.998v2.24c0 1.413.67 2.735 1.76 3.562l-2.98 2.98A.75.75 0 015 17.25v-3.443c-.501-.048-1-.106-1.495-.172C2.033 13.438 1 12.162 1 10.72V5.28c0-1.441 1.033-2.717 2.505-2.914z" />
+                            <path d="M14 6c-.762 0-1.52.02-2.271.062C10.157 6.148 9 7.472 9 8.998v2.24c0 1.519 1.147 2.839 2.71 2.935.214.013.428.024.642.034.2.009.385.09.518.224l2.35 2.35a.75.75 0 001.28-.531v-2.07c1.453-.195 2.5-1.463 2.5-2.915V8.998c0-1.526-1.157-2.85-2.729-2.936A41.645 41.645 0 0014 6z" />
+                        </svg>
+                        <span class="text-[#333333] text-lg font-bold leading-7">问诊会话记录</span>
+                        <span class="px-2 py-0.5 bg-[#FFF7ED] rounded-full text-[#EA580C] text-xs font-bold">进行中</span>
+                    </div>
+                    <button 
+                        onclick="viewAllConsultations()"
+                        class="px-3 py-1.5 text-[#8E4337] text-sm font-medium hover:bg-[#F5EBE9] rounded-lg transition-colors flex items-center gap-1"
+                        aria-label="查看全部问诊记录">
+                        全部
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3.5 h-3.5">
+                            <path fill-rule="evenodd" d="M6.22 4.22a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06l-3.25 3.25a.75.75 0 0 1-1.06-1.06L8.94 8 6.22 5.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 进行中的问诊记录列表 -->
+                <div class="space-y-3">
+                    <!-- 记录 1 -->
+                    <article class="w-full p-4 rounded-xl bg-gradient-to-br from-[#FFF7ED] to-[#FFFBF5] border-2 border-[#FEE2E2] hover:shadow-md transition-all cursor-pointer relative overflow-hidden" onclick="openIMChat('李先生', '35岁', '男', 'https://cdn.pixabay.com/photo/2018/01/04/21/15/young-3061652_640.jpg', '头痛、咳嗽、咽痛3天')" data-patient-id="1">
+                        <!-- 装饰元素 -->
+                        <div class="absolute top-0 right-0 w-20 h-20 -mr-10 -mt-10 bg-[#EA580C] opacity-5 rounded-full"></div>
+                        
+                        <div class="flex items-center gap-3 relative z-10">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[#FED7AA]">
+                                    <img src="https://cdn.pixabay.com/photo/2018/01/04/21/15/young-3061652_640.jpg" alt="李先生" class="w-full h-full object-cover">
+                                </div>
+                                <!-- 问诊类型图标 -->
+                                <div class="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-gradient-to-br from-[#EA580C] to-[#C2410C] rounded-full flex items-center justify-center border-2 border-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-2.5 h-2.5">
+                                        <path d="M2.87 2.298a.75.75 0 0 0-.812 1.021L3.39 6.624a1 1 0 0 0 .928.626H8.25a.75.75 0 0 1 0 1.5H4.318a1 1 0 0 0-.927.626l-1.333 3.305a.75.75 0 0 0 .811 1.022 24.89 24.89 0 0 0 11.668-5.115.75.75 0 0 0 0-1.175A24.89 24.89 0 0 0 2.869 2.298Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between gap-2 mb-0.5">
+                                    <h3 class="text-[#1F2937] text-sm font-bold">李先生 · 35岁</h3>
+                                    <span class="px-2 py-0.5 bg-[#EA580C] rounded-full text-white text-xs font-bold whitespace-nowrap flex items-center gap-1">
+                                        <span class="w-1 h-1 bg-white rounded-full animate-pulse"></span>
+                                        进行中
+                                    </span>
+                                </div>
+                                <p class="text-[#6B7280] text-xs mb-1 line-clamp-1">主诉：头痛、咳嗽、咽痛3天</p>
+                                <div class="flex items-center gap-2 text-[#9CA3AF] text-xs">
+                                    <span>图文问诊</span>
+                                    <span class="w-1 h-1 bg-[#D1D5DB] rounded-full"></span>
+                                    <span>今天 09:30</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 记录 2 -->
+                    <article class="w-full p-4 rounded-xl bg-gradient-to-br from-[#FFF7ED] to-[#FFFBF5] border-2 border-[#FEE2E2] hover:shadow-md transition-all cursor-pointer relative overflow-hidden" onclick="openIMChat('王女士', '28岁', '女', 'https://cdn.pixabay.com/photo/2017/03/14/03/20/woman-2141808_640.jpg', '失眠多梦，心悸')" data-patient-id="2">
+                        <div class="absolute top-0 right-0 w-20 h-20 -mr-10 -mt-10 bg-[#EA580C] opacity-5 rounded-full"></div>
+                        
+                        <div class="flex items-center gap-3 relative z-10">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[#FED7AA]">
+                                    <img src="https://cdn.pixabay.com/photo/2017/03/14/03/20/woman-2141808_640.jpg" alt="王女士" class="w-full h-full object-cover">
+                                </div>
+                                <div class="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-gradient-to-br from-[#EA580C] to-[#C2410C] rounded-full flex items-center justify-center border-2 border-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-2.5 h-2.5">
+                                        <path d="M7 4a.75.75 0 0 1 .75.75v2.063c.73.204 1.25.874 1.25 1.687 0 .813-.52 1.483-1.25 1.687v2.063a.75.75 0 0 1-1.5 0v-2.063A1.75 1.75 0 0 1 5 8.5c0-.813.52-1.483 1.25-1.687V4.75A.75.75 0 0 1 7 4ZM4.803 8.5a.75.75 0 0 0-1.5-.085A6 6 0 0 0 13 10.657a.75.75 0 1 0-1.5-.085 4.5 4.5 0 0 1-6.697-2.072ZM12.697 5.928a.75.75 0 0 0 1.5.085A6 6 0 0 0 3 3.771a.75.75 0 0 0 1.5.086 4.5 4.5 0 0 1 8.197 2.071Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between gap-2 mb-0.5">
+                                    <h3 class="text-[#1F2937] text-sm font-bold">王女士 · 28岁</h3>
+                                    <span class="px-2 py-0.5 bg-[#EA580C] rounded-full text-white text-xs font-bold whitespace-nowrap flex items-center gap-1">
+                                        <span class="w-1 h-1 bg-white rounded-full animate-pulse"></span>
+                                        进行中
+                                    </span>
+                                </div>
+                                <p class="text-[#6B7280] text-xs mb-1 line-clamp-1">主诉：失眠多梦，心悸</p>
+                                <div class="flex items-center gap-2 text-[#9CA3AF] text-xs">
+                                    <span>语音问诊</span>
+                                    <span class="w-1 h-1 bg-[#D1D5DB] rounded-full"></span>
+                                    <span>今天 10:15</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- 记录 3 -->
+                    <article class="w-full p-4 rounded-xl bg-gradient-to-br from-[#FFF7ED] to-[#FFFBF5] border-2 border-[#FEE2E2] hover:shadow-md transition-all cursor-pointer relative overflow-hidden" onclick="openIMChat('张女士', '42岁', '女', 'https://cdn.pixabay.com/photo/2019/02/11/20/20/woman-3990680_640.jpg', '腰痛、下肢麻木')" data-patient-id="3">
+                        <div class="absolute top-0 right-0 w-20 h-20 -mr-10 -mt-10 bg-[#EA580C] opacity-5 rounded-full"></div>
+                        
+                        <div class="flex items-center gap-3 relative z-10">
+                            <div class="relative">
+                                <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[#FED7AA]">
+                                    <img src="https://cdn.pixabay.com/photo/2019/02/11/20/20/woman-3990680_640.jpg" alt="张女士" class="w-full h-full object-cover">
+                                </div>
+                                <div class="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-gradient-to-br from-[#EA580C] to-[#C2410C] rounded-full flex items-center justify-center border-2 border-white">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="w-2.5 h-2.5">
+                                        <path d="M2.87 2.298a.75.75 0 0 0-.812 1.021L3.39 6.624a1 1 0 0 0 .928.626H8.25a.75.75 0 0 1 0 1.5H4.318a1 1 0 0 0-.927.626l-1.333 3.305a.75.75 0 0 0 .811 1.022 24.89 24.89 0 0 0 11.668-5.115.75.75 0 0 0 0-1.175A24.89 24.89 0 0 0 2.869 2.298Z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between gap-2 mb-0.5">
+                                    <h3 class="text-[#1F2937] text-sm font-bold">张女士 · 42岁</h3>
+                                    <span class="px-2 py-0.5 bg-[#EA580C] rounded-full text-white text-xs font-bold whitespace-nowrap flex items-center gap-1">
+                                        <span class="w-1 h-1 bg-white rounded-full animate-pulse"></span>
+                                        进行中
+                                    </span>
+                                </div>
+                                <p class="text-[#6B7280] text-xs mb-1 line-clamp-1">主诉：腰痛、下肢麻木</p>
+                                <div class="flex items-center gap-2 text-[#9CA3AF] text-xs">
+                                    <span>图文问诊</span>
+                                    <span class="w-1 h-1 bg-[#D1D5DB] rounded-full"></span>
+                                    <span>今天 11:20</span>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!-- IM 聊天弹窗 -->
+        <div id="imChatModal" class="fixed inset-0 bg-white z-[100] transform translate-y-full transition-transform duration-300">
+            <!-- 顶部导航栏 -->
+            <div class="w-full h-[56px] flex justify-between items-center px-4 bg-white border-b border-[#E5E7EB]">
+                <button onclick="closeIMChat()" class="text-[#333333] hover:text-[#8E4337] transition-colors" aria-label="返回">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M7.28 7.72a.75.75 0 010 1.06l-2.47 2.47H21a.75.75 0 010 1.5H4.81l2.47 2.47a.75.75 0 11-1.06 1.06l-3.75-3.75a.75.75 0 010-1.06l3.75-3.75a.75.75 0 011.06 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full overflow-hidden" id="imPatientAvatar">
+                        <img src="" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 id="imPatientName" class="text-[#333333] text-base font-bold"></h3>
+                        <p id="imPatientInfo" class="text-[#9CA3AF] text-xs"></p>
+                    </div>
+                </div>
+                <button class="text-[#8E4337] hover:text-[#6E2F25] transition-colors" aria-label="更多选项">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 主诉信息卡片 -->
+            <div class="px-4 py-3 bg-[#FFF7ED] border-b border-[#FEE2E2]">
+                <div class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#EA580C" class="w-4 h-4 mt-0.5 flex-shrink-0">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+                    </svg>
+                    <div class="flex-1">
+                        <p class="text-[#EA580C] text-xs font-medium mb-0.5">患者主诉</p>
+                        <p id="imChiefComplaint" class="text-[#6B7280] text-sm"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 消息列表区域 -->
+            <div id="imMessageList" class="flex-1 overflow-y-auto px-4 py-4 bg-[#F9FAFB]" style="height: calc(100vh - 56px - 60px - 72px);">
+                <!-- 时间分隔 -->
+                <div class="flex justify-center mb-4">
+                    <span class="px-3 py-1 bg-white rounded-full text-[#9CA3AF] text-xs">今天 10:30</span>
+                </div>
+
+                <!-- 患者消息 -->
+                <div class="flex gap-2 mb-4">
+                    <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2018/01/04/21/15/young-3061652_640.jpg" alt="患者" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 max-w-[70%]">
+                        <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                            <p class="text-[#333333] text-sm leading-relaxed">医生您好，我这几天一直头痛，咳嗽，喉咙也很痛。</p>
+                        </div>
+                        <span class="text-[#9CA3AF] text-xs ml-2 mt-1 inline-block">10:30</span>
+                    </div>
+                </div>
+
+                <!-- 医生消息 -->
+                <div class="flex gap-2 mb-4 justify-end">
+                    <div class="flex-1 max-w-[70%] flex flex-col items-end">
+                        <div class="bg-gradient-to-br from-[#8E4337] to-[#6E2F25] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm">
+                            <p class="text-white text-sm leading-relaxed">您好，请问这种情况持续多久了？有发烧吗？</p>
+                        </div>
+                        <span class="text-[#9CA3AF] text-xs mr-2 mt-1">10:31</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#8E4337] to-[#6E2F25] flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 患者消息 -->
+                <div class="flex gap-2 mb-4">
+                    <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2018/01/04/21/15/young-3061652_640.jpg" alt="患者" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 max-w-[70%]">
+                        <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                            <p class="text-[#333333] text-sm leading-relaxed">已经3天了，没有发烧，就是头痛咳嗽比较严重。</p>
+                        </div>
+                        <span class="text-[#9CA3AF] text-xs ml-2 mt-1 inline-block">10:32</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部输入区域 -->
+            <div class="w-full bg-white border-t border-[#E5E7EB] p-3">
+                <div class="flex items-end gap-2">
+                    <button class="w-9 h-9 flex items-center justify-center text-[#6B7280] hover:text-[#8E4337] transition-colors" aria-label="表情">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <button class="w-9 h-9 flex items-center justify-center text-[#6B7280] hover:text-[#8E4337] transition-colors" aria-label="图片">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="flex-1 bg-[#F9FAFB] rounded-lg border border-[#E5E7EB] focus-within:border-[#8E4337] transition-colors">
+                        <textarea 
+                            id="imMessageInput"
+                            rows="1"
+                            placeholder="输入消息..."
+                            class="w-full px-3 py-2 bg-transparent resize-none focus:outline-none text-sm text-[#333333] placeholder-[#9CA3AF]"
+                            style="max-height: 80px;"
+                        ></textarea>
+                    </div>
+                    <button onclick="sendIMMessage()" class="w-9 h-9 flex items-center justify-center bg-[#8E4337] hover:bg-[#6E2F25] rounded-lg transition-colors" aria-label="发送">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
+                            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="w-full max-w-[375px] h-[60px] flex justify-around items-center bg-white border-t border-[#E5E7EB] fixed bottom-0 left-0 right-0 mx-auto z-50">
+            <button class="nav-item flex flex-col items-center gap-1 cursor-pointer text-[#8E4337]" data-tab="tabHome">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 23 20" class="w-[22px] h-5">
+                    <g transform="matrix(1,0,0,-1,0,40.0078125)">
+                        <path d="M22.492201,30.00390625Q22.453152,29.49609375,22.101711,29.14453125Q21.750271,28.79296875,21.242634,28.75390625L19.993069,28.75390625L20.032118,22.50390625Q19.993069,22.34765625,19.993069,22.19140625L19.993069,21.56640625Q19.993069,20.90234375,19.524481,20.47265625Q19.094942,20.00390625,18.43111,20.00390625L17.806326,20.00390625Q17.728228,20.00390625,17.689178,20.00390625Q17.611082,20.00390625,17.532984,20.00390625L16.244368,20.00390625L15.307193,20.00390625Q14.64336,20.00390625,14.213821,20.47265625Q13.745234,20.90234375,13.745234,21.56640625L13.745234,22.50390625L13.745234,25.00390625Q13.745234,25.55078125,13.393794,25.90234375Q13.042353,26.25390625,12.495667,26.25390625L9.9965343,26.25390625Q9.4498482,26.25390625,9.0984077,25.90234375Q8.7469673,25.55078125,8.7469673,25.00390625L8.7469673,22.50390625L8.7469673,21.56640625Q8.7469673,20.90234375,8.2783794,20.47265625Q7.8488412,20.00390625,7.185009,20.00390625L6.2478337,20.00390625L4.9982672,20.00390625Q4.959218,20.00390625,4.9201689,20.00390625Q4.8811202,20.00390625,4.8420711,20.00390625Q4.7639732,20.00390625,4.6858754,20.00390625L4.0610919,20.00390625Q3.3972597,20.00390625,2.967721,20.47265625Q2.4991336,20.90234375,2.4991336,21.56640625L2.4991336,25.94140625Q2.4991336,25.98046875,2.4991336,26.05859375L2.4991336,28.75390625L1.2495668,28.75390625Q0.70288128,28.79296875,0.35144064,29.14453125Q0,29.49609375,0,30.04296825Q0,30.55078125,0.39048961,30.98046825L10.387024,39.69140625Q10.816562,40.04296825,11.2461,40.00390625Q11.714688,40.00390625,12.066129,39.73046825L22.062662,30.94140625Q22.53125,30.55078125,22.492201,30.00390625Z" fill="currentColor"/>
+                    </g>
+                </svg>
+                <span class="text-xs font-medium leading-4">首页</span>
+            </button>
+            <button class="nav-item flex flex-col items-center gap-1 cursor-pointer text-[#6B7280]" data-tab="tabPatient">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 20" class="w-[17px] h-5">
+                    <g transform="matrix(1,0,0,-1,0,40)">
+                        <path d="M5,40Q5.546875,40,5.8984375,39.648438Q6.25,39.296875,6.25,38.75L6.25,37.5L11.25,37.5L11.25,38.75Q11.25,39.296875,11.601562,39.648438Q11.953125,40,12.5,40Q13.046875,40,13.398438,39.648438Q13.75,39.296875,13.75,38.75L13.75,37.5L15.625,37.5Q16.40625,37.460938,16.953125,36.953125Q17.460938,36.40625,17.5,35.625L17.5,33.75L0,33.75L0,35.625Q0.0390625,36.40625,0.546875,36.953125Q1.09375,37.460938,1.875,37.5L3.75,37.5L3.75,38.75Q3.75,39.296875,4.1015625,39.648438Q4.453125,40,5,40ZM0,32.5L17.5,32.5L0,32.5L17.5,32.5L17.5,21.875Q17.460938,21.09375,16.953125,20.546875Q16.40625,20.0390625,15.625,20L1.875,20Q1.09375,20.0390625,0.546875,20.546875Q0.0390625,21.09375,0,21.875L0,32.5ZM12.851562,28.0859375Q13.398438,28.75,12.851562,29.4140625Q12.1875,29.9609375,11.523438,29.4140625L7.8125,25.703125L5.9765625,27.5390625Q5.3125,28.0859375,4.6484375,27.5390625Q4.1015625,26.875,4.6484375,26.2109375L7.1484375,23.7109375Q7.8125,23.1640625,8.4765625,23.7109375L12.851562,28.0859375Z" fill="currentColor"/>
+                    </g>
+                </svg>
+                <span class="text-xs leading-4">患者</span>
+            </button>
+            <button class="nav-item flex flex-col items-center gap-1 cursor-pointer text-[#6B7280]" data-tab="tabConsultation">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18" class="w-5 h-[17.5px]">
+                    <g transform="matrix(1,0,0,-1,0,35)">
+                        <path d="M10,18.75Q12.8125,18.7890625,15.039062,19.84375Q17.304688,20.9375,18.632812,22.7734375Q19.960938,24.609375,20,26.875Q19.960938,29.140625,18.632812,30.976562Q17.304688,32.8125,15.039062,33.90625Q12.8125,34.960938,10,35Q7.1875,34.960938,4.9609375,33.90625Q2.6953125,32.8125,1.3671875,30.976562Q0.0390625,29.140625,0,26.875Q0.0390625,24.1796875,1.875,22.1484375Q1.6796875,20.703125,1.015625,19.6875Q0.703125,19.140625,0.4296875,18.8671875Q0.3125,18.7109375,0.234375,18.6328125Q0.234375,18.59375,0.1953125,18.59375L0.1953125,18.5546875Q-0.078125,18.28125,0.0390625,17.890625Q0.234375,17.5,0.625,17.5Q2.34375,17.578125,3.828125,18.2421875Q5.1953125,18.8671875,5.9375,19.453125Q7.8125,18.75,10,18.75ZM8.75,30Q8.7890625,30.585938,9.375,30.625L10.625,30.625Q11.210938,30.585938,11.25,30L11.25,28.125L13.125,28.125Q13.710938,28.085938,13.75,27.5L13.75,26.25Q13.710938,25.6640625,13.125,25.625L11.25,25.625L11.25,23.75Q11.210938,23.1640625,10.625,23.125L9.375,23.125Q8.7890625,23.1640625,8.75,23.75L8.75,25.625L6.875,25.625Q6.2890625,25.6640625,6.25,26.25L6.25,27.5Q6.2890625,28.085938,6.875,28.125L8.75,28.125L8.75,30Z" fill="currentColor"/>
+                    </g>
+                </svg>
+                <span class="text-xs leading-4">问诊</span>
+            </button>
+            <button class="nav-item flex flex-col items-center gap-1 cursor-pointer text-[#6B7280]" data-tab="tabProfile">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20" class="w-5 h-5">
+                    <g transform="matrix(1,0,0,-1,0,40)">
+                        <path d="M15.585938,25Q14.921875,26.1328125,13.789062,26.796875Q12.65625,27.5,11.25,27.5L8.75,27.5Q7.34375,27.5,6.2109375,26.796875Q5.078125,26.1328125,4.4140625,25Q5.46875,23.828125,6.875,23.1640625Q8.3203125,22.5,10,22.5Q11.679688,22.5,13.125,23.1640625Q14.53125,23.828125,15.585938,25ZM0,30Q0.0390625,32.734375,1.328125,35Q2.65625,37.265625,5,38.671875Q7.3828125,40,10,40Q12.617188,40,15,38.671875Q17.34375,37.265625,18.671875,35Q19.960938,32.734375,20,30Q19.960938,27.265625,18.671875,25Q17.34375,22.734375,15,21.328125Q12.617188,20,10,20Q7.3828125,20,5,21.328125Q2.65625,22.734375,1.328125,25Q0.0390625,27.265625,0,30ZM10,29.375Q11.601562,29.4140625,12.421875,30.78125Q13.203125,32.1875,12.421875,33.59375Q11.601562,34.960938,10,35Q8.3984375,34.960938,7.578125,33.59375Q6.796875,32.1875,7.578125,30.78125Q8.3984375,29.4140625,10,29.375Z" fill="currentColor"/>
+                    </g>
+                </svg>
+                <span class="text-xs leading-4">我的</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Toast 通知函数
+        function showToast(message, duration = 2000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // 按钮加载状态
+        function setButtonLoading(button, loading) {
+            if (loading) {
+                button.classList.add('btn-loading');
+                button.disabled = true;
+            } else {
+                button.classList.remove('btn-loading');
+                button.disabled = false;
+            }
+        }
+
+        // 开关切换
+        function toggleOnline() {
+            const toggle = document.getElementById('onlineToggle');
+            const slider = document.getElementById('toggleSlider');
+            const workbenchButton = document.getElementById('workbenchButton');
+            const isActive = toggle.classList.contains('bg-[#52c41a]');
+            
+            if (isActive) {
+                // 关闭在线坐诊
+                toggle.classList.remove('bg-[#52c41a]');
+                toggle.classList.add('bg-[#D1D5DB]');
+                slider.style.transform = 'translateX(0)';
+                toggle.setAttribute('aria-checked', 'false');
+                localStorage.setItem('consultationActive', 'false');
+                localStorage.removeItem('consultationStartTime');
+                
+                // 禁用工作台按钮
+                workbenchButton.disabled = true;
+                workbenchButton.classList.remove('bg-[#8E4337]', 'hover:bg-[#6E2F25]', 'cursor-pointer');
+                workbenchButton.classList.add('bg-[#E5E7EB]', 'cursor-not-allowed');
+                workbenchButton.querySelector('span') ? 
+                    workbenchButton.querySelector('span').classList.add('text-[#9CA3AF]') : 
+                    (workbenchButton.style.color = '#9CA3AF');
+                workbenchButton.setAttribute('aria-label', '进入坐诊工作台（请先开启在线坐诊）');
+                
+                showToast('在线坐诊已关闭');
+            } else {
+                // 开启在线坐诊 - 跳转到设置页面
+                window.location.href = 'consultation-setup.html';
+            }
+        }
+
+        // 刷新图表
+        function refreshChart() {
+            showToast('正在刷新数据...');
+            // 模拟数据刷新
+            setTimeout(() => {
+                showToast('数据刷新成功 ✓');
+            }, 800);
+        }
+
+        // 查看待处理订单
+        function handlePendingOrders(button) {
+            setButtonLoading(button, true);
+            showToast('正在加载订单...');
+            
+            setTimeout(() => {
+                setButtonLoading(button, false);
+                showToast('跳转到待处理订单页面');
+            }, 1000);
+        }
+
+        // 查看派单
+        function handleDispatch(button) {
+            setButtonLoading(button, true);
+            showToast('正在加载派单...');
+            
+            setTimeout(() => {
+                setButtonLoading(button, false);
+                // 跳转到待接订单列表页面
+                window.location.href = 'order-list.html';
+            }, 1000);
+        }
+
+        // 进入坐诊工作台
+        function enterWorkbench(button) {
+            const consultationActive = localStorage.getItem('consultationActive');
+            
+            if (consultationActive === 'true') {
+                // 已开启坐诊，可以进入工作台
+                setButtonLoading(button, true);
+                showToast('正在进入坐诊工作台...');
+                
+                setTimeout(() => {
+                    window.location.href = 'consultation-workbench.html';
+                }, 800);
+            } else {
+                // 未开启坐诊，提示用户
+                showToast('请先开启在线坐诊', 2000);
+            }
+        }
+
+        // 进入问诊会话
+        function enterSession(button) {
+            setButtonLoading(button, true);
+            showToast('正在进入问诊会话...');
+            
+            setTimeout(() => {
+                setButtonLoading(button, false);
+                // 跳转到问诊工作台
+                window.location.href = 'consultation-workbench.html';
+            }, 1000);
+        }
+
+        // 查看全部问诊记录
+        function viewAllConsultations() {
+            showToast('正在加载问诊记录...');
+            setTimeout(() => {
+                window.location.href = 'consultation-records.html';
+            }, 500);
+        }
+
+        // 打开IM聊天窗口
+        function openIMChat(patientName, age, gender, avatar, chiefComplaint) {
+            const modal = document.getElementById('imChatModal');
+            const avatarImg = document.getElementById('imPatientAvatar').querySelector('img');
+            const nameEl = document.getElementById('imPatientName');
+            const infoEl = document.getElementById('imPatientInfo');
+            const complaintEl = document.getElementById('imChiefComplaint');
+            
+            // 设置患者信息
+            avatarImg.src = avatar;
+            avatarImg.alt = patientName;
+            nameEl.textContent = patientName;
+            infoEl.textContent = `${age} · ${gender}`;
+            complaintEl.textContent = chiefComplaint;
+            
+            // 显示弹窗（向上滑入）
+            modal.classList.remove('translate-y-full');
+            modal.classList.add('translate-y-0');
+            
+            // 禁止底层页面滚动
+            document.body.style.overflow = 'hidden';
+            
+            // 滚动到消息列表底部
+            setTimeout(() => {
+                const messageList = document.getElementById('imMessageList');
+                messageList.scrollTop = messageList.scrollHeight;
+            }, 100);
+        }
+
+        // 关闭IM聊天窗口
+        function closeIMChat() {
+            const modal = document.getElementById('imChatModal');
+            
+            // 隐藏弹窗（向下滑出）
+            modal.classList.remove('translate-y-0');
+            modal.classList.add('translate-y-full');
+            
+            // 恢复底层页面滚动
+            document.body.style.overflow = '';
+        }
+
+        // 发送IM消息
+        function sendIMMessage() {
+            const input = document.getElementById('imMessageInput');
+            const message = input.value.trim();
+            
+            if (!message) {
+                showToast('请输入消息内容');
+                return;
+            }
+            
+            // 创建消息元素
+            const messageList = document.getElementById('imMessageList');
+            const messageEl = document.createElement('div');
+            messageEl.className = 'flex gap-2 mb-4 justify-end';
+            
+            const now = new Date();
+            const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            messageEl.innerHTML = `
+                <div class="flex-1 max-w-[70%] flex flex-col items-end">
+                    <div class="bg-gradient-to-br from-[#8E4337] to-[#6E2F25] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm">
+                        <p class="text-white text-sm leading-relaxed">${message}</p>
+                    </div>
+                    <span class="text-[#9CA3AF] text-xs mr-2 mt-1">${timeStr}</span>
+                </div>
+                <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#8E4337] to-[#6E2F25] flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            `;
+            
+            // 添加到消息列表
+            messageList.appendChild(messageEl);
+            
+            // 清空输入框
+            input.value = '';
+            input.style.height = 'auto';
+            
+            // 滚动到底部
+            messageList.scrollTop = messageList.scrollHeight;
+            
+            showToast('消息已发送');
+        }
+
+        // 输入框自动调整高度
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageInput = document.getElementById('imMessageInput');
+            if (messageInput) {
+                messageInput.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 80) + 'px';
+                });
+                
+                // 支持Enter发送，Shift+Enter换行
+                messageInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendIMMessage();
+                    }
+                });
+            }
+        });
+
+        // 底部导航点击 - Tab切换
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetTab = e.currentTarget.getAttribute('data-tab');
+                const navText = e.currentTarget.querySelector('span').textContent;
+                
+                // 如果没有targetTab（患者、我的页面），显示提示
+                if (!targetTab || targetTab === 'tabPatient' || targetTab === 'tabProfile') {
+                    showToast(`${navText}页面开发中...`, 1500);
+                    return;
+                }
+                
+                // 切换底部导航激活状态
+                document.querySelectorAll('.nav-item').forEach(nav => {
+                    nav.classList.remove('text-[#8E4337]');
+                    nav.classList.add('text-[#6B7280]');
+                    nav.querySelector('span').classList.remove('font-medium');
+                });
+                
+                e.currentTarget.classList.remove('text-[#6B7280]');
+                e.currentTarget.classList.add('text-[#8E4337]');
+                e.currentTarget.querySelector('span').classList.add('font-medium');
+                
+                // 切换Tab内容
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                    content.classList.remove('flex');
+                });
+                
+                const targetContent = document.getElementById(targetTab);
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                    targetContent.classList.add('flex');
+                }
+            });
+        });
+
+        // 页面加载时检查在线坐诊状态
+        window.addEventListener('DOMContentLoaded', () => {
+            const consultationActive = localStorage.getItem('consultationActive');
+            const workbenchButton = document.getElementById('workbenchButton');
+            
+            if (consultationActive === 'true') {
+                // 更新开关状态
+                const toggle = document.getElementById('onlineToggle');
+                const slider = document.getElementById('toggleSlider');
+                toggle.classList.remove('bg-[#D1D5DB]');
+                toggle.classList.add('bg-[#52c41a]');
+                slider.style.transform = 'translateX(24px)';
+                toggle.setAttribute('aria-checked', 'true');
+                
+                // 启用工作台按钮
+                workbenchButton.disabled = false;
+                workbenchButton.classList.remove('bg-[#E5E7EB]', 'cursor-not-allowed');
+                workbenchButton.classList.add('bg-[#8E4337]', 'hover:bg-[#6E2F25]', 'cursor-pointer', 'active:scale-98');
+                workbenchButton.style.color = '';
+                workbenchButton.classList.remove('text-[#9CA3AF]');
+                workbenchButton.classList.add('text-white');
+                workbenchButton.setAttribute('aria-label', '进入坐诊工作台');
+                
+                // 显示提示
+                const consultationData = JSON.parse(localStorage.getItem('consultationData') || '{}');
+                if (consultationData.duration && consultationData.maxPatients) {
+                    console.log('在线坐诊已开启:', consultationData);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

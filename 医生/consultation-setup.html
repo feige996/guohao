@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开启坐诊 - 医生问诊系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        /* 焦点状态 */
+        button:focus-visible, a:focus-visible, input:focus-visible {
+            outline: 2px solid #8E4337;
+            outline-offset: 2px;
+        }
+        
+        /* Toast 通知 */
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            max-width: 300px;
+            text-align: center;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        /* 加载状态 */
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+            pointer-events: none;
+        }
+        
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spinner 0.6s linear infinite;
+        }
+        
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* 输入框样式 */
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="bg-[#F9FAFB]">
+    <div class="w-full max-w-[375px] mx-auto min-h-screen bg-[#F9FAFB] relative pb-24">
+        <!-- Toast 通知 -->
+        <div id="toast" class="toast"></div>
+
+        <!-- 顶部导航 -->
+        <div class="w-full h-14 flex items-center justify-between px-4 bg-white border-b border-[#E5E7EB] fixed top-0 left-0 right-0 max-w-[375px] mx-auto z-50">
+            <button 
+                class="w-10 h-10 flex items-center justify-center -ml-2"
+                onclick="handleBack()"
+                aria-label="返回">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333" class="w-5 h-5">
+                    <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+                </svg>
+            </button>
+            <h1 class="text-lg font-bold text-[#333333]">开启坐诊</h1>
+            <div class="w-10"></div>
+        </div>
+
+        <!-- 主内容区 -->
+        <div class="pt-[56px] px-4 pb-4 flex flex-col gap-5">
+            <!-- 问诊方式设置 -->
+            <section>
+                <h2 class="text-base font-bold text-[#333333] mb-4">问诊方式和价格</h2>
+                
+                <!-- 图文+语音消息 -->
+                <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white mb-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="w-5 h-5">
+                                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+                            </svg>
+                            <span class="text-[#333333] font-medium">图文+语音消息</span>
+                        </div>
+                        <button 
+                            class="relative w-12 h-6 bg-[#52c41a] rounded-full cursor-pointer transition-colors" 
+                            id="toggleText"
+                            onclick="toggleConsultationType('text')"
+                            aria-label="图文问诊开关"
+                            role="switch"
+                            aria-checked="true">
+                            <div class="absolute w-5 h-5 bg-white rounded-full top-0.5 left-[26px] transition-transform border border-[#52c41a] shadow-sm" id="sliderText"></div>
+                        </button>
+                    </div>
+                    <div id="textContent">
+                        <div class="border-t border-[#E5E7EB] pt-4">
+                            <label class="text-sm text-[#9CA3AF] block mb-2" for="priceText">问诊价格</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#8E4337] text-lg font-bold">¥</span>
+                                <input 
+                                    type="number" 
+                                    id="priceText" 
+                                    value="50"
+                                    class="w-full rounded-lg bg-[#F5EBE9] border-none pl-8 pr-4 py-3 text-lg font-bold text-[#8E4337] focus:ring-2 focus:ring-[#8E4337]"
+                                    aria-label="图文问诊价格">
+                            </div>
+                            <p class="mt-2 text-xs text-[#6B7280]">48小时多轮对话，支持文字、图片、语音消息</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 实时视频问诊 -->
+                <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white mb-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="w-5 h-5">
+                                <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/>
+                            </svg>
+                            <span class="text-[#333333] font-medium">实时视频问诊</span>
+                        </div>
+                        <button 
+                            class="relative w-12 h-6 bg-[#52c41a] rounded-full cursor-pointer transition-colors" 
+                            id="toggleVideo"
+                            onclick="toggleConsultationType('video')"
+                            aria-label="视频问诊开关"
+                            role="switch"
+                            aria-checked="true">
+                            <div class="absolute w-5 h-5 bg-white rounded-full top-0.5 left-[26px] transition-transform border border-[#52c41a] shadow-sm" id="sliderVideo"></div>
+                        </button>
+                    </div>
+                    <div id="videoContent">
+                        <div class="border-t border-[#E5E7EB] pt-4">
+                            <label class="text-sm text-[#9CA3AF] block mb-2" for="priceVideo">问诊价格</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#8E4337] text-lg font-bold">¥</span>
+                                <input 
+                                    type="number" 
+                                    id="priceVideo" 
+                                    value="150"
+                                    class="w-full rounded-lg bg-[#F5EBE9] border-none pl-8 pr-4 py-3 text-lg font-bold text-[#8E4337] focus:ring-2 focus:ring-[#8E4337]"
+                                    aria-label="视频问诊价格">
+                            </div>
+                            <p class="mt-2 text-xs text-[#6B7280]">15-20分钟基础时长，面对面视频通话</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 实时语音问诊 -->
+                <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="w-5 h-5">
+                                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+                            </svg>
+                            <span class="text-[#333333] font-medium">实时语音问诊</span>
+                        </div>
+                        <button 
+                            class="relative w-12 h-6 bg-[#D1D5DB] rounded-full cursor-pointer transition-colors" 
+                            id="toggleVoice"
+                            onclick="toggleConsultationType('voice')"
+                            aria-label="语音问诊开关"
+                            role="switch"
+                            aria-checked="false">
+                            <div class="absolute w-5 h-5 bg-white rounded-full top-0.5 left-0.5 transition-transform border border-[#D1D5DB] shadow-sm" id="sliderVoice"></div>
+                        </button>
+                    </div>
+                    <div id="voiceContent" class="opacity-50">
+                        <div class="border-t border-[#E5E7EB] pt-4">
+                            <label class="text-sm text-[#9CA3AF] block mb-2" for="priceVoice">问诊价格</label>
+                            <div class="relative">
+                                <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-[#9CA3AF] text-lg font-bold">¥</span>
+                                <input 
+                                    type="number" 
+                                    id="priceVoice" 
+                                    placeholder="80"
+                                    disabled
+                                    class="w-full rounded-lg bg-[#F5EBE9] border-none pl-8 pr-4 py-3 text-lg font-bold text-[#9CA3AF]"
+                                    aria-label="语音问诊价格">
+                            </div>
+                            <p class="mt-2 text-xs text-[#6B7280]">15-20分钟基础时长，纯语音通话</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 坐诊设置 -->
+            <section>
+                <h2 class="text-base font-bold text-[#333333] mb-4">坐诊设置</h2>
+                <div class="w-full p-5 rounded-[20px] shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] bg-white">
+                    <div class="space-y-6">
+                        <div>
+                            <label class="text-sm text-[#9CA3AF] block mb-2" for="duration">计划时长</label>
+                            <div class="relative">
+                                <input 
+                                    type="number" 
+                                    id="duration" 
+                                    value="4"
+                                    class="w-full rounded-lg bg-[#F5EBE9] border-none pr-16 pl-4 py-3 text-lg font-bold text-[#333333] focus:ring-2 focus:ring-[#8E4337]"
+                                    aria-label="计划时长">
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-sm text-[#6B7280]">小时</span>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-sm text-[#9CA3AF] block mb-2" for="maxPatients">最多接诊人数</label>
+                            <div class="relative">
+                                <input 
+                                    type="number" 
+                                    id="maxPatients" 
+                                    value="20"
+                                    class="w-full rounded-lg bg-[#F5EBE9] border-none pr-16 pl-4 py-3 text-lg font-bold text-[#333333] focus:ring-2 focus:ring-[#8E4337]"
+                                    aria-label="最多接诊人数">
+                                <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-sm text-[#6B7280]">人</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- 底部按钮 -->
+        <div class="w-full max-w-[375px] fixed bottom-0 left-0 right-0 mx-auto bg-white/95 backdrop-blur-sm border-t border-[#E5E7EB] p-4 z-50">
+            <div class="flex gap-3">
+                <button 
+                    class="flex-1 py-3 border-2 border-[#8E4337] rounded text-[#8E4337] text-sm font-medium leading-5 cursor-pointer hover:bg-[#8E4337] hover:text-white transition-all active:scale-98 flex items-center justify-center gap-2"
+                    onclick="handleCancel(this)"
+                    aria-label="取消开启坐诊">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                    </svg>
+                    取消
+                </button>
+                <button 
+                    class="flex-1 py-3 bg-[#8E4337] rounded text-white text-sm font-medium leading-5 cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98 flex items-center justify-center gap-2"
+                    onclick="handleStartConsultation(this)"
+                    aria-label="确认开启坐诊">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                    </svg>
+                    开启坐诊
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toast 通知函数
+        function showToast(message, duration = 2000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // 按钮加载状态
+        function setButtonLoading(button, loading) {
+            if (loading) {
+                button.classList.add('btn-loading');
+                button.disabled = true;
+            } else {
+                button.classList.remove('btn-loading');
+                button.disabled = false;
+            }
+        }
+
+        // 开关状态
+        const consultationTypes = {
+            text: true,
+            video: true,
+            voice: false
+        };
+
+        // 切换问诊类型
+        function toggleConsultationType(type) {
+            consultationTypes[type] = !consultationTypes[type];
+            const toggle = document.getElementById(`toggle${type.charAt(0).toUpperCase() + type.slice(1)}`);
+            const slider = document.getElementById(`slider${type.charAt(0).toUpperCase() + type.slice(1)}`);
+            const content = document.getElementById(`${type}Content`);
+            const input = document.getElementById(`price${type.charAt(0).toUpperCase() + type.slice(1)}`);
+
+            if (consultationTypes[type]) {
+                toggle.classList.remove('bg-[#D1D5DB]');
+                toggle.classList.add('bg-[#52c41a]');
+                slider.style.transform = 'translateX(20px)';
+                slider.classList.remove('border-[#D1D5DB]');
+                slider.classList.add('border-[#52c41a]');
+                toggle.setAttribute('aria-checked', 'true');
+                content.classList.remove('opacity-50');
+                input.disabled = false;
+                showToast(`已开启${getTypeName(type)}`);
+            } else {
+                toggle.classList.remove('bg-[#52c41a]');
+                toggle.classList.add('bg-[#D1D5DB]');
+                slider.style.transform = 'translateX(0)';
+                slider.classList.remove('border-[#52c41a]');
+                slider.classList.add('border-[#D1D5DB]');
+                toggle.setAttribute('aria-checked', 'false');
+                content.classList.add('opacity-50');
+                input.disabled = true;
+                showToast(`已关闭${getTypeName(type)}`);
+            }
+        }
+
+        function getTypeName(type) {
+            const names = {
+                text: '图文问诊',
+                video: '视频问诊',
+                voice: '语音问诊'
+            };
+            return names[type];
+        }
+
+        // 返回
+        function handleBack() {
+            if (confirm('确定要放弃设置并返回吗？')) {
+                window.location.href = 'index.html';
+            }
+        }
+
+        // 取消
+        function handleCancel(button) {
+            if (confirm('确定要取消开启坐诊吗？')) {
+                showToast('已取消');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 1000);
+            }
+        }
+
+        // 开启坐诊
+        function handleStartConsultation(button) {
+            // 验证至少选择一种问诊方式
+            const hasType = consultationTypes.text || consultationTypes.video || consultationTypes.voice;
+            if (!hasType) {
+                showToast('请至少选择一种问诊方式');
+                return;
+            }
+
+            // 验证价格
+            const prices = [];
+            if (consultationTypes.text) {
+                const price = document.getElementById('priceText').value;
+                if (!price || price <= 0) {
+                    showToast('请设置图文问诊价格');
+                    return;
+                }
+                prices.push(`图文¥${price}`);
+            }
+            if (consultationTypes.video) {
+                const price = document.getElementById('priceVideo').value;
+                if (!price || price <= 0) {
+                    showToast('请设置视频问诊价格');
+                    return;
+                }
+                prices.push(`视频¥${price}`);
+            }
+            if (consultationTypes.voice) {
+                const price = document.getElementById('priceVoice').value;
+                if (!price || price <= 0) {
+                    showToast('请设置语音问诊价格');
+                    return;
+                }
+                prices.push(`语音¥${price}`);
+            }
+
+            // 验证时长和人数
+            const duration = document.getElementById('duration').value;
+            const maxPatients = document.getElementById('maxPatients').value;
+            
+            if (!duration || duration <= 0) {
+                showToast('请设置计划时长');
+                return;
+            }
+            if (!maxPatients || maxPatients <= 0) {
+                showToast('请设置最多接诊人数');
+                return;
+            }
+
+            // 显示加载状态
+            setButtonLoading(button, true);
+            showToast('正在开启坐诊...');
+
+            // 模拟提交
+            setTimeout(() => {
+                setButtonLoading(button, false);
+                showToast(`坐诊已开启 ✓`, 1500);
+                
+                // 保存状态到 localStorage
+                localStorage.setItem('consultationActive', 'true');
+                localStorage.setItem('consultationData', JSON.stringify({
+                    types: consultationTypes,
+                    prices: {
+                        text: document.getElementById('priceText').value,
+                        video: document.getElementById('priceVideo').value,
+                        voice: document.getElementById('priceVoice').value
+                    },
+                    duration: duration,
+                    maxPatients: maxPatients
+                }));
+                // 清除旧的开始时间，让工作台页面重新计时
+                localStorage.removeItem('consultationStartTime');
+                
+                setTimeout(() => {
+                    window.location.href = 'consultation-workbench.html';
+                }, 1000);
+            }, 1500);
+        }
+    </script>
+</body>
+</html>
+

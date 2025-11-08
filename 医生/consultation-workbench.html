@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线坐诊</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- 引入共享问诊工具函数库 -->
+    <script src="consultation-utils.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        button:focus-visible, a:focus-visible {
+            outline: 2px solid #8E4337;
+            outline-offset: 2px;
+        }
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+            max-width: 300px;
+            text-align: center;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .btn-loading {
+            position: relative;
+            color: transparent !important;
+            pointer-events: none;
+        }
+        .btn-loading::after {
+            content: "";
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            top: 50%;
+            left: 50%;
+            margin-left: -8px;
+            margin-top: -8px;
+            border: 2px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spinner 0.6s linear infinite;
+        }
+        @keyframes spinner {
+            to { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #10B981;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .timer-text {
+            font-size: 40px;
+            font-weight: 700;
+            color: #8E4337;
+            letter-spacing: 0.02em;
+            line-height: 1;
+        }
+        
+        /* 模态弹窗 */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .modal-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 320px;
+            width: calc(100% - 48px);
+            z-index: 1000;
+            opacity: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+        }
+        
+        .modal-overlay.show .modal-content {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+    </style>
+</head>
+<body class="bg-[#F3F1ED]">
+    <div class="w-full max-w-[375px] mx-auto min-h-screen relative pb-5">
+        <!-- Toast 通知 -->
+        <div id="toast" class="toast"></div>
+
+        <!-- 确认弹窗 -->
+        <div id="confirmModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-content">
+                <div id="modalContent" class="mb-6">
+                    <div id="modalIcon" class="w-12 h-12 rounded-full bg-[#FEF2F2] flex items-center justify-center mx-auto mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#EF4444" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <h3 id="modalTitle" class="text-lg font-bold text-[#1F2937] text-center mb-2">确认结束坐诊</h3>
+                    <p id="modalMessage" class="text-sm text-[#6B7280] text-center leading-relaxed">结束后需要重新开启才能接诊，确定要结束坐诊吗？</p>
+                </div>
+                <div id="modalButtons" class="grid grid-cols-2 gap-3">
+                    <button 
+                        id="modalCancelBtn"
+                        class="py-3 border-2 border-[#E5E7EB] rounded-lg text-[#6B7280] text-sm font-medium cursor-pointer hover:bg-[#F9FAFB] transition-colors active:scale-98"
+                        onclick="closeModal()"
+                        aria-label="取消">
+                        取消
+                    </button>
+                    <button 
+                        id="modalConfirmBtn"
+                        class="py-3 bg-[#EF4444] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#DC2626] transition-colors active:scale-98"
+                        aria-label="确认">
+                        确认
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 顶部导航 -->
+        <header class="w-full h-[56px] flex justify-between items-center px-4 bg-white fixed top-0 left-0 right-0 max-w-[375px] mx-auto z-50">
+            <button class="text-[#333333] hover:text-[#6B7280] transition-colors" onclick="goBack()" aria-label="返回上一页">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <h1 class="text-lg font-bold text-[#333333]">在线坐诊</h1>
+            <button class="text-[#333333] hover:text-[#6B7280] transition-colors" onclick="refreshData(this)" aria-label="刷新数据">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="pt-[72px] px-4 flex flex-col gap-5">
+            <!-- 坐诊状态头部卡片 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)] bg-white border border-[#E5E7EB]">
+                <div class="flex items-center gap-2 mb-4">
+                    <!-- 坐诊图标 -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#10B981" class="w-5 h-5">
+                        <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[#10B981] text-base font-semibold flex items-center gap-2">
+                        <span class="status-dot"></span>
+                        在线坐诊中
+                    </span>
+                </div>
+                
+                <!-- 倒计时 -->
+                <div class="mb-4">
+                    <div class="text-[#6B7280] text-sm mb-2">剩余坐诊时间</div>
+                    <div class="timer-text" id="remainingTime">01:28:45</div>
+                </div>
+                
+                <!-- 结束坐诊按钮 -->
+                <button 
+                    class="w-full py-3 bg-[#EF4444] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#DC2626] transition-colors active:scale-98 flex items-center justify-center gap-2"
+                    onclick="confirmEndConsultation(this)"
+                    aria-label="结束坐诊">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" clip-rule="evenodd" />
+                    </svg>
+                    结束坐诊
+                </button>
+            </section>
+
+            <!-- 统计卡片 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white border border-[#E5E7EB]">
+                <div class="grid grid-cols-3 gap-4">
+                    <!-- 排队中 -->
+                    <div class="flex flex-col items-center">
+                        <div class="text-[#6B7280] text-xs font-medium mb-2">排队中</div>
+                        <div class="text-[#1F2937] text-3xl font-bold leading-none">3</div>
+                    </div>
+                    
+                    <!-- 问诊中 -->
+                    <div class="flex flex-col items-center border-l border-r border-[#E5E7EB]">
+                        <div class="text-[#6B7280] text-xs font-medium mb-2">问诊中</div>
+                        <div class="text-[#8E4337] text-3xl font-bold leading-none">1</div>
+                    </div>
+                    
+                    <!-- 已完成 -->
+                    <div class="flex flex-col items-center">
+                        <div class="text-[#6B7280] text-xs font-medium mb-2">已完成</div>
+                        <div class="text-[#1F2937] text-3xl font-bold leading-none">12</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 正在问诊标题 -->
+            <h2 class="text-[#1F2937] text-lg font-bold">正在问诊</h2>
+
+            <!-- 正在问诊的患者卡片 -->
+            <section id="currentPatientCard" class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white border-2 border-[#8E4337]">
+                <div class="flex items-start gap-3 mb-4">
+                    <!-- 头像 -->
+                    <div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_640.jpg" alt="张伟" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- 患者信息 -->
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[#1F2937] text-lg font-bold">张伟</span>
+                            <div class="ml-auto flex items-center gap-2">
+                                <div class="px-2.5 py-1 bg-[#F5EBE9] rounded-full flex items-center gap-1">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-[#8E4337] animate-pulse"></div>
+                                    <span class="text-[#8E4337] text-xs font-bold">问诊中</span>
+                                </div>
+                                <div class="px-2.5 py-1 bg-[#8E4337] rounded-full">
+                                    <span class="text-white text-xs font-bold">12:34</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 问诊类型 -->
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                                <path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />
+                            </svg>
+                            <span class="text-[#6B7280] text-sm font-medium">视频通话中...</span>
+                        </div>
+                        
+                        <!-- 症状 -->
+                        <div class="text-[#6B7280] text-sm">
+                            症状：持续咳嗽、乏力两周
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 按钮组 -->
+                <div class="grid grid-cols-3 gap-2">
+                    <button 
+                        class="py-2.5 bg-[#F5EBE9] rounded-lg text-[#8E4337] text-xs font-medium cursor-pointer hover:bg-[#E5D5D0] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                        onclick="viewMedicalRecord('张伟', 'current')"
+                        aria-label="查看张伟的病历">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                            <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
+                        </svg>
+                        病历
+                    </button>
+                    <button 
+                        class="py-2.5 bg-[#8E4337] rounded-lg text-white text-xs font-medium cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                        onclick="enterConsultation('张伟', this)"
+                        aria-label="进入张伟的问诊">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clip-rule="evenodd" />
+                        </svg>
+                        进入问诊
+                    </button>
+                    <button 
+                        class="py-2.5 bg-[#B45309] rounded-lg text-white text-xs font-medium cursor-pointer hover:bg-[#92400E] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                        onclick="endPatientConsultation('张伟', this)"
+                        aria-label="结束张伟的问诊">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                        </svg>
+                        结束问诊
+                    </button>
+                </div>
+            </section>
+
+            <!-- 等待队列标题 -->
+            <div class="flex items-center justify-between">
+                <h2 id="waitingQueueTitle" class="text-[#1F2937] text-lg font-bold">等待队列（3 人）</h2>
+            </div>
+
+            <!-- 等待队列患者卡片 1 -->
+            <section id="waitingPatient1" class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white relative hover:shadow-[0px_4px_16px_0px_rgba(0,0,0,0.1)] transition-shadow border border-[#F3F4F6]">
+                <div class="flex items-start gap-3 mb-4">
+                    <!-- 头像 -->
+                    <div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_640.jpg" alt="李伟" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- 患者信息 -->
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[#1F2937] text-lg font-bold">李伟</span>
+                            <span class="text-[#6B7280] text-sm">34岁</span>
+                            <div class="ml-auto flex items-center gap-2">
+                                <div class="px-2.5 py-1 bg-[#F3F4F6] rounded-full">
+                                    <span class="text-[#6B7280] text-xs font-bold">排队中</span>
+                                </div>
+                                <div class="px-2.5 py-1 bg-[#8E4337] rounded-full">
+                                    <span class="text-white text-xs font-bold">1号</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 问诊类型 -->
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                                <path d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" />
+                            </svg>
+                            <span class="text-[#6B7280] text-sm">图文+语音</span>
+                            <div class="ml-auto">
+                                <span class="text-[#8E4337] text-base font-bold">¥50</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 症状 -->
+                        <div class="text-[#6B7280] text-sm mb-2">
+                            症状：持续咳嗽、乏力两周。
+                        </div>
+                        
+                        <!-- 等候时间 -->
+                        <div class="text-[#92400E] text-xs font-medium">
+                            等候时间：05:32
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 按钮组 -->
+                <div class="grid grid-cols-2 gap-3">
+                    <button 
+                        class="py-3 bg-[#F5EBE9] rounded-lg text-[#8E4337] text-sm font-medium cursor-pointer hover:bg-[#E5D5D0] transition-colors active:scale-98 flex items-center justify-center gap-2"
+                        onclick="viewMedicalRecord('李伟', 'waiting')"
+                        aria-label="查看李伟的病历">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                            <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
+                        </svg>
+                        病历
+                    </button>
+                    <button 
+                        class="py-3 bg-[#4A5568] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#2D3748] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                        onclick="callPatient('李伟', '1号', this)"
+                        aria-label="呼叫李伟">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                            <path d="M3.505 2.365A41.369 41.369 0 019 2c1.863 0 3.697.124 5.495.365 1.247.167 2.18 1.108 2.435 2.268a4.45 4.45 0 00-.577-.069 43.141 43.141 0 00-4.706 0C9.229 4.696 7.5 6.727 7.5 8.998v2.24c0 1.413.67 2.735 1.76 3.562l-2.98 2.98A.75.75 0 015 17.25v-3.443c-.501-.048-1-.106-1.495-.172C2.033 13.438 1 12.162 1 10.72V5.28c0-1.441 1.033-2.717 2.505-2.914z" />
+                            <path d="M14 6c-.762 0-1.52.02-2.271.062C10.157 6.148 9 7.472 9 8.998v2.24c0 1.519 1.147 2.839 2.71 2.935.214.013.428.024.642.034.2.009.385.09.518.224l2.35 2.35a.75.75 0 001.28-.531v-2.07c1.453-.195 2.5-1.463 2.5-2.915V8.998c0-1.526-1.157-2.85-2.729-2.936A41.645 41.645 0 0014 6z" />
+                        </svg>
+                        呼叫患者
+                    </button>
+                </div>
+            </section>
+
+            <!-- 等待队列患者卡片 2 -->
+            <section id="waitingPatient2" class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white relative hover:shadow-[0px_4px_16px_0px_rgba(0,0,0,0.1)] transition-shadow border border-[#F3F4F6]">
+                <div class="flex items-start gap-3 mb-4">
+                    <!-- 头像 -->
+                    <div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2017/06/26/02/47/person-2442565_640.jpg" alt="陈梅" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- 患者信息 -->
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[#1F2937] text-lg font-bold">陈梅</span>
+                            <span class="text-[#6B7280] text-sm">45岁</span>
+                            <div class="ml-auto flex items-center gap-2">
+                                <div class="px-2.5 py-1 bg-[#F3F4F6] rounded-full">
+                                    <span class="text-[#6B7280] text-xs font-bold">排队中</span>
+                                </div>
+                                <div class="px-2.5 py-1 bg-[#8E4337] rounded-full">
+                                    <span class="text-white text-xs font-bold">2号</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 问诊类型 -->
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                                <path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />
+                            </svg>
+                            <span class="text-[#6B7280] text-sm">实时视频</span>
+                            <div class="ml-auto">
+                                <span class="text-[#8E4337] text-base font-bold">¥150</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 症状 -->
+                        <div class="text-[#6B7280] text-sm mb-2">
+                            症状：失眠、焦虑。
+                        </div>
+                        
+                        <!-- 等候时间 -->
+                        <div class="text-[#92400E] text-xs font-medium">
+                            等候时间：03:15
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 按钮组 -->
+                <div class="grid grid-cols-2 gap-3">
+                    <button 
+                        class="py-3 bg-[#F5EBE9] rounded-lg text-[#8E4337] text-sm font-medium cursor-pointer hover:bg-[#E5D5D0] transition-colors active:scale-98 flex items-center justify-center gap-2"
+                        onclick="viewMedicalRecord('陈梅', 'waiting')"
+                        aria-label="查看陈梅的病历">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                            <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
+                        </svg>
+                        病历
+                    </button>
+                    <button 
+                        class="py-3 bg-[#4A5568] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#2D3748] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                        onclick="callPatient('陈梅', '2号', this)"
+                        aria-label="呼叫陈梅">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                            <path d="M3.505 2.365A41.369 41.369 0 019 2c1.863 0 3.697.124 5.495.365 1.247.167 2.18 1.108 2.435 2.268a4.45 4.45 0 00-.577-.069 43.141 43.141 0 00-4.706 0C9.229 4.696 7.5 6.727 7.5 8.998v2.24c0 1.413.67 2.735 1.76 3.562l-2.98 2.98A.75.75 0 015 17.25v-3.443c-.501-.048-1-.106-1.495-.172C2.033 13.438 1 12.162 1 10.72V5.28c0-1.441 1.033-2.717 2.505-2.914z" />
+                            <path d="M14 6c-.762 0-1.52.02-2.271.062C10.157 6.148 9 7.472 9 8.998v2.24c0 1.519 1.147 2.839 2.71 2.935.214.013.428.024.642.034.2.009.385.09.518.224l2.35 2.35a.75.75 0 001.28-.531v-2.07c1.453-.195 2.5-1.463 2.5-2.915V8.998c0-1.526-1.157-2.85-2.729-2.936A41.645 41.645 0 0014 6z" />
+                        </svg>
+                        呼叫患者
+                    </button>
+                </div>
+            </section>
+
+            <!-- 等待队列患者卡片 3 -->
+            <section id="waitingPatient3" class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white relative hover:shadow-[0px_4px_16px_0px_rgba(0,0,0,0.1)] transition-shadow border border-[#F3F4F6]">
+                <div class="flex items-start gap-3 mb-4">
+                    <!-- 头像 -->
+                    <div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/21/14/53/man-1845814_640.jpg" alt="王军" class="w-full h-full object-cover">
+                    </div>
+                    
+                    <!-- 患者信息 -->
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-2">
+                            <span class="text-[#1F2937] text-lg font-bold">王军</span>
+                            <span class="text-[#6B7280] text-sm">28岁</span>
+                            <div class="ml-auto flex items-center gap-2">
+                                <div class="px-2.5 py-1 bg-[#F3F4F6] rounded-full">
+                                    <span class="text-[#6B7280] text-xs font-bold">排队中</span>
+                                </div>
+                                <div class="px-2.5 py-1 bg-[#8E4337] rounded-full">
+                                    <span class="text-white text-xs font-bold">3号</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 问诊类型 -->
+                        <div class="flex items-center gap-2 mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                                <path d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" />
+                            </svg>
+                            <span class="text-[#6B7280] text-sm">图文+语音</span>
+                            <div class="ml-auto">
+                                <span class="text-[#8E4337] text-base font-bold">¥50</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 症状 -->
+                        <div class="text-[#6B7280] text-sm mb-2">
+                            症状：消化不良、腹胀。
+                        </div>
+                        
+                        <!-- 等候时间 -->
+                        <div class="text-[#92400E] text-xs font-medium">
+                            等候时间：01:48
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 按钮组 -->
+                <div class="grid grid-cols-2 gap-3">
+                    <button 
+                        class="py-3 bg-[#F5EBE9] rounded-lg text-[#8E4337] text-sm font-medium cursor-pointer hover:bg-[#E5D5D0] transition-colors active:scale-98 flex items-center justify-center gap-2"
+                        onclick="viewMedicalRecord('王军', 'waiting')"
+                        aria-label="查看王军的病历">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                            <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
+                        </svg>
+                        病历
+                    </button>
+                    <button 
+                        class="py-3 bg-[#4A5568] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#2D3748] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                        onclick="callPatient('王军', '3号', this)"
+                        aria-label="呼叫王军">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                            <path d="M3.505 2.365A41.369 41.369 0 019 2c1.863 0 3.697.124 5.495.365 1.247.167 2.18 1.108 2.435 2.268a4.45 4.45 0 00-.577-.069 43.141 43.141 0 00-4.706 0C9.229 4.696 7.5 6.727 7.5 8.998v2.24c0 1.413.67 2.735 1.76 3.562l-2.98 2.98A.75.75 0 015 17.25v-3.443c-.501-.048-1-.106-1.495-.172C2.033 13.438 1 12.162 1 10.72V5.28c0-1.441 1.033-2.717 2.505-2.914z" />
+                            <path d="M14 6c-.762 0-1.52.02-2.271.062C10.157 6.148 9 7.472 9 8.998v2.24c0 1.519 1.147 2.839 2.71 2.935.214.013.428.024.642.034.2.009.385.09.518.224l2.35 2.35a.75.75 0 001.28-.531v-2.07c1.453-.195 2.5-1.463 2.5-2.915V8.998c0-1.526-1.157-2.85-2.729-2.936A41.645 41.645 0 0014 6z" />
+                        </svg>
+                        呼叫患者
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- IM 聊天弹窗 -->
+        <div id="imChatModal" class="fixed inset-0 bg-white z-[100] transform translate-y-full transition-transform duration-300">
+            <!-- 顶部导航栏 -->
+            <div class="w-full h-[56px] flex justify-between items-center px-4 bg-white border-b border-[#E5E7EB]">
+                <button onclick="closeIMChat()" class="text-[#333333] hover:text-[#8E4337] transition-colors" aria-label="返回">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M7.28 7.72a.75.75 0 010 1.06l-2.47 2.47H21a.75.75 0 010 1.5H4.81l2.47 2.47a.75.75 0 11-1.06 1.06l-3.75-3.75a.75.75 0 010-1.06l3.75-3.75a.75.75 0 011.06 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full overflow-hidden" id="imPatientAvatar">
+                        <img src="" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 id="imPatientName" class="text-[#333333] text-base font-bold"></h3>
+                        <p id="imPatientInfo" class="text-[#9CA3AF] text-xs"></p>
+                    </div>
+                </div>
+                <button class="text-[#8E4337] hover:text-[#6E2F25] transition-colors" aria-label="更多选项">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- 主诉信息卡片 -->
+            <div class="px-4 py-3 bg-[#FFF7ED] border-b border-[#FEE2E2]">
+                <div class="flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#EA580C" class="w-4 h-4 mt-0.5 flex-shrink-0">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+                    </svg>
+                    <div class="flex-1">
+                        <p class="text-[#EA580C] text-xs font-medium mb-0.5">患者主诉</p>
+                        <p id="imChiefComplaint" class="text-[#6B7280] text-sm"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 消息列表区域 -->
+            <div id="imMessageList" class="flex-1 overflow-y-auto px-4 py-4 bg-[#F9FAFB]" style="height: calc(100vh - 56px - 60px - 72px);">
+                <!-- 时间分隔 -->
+                <div class="flex justify-center mb-4">
+                    <span class="px-3 py-1 bg-white rounded-full text-[#9CA3AF] text-xs">今天 10:30</span>
+                </div>
+
+                <!-- 患者消息 -->
+                <div class="flex gap-2 mb-4">
+                    <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_640.jpg" alt="患者" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 max-w-[70%]">
+                        <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                            <p class="text-[#333333] text-sm leading-relaxed">医生您好，我这段时间一直咳嗽乏力。</p>
+                        </div>
+                        <span class="text-[#9CA3AF] text-xs ml-2 mt-1 inline-block">10:30</span>
+                    </div>
+                </div>
+
+                <!-- 医生消息 -->
+                <div class="flex gap-2 mb-4 justify-end">
+                    <div class="flex-1 max-w-[70%] flex flex-col items-end">
+                        <div class="bg-gradient-to-br from-[#8E4337] to-[#6E2F25] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm">
+                            <p class="text-white text-sm leading-relaxed">您好，请问这种情况持续多久了？</p>
+                        </div>
+                        <span class="text-[#9CA3AF] text-xs mr-2 mt-1">10:31</span>
+                    </div>
+                    <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#8E4337] to-[#6E2F25] flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 患者消息 -->
+                <div class="flex gap-2 mb-4">
+                    <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_640.jpg" alt="患者" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1 max-w-[70%]">
+                        <div class="bg-white rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm">
+                            <p class="text-[#333333] text-sm leading-relaxed">已经两周了，咳嗽比较严重。</p>
+                        </div>
+                        <span class="text-[#9CA3AF] text-xs ml-2 mt-1 inline-block">10:32</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 底部输入区域 -->
+            <div class="w-full bg-white border-t border-[#E5E7EB] p-3">
+                <div class="flex items-end gap-2">
+                    <button class="w-9 h-9 flex items-center justify-center text-[#6B7280] hover:text-[#8E4337] transition-colors" aria-label="表情">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <button class="w-9 h-9 flex items-center justify-center text-[#6B7280] hover:text-[#8E4337] transition-colors" aria-label="图片">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                            <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                    <div class="flex-1 bg-[#F9FAFB] rounded-lg border border-[#E5E7EB] focus-within:border-[#8E4337] transition-colors">
+                        <textarea 
+                            id="imMessageInput"
+                            rows="1"
+                            placeholder="输入消息..."
+                            class="w-full px-3 py-2 bg-transparent resize-none focus:outline-none text-sm text-[#333333] placeholder-[#9CA3AF]"
+                            style="max-height: 80px;"
+                        ></textarea>
+                    </div>
+                    <button onclick="sendIMMessage()" class="w-9 h-9 flex items-center justify-center bg-[#8E4337] hover:bg-[#6E2F25] rounded-lg transition-colors" aria-label="发送">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
+                            <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toast 通知函数
+        function showToast(message, duration = 2000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // 按钮加载状态
+        function setButtonLoading(button, loading) {
+            if (loading) {
+                button.classList.add('btn-loading');
+                button.disabled = true;
+            } else {
+                button.classList.remove('btn-loading');
+                button.disabled = false;
+            }
+        }
+
+        // 返回上一页
+        function goBack() {
+            window.location.href = 'index.html';
+        }
+
+        // 刷新数据
+        function refreshData(button) {
+            const originalHTML = button.innerHTML;
+            button.innerHTML = '<svg class="animate-spin w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+            button.disabled = true;
+            
+            showToast('正在刷新数据...');
+            
+            setTimeout(() => {
+                button.innerHTML = originalHTML;
+                button.disabled = false;
+                showToast('数据已更新 ✓');
+            }, 1500);
+        }
+
+        // 查看病历
+        function viewMedicalRecord(patientName, type) {
+            showToast(`正在打开${patientName}的病历...`);
+            setTimeout(() => {
+                // 跳转到病历页面
+                window.location.href = `medical-record.html?patient=${encodeURIComponent(patientName)}&type=${type}`;
+            }, 500);
+        }
+        
+        // 进入问诊 - 打开IM聊天窗口
+        function enterConsultation(patientName, button) {
+            // 获取患者信息
+            const patientData = getPatientData(patientName);
+            
+            // 打开IM聊天窗口
+            openIMChat(
+                patientData.name,
+                patientData.age,
+                patientData.gender,
+                patientData.avatar,
+                patientData.symptoms
+            );
+        }
+        
+        // 获取患者数据
+        function getPatientData(patientName) {
+            const patientsData = {
+                '张伟': {
+                    name: '张伟',
+                    age: '42岁',
+                    gender: '男',
+                    avatar: 'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_640.jpg',
+                    symptoms: '持续咳嗽、乏力两周'
+                },
+                '李伟': {
+                    name: '李伟',
+                    age: '34岁',
+                    gender: '男',
+                    avatar: 'https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_640.jpg',
+                    symptoms: '持续咳嗽、乏力两周'
+                },
+                '陈梅': {
+                    name: '陈梅',
+                    age: '45岁',
+                    gender: '女',
+                    avatar: 'https://cdn.pixabay.com/photo/2017/06/26/02/47/person-2442565_640.jpg',
+                    symptoms: '失眠、焦虑'
+                },
+                '王军': {
+                    name: '王军',
+                    age: '28岁',
+                    gender: '男',
+                    avatar: 'https://cdn.pixabay.com/photo/2016/11/21/14/53/man-1845814_640.jpg',
+                    symptoms: '消化不良、腹胀'
+                }
+            };
+            
+            return patientsData[patientName] || {
+                name: patientName,
+                age: '未知',
+                gender: '未知',
+                avatar: 'https://cdn.pixabay.com/photo/2016/11/21/12/42/beard-1845166_640.jpg',
+                symptoms: '暂无症状记录'
+            };
+        }
+
+        // 结束患者问诊（使用共享工具库）
+        function endPatientConsultation(patientName, button) {
+            // 更新弹窗为表单样式
+            const modalIcon = document.getElementById('modalIcon');
+            modalIcon.className = 'w-12 h-12 rounded-full bg-[#F5EBE9] flex items-center justify-center mx-auto mb-4';
+            modalIcon.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="w-6 h-6">
+                    <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
+                    <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
+                </svg>
+            `;
+            
+            document.getElementById('modalTitle').textContent = '结束问诊';
+            // 使用共享工具库生成表单HTML（包含四诊信息）
+            document.getElementById('modalMessage').innerHTML = generateEndConsultationForm(true);
+            
+            // 更新按钮
+            const confirmBtn = document.getElementById('modalConfirmBtn');
+            confirmBtn.className = 'py-3 bg-[#8E4337] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98';
+            confirmBtn.textContent = '确认结束';
+            
+            openModal();
+            
+            // 绑定确认按钮点击事件
+            confirmBtn.onclick = function() {
+                // 使用共享工具库验证表单
+                const validation = validateEndConsultationForm(true);
+                
+                if (!validation.valid) {
+                    showToast(validation.message);
+                    return;
+                }
+                
+                // 保存问诊数据（实际应用中会发送到服务器）
+                console.log('问诊数据:', validation.data);
+                
+                closeModal();
+                setButtonLoading(button, true);
+                showToast('正在结束问诊...');
+                
+                setTimeout(() => {
+                    setButtonLoading(button, false);
+                    showToast(`${patientName}的问诊已结束 ✓`);
+                    
+                    // 询问是否需要开处方
+                    setTimeout(() => {
+                        showPrescriptionModal(patientName);
+                    }, 1000);
+                }, 1200);
+            };
+        }
+        
+        // 询问是否开处方弹窗
+        function showPrescriptionModal(patientName) {
+            const modalIcon = document.getElementById('modalIcon');
+            modalIcon.className = 'w-12 h-12 rounded-full bg-[#FFF7ED] flex items-center justify-center mx-auto mb-4';
+            modalIcon.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#EA580C" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z" clip-rule="evenodd" />
+                </svg>
+            `;
+            
+            document.getElementById('modalTitle').textContent = '处方开具';
+            document.getElementById('modalMessage').innerHTML = `
+                <p class="text-center">是否需要为${patientName}开具处方？</p>
+            `;
+            
+            // 更新为两个按钮
+            document.getElementById('modalButtons').innerHTML = `
+                <button 
+                    class="py-3 border-2 border-[#E5E7EB] rounded-lg text-[#6B7280] text-sm font-medium cursor-pointer hover:bg-[#F9FAFB] transition-colors active:scale-98"
+                    onclick="handlePrescriptionLater()"
+                    aria-label="稍后开方">
+                    稍后开方
+                </button>
+                <button 
+                    class="py-3 bg-[#8E4337] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98"
+                    onclick="handlePrescriptionNow('${patientName}')"
+                    aria-label="立即开方">
+                    立即开方
+                </button>
+            `;
+            
+            openModal();
+        }
+        
+        // 立即开方
+        function handlePrescriptionNow(patientName) {
+            closeModal();
+            showToast('正在打开处方系统...');
+            
+            setTimeout(() => {
+                // 跳转到处方开具页面
+                window.location.href = `prescription-create.html?patient=${encodeURIComponent(patientName)}`;
+            }, 800);
+        }
+        
+        // 稍后开方（空函数）
+        function handlePrescriptionLater() {
+            closeModal();
+            showToast('已记录，可稍后开方');
+            
+            setTimeout(() => {
+                // 显示空状态
+                showEmptyConsultationState();
+            }, 800);
+        }
+        
+        // 显示空状态（无患者问诊）
+        function showEmptyConsultationState() {
+            const currentPatientCard = document.getElementById('currentPatientCard');
+            
+            // 更新为空状态
+            currentPatientCard.className = 'w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white border-2 border-dashed border-[#E5E7EB]';
+            currentPatientCard.innerHTML = `
+                <div class="flex flex-col items-center justify-center py-8">
+                    <div class="w-16 h-16 rounded-full bg-[#F5EBE9] flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="w-8 h-8">
+                            <path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-[#1F2937] text-base font-bold mb-2">暂无患者问诊</h3>
+                    <p class="text-[#6B7280] text-sm text-center mb-6">
+                        请从下方等待队列中选择患者并呼叫
+                    </p>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#9CA3AF" class="w-6 h-6 animate-bounce">
+                        <path fill-rule="evenodd" d="M12 2.25a.75.75 0 01.75.75v16.19l6.22-6.22a.75.75 0 111.06 1.06l-7.5 7.5a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 111.06-1.06l6.22 6.22V3a.75.75 0 01.75-.75z" clip-rule="evenodd" />
+                    </svg>
+                </div>
+            `;
+            
+            showToast('请手动呼叫下一位患者');
+        }
+
+        // 呼叫患者
+        function callPatient(patientName, queueNumber, button) {
+            // 更新弹窗内容为叫号确认
+            document.getElementById('modalTitle').textContent = '叫号确认';
+            document.getElementById('modalMessage').innerHTML = `确定叫号${queueNumber}患者${patientName}吗？<br>叫号后患者需在3分钟内响应。`;
+            
+            // 更新图标为信息图标
+            const modalIcon = document.getElementById('modalIcon');
+            modalIcon.className = 'w-12 h-12 rounded-full bg-[#F5EBE9] flex items-center justify-center mx-auto mb-4';
+            modalIcon.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="w-6 h-6">
+                    <path d="M3.505 2.365A41.369 41.369 0 019 2c1.863 0 3.697.124 5.495.365 1.247.167 2.18 1.108 2.435 2.268a4.45 4.45 0 00-.577-.069 43.141 43.141 0 00-4.706 0C9.229 4.696 7.5 6.727 7.5 8.998v2.24c0 1.413.67 2.735 1.76 3.562l-2.98 2.98A.75.75 0 015 17.25v-3.443c-.501-.048-1-.106-1.495-.172C2.033 13.438 1 12.162 1 10.72V5.28c0-1.441 1.033-2.717 2.505-2.914z" />
+                    <path d="M14 6c-.762 0-1.52.02-2.271.062C10.157 6.148 9 7.472 9 8.998v2.24c0 1.519 1.147 2.839 2.71 2.935.214.013.428.024.642.034.2.009.385.09.518.224l2.35 2.35a.75.75 0 001.28-.531v-2.07c1.453-.195 2.5-1.463 2.5-2.915V8.998c0-1.526-1.157-2.85-2.729-2.936A41.645 41.645 0 0014 6z" />
+                </svg>
+            `;
+            
+            // 更新确认按钮颜色
+            const confirmBtn = document.getElementById('modalConfirmBtn');
+            confirmBtn.className = 'py-3 bg-[#8E4337] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98';
+            confirmBtn.textContent = '确认叫号';
+            
+            openModal();
+            
+            // 绑定确认按钮点击事件
+            confirmBtn.onclick = function() {
+                closeModal();
+                setButtonLoading(button, true);
+                showToast('正在叫号...');
+                
+                // 模拟叫号过程
+                setTimeout(() => {
+                    setButtonLoading(button, false);
+                    
+                    // 显示叫号成功弹窗
+                    showSuccessModal(patientName, queueNumber);
+                }, 1500);
+            };
+        }
+        
+        // 显示成功提示弹窗
+        function showSuccessModal(patientName, queueNumber) {
+            // 更新图标为成功图标
+            const modalIcon = document.getElementById('modalIcon');
+            modalIcon.className = 'w-12 h-12 rounded-full bg-[#D1FAE5] flex items-center justify-center mx-auto mb-4';
+            modalIcon.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#10B981" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                </svg>
+            `;
+            
+            document.getElementById('modalTitle').textContent = '叫号成功';
+            document.getElementById('modalMessage').innerHTML = `已叫号${queueNumber}患者${patientName}，患者有<br>3分钟响应时间。`;
+            
+            // 隐藏取消按钮，只显示确定按钮
+            document.getElementById('modalButtons').innerHTML = `
+                <button 
+                    class="col-span-2 py-3 bg-[#8E4337] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98"
+                    onclick="handleCallSuccess('${patientName}', '${queueNumber}')"
+                    aria-label="确定">
+                    确定
+                </button>
+            `;
+            
+            openModal();
+        }
+        
+        // 处理叫号成功后的操作
+        function handleCallSuccess(patientName, queueNumber) {
+            closeModal();
+            showToast('正在呼叫患者...');
+            
+            // 模拟等待患者响应
+            setTimeout(() => {
+                showToast('患者已响应，进入问诊 ✓');
+                
+                // 获取患者数据并打开IM聊天窗口
+                const patientData = getPatientData(patientName);
+                setTimeout(() => {
+                    openIMChat(
+                        patientData.name,
+                        patientData.age,
+                        patientData.gender,
+                        patientData.avatar,
+                        patientData.symptoms
+                    );
+                }, 800);
+                
+                // 更新正在问诊区域
+                const currentPatientCard = document.getElementById('currentPatientCard');
+                
+                // 恢复实线边框并设置为主题色
+                currentPatientCard.className = 'w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white border-2 border-[#8E4337]';
+                
+                // 根据患者姓名设置头像和对应的等待队列ID
+                let avatarUrl = 'https://cdn.pixabay.com/photo/2015/01/08/18/29/entrepreneur-593358_640.jpg';
+                let consultationType = '图文+语音';
+                let symptoms = '持续咳嗽、乏力两周。';
+                let waitingCardId = 'waitingPatient1';
+                
+                if (patientName === '陈梅') {
+                    avatarUrl = 'https://cdn.pixabay.com/photo/2017/06/26/02/47/person-2442565_640.jpg';
+                    consultationType = '视频通话';
+                    symptoms = '失眠、焦虑。';
+                    waitingCardId = 'waitingPatient2';
+                } else if (patientName === '王军') {
+                    avatarUrl = 'https://cdn.pixabay.com/photo/2016/11/21/14/53/man-1845814_640.jpg';
+                    consultationType = '图文+语音';
+                    symptoms = '消化不良、腹胀。';
+                    waitingCardId = 'waitingPatient3';
+                }
+                
+                currentPatientCard.innerHTML = `
+                    <div class="flex items-start gap-3 mb-4">
+                        <!-- 头像 -->
+                        <div class="w-14 h-14 rounded-full overflow-hidden flex-shrink-0">
+                            <img src="${avatarUrl}" alt="${patientName}" class="w-full h-full object-cover">
+                        </div>
+                        
+                        <!-- 患者信息 -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="text-[#1F2937] text-lg font-bold">${patientName}</span>
+                                <div class="ml-auto flex items-center gap-2">
+                                    <div class="px-2.5 py-1 bg-[#F5EBE9] rounded-full flex items-center gap-1">
+                                        <div class="w-1.5 h-1.5 rounded-full bg-[#8E4337] animate-pulse"></div>
+                                        <span class="text-[#8E4337] text-xs font-bold">问诊中</span>
+                                    </div>
+                                    <div class="px-2.5 py-1 bg-[#8E4337] rounded-full">
+                                        <span class="text-white text-xs font-bold">00:03</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 问诊类型 -->
+                            <div class="flex items-center gap-2 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                                    ${consultationType.includes('视频') ? 
+                                        '<path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />' :
+                                        '<path d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" />'
+                                    }
+                                </svg>
+                                <span class="text-[#6B7280] text-sm font-medium">${consultationType}中...</span>
+                            </div>
+                            
+                            <!-- 症状 -->
+                            <div class="text-[#6B7280] text-sm">
+                                症状：${symptoms}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 按钮组 -->
+                    <div class="grid grid-cols-3 gap-2">
+                        <button 
+                            class="py-2.5 bg-[#F5EBE9] rounded-lg text-[#8E4337] text-xs font-medium cursor-pointer hover:bg-[#E5D5D0] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                            onclick="viewMedicalRecord('${patientName}', 'current')"
+                            aria-label="查看${patientName}的病历">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
+                            </svg>
+                            病历
+                        </button>
+                        <button 
+                            class="py-2.5 bg-[#8E4337] rounded-lg text-white text-xs font-medium cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                            onclick="(function(){ const data = getPatientData('${patientName}'); openIMChat(data.name, data.age, data.gender, data.avatar, data.symptoms); })()"
+                            aria-label="进入${patientName}的问诊">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clip-rule="evenodd" />
+                            </svg>
+                            进入问诊
+                        </button>
+                        <button 
+                            class="py-2.5 bg-[#B45309] rounded-lg text-white text-xs font-medium cursor-pointer hover:bg-[#92400E] transition-colors active:scale-98 flex items-center justify-center gap-1"
+                            onclick="endPatientConsultation('${patientName}', this)"
+                            aria-label="结束${patientName}的问诊">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            结束问诊
+                        </button>
+                    </div>
+                `;
+                
+                // 从等待队列中移除该患者
+                const waitingCard = document.getElementById(waitingCardId);
+                if (waitingCard) {
+                    waitingCard.style.opacity = '0';
+                    waitingCard.style.transform = 'translateX(-20px)';
+                    waitingCard.style.transition = 'all 0.3s ease';
+                    
+                    setTimeout(() => {
+                        waitingCard.remove();
+                        
+                        // 更新等待队列人数
+                        updateWaitingQueueCount();
+                    }, 300);
+                }
+            }, 1500);
+        }
+        
+        // 更新等待队列人数
+        function updateWaitingQueueCount() {
+            const waitingCards = document.querySelectorAll('[id^="waitingPatient"]');
+            const count = waitingCards.length;
+            const queueTitle = document.getElementById('waitingQueueTitle');
+            if (queueTitle) {
+                queueTitle.textContent = `等待队列（${count} 人）`;
+            }
+        }
+
+        // 打开模态弹窗
+        function openModal() {
+            const modal = document.getElementById('confirmModal');
+            modal.classList.add('show');
+            
+            // 聚焦到确认按钮
+            setTimeout(() => {
+                document.getElementById('modalConfirmBtn').focus();
+            }, 100);
+            
+            // 点击遮罩层关闭
+            modal.onclick = function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            };
+            
+            // ESC 键关闭
+            document.addEventListener('keydown', handleEscKey);
+        }
+
+        // 关闭模态弹窗
+        function closeModal() {
+            const modal = document.getElementById('confirmModal');
+            modal.classList.remove('show');
+            document.removeEventListener('keydown', handleEscKey);
+            
+            // 恢复默认内容
+            setTimeout(() => {
+                // 恢复警告图标
+                const modalIcon = document.getElementById('modalIcon');
+                modalIcon.className = 'w-12 h-12 rounded-full bg-[#FEF2F2] flex items-center justify-center mx-auto mb-4';
+                modalIcon.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#EF4444" class="w-6 h-6">
+                        <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                    </svg>
+                `;
+                
+                // 恢复标题和消息
+                document.getElementById('modalTitle').textContent = '确认结束坐诊';
+                document.getElementById('modalMessage').innerHTML = '结束后需要重新开启才能接诊，确定要结束坐诊吗？';
+                
+                // 恢复双按钮布局
+                document.getElementById('modalButtons').innerHTML = `
+                    <button 
+                        id="modalCancelBtn"
+                        class="py-3 border-2 border-[#E5E7EB] rounded-lg text-[#6B7280] text-sm font-medium cursor-pointer hover:bg-[#F9FAFB] transition-colors active:scale-98"
+                        onclick="closeModal()"
+                        aria-label="取消">
+                        取消
+                    </button>
+                    <button 
+                        id="modalConfirmBtn"
+                        class="py-3 bg-[#EF4444] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#DC2626] transition-colors active:scale-98"
+                        aria-label="确认">
+                        确认
+                    </button>
+                `;
+            }, 300);
+        }
+        
+        // ESC 键处理
+        function handleEscKey(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+            }
+        }
+
+        // 确认结束坐诊
+        function confirmEndConsultation(button) {
+            openModal();
+            
+            // 绑定确认按钮点击事件
+            const confirmBtn = document.getElementById('modalConfirmBtn');
+            confirmBtn.onclick = function() {
+                closeModal();
+                setButtonLoading(button, true);
+                showToast('正在结束坐诊...');
+                
+                setTimeout(() => {
+                    // 清除坐诊状态
+                    localStorage.setItem('consultationActive', 'false');
+                    localStorage.removeItem('consultationStartTime');
+                    showToast('坐诊已结束 ✓', 2000);
+                    
+                    // 2秒后返回主页面
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }, 1500);
+            };
+        }
+
+        // 倒计时功能
+        function startCountdown() {
+            const timerDisplay = document.getElementById('remainingTime');
+            const consultationData = JSON.parse(localStorage.getItem('consultationData') || '{}');
+            const duration = consultationData.duration || 4; // 默认4小时
+            
+            // 初始化剩余时间（秒）
+            let remainingSeconds = duration * 3600;
+            
+            // 检查是否有保存的开始时间
+            let startTime = localStorage.getItem('consultationStartTime');
+            if (!startTime) {
+                startTime = Date.now();
+                localStorage.setItem('consultationStartTime', startTime);
+            } else {
+                // 计算已经过去的时间
+                const elapsedSeconds = Math.floor((Date.now() - parseInt(startTime)) / 1000);
+                remainingSeconds = Math.max(0, remainingSeconds - elapsedSeconds);
+            }
+            
+            function updateTimer() {
+                if (remainingSeconds <= 0) {
+                    timerDisplay.textContent = '00:00:00';
+                    showToast('坐诊时间已到，请结束坐诊', 3000);
+                    return;
+                }
+                
+                const hours = Math.floor(remainingSeconds / 3600);
+                const minutes = Math.floor((remainingSeconds % 3600) / 60);
+                const seconds = remainingSeconds % 60;
+                
+                timerDisplay.textContent = 
+                    `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+                
+                remainingSeconds--;
+            }
+            
+            // 立即更新一次
+            updateTimer();
+            
+            // 每秒更新
+            setInterval(updateTimer, 1000);
+        }
+
+        // 打开IM聊天窗口
+        function openIMChat(patientName, age, gender, avatar, chiefComplaint) {
+            const modal = document.getElementById('imChatModal');
+            const avatarImg = document.getElementById('imPatientAvatar').querySelector('img');
+            const nameEl = document.getElementById('imPatientName');
+            const infoEl = document.getElementById('imPatientInfo');
+            const complaintEl = document.getElementById('imChiefComplaint');
+            
+            // 设置患者信息
+            avatarImg.src = avatar;
+            avatarImg.alt = patientName;
+            nameEl.textContent = patientName;
+            infoEl.textContent = `${age} · ${gender}`;
+            complaintEl.textContent = chiefComplaint;
+            
+            // 显示弹窗（向上滑入）
+            modal.classList.remove('translate-y-full');
+            modal.classList.add('translate-y-0');
+            
+            // 禁止底层页面滚动
+            document.body.style.overflow = 'hidden';
+            
+            // 滚动到消息列表底部
+            setTimeout(() => {
+                const messageList = document.getElementById('imMessageList');
+                messageList.scrollTop = messageList.scrollHeight;
+            }, 100);
+        }
+
+        // 关闭IM聊天窗口
+        function closeIMChat() {
+            const modal = document.getElementById('imChatModal');
+            
+            // 隐藏弹窗（向下滑出）
+            modal.classList.remove('translate-y-0');
+            modal.classList.add('translate-y-full');
+            
+            // 恢复底层页面滚动
+            document.body.style.overflow = '';
+        }
+
+        // 发送IM消息
+        function sendIMMessage() {
+            const input = document.getElementById('imMessageInput');
+            const message = input.value.trim();
+            
+            if (!message) {
+                showToast('请输入消息内容');
+                return;
+            }
+            
+            // 创建消息元素
+            const messageList = document.getElementById('imMessageList');
+            const messageEl = document.createElement('div');
+            messageEl.className = 'flex gap-2 mb-4 justify-end';
+            
+            const now = new Date();
+            const timeStr = `${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+            
+            messageEl.innerHTML = `
+                <div class="flex-1 max-w-[70%] flex flex-col items-end">
+                    <div class="bg-gradient-to-br from-[#8E4337] to-[#6E2F25] rounded-2xl rounded-tr-sm px-4 py-3 shadow-sm">
+                        <p class="text-white text-sm leading-relaxed">${message}</p>
+                    </div>
+                    <span class="text-[#9CA3AF] text-xs mr-2 mt-1">${timeStr}</span>
+                </div>
+                <div class="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 bg-gradient-to-br from-[#8E4337] to-[#6E2F25] flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="w-5 h-5">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            `;
+            
+            // 添加到消息列表
+            messageList.appendChild(messageEl);
+            
+            // 清空输入框
+            input.value = '';
+            input.style.height = 'auto';
+            
+            // 滚动到底部
+            messageList.scrollTop = messageList.scrollHeight;
+            
+            showToast('消息已发送');
+        }
+
+        // 页面加载时检查坐诊状态并启动倒计时
+        window.addEventListener('DOMContentLoaded', () => {
+            const consultationActive = localStorage.getItem('consultationActive');
+            if (consultationActive !== 'true') {
+                showToast('请先开启坐诊', 2000);
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+            } else {
+                startCountdown();
+            }
+            
+            // 输入框自动调整高度
+            const messageInput = document.getElementById('imMessageInput');
+            if (messageInput) {
+                messageInput.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 80) + 'px';
+                });
+                
+                // 支持Enter发送，Shift+Enter换行
+                messageInput.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        sendIMMessage();
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

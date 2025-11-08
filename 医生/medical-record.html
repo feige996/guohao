@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>患者病历 - 医疗问诊系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 40px;
+            bottom: -20px;
+            width: 2px;
+            background: #E5E7EB;
+        }
+        
+        .timeline-item:last-child::before {
+            display: none;
+        }
+        
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .collapsible-content.expanded {
+            max-height: 2000px;
+        }
+    </style>
+</head>
+<body class="bg-[#F3F1ED]">
+    <div class="w-full max-w-[375px] mx-auto min-h-screen relative pb-[60px]">
+        <!-- Toast 通知 -->
+        <div id="toast" class="toast"></div>
+
+        <!-- 顶部导航 -->
+        <header class="w-full h-[56px] flex justify-between items-center px-4 bg-white fixed top-0 left-0 right-0 max-w-[375px] mx-auto z-50 shadow-sm">
+            <button class="text-[#333333] hover:text-[#6B7280] transition-colors" onclick="goBack()" aria-label="返回上一页">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <h1 class="text-[#1F2937] text-lg font-bold">患者病历</h1>
+            <button class="text-[#8E4337] hover:text-[#6E2F25] transition-colors" onclick="refreshData()" aria-label="刷新数据">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                    <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- 主要内容区 -->
+        <main class="pt-[64px] px-4 space-y-5">
+            
+            <!-- 基本信息 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center gap-2 mb-5">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                        <path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" />
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">基本信息</span>
+                </div>
+                
+                <!-- 头像和姓名区域 -->
+                <div class="flex flex-col items-center mb-5">
+                    <div class="w-24 h-24 rounded-full overflow-hidden mb-3 ring-4 ring-[#F5EBE9]">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_640.jpg" alt="吴姗姗" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex items-center gap-2 mb-1">
+                        <span class="text-[#1F2937] text-2xl font-bold">吴姗姗</span>
+                        <span class="px-3 py-1 bg-[#FEF2F2] rounded-full text-[#EF4444] text-xs font-semibold">女</span>
+                    </div>
+                    <div class="text-[#6B7280] text-sm">患者编号：GH973212</div>
+                </div>
+                
+                <!-- 信息网格 -->
+                <div class="grid grid-cols-3 gap-3">
+                    <!-- 年龄 -->
+                    <div class="p-3 bg-[#F9FAFB] rounded-xl text-center">
+                        <div class="flex items-center justify-center gap-1 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-[#6B7280] text-xs">年龄</span>
+                        </div>
+                        <div class="text-[#1F2937] text-lg font-bold">32岁</div>
+                    </div>
+                    
+                    <!-- 初诊日期 -->
+                    <div class="p-3 bg-[#F9FAFB] rounded-xl text-center col-span-2">
+                        <div class="flex items-center justify-center gap-1 mb-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                                <path fill-rule="evenodd" d="M5.75 2a.75.75 0 01.75.75V4h7V2.75a.75.75 0 011.5 0V4h.25A2.75 2.75 0 0118 6.75v8.5A2.75 2.75 0 0115.25 18H4.75A2.75 2.75 0 012 15.25v-8.5A2.75 2.75 0 014.75 4H5V2.75A.75.75 0 015.75 2zm-1 5.5c-.69 0-1.25.56-1.25 1.25v6.5c0 .69.56 1.25 1.25 1.25h10.5c.69 0 1.25-.56 1.25-1.25v-6.5c0-.69-.56-1.25-1.25-1.25H4.75z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-[#6B7280] text-xs">初诊时间</span>
+                        </div>
+                        <div class="text-[#1F2937] text-base font-bold">2025年01月06日</div>
+                    </div>
+                </div>
+                
+                <!-- 联系信息 -->
+                <!-- <div class="mt-4 p-3 bg-gradient-to-r from-[#F5EBE9] to-[#FFF7ED] rounded-xl">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                            <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-[#6B7280] text-xs">联系方式：</span>
+                        <span class="text-[#1F2937] text-sm font-medium">138****5678</span>
+                        <button 
+                            onclick="callPatient()"
+                            class="ml-auto px-3 py-1 bg-[#8E4337] rounded-full text-white text-xs font-medium hover:bg-[#6E2F25] transition-colors flex items-center gap-1"
+                            aria-label="拨打电话">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3 h-3">
+                                <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" />
+                            </svg>
+                            拨打
+                        </button>
+                    </div>
+                </div> -->
+            </section>
+
+            <!-- 健康摘要 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                        <path fill-rule="evenodd" d="M2.5 3A1.5 1.5 0 001 4.5v4A1.5 1.5 0 002.5 10h6A1.5 1.5 0 0010 8.5v-4A1.5 1.5 0 008.5 3h-6zm11 2A1.5 1.5 0 0012 6.5v7a1.5 1.5 0 001.5 1.5h4a1.5 1.5 0 001.5-1.5v-7A1.5 1.5 0 0017.5 5h-4zm-10 7A1.5 1.5 0 002 13.5v2A1.5 1.5 0 003.5 17h6a1.5 1.5 0 001.5-1.5v-2A1.5 1.5 0 009.5 12h-6z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">健康摘要</span>
+                </div>
+
+                <div class="space-y-3">
+                    <!-- 诊断 -->
+                    <div class="p-3 bg-[#F5EBE9] rounded-xl">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-[#6B7280] text-sm">西医诊断</span>
+                            <span class="text-[#8E4337] text-base font-bold">2型糖尿病</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[#6B7280] text-sm">中医诊断</span>
+                            <span class="text-[#8E4337] text-base font-bold">消渴病</span>
+                        </div>
+                    </div>
+
+                    <!-- 主要用药 -->
+                    <div class="flex items-center justify-between py-2 border-b border-[#E5E7EB]">
+                        <span class="text-[#6B7280] text-sm">当前处方</span>
+                        <span class="text-[#1F2937] text-sm font-medium">自拟方加减</span>
+                    </div>
+
+                    <!-- 下次随访 -->
+                    <div class="flex items-center justify-between py-2">
+                        <span class="text-[#6B7280] text-sm">下次随访</span>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[#8E4337] text-sm font-semibold">2025-06-30</span>
+                            <span class="px-2 py-0.5 bg-[#F5EBE9] rounded text-[#8E4337] text-xs">图文问诊</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 病史与体质 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                            <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
+                        </svg>
+                        <span class="text-[#333333] text-lg font-bold leading-7">病史与体质</span>
+                    </div>
+                    <button 
+                        onclick="toggleSection('medicalHistory')"
+                        class="text-[#8E4337] hover:text-[#6E2F25] transition-colors"
+                        aria-label="展开/折叠">
+                        <svg id="medicalHistoryIcon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 transition-transform">
+                            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                        </svg>
+                    </button>
+                </div>
+
+                <div id="medicalHistory" class="collapsible-content expanded">
+                    <div class="space-y-3">
+                        <!-- 主诉 -->
+                        <div>
+                            <div class="text-[#374151] text-sm font-semibold mb-1">主诉</div>
+                            <div class="text-[#6B7280] text-sm leading-relaxed">发现血糖升高1年，伴口干、乏力半年。</div>
+                        </div>
+
+                        <!-- 现病史 -->
+                        <div>
+                            <div class="text-[#374151] text-sm font-semibold mb-1">现病史</div>
+                            <div class="text-[#6B7280] text-sm leading-relaxed">患者1年前体检发现空腹血糖升高至8.2mmol/L，未予重视。半年前出现口干、多饮、乏力症状，就诊于当地医院，诊断为"2型糖尿病"，予二甲双胍治疗，效果欠佳。近期症状加重，遂来我处就诊。</div>
+                        </div>
+
+                        <!-- 既往史/过敏史 -->
+                        <div>
+                            <div class="text-[#374151] text-sm font-semibold mb-1">既往史/过敏史</div>
+                            <div class="text-[#6B7280] text-sm leading-relaxed">既往体健，否认高血压、冠心病病史。否认食物、药物过敏史。</div>
+                        </div>
+
+                        <!-- 中医体质辨识 -->
+                        <div class="p-3 bg-[#FFF7ED] rounded-lg border border-[#FED7AA]">
+                            <div class="flex items-center gap-2 mb-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#EA580C" class="w-4 h-4">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-11.25a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" clip-rule="evenodd" />
+                                </svg>
+                                <span class="text-[#EA580C] text-sm font-semibold">中医体质辨识</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <span class="px-3 py-1 bg-white rounded-full text-[#EA580C] text-xs font-medium border border-[#FED7AA]">气虚质</span>
+                                <span class="px-3 py-1 bg-white rounded-full text-[#EA580C] text-xs font-medium border border-[#FED7AA]">阴虚质</span>
+                            </div>
+                        </div>
+
+                        <!-- 生活习惯 -->
+                        <div>
+                            <div class="text-[#374151] text-sm font-semibold mb-1">生活习惯</div>
+                            <div class="text-[#6B7280] text-sm leading-relaxed">
+                                饮食：喜甜食、油腻食物<br>
+                                作息：经常熬夜，睡眠不足<br>
+                                运动：缺乏运动，久坐办公<br>
+                                情绪：工作压力较大，易焦虑
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 历次问诊记录 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">历次问诊记录</span>
+                    <span class="ml-auto px-2.5 py-0.5 bg-[#F5EBE9] rounded-full text-[#8E4337] text-xs font-semibold">3 次</span>
+                </div>
+
+                <!-- 时间线 -->
+                <div class="space-y-4">
+                    <!-- 问诊记录 003 -->
+                    <div class="timeline-item relative pl-6">
+                        <div class="absolute left-0 top-1 w-4 h-4 bg-[#8E4337] rounded-full border-2 border-white shadow-sm"></div>
+                        
+                        <div class="p-4 bg-[#F9FAFB] rounded-xl hover:bg-[#F3F4F6] transition-colors cursor-pointer" onclick="toggleRecord('record003')">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[#1F2937] text-base font-bold">问诊记录 003</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2.5 py-0.5 bg-[#D1FAE5] rounded-full text-[#10B981] text-xs font-semibold">图文问诊</span>
+                                    <svg id="record003Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#6B7280" class="w-4 h-4 transition-transform">
+                                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="text-[#6B7280] text-xs">2025-06-10 10:30</div>
+                        </div>
+
+                        <div id="record003" class="collapsible-content">
+                            <div class="mt-3 p-4 bg-white rounded-xl border border-[#E5E7EB] space-y-3">
+                                <!-- 四诊信息 -->
+                                <div>
+                                    <div class="text-[#374151] text-sm font-semibold mb-2 flex items-center gap-2">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-4 h-4">
+                                            <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                                            <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                        </svg>
+                                        四诊信息
+                                    </div>
+                                    <div class="space-y-2 text-sm">
+                                        <div><span class="text-[#6B7280]">问诊：</span><span class="text-[#1F2937]">服药前餐前血糖12.6mmol/L，现降至4.5mmol/L。口干明显减轻，体力较前好转，夜尿1次。睡眠可，大便调。</span></div>
+                                        <div><span class="text-[#6B7280]">望诊：</span><span class="text-[#1F2937]">舌质红，苔薄白。</span></div>
+                                        <div><span class="text-[#6B7280]">切诊：</span><span class="text-[#1F2937]">脉象未及（线上问诊），语音清晰。</span></div>
+                                    </div>
+                                </div>
+
+                                <!-- 辨证分析 -->
+                                <div class="p-3 bg-[#FFF7ED] rounded-lg">
+                                    <div class="text-[#EA580C] text-sm font-semibold mb-1">辨证分析</div>
+                                    <div class="text-[#6B7280] text-sm leading-relaxed">药后血糖显著下降，气阴得补，内热得清，故见诸症改善。舌象提示热象渐退。</div>
+                                </div>
+
+                                <!-- 方药 -->
+                                <div>
+                                    <div class="text-[#374151] text-sm font-semibold mb-2">方药</div>
+                                    <div class="p-3 bg-[#F5EBE9] rounded-lg">
+                                        <div class="text-[#8E4337] text-sm font-semibold mb-2">自拟方加减</div>
+                                        <div class="text-[#6B7280] text-xs leading-relaxed">
+                                            生地黄15g、山药15g、黄芪20g、天花粉12g、葛根15g、麦冬12g、五味子6g、丹参15g、川芎10g、山茱萸10g
+                                        </div>
+                                        <div class="mt-2 flex items-center gap-2">
+                                            <button 
+                                                onclick="viewPrescription('003')"
+                                                class="px-3 py-1.5 bg-white rounded text-[#8E4337] text-xs font-medium hover:bg-[#F9FAFB] transition-colors flex items-center gap-1"
+                                                aria-label="查看处方详情">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                                    <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                                                    <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                                                </svg>
+                                                查看处方详情
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 健康指导 -->
+                                <div>
+                                    <div class="text-[#374151] text-sm font-semibold mb-1">健康指导</div>
+                                    <div class="text-[#6B7280] text-sm leading-relaxed">建议继续当前治疗，饮食宜清淡，忌甜食，适当运动。</div>
+                                </div>
+
+                                <!-- 随访计划 -->
+                                <div class="flex items-center gap-2 text-sm">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#10B981" class="w-4 h-4">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
+                                    </svg>
+                                    <span class="text-[#6B7280]">随访计划：</span>
+                                    <span class="text-[#10B981] font-medium">2025-06-30 复诊</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 问诊记录 002 -->
+                    <div class="timeline-item relative pl-6">
+                        <div class="absolute left-0 top-1 w-4 h-4 bg-[#D1D5DB] rounded-full border-2 border-white shadow-sm"></div>
+                        
+                        <div class="p-4 bg-[#F9FAFB] rounded-xl hover:bg-[#F3F4F6] transition-colors cursor-pointer" onclick="toggleRecord('record002')">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[#1F2937] text-base font-bold">问诊记录 002</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2.5 py-0.5 bg-[#E0E7FF] rounded-full text-[#6366F1] text-xs font-semibold">视频问诊</span>
+                                    <svg id="record002Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#6B7280" class="w-4 h-4 transition-transform">
+                                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="text-[#6B7280] text-xs">2025-03-15 14:20</div>
+                        </div>
+
+                        <div id="record002" class="collapsible-content">
+                            <div class="mt-3 p-4 bg-white rounded-xl border border-[#E5E7EB] space-y-3">
+                                <div class="text-[#6B7280] text-sm">
+                                    症状有所好转，血糖控制平稳，继续观察治疗效果。调整方剂用量。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 问诊记录 001 -->
+                    <div class="timeline-item relative pl-6">
+                        <div class="absolute left-0 top-1 w-4 h-4 bg-[#D1D5DB] rounded-full border-2 border-white shadow-sm"></div>
+                        
+                        <div class="p-4 bg-[#F9FAFB] rounded-xl hover:bg-[#F3F4F6] transition-colors cursor-pointer" onclick="toggleRecord('record001')">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-[#1F2937] text-base font-bold">问诊记录 001</span>
+                                <div class="flex items-center gap-2">
+                                    <span class="px-2.5 py-0.5 bg-[#D1FAE5] rounded-full text-[#10B981] text-xs font-semibold">图文问诊</span>
+                                    <svg id="record001Icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#6B7280" class="w-4 h-4 transition-transform">
+                                        <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="text-[#6B7280] text-xs">2025-01-06 09:15</div>
+                        </div>
+
+                        <div id="record001" class="collapsible-content">
+                            <div class="mt-3 p-4 bg-white rounded-xl border border-[#E5E7EB] space-y-3">
+                                <div class="text-[#6B7280] text-sm">
+                                    初诊，确诊为消渴病（2型糖尿病），辨证为气阴两虚兼有瘀血。予以益气养阴、清热生津之法治疗。
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 处方记录 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                        <path fill-rule="evenodd" d="M4.5 2A1.5 1.5 0 003 3.5v13A1.5 1.5 0 004.5 18h11a1.5 1.5 0 001.5-1.5V7.621a1.5 1.5 0 00-.44-1.06l-4.12-4.122A1.5 1.5 0 0011.378 2H4.5zm2.25 8.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5zm0 3a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">处方记录</span>
+                </div>
+
+                <div class="space-y-3">
+                    <!-- 当前处方 -->
+                    <div class="p-4 bg-[#F5EBE9] rounded-xl border-2 border-[#8E4337]">
+                        <div class="flex items-center justify-between mb-2">
+                            <div class="flex items-center gap-2">
+                                <span class="text-[#1F2937] text-base font-bold">当前处方</span>
+                                <span class="px-2 py-0.5 bg-[#10B981] rounded-full text-white text-xs font-semibold">使用中</span>
+                            </div>
+                            <span class="text-[#6B7280] text-xs">2025-06-10</span>
+                        </div>
+                        <div class="text-[#8E4337] text-sm font-medium mb-2">自拟方加减</div>
+                        <div class="text-[#6B7280] text-xs mb-3">益气养阴、清热生津</div>
+                        <button 
+                            onclick="viewPrescription('current')"
+                            class="w-full py-2.5 bg-[#8E4337] rounded-lg text-white text-sm font-medium hover:bg-[#6E2F25] transition-colors flex items-center justify-center gap-2"
+                            aria-label="查看处方详情">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+                                <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                            </svg>
+                            查看处方详情
+                        </button>
+                    </div>
+
+                    <!-- 历史处方 -->
+                    <div class="space-y-2">
+                        <div class="text-[#6B7280] text-sm font-medium">历史处方</div>
+                        
+                        <div class="p-3 bg-[#F9FAFB] rounded-lg hover:bg-[#F3F4F6] transition-colors cursor-pointer" onclick="viewPrescription('002')">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <div class="text-[#1F2937] text-sm font-medium mb-1">自拟方（调整版）</div>
+                                    <div class="text-[#6B7280] text-xs">2025-03-15</div>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#9CA3AF" class="w-5 h-5">
+                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-[#F9FAFB] rounded-lg hover:bg-[#F3F4F6] transition-colors cursor-pointer" onclick="viewPrescription('001')">
+                            <div class="flex items-center justify-between">
+                                <div class="flex-1">
+                                    <div class="text-[#1F2937] text-sm font-medium mb-1">自拟方（初诊）</div>
+                                    <div class="text-[#6B7280] text-xs">2025-01-06</div>
+                                </div>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#9CA3AF" class="w-5 h-5">
+                                    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Toast 提示
+        function showToast(message, duration = 2000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // 返回上一页
+        function goBack() {
+            window.history.back();
+        }
+
+        // 刷新数据
+        function refreshData() {
+            showToast('正在刷新数据...');
+            setTimeout(() => {
+                showToast('数据已更新 ✓');
+            }, 1000);
+        }
+
+        // 切换章节展开/折叠
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            const icon = document.getElementById(sectionId + 'Icon');
+            
+            if (section.classList.contains('expanded')) {
+                section.classList.remove('expanded');
+                icon.style.transform = 'rotate(-90deg)';
+            } else {
+                section.classList.add('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // 切换问诊记录展开/折叠
+        function toggleRecord(recordId) {
+            const record = document.getElementById(recordId);
+            const icon = document.getElementById(recordId + 'Icon');
+            
+            if (record.classList.contains('expanded')) {
+                record.classList.remove('expanded');
+                icon.style.transform = 'rotate(0deg)';
+            } else {
+                record.classList.remove('expanded');
+                record.classList.add('expanded');
+                icon.style.transform = 'rotate(180deg)';
+            }
+        }
+
+        // 查看处方详情
+        function viewPrescription(prescriptionId) {
+            showToast('正在打开处方详情...');
+            setTimeout(() => {
+                window.location.href = 'prescription-detail.html';
+            }, 500);
+        }
+
+        // 拨打电话（空函数）
+        function callPatient() {
+            showToast('正在拨打电话...');
+            setTimeout(() => {
+                showToast('拨号功能开发中');
+                // TODO: 实际应用中调用拨号功能
+            }, 500);
+        }
+    </script>
+</body>
+</html>
+

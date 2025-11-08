@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>开具处方 - 医疗问诊系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            padding: 16px;
+        }
+        
+        .modal-overlay.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 343px;
+            max-height: 80vh;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-[#F3F1ED]">
+    <div class="w-full max-w-[375px] mx-auto min-h-screen relative pb-[80px]">
+        <!-- Toast 通知 -->
+        <div id="toast" class="toast"></div>
+
+        <!-- 模板选择弹窗 -->
+        <div id="templateModal" class="modal-overlay" onclick="closeTemplateModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-[#1F2937] text-lg font-bold">选择处方模板</h3>
+                    <button onclick="closeTemplateModal()" class="text-[#6B7280] hover:text-[#1F2937]" aria-label="关闭">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 模板类型筛选 -->
+                <div class="flex gap-2 mb-4">
+                    <button onclick="filterTemplates('all')" id="filter-all" class="flex-1 py-2 px-3 bg-[#8E4337] text-white rounded-lg text-xs font-medium">全部</button>
+                    <button onclick="filterTemplates('chinese')" id="filter-chinese" class="flex-1 py-2 px-3 bg-[#F3F4F6] text-[#6B7280] rounded-lg text-xs font-medium">颗粒</button>
+                    <button onclick="filterTemplates('western')" id="filter-western" class="flex-1 py-2 px-3 bg-[#F3F4F6] text-[#6B7280] rounded-lg text-xs font-medium">饮片</button>
+                </div>
+
+                <!-- 模板列表 -->
+                <div id="templateList" class="space-y-2 max-h-[400px] overflow-y-auto">
+                    <!-- 模板项将通过 JS 动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 药品选择弹窗 -->
+        <div id="medicineModal" class="modal-overlay" onclick="closeMedicineModal(event)">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-[#1F2937] text-lg font-bold">选择药品</h3>
+                    <button onclick="closeMedicineModal()" class="text-[#6B7280] hover:text-[#1F2937]" aria-label="关闭">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- 搜索框 -->
+                <div class="mb-4">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="medicineSearch"
+                            placeholder="搜索药品名称或拼音..."
+                            oninput="searchMedicine()"
+                            class="w-full pl-10 pr-4 py-2.5 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent"
+                        />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#6B7280" class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2">
+                            <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+
+                <!-- 药品分类筛选 -->
+                <div class="flex gap-2 mb-4">
+                    <button onclick="filterMedicines('all')" id="med-filter-all" class="flex-1 py-2 px-3 bg-[#8E4337] text-white rounded-lg text-xs font-medium">全部</button>
+                    <button onclick="filterMedicines('chinese')" id="med-filter-chinese" class="flex-1 py-2 px-3 bg-[#F3F4F6] text-[#6B7280] rounded-lg text-xs font-medium">颗粒</button>
+                    <button onclick="filterMedicines('western')" id="med-filter-western" class="flex-1 py-2 px-3 bg-[#F3F4F6] text-[#6B7280] rounded-lg text-xs font-medium">饮片</button>
+                </div>
+
+                <!-- 药品列表 -->
+                <div id="medicineListModal" class="space-y-2 max-h-[400px] overflow-y-auto">
+                    <!-- 药品项将通过 JS 动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 顶部导航 -->
+        <header class="w-full h-[56px] flex justify-between items-center px-4 bg-white fixed top-0 left-0 right-0 max-w-[375px] mx-auto z-50 shadow-sm">
+            <button class="text-[#333333] hover:text-[#6B7280] transition-colors" onclick="goBack()" aria-label="返回上一页">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+                </svg>
+            </button>
+            <h1 class="text-[#1F2937] text-lg font-bold">开具处方</h1>
+            <button class="text-[#8E4337] hover:text-[#6E2F25] transition-colors" onclick="openTemplateModal()" aria-label="选择模板">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                    <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
+                    <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
+                </svg>
+            </button>
+        </header>
+
+        <!-- 主要内容区 -->
+        <main class="pt-[64px] px-4 space-y-4">
+            
+            <!-- 患者信息简要 -->
+            <section class="w-full p-4 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center gap-3">
+                    <div class="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                        <img src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_640.jpg" alt="吴姗姗" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex-1">
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="text-[#1F2937] text-base font-bold">吴姗姗</span>
+                            <span class="px-2 py-0.5 bg-[#FEF2F2] rounded-full text-[#EF4444] text-xs font-semibold">女</span>
+                            <span class="text-[#6B7280] text-xs">32岁</span>
+                        </div>
+                        <div class="text-[#6B7280] text-xs">患者编号：GH973212</div>
+                    </div>
+                    <button onclick="viewMedicalRecord()" class="px-3 py-1.5 bg-[#F5EBE9] rounded-lg text-[#8E4337] text-xs font-medium hover:bg-[#E5D5D0] transition-colors" aria-label="查看病历">
+                        病历
+                    </button>
+                </div>
+            </section>
+
+            <!-- 处方类型 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                        <path fill-rule="evenodd" d="M10 1c-1.716 0-3.408.106-5.07.31C3.806 1.45 3 2.414 3 3.517V18.25a.75.75 0 001.075.676L10 16.082l5.925 2.844A.75.75 0 0017 18.25V3.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 1z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">处方类型</span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <button onclick="selectPrescriptionType(1)" id="type-1" class="p-4 rounded-xl border-2 border-[#8E4337] bg-[#F5EBE9] transition-all hover:shadow-md">
+                        <div class="flex flex-col items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="w-8 h-8">
+                                <path d="M11.25 5.337c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.036 1.007-1.875 2.25-1.875S15 2.34 15 3.375c0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959 0 .332.278.598.61.578 1.91-.114 3.79-.342 5.632-.676a.75.75 0 01.878.645 49.17 49.17 0 01.376 5.452.657.657 0 01-.66.664c-.354 0-.675-.186-.958-.401a1.647 1.647 0 00-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401.31 0 .557.262.534.571a48.774 48.774 0 01-.595 4.845.75.75 0 01-.61.61c-1.82.317-3.673.533-5.555.642a.58.58 0 01-.611-.581c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.035-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959a.641.641 0 01-.658.643 49.118 49.118 0 01-4.708-.36.75.75 0 01-.645-.878c.293-1.614.504-3.257.629-4.924A.53.53 0 005.337 15c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82.75.75 0 01.83-.832c1.343.155 2.703.254 4.077.294a.64.64 0 00.657-.642z" />
+                            </svg>
+                            <span class="text-[#8E4337] text-sm font-bold">颗粒</span>
+                        </div>
+                    </button>
+
+                    <button onclick="selectPrescriptionType(2)" id="type-2" class="p-4 rounded-xl border-2 border-[#E5E7EB] bg-white transition-all hover:shadow-md">
+                        <div class="flex flex-col items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6B7280" class="w-8 h-8">
+                                <path fill-rule="evenodd" d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-[#6B7280] text-sm font-bold">饮片</span>
+                        </div>
+                    </button>
+
+                    <button onclick="selectPrescriptionType(3)" id="type-3" class="p-4 rounded-xl border-2 border-[#E5E7EB] bg-white transition-all hover:shadow-md">
+                        <div class="flex flex-col items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6B7280" class="w-8 h-8">
+                                <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z" />
+                                <path d="M3.265 10.602l7.668 4.129a2.25 2.25 0 002.134 0l7.668-4.13 1.37.739a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.71 0l-9.75-5.25a.75.75 0 010-1.32l1.37-.738z" />
+                                <path d="M10.933 19.231l-7.668-4.13-1.37.739a.75.75 0 000 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z" />
+                            </svg>
+                            <span class="text-[#6B7280] text-sm font-bold">混合</span>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- 处方基本信息 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">处方信息</span>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- 功用描述 -->
+                    <div>
+                        <label class="block text-sm font-medium text-[#374151] mb-2" for="functionDescription">功用描述</label>
+                        <div class="flex gap-2 mb-2">
+                            <textarea 
+                                id="functionDescription"
+                                rows="2"
+                                placeholder="如：益气养阴、清热生津..."
+                                class="flex-1 px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
+                            ></textarea>
+                        </div>
+                        <button 
+                            type="button"
+                            onclick="openFunctionSelector()"
+                            class="w-full py-2 bg-[#F5EBE9] border border-[#8E4337] rounded-lg text-[#8E4337] text-xs font-medium hover:bg-[#E5D5D0] transition-colors flex items-center justify-center gap-1"
+                            aria-label="选择功用">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                <path d="M10 3.75a2 2 0 10-4 0 2 2 0 004 0zM17.25 4.5a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM5 3.75a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 17a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM17.25 17a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM9 10a.75.75 0 01-.75.75h-5.5a.75.75 0 010-1.5h5.5A.75.75 0 019 10zM17.25 10.75a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM14 10a2 2 0 10-4 0 2 2 0 004 0zM10 16.25a2 2 0 10-4 0 2 2 0 004 0z" />
+                            </svg>
+                            选择常用功用
+                        </button>
+                    </div>
+
+                    <!-- 主治 -->
+                    <div>
+                        <label class="block text-sm font-medium text-[#374151] mb-2" for="mainTreatment">主治</label>
+                        <div class="flex gap-2 mb-2">
+                            <textarea 
+                                id="mainTreatment"
+                                rows="2"
+                                placeholder="如：消渴病、气阴两虚..."
+                                class="flex-1 px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
+                            ></textarea>
+                        </div>
+                        <button 
+                            type="button"
+                            onclick="openMainTreatmentSelector()"
+                            class="w-full py-2 bg-[#F5EBE9] border border-[#8E4337] rounded-lg text-[#8E4337] text-xs font-medium hover:bg-[#E5D5D0] transition-colors flex items-center justify-center gap-1"
+                            aria-label="选择主治">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                <path d="M10 3.75a2 2 0 10-4 0 2 2 0 004 0zM17.25 4.5a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM5 3.75a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 17a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM17.25 17a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM9 10a.75.75 0 01-.75.75h-5.5a.75.75 0 010-1.5h5.5A.75.75 0 019 10zM17.25 10.75a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM14 10a2 2 0 10-4 0 2 2 0 004 0zM10 16.25a2 2 0 10-4 0 2 2 0 004 0z" />
+                            </svg>
+                            选择常用主治
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 药品明细 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                            <path d="M10.75 16.82A7.462 7.462 0 0115 15.5c.71 0 1.396.098 2.046.282A.75.75 0 0018 15.06v-11a.75.75 0 00-.546-.721A9.006 9.006 0 0015 3a8.963 8.963 0 00-4.25 1.065V16.82zM9.25 4.065A8.963 8.963 0 005 3c-.85 0-1.673.118-2.454.339A.75.75 0 002 4.06v11a.75.75 0 00.954.721A7.506 7.506 0 015 15.5c1.579 0 3.042.487 4.25 1.32V4.065z" />
+                        </svg>
+                        <span class="text-[#333333] text-lg font-bold leading-7">药品明细</span>
+                    </div>
+                    
+                    <div class="flex items-center gap-2">
+                        <button onclick="openTemplateModal()" class="px-3 py-1.5 border-2 border-[#8E4337] rounded-lg text-[#8E4337] text-xs font-medium hover:bg-[#F5EBE9] transition-colors flex items-center gap-1" aria-label="使用药方">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
+                                <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
+                            </svg>
+                            使用药方
+                        </button>
+                        <button onclick="addMedicine()" class="px-3 py-1.5 bg-[#8E4337] rounded-lg text-white text-xs font-medium hover:bg-[#6E2F25] transition-colors flex items-center gap-1" aria-label="添加药品">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+                                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+                            </svg>
+                            添加药品
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 处方剂数 -->
+                <div class="mb-4 p-4 bg-[#F9FAFB] rounded-xl border border-[#E5E7EB]">
+                    <label class="block text-sm font-medium text-[#374151] mb-3" for="dosageCount">处方剂数</label>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 flex-1">
+                            <button 
+                                type="button"
+                                onclick="decreaseDosageCount()"
+                                class="w-10 h-10 flex items-center justify-center bg-white border-2 border-[#E5E7EB] rounded-lg text-[#6B7280] hover:bg-[#F3F4F6] hover:text-[#8E4337] hover:border-[#8E4337] transition-colors active:scale-95"
+                                aria-label="减少剂数">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                    <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
+                                </svg>
+                            </button>
+                            
+                            <input 
+                                type="number" 
+                                id="dosageCount"
+                                value="7"
+                                min="1"
+                                max="30"
+                                oninput="renderMedicineList()"
+                                class="flex-1 px-4 py-2.5 text-center border-2 border-[#8E4337] rounded-lg text-[#8E4337] text-lg font-bold focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent"
+                            />
+                            
+                            <button 
+                                type="button"
+                                onclick="increaseDosageCount()"
+                                class="w-10 h-10 flex items-center justify-center bg-white border-2 border-[#E5E7EB] rounded-lg text-[#6B7280] hover:bg-[#F3F4F6] hover:text-[#8E4337] hover:border-[#8E4337] transition-colors active:scale-95"
+                                aria-label="增加剂数">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                    <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <span class="text-[#6B7280] text-sm font-medium">剂</span>
+                    </div>
+                    <div class="mt-3 flex gap-2">
+                        <button type="button" onclick="setDosageCount(3)" class="px-3 py-1.5 bg-[#F3F4F6] rounded-lg text-[#6B7280] text-xs font-medium hover:bg-[#F5EBE9] hover:text-[#8E4337] transition-colors">3剂</button>
+                        <button type="button" onclick="setDosageCount(5)" class="px-3 py-1.5 bg-[#F3F4F6] rounded-lg text-[#6B7280] text-xs font-medium hover:bg-[#F5EBE9] hover:text-[#8E4337] transition-colors">5剂</button>
+                        <button type="button" onclick="setDosageCount(7)" class="px-3 py-1.5 bg-[#F5EBE9] border border-[#8E4337] rounded-lg text-[#8E4337] text-xs font-medium hover:bg-[#E5D5D0] transition-colors">7剂</button>
+                        <button type="button" onclick="setDosageCount(14)" class="px-3 py-1.5 bg-[#F3F4F6] rounded-lg text-[#6B7280] text-xs font-medium hover:bg-[#F5EBE9] hover:text-[#8E4337] transition-colors">14剂</button>
+                        <button type="button" onclick="setDosageCount(30)" class="px-3 py-1.5 bg-[#F3F4F6] rounded-lg text-[#6B7280] text-xs font-medium hover:bg-[#F5EBE9] hover:text-[#8E4337] transition-colors">30剂</button>
+                    </div>
+                </div>
+
+                <div id="medicineList" class="space-y-3">
+                    <!-- 药品项将通过 JS 动态生成 -->
+                    <div class="p-4 bg-[#F9FAFB] rounded-xl text-center text-[#9CA3AF] text-sm">
+                        暂无药品，请点击"添加药品"按钮
+                    </div>
+                </div>
+            </section>
+
+            <!-- 用法和注意事项 -->
+            <section class="w-full p-5 rounded-[20px] shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)] bg-white">
+                <div class="flex items-center gap-2 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="w-[18px] h-[18px]">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-[#333333] text-lg font-bold leading-7">用法及注意事项</span>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- 用法 -->
+                    <div>
+                        <label class="block text-sm font-medium text-[#374151] mb-2" for="usageMethod">用法</label>
+                        <textarea 
+                            id="usageMethod"
+                            rows="3"
+                            placeholder="如：水煎服，每日1剂，分早晚两次温服..."
+                            class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
+                        ></textarea>
+                    </div>
+
+                    <!-- 注意事项 -->
+                    <div>
+                        <label class="block text-sm font-medium text-[#374151] mb-2" for="precautions">注意事项</label>
+                        <textarea 
+                            id="precautions"
+                            rows="3"
+                            placeholder="如：忌食辛辣、油腻食物；孕妇慎用..."
+                            class="w-full px-3 py-2 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
+                        ></textarea>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- 底部操作栏 -->
+        <footer class="w-full max-w-[375px] mx-auto fixed bottom-0 left-0 right-0 bg-white border-t border-[#E5E7EB] px-4 py-3 z-40">
+            <div class="grid grid-cols-2 gap-3">
+                <button 
+                    onclick="saveAsTemplate()"
+                    class="py-3 border-2 border-[#8E4337] rounded-lg text-[#8E4337] text-sm font-medium cursor-pointer hover:bg-[#F5EBE9] transition-colors active:scale-98 flex items-center justify-center gap-2"
+                    aria-label="保存为模板">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
+                    </svg>
+                    保存模板
+                </button>
+                <button 
+                    onclick="submitPrescription()"
+                    class="py-3 bg-[#8E4337] rounded-lg text-white text-sm font-medium cursor-pointer hover:bg-[#6E2F25] transition-colors active:scale-98 flex items-center justify-center gap-2"
+                    aria-label="开具处方">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                    </svg>
+                    开具处方
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 全局变量
+        let currentPrescriptionType = 1; // 默认颗粒
+        let medicines = []; // 药品列表
+        let medicineIdCounter = 0; // 药品ID计数器
+        let currentMedicineFilter = 'all'; // 当前药品筛选类型
+        let medicineTempQuantities = {}; // 弹窗中每个药品的临时数量
+
+        // 常用功用描述
+        const commonFunctions = [
+            // 补益类
+            '补气养血',
+            '益气养阴',
+            '滋阴补肾',
+            '温阳补肾',
+            '补中益气',
+            '养血安神',
+            '健脾益气',
+            '补益肝肾',
+            
+            // 清热类
+            '清热解毒',
+            '清热生津',
+            '清热燥湿',
+            '清热凉血',
+            '清肝明目',
+            '清热泻火',
+            
+            // 解表类
+            '疏风解表',
+            '发散风寒',
+            '疏风清热',
+            '解肌退热',
+            
+            // 理气类
+            '疏肝理气',
+            '行气止痛',
+            '理气健脾',
+            '行气导滞',
+            
+            // 活血类
+            '活血化瘀',
+            '活血止痛',
+            '活血调经',
+            '破血逐瘀',
+            
+            // 化痰类
+            '化痰止咳',
+            '燥湿化痰',
+            '清热化痰',
+            '温化寒痰',
+            
+            // 祛湿类
+            '利水渗湿',
+            '健脾祛湿',
+            '清热利湿',
+            '温阳利水',
+            
+            // 安神类
+            '养心安神',
+            '镇静安神',
+            '重镇安神',
+            
+            // 消食类
+            '消食化积',
+            '健脾消食',
+            
+            // 其他
+            '升阳举陷',
+            '收敛固涩',
+            '平肝潜阳',
+            '息风止痉',
+            '温中散寒',
+            '和解少阳'
+        ];
+
+        // 常用主治
+        const commonMainTreatments = [
+            // 内科
+            '感冒风寒',
+            '感冒风热',
+            '咳嗽痰多',
+            '气喘咳嗽',
+            '失眠多梦',
+            '心悸怔忡',
+            '头痛头晕',
+            '高血压',
+            '消渴病（糖尿病）',
+            '气阴两虚',
+            '脾胃虚弱',
+            '中气下陷',
+            '肝郁气滞',
+            '肝火上炎',
+            '肝阳上亢',
+            '心肾不交',
+            '肾阳虚',
+            '肾阴虚',
+            '阴虚火旺',
+            '气滞血瘀',
+            '痰湿内阻',
+            '湿热蕴结',
+            
+            // 消化系统
+            '脘腹胀痛',
+            '食欲不振',
+            '消化不良',
+            '腹泻便溏',
+            '便秘',
+            '胃痛',
+            '呕吐恶心',
+            
+            // 妇科
+            '月经不调',
+            '痛经',
+            '闭经',
+            '崩漏',
+            '带下病',
+            '产后虚弱',
+            '更年期综合征',
+            
+            // 其他
+            '关节疼痛',
+            '腰膝酸软',
+            '水肿',
+            '眩晕',
+            '耳鸣',
+            '盗汗自汗',
+            '遗精滑泄'
+        ];
+
+        // 模拟的药品数据库
+        const medicineDatabase = [
+            // 颗粒
+            { id: 1, name: '生地黄颗粒', pinyin: 'shengdihuang', type: 'chinese', defaultDosage: 3, defaultUnit: 'g', category: '清热凉血', price: 1.5 },
+            { id: 2, name: '山药颗粒', pinyin: 'shanyao', type: 'chinese', defaultDosage: 3, defaultUnit: 'g', category: '补脾养胃', price: 1.2 },
+            { id: 3, name: '黄芪颗粒', pinyin: 'huangqi', type: 'chinese', defaultDosage: 4, defaultUnit: 'g', category: '补气', price: 2.0 },
+            { id: 4, name: '天花粉颗粒', pinyin: 'tianhuafen', type: 'chinese', defaultDosage: 2.5, defaultUnit: 'g', category: '清热生津', price: 1.3 },
+            { id: 5, name: '葛根颗粒', pinyin: 'gegen', type: 'chinese', defaultDosage: 3, defaultUnit: 'g', category: '解肌退热', price: 1.4 },
+            { id: 6, name: '麦冬颗粒', pinyin: 'maidong', type: 'chinese', defaultDosage: 2.5, defaultUnit: 'g', category: '养阴润肺', price: 1.8 },
+            { id: 7, name: '五味子颗粒', pinyin: 'wuweizi', type: 'chinese', defaultDosage: 1.5, defaultUnit: 'g', category: '收敛固涩', price: 2.5 },
+            { id: 8, name: '丹参颗粒', pinyin: 'danshen', type: 'chinese', defaultDosage: 3, defaultUnit: 'g', category: '活血化瘀', price: 1.6 },
+            { id: 9, name: '川芎颗粒', pinyin: 'chuanxiong', type: 'chinese', defaultDosage: 2, defaultUnit: 'g', category: '活血行气', price: 1.9 },
+            { id: 10, name: '山茱萸颗粒', pinyin: 'shanzhuyu', type: 'chinese', defaultDosage: 2, defaultUnit: 'g', category: '补益肝肾', price: 2.2 },
+            { id: 11, name: '党参颗粒', pinyin: 'dangshen', type: 'chinese', defaultDosage: 3, defaultUnit: 'g', category: '补中益气', price: 1.8 },
+            { id: 12, name: '白术颗粒', pinyin: 'baizhu', type: 'chinese', defaultDosage: 2, defaultUnit: 'g', category: '健脾益气', price: 1.5 },
+            { id: 13, name: '当归颗粒', pinyin: 'danggui', type: 'chinese', defaultDosage: 2, defaultUnit: 'g', category: '补血活血', price: 2.0 },
+            { id: 14, name: '陈皮颗粒', pinyin: 'chenpi', type: 'chinese', defaultDosage: 1.5, defaultUnit: 'g', category: '理气健脾', price: 1.0 },
+            { id: 15, name: '茯苓颗粒', pinyin: 'fuling', type: 'chinese', defaultDosage: 2.5, defaultUnit: 'g', category: '利水渗湿', price: 1.3 },
+            { id: 16, name: '甘草颗粒', pinyin: 'gancao', type: 'chinese', defaultDosage: 1.5, defaultUnit: 'g', category: '调和诸药', price: 0.8 },
+            { id: 17, name: '黄连颗粒', pinyin: 'huanglian', type: 'chinese', defaultDosage: 1.5, defaultUnit: 'g', category: '清热燥湿', price: 4.0 },
+            { id: 18, name: '黄芩颗粒', pinyin: 'huangqin', type: 'chinese', defaultDosage: 2, defaultUnit: 'g', category: '清热燥湿', price: 1.7 },
+            { id: 19, name: '知母颗粒', pinyin: 'zhimu', type: 'chinese', defaultDosage: 2, defaultUnit: 'g', category: '清热泻火', price: 1.5 },
+            { id: 20, name: '石膏颗粒', pinyin: 'shigao', type: 'chinese', defaultDosage: 6, defaultUnit: 'g', category: '清热泻火', price: 0.8 },
+            
+            // 饮片
+            { id: 101, name: '柴胡', pinyin: 'chaihu', type: 'western', defaultDosage: 10, defaultUnit: 'g', category: '解表', price: 1.2 },
+            { id: 102, name: '黄柏', pinyin: 'huangbo', type: 'western', defaultDosage: 10, defaultUnit: 'g', category: '清热燥湿', price: 0.8 },
+            { id: 103, name: '枸杞子', pinyin: 'gouqizi', type: 'western', defaultDosage: 10, defaultUnit: 'g', category: '补益肝肾', price: 1.0 },
+            { id: 104, name: '菊花', pinyin: 'juhua', type: 'western', defaultDosage: 10, defaultUnit: 'g', category: '清热解毒', price: 0.6 },
+            { id: 105, name: '桔梗', pinyin: 'jiegeng', type: 'western', defaultDosage: 6, defaultUnit: 'g', category: '宣肺祛痰', price: 0.5 },
+            { id: 106, name: '薄荷', pinyin: 'bohe', type: 'western', defaultDosage: 6, defaultUnit: 'g', category: '疏散风热', price: 0.4 },
+            { id: 107, name: '防风', pinyin: 'fangfeng', type: 'western', defaultDosage: 10, defaultUnit: 'g', category: '祛风解表', price: 0.9 },
+            { id: 108, name: '白芍', pinyin: 'baishao', type: 'western', defaultDosage: 12, defaultUnit: 'g', category: '养血敛阴', price: 1.1 },
+            { id: 109, name: '熟地黄', pinyin: 'shudihuang', type: 'western', defaultDosage: 15, defaultUnit: 'g', category: '补血滋阴', price: 1.3 },
+            { id: 110, name: '泽泻', pinyin: 'zexie', type: 'western', defaultDosage: 10, defaultUnit: 'g', category: '利水渗湿', price: 0.7 },
+        ];
+
+        // 模拟的处方模板数据
+        const prescriptionTemplates = [
+            {
+                id: 1,
+                name: '益气养阴颗粒方',
+                type: 1, // 颗粒
+                isCommon: true,
+                functionDescription: '益气养阴、清热生津',
+                mainTreatment: '消渴病、气阴两虚',
+                usageMethod: '温开水冲服，每日2-3次，饭后服用',
+                precautions: '忌食辛辣、油腻食物',
+                items: [
+                    { medicineName: '生地黄颗粒', dosage: 3, dosageUnit: 'g' },
+                    { medicineName: '山药颗粒', dosage: 3, dosageUnit: 'g' },
+                    { medicineName: '黄芪颗粒', dosage: 4, dosageUnit: 'g' },
+                    { medicineName: '天花粉颗粒', dosage: 2.5, dosageUnit: 'g' },
+                    { medicineName: '葛根颗粒', dosage: 3, dosageUnit: 'g' },
+                    { medicineName: '麦冬颗粒', dosage: 2.5, dosageUnit: 'g' },
+                    { medicineName: '五味子颗粒', dosage: 1.5, dosageUnit: 'g' },
+                ]
+            },
+            {
+                id: 2,
+                name: '疏肝解郁饮片方',
+                type: 2, // 饮片
+                isCommon: true,
+                functionDescription: '疏肝解郁、理气和中',
+                mainTreatment: '肝郁气滞、胸胁胀满',
+                usageMethod: '水煎服，每日1剂，分早晚两次温服',
+                precautions: '忌食辛辣刺激食物',
+                items: [
+                    { medicineName: '柴胡', dosage: 10, dosageUnit: 'g' },
+                    { medicineName: '白芍', dosage: 12, dosageUnit: 'g' },
+                    { medicineName: '陈皮', dosage: 6, dosageUnit: 'g' },
+                ]
+            },
+            {
+                id: 3,
+                name: '补中益气颗粒方',
+                type: 1, // 颗粒
+                isCommon: true,
+                functionDescription: '补中益气、升阳举陷',
+                mainTreatment: '脾胃气虚、中气下陷',
+                usageMethod: '温开水冲服，每日2-3次，饭后服用',
+                precautions: '忌生冷食物',
+                items: [
+                    { medicineName: '黄芪颗粒', dosage: 6, dosageUnit: 'g' },
+                    { medicineName: '党参颗粒', dosage: 3, dosageUnit: 'g' },
+                    { medicineName: '白术颗粒', dosage: 2, dosageUnit: 'g' },
+                    { medicineName: '当归颗粒', dosage: 2, dosageUnit: 'g' },
+                    { medicineName: '陈皮颗粒', dosage: 1.5, dosageUnit: 'g' },
+                ]
+            },
+            {
+                id: 4,
+                name: '补肾养肝方',
+                type: 3, // 混合
+                isCommon: false,
+                functionDescription: '补益肝肾、滋阴明目',
+                mainTreatment: '肝肾阴虚、头晕目眩',
+                usageMethod: '水煎服，每日1剂，分早晚两次温服',
+                precautions: '忌食辛辣油腻',
+                items: [
+                    { medicineName: '枸杞子', dosage: 10, dosageUnit: 'g' },
+                    { medicineName: '熟地黄', dosage: 15, dosageUnit: 'g' },
+                    { medicineName: '菊花', dosage: 10, dosageUnit: 'g' },
+                ]
+            }
+        ];
+
+        // Toast 提示
+        function showToast(message, duration = 2000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        // 返回上一页
+        function goBack() {
+            window.history.back();
+        }
+
+        // 查看病历
+        function viewMedicalRecord() {
+            showToast('正在打开病历...');
+            setTimeout(() => {
+                window.location.href = 'medical-record.html';
+            }, 500);
+        }
+
+        // 选择处方类型
+        function selectPrescriptionType(type) {
+            currentPrescriptionType = type;
+            
+            // 更新按钮样式
+            for (let i = 1; i <= 3; i++) {
+                const btn = document.getElementById(`type-${i}`);
+                if (i === type) {
+                    btn.className = 'p-4 rounded-xl border-2 border-[#8E4337] bg-[#F5EBE9] transition-all hover:shadow-md';
+                    btn.querySelector('svg').setAttribute('fill', '#8E4337');
+                    btn.querySelector('span').className = 'text-[#8E4337] text-sm font-bold';
+                } else {
+                    btn.className = 'p-4 rounded-xl border-2 border-[#E5E7EB] bg-white transition-all hover:shadow-md';
+                    btn.querySelector('svg').setAttribute('fill', '#6B7280');
+                    btn.querySelector('span').className = 'text-[#6B7280] text-sm font-bold';
+                }
+            }
+        }
+
+        // 打开药品选择弹窗
+        function addMedicine() {
+            document.getElementById('medicineModal').classList.add('active');
+            document.getElementById('medicineSearch').value = '';
+            currentMedicineFilter = 'all';
+            
+            // 重置所有临时数量为默认值
+            medicineTempQuantities = {};
+            medicineDatabase.forEach(med => {
+                medicineTempQuantities[med.id] = med.defaultDosage;
+            });
+            
+            renderMedicineListModal();
+            
+            // 自动聚焦搜索框
+            setTimeout(() => {
+                document.getElementById('medicineSearch').focus();
+            }, 100);
+        }
+
+        // 关闭药品选择弹窗
+        function closeMedicineModal(event) {
+            if (!event || event.target.id === 'medicineModal') {
+                document.getElementById('medicineModal').classList.remove('active');
+            }
+        }
+
+        // 筛选药品
+        function filterMedicines(filterType) {
+            currentMedicineFilter = filterType;
+            
+            // 更新筛选按钮样式
+            ['all', 'chinese', 'western'].forEach(type => {
+                const btn = document.getElementById(`med-filter-${type}`);
+                if (type === filterType) {
+                    btn.className = 'flex-1 py-2 px-3 bg-[#8E4337] text-white rounded-lg text-xs font-medium';
+                } else {
+                    btn.className = 'flex-1 py-2 px-3 bg-[#F3F4F6] text-[#6B7280] rounded-lg text-xs font-medium';
+                }
+            });
+            
+            renderMedicineListModal();
+        }
+
+        // 搜索药品
+        function searchMedicine() {
+            renderMedicineListModal();
+        }
+
+        // 渲染药品列表弹窗
+        function renderMedicineListModal() {
+            const searchText = document.getElementById('medicineSearch').value.toLowerCase();
+            const listContainer = document.getElementById('medicineListModal');
+            
+            // 筛选药品
+            let filteredMedicines = medicineDatabase;
+            if (currentMedicineFilter === 'chinese') {
+                filteredMedicines = medicineDatabase.filter(m => m.type === 'chinese');
+            } else if (currentMedicineFilter === 'western') {
+                filteredMedicines = medicineDatabase.filter(m => m.type === 'western');
+            }
+            
+            // 搜索过滤
+            if (searchText) {
+                filteredMedicines = filteredMedicines.filter(m => 
+                    m.name.toLowerCase().includes(searchText) || 
+                    m.pinyin.toLowerCase().includes(searchText)
+                );
+            }
+            
+            // 渲染列表
+            if (filteredMedicines.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="p-4 text-center text-[#9CA3AF] text-sm">
+                        未找到匹配的药品
+                    </div>
+                `;
+                return;
+            }
+            
+            listContainer.innerHTML = filteredMedicines.map(medicine => {
+                const typeColor = medicine.type === 'chinese' ? 'bg-[#F5EBE9] text-[#8E4337]' : 'bg-[#E0E7FF] text-[#6366F1]';
+                const typeText = medicine.type === 'chinese' ? '颗粒' : '饮片';
+                
+                // 获取当前药品的临时数量，如果没有则使用默认值
+                if (!medicineTempQuantities[medicine.id]) {
+                    medicineTempQuantities[medicine.id] = medicine.defaultDosage;
+                }
+                const currentQuantity = medicineTempQuantities[medicine.id];
+                
+                // 计算当前数量的价格
+                const unitPrice = medicine.type === 'chinese' ? medicine.price : medicine.price;
+                const totalPrice = (currentQuantity / medicine.defaultDosage * unitPrice).toFixed(2);
+                
+                return `
+                    <div class="p-3 bg-[#F9FAFB] rounded-xl border border-[#E5E7EB]">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-[#1F2937] text-sm font-bold">${medicine.name}</span>
+                                    <span class="px-2 py-0.5 ${typeColor} rounded-full text-xs font-semibold">${typeText}</span>
+                                </div>
+                                <div class="text-[#6B7280] text-xs mb-1">${medicine.category}</div>
+                                <div class="text-[#8E4337] text-xs font-medium">
+                                    ¥${unitPrice}/${medicine.defaultUnit}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-between gap-3">
+                            <!-- 数量调整 -->
+                            <div class="flex items-center gap-2">
+                                <button 
+                                    onclick="decreaseMedicineQuantity(event, ${medicine.id})"
+                                    class="w-7 h-7 flex items-center justify-center bg-white border border-[#E5E7EB] rounded-lg text-[#6B7280] hover:bg-[#F3F4F6] hover:text-[#8E4337] hover:border-[#8E4337] transition-colors active:scale-95"
+                                    aria-label="减少数量">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                        <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
+                                    </svg>
+                                </button>
+                                
+                                <div class="flex flex-col items-center min-w-[70px]">
+                                    <span class="text-[#1F2937] text-sm font-bold" id="qty-${medicine.id}">
+                                        ${currentQuantity}${medicine.defaultUnit}
+                                    </span>
+                                    <span class="text-[#8E4337] text-xs font-semibold" id="price-${medicine.id}">
+                                        ¥${totalPrice}
+                                    </span>
+                                </div>
+                                
+                                <button 
+                                    onclick="increaseMedicineQuantity(event, ${medicine.id})"
+                                    class="w-7 h-7 flex items-center justify-center bg-white border border-[#E5E7EB] rounded-lg text-[#6B7280] hover:bg-[#F3F4F6] hover:text-[#8E4337] hover:border-[#8E4337] transition-colors active:scale-95"
+                                    aria-label="增加数量">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                                        <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- 添加按钮 -->
+                            <button 
+                                onclick="addMedicineToList(event, ${medicine.id})"
+                                class="px-4 py-1.5 bg-[#8E4337] rounded-lg text-white text-xs font-medium hover:bg-[#6E2F25] transition-colors active:scale-95"
+                                aria-label="添加${medicine.name}">
+                                添加
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 增加药品数量
+        function increaseMedicineQuantity(event, medicineId) {
+            event.stopPropagation();
+            const medicine = medicineDatabase.find(m => m.id === medicineId);
+            if (!medicine) return;
+            
+            // 根据药品类型设置步进值
+            const step = medicine.type === 'chinese' ? 1 : (medicine.defaultDosage >= 100 ? 50 : 10);
+            medicineTempQuantities[medicineId] = (medicineTempQuantities[medicineId] || medicine.defaultDosage) + step;
+            
+            // 更新数量显示
+            const qtyElement = document.getElementById(`qty-${medicineId}`);
+            if (qtyElement) {
+                qtyElement.textContent = `${medicineTempQuantities[medicineId]}${medicine.defaultUnit}`;
+            }
+            
+            // 更新价格显示
+            const priceElement = document.getElementById(`price-${medicineId}`);
+            if (priceElement) {
+                const totalPrice = (medicineTempQuantities[medicineId] / medicine.defaultDosage * medicine.price).toFixed(2);
+                priceElement.textContent = `¥${totalPrice}`;
+            }
+        }
+
+        // 减少药品数量
+        function decreaseMedicineQuantity(event, medicineId) {
+            event.stopPropagation();
+            const medicine = medicineDatabase.find(m => m.id === medicineId);
+            if (!medicine) return;
+            
+            // 根据药品类型设置步进值
+            const step = medicine.type === 'chinese' ? 1 : (medicine.defaultDosage >= 100 ? 50 : 10);
+            const currentQty = medicineTempQuantities[medicineId] || medicine.defaultDosage;
+            
+            // 不能小于步进值
+            if (currentQty > step) {
+                medicineTempQuantities[medicineId] = currentQty - step;
+                
+                // 更新数量显示
+                const qtyElement = document.getElementById(`qty-${medicineId}`);
+                if (qtyElement) {
+                    qtyElement.textContent = `${medicineTempQuantities[medicineId]}${medicine.defaultUnit}`;
+                }
+                
+                // 更新价格显示
+                const priceElement = document.getElementById(`price-${medicineId}`);
+                if (priceElement) {
+                    const totalPrice = (medicineTempQuantities[medicineId] / medicine.defaultDosage * medicine.price).toFixed(2);
+                    priceElement.textContent = `¥${totalPrice}`;
+                }
+            }
+        }
+
+        // 添加药品到处方列表
+        function addMedicineToList(event, medicineId) {
+            event.stopPropagation();
+            const medicine = medicineDatabase.find(m => m.id === medicineId);
+            if (!medicine) return;
+            
+            const quantity = medicineTempQuantities[medicineId] || medicine.defaultDosage;
+            const totalPrice = (quantity / medicine.defaultDosage * medicine.price).toFixed(2);
+            
+            // 添加到处方
+            const newMedicine = {
+                id: ++medicineIdCounter,
+                medicineId: medicine.id,
+                medicineName: medicine.name,
+                dosage: quantity,
+                dosageUnit: medicine.defaultUnit,
+                unitPrice: medicine.price,
+                totalPrice: parseFloat(totalPrice)
+            };
+            
+            medicines.push(newMedicine);
+            renderMedicineList();
+            showToast(`${medicine.name} 已添加`);
+            
+            // 重置该药品的数量为默认值
+            medicineTempQuantities[medicineId] = medicine.defaultDosage;
+        }
+
+        // 删除药品
+        function removeMedicine(id) {
+            const medicine = medicines.find(m => m.id === id);
+            medicines = medicines.filter(m => m.id !== id);
+            renderMedicineList();
+            showToast(`${medicine ? medicine.medicineName : '药品'}已删除`);
+        }
+
+        // 渲染处方中的药品列表
+        function renderMedicineList() {
+            const listContainer = document.getElementById('medicineList');
+            
+            if (medicines.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="p-4 bg-[#F9FAFB] rounded-xl text-center text-[#9CA3AF] text-sm">
+                        暂无药品，请点击"添加药品"按钮
+                    </div>
+                `;
+                return;
+            }
+
+            // 获取剂数
+            const dosageCount = parseInt(document.getElementById('dosageCount').value) || 7;
+            
+            // 计算单剂总金额和总金额
+            const singleDosageAmount = medicines.reduce((sum, med) => sum + med.totalPrice, 0);
+            const totalAmount = (singleDosageAmount * dosageCount).toFixed(2);
+
+            const medicineItems = medicines.map((medicine, index) => `
+                <div class="p-4 bg-[#F9FAFB] rounded-xl border border-[#E5E7EB]">
+                    <div class="flex items-start justify-between">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="px-2 py-0.5 bg-[#8E4337] rounded text-white text-xs font-bold">${index + 1}</span>
+                                <span class="text-[#1F2937] text-base font-bold">${medicine.medicineName}</span>
+                            </div>
+                            <div class="flex items-center gap-4 text-sm">
+                                <div class="text-[#6B7280]">
+                                    单剂：<span class="text-[#8E4337] font-semibold">${medicine.dosage}${medicine.dosageUnit}</span>
+                                </div>
+                                <div class="text-[#6B7280]">
+                                    单剂价格：<span class="text-[#8E4337] font-semibold">¥${medicine.totalPrice.toFixed(2)}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <button 
+                            onclick="removeMedicine(${medicine.id})"
+                            class="text-[#EF4444] hover:text-[#DC2626] transition-colors ml-3"
+                            aria-label="删除药品">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v.443c-.795.077-1.584.176-2.365.298a.75.75 0 10.23 1.482l.149-.022.841 10.518A2.75 2.75 0 007.596 19h4.807a2.75 2.75 0 002.742-2.53l.841-10.52.149.023a.75.75 0 00.23-1.482A41.03 41.03 0 0014 4.193V3.75A2.75 2.75 0 0011.25 1h-2.5zM10 4c.84 0 1.673.025 2.5.075V3.75c0-.69-.56-1.25-1.25-1.25h-2.5c-.69 0-1.25.56-1.25 1.25v.325C8.327 4.025 9.16 4 10 4zM8.58 7.72a.75.75 0 00-1.5.06l.3 7.5a.75.75 0 101.5-.06l-.3-7.5zm4.34.06a.75.75 0 10-1.5-.06l-.3 7.5a.75.75 0 101.5.06l.3-7.5z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // 添加总金额统计
+            const totalSection = `
+                <div class="p-4 bg-[#F5EBE9] rounded-xl border-2 border-[#8E4337]">
+                    <div class="space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[#6B7280] text-sm">单剂金额</span>
+                            <span class="text-[#1F2937] text-base font-semibold">¥${singleDosageAmount.toFixed(2)}</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[#6B7280] text-sm">处方剂数</span>
+                            <span class="text-[#1F2937] text-base font-semibold">× ${dosageCount} 剂</span>
+                        </div>
+                        <div class="border-t border-[#8E4337] pt-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[#1F2937] text-base font-bold">处方总金额</span>
+                                <span class="text-[#8E4337] text-xl font-bold">¥${totalAmount}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-[#6B7280] text-xs mt-2">
+                        共 ${medicines.length} 味药品 × ${dosageCount} 剂
+                    </div>
+                </div>
+            `;
+
+            listContainer.innerHTML = medicineItems + totalSection;
+        }
+
+        // 打开模板选择弹窗
+        function openTemplateModal() {
+            document.getElementById('templateModal').classList.add('active');
+            filterTemplates('all');
+        }
+
+        // 关闭模板选择弹窗
+        function closeTemplateModal(event) {
+            if (!event || event.target.id === 'templateModal') {
+                document.getElementById('templateModal').classList.remove('active');
+            }
+        }
+
+        // 筛选模板
+        function filterTemplates(filterType) {
+            // 更新筛选按钮样式
+            ['all', 'chinese', 'western'].forEach(type => {
+                const btn = document.getElementById(`filter-${type}`);
+                if (type === filterType) {
+                    btn.className = 'flex-1 py-2 px-3 bg-[#8E4337] text-white rounded-lg text-xs font-medium';
+                } else {
+                    btn.className = 'flex-1 py-2 px-3 bg-[#F3F4F6] text-[#6B7280] rounded-lg text-xs font-medium';
+                }
+            });
+
+            // 筛选模板
+            let filteredTemplates = prescriptionTemplates;
+            if (filterType === 'chinese') {
+                filteredTemplates = prescriptionTemplates.filter(t => t.type === 1);
+            } else if (filterType === 'western') {
+                filteredTemplates = prescriptionTemplates.filter(t => t.type === 2);
+            }
+
+            // 渲染模板列表
+            const listContainer = document.getElementById('templateList');
+            if (filteredTemplates.length === 0) {
+                listContainer.innerHTML = `
+                    <div class="p-4 text-center text-[#9CA3AF] text-sm">
+                        暂无模板
+                    </div>
+                `;
+                return;
+            }
+
+            listContainer.innerHTML = filteredTemplates.map(template => {
+                const typeText = template.type === 1 ? '颗粒' : template.type === 2 ? '饮片' : '混合';
+                const typeColor = template.type === 1 ? 'bg-[#F5EBE9] text-[#8E4337]' : 
+                                 template.type === 2 ? 'bg-[#E0E7FF] text-[#6366F1]' : 
+                                 'bg-[#FFF7ED] text-[#EA580C]';
+                
+                return `
+                    <div class="p-3 bg-[#F9FAFB] rounded-xl hover:bg-[#F3F4F6] transition-colors cursor-pointer border border-[#E5E7EB]" onclick="applyTemplate(${template.id})">
+                        <div class="flex items-start justify-between mb-2">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-[#1F2937] text-sm font-bold">${template.name}</span>
+                                    ${template.isCommon ? '<span class="px-2 py-0.5 bg-[#10B981] rounded-full text-white text-xs font-semibold">常用</span>' : ''}
+                                </div>
+                                <div class="text-[#6B7280] text-xs mb-2">${template.functionDescription}</div>
+                                <div class="text-[#6B7280] text-xs">药品数量：${template.items.length} 味</div>
+                            </div>
+                            <span class="px-2 py-0.5 ${typeColor} rounded-full text-xs font-semibold">${typeText}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // 应用模板
+        function applyTemplate(templateId) {
+            const template = prescriptionTemplates.find(t => t.id === templateId);
+            if (!template) return;
+
+            // 设置处方类型
+            selectPrescriptionType(template.type);
+
+            // 填充基本信息
+            document.getElementById('functionDescription').value = template.functionDescription || '';
+            document.getElementById('mainTreatment').value = template.mainTreatment || '';
+            document.getElementById('usageMethod').value = template.usageMethod || '';
+            document.getElementById('precautions').value = template.precautions || '';
+
+            // 填充药品列表，从数据库获取价格信息
+            medicines = template.items.map((item) => {
+                const medicineData = medicineDatabase.find(m => m.name === item.medicineName);
+                const unitPrice = medicineData ? medicineData.price : 0;
+                const defaultDosage = medicineData ? medicineData.defaultDosage : item.dosage;
+                const totalPrice = (item.dosage / defaultDosage * unitPrice).toFixed(2);
+                
+                return {
+                    id: ++medicineIdCounter,
+                    medicineName: item.medicineName,
+                    dosage: item.dosage,
+                    dosageUnit: item.dosageUnit,
+                    unitPrice: unitPrice,
+                    totalPrice: parseFloat(totalPrice)
+                };
+            });
+            renderMedicineList();
+
+            closeTemplateModal();
+            showToast(`已应用模板：${template.name}`);
+        }
+
+        // 保存为模板
+        function saveAsTemplate() {
+            if (medicines.length === 0) {
+                showToast('请至少添加一味药品');
+                return;
+            }
+
+            const templateName = prompt('请输入模板名称：');
+            if (!templateName || !templateName.trim()) {
+                return;
+            }
+
+            showToast('正在保存模板...');
+            setTimeout(() => {
+                showToast('模板保存成功 ✓');
+                // TODO: 实际应用中保存到后端
+            }, 1000);
+        }
+
+        // 打开功用选择器
+        function openFunctionSelector() {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay active';
+            overlay.id = 'functionSelectorModal';
+            overlay.onclick = function(e) {
+                if (e.target.id === 'functionSelectorModal') {
+                    e.target.remove();
+                }
+            };
+            
+            overlay.innerHTML = `
+                <div class="modal-content" onclick="event.stopPropagation()">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-[#1F2937] text-lg font-bold">选择功用</h3>
+                        <button onclick="this.closest('.modal-overlay').remove()" class="text-[#6B7280] hover:text-[#1F2937]" aria-label="关闭">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="text-xs text-[#6B7280] mb-3">
+                        点击可添加，用顿号分隔
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 max-h-[400px] overflow-y-auto pr-2">
+                        ${commonFunctions.map(func => `
+                            <button 
+                                class="py-2 px-3 border-2 border-[#E5E7EB] rounded-lg text-[#1F2937] text-sm font-medium hover:border-[#8E4337] hover:bg-[#F5EBE9] hover:text-[#8E4337] transition-colors text-left"
+                                onclick="selectFunction('${func}')"
+                                aria-label="选择${func}">
+                                ${func}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        // 选择功用
+        function selectFunction(func) {
+            const input = document.getElementById('functionDescription');
+            if (input.value.trim()) {
+                input.value += '、' + func;
+            } else {
+                input.value = func;
+            }
+            document.getElementById('functionSelectorModal').remove();
+            showToast(`已添加：${func}`);
+        }
+
+        // 打开主治选择器
+        function openMainTreatmentSelector() {
+            const overlay = document.createElement('div');
+            overlay.className = 'modal-overlay active';
+            overlay.id = 'mainTreatmentSelectorModal';
+            overlay.onclick = function(e) {
+                if (e.target.id === 'mainTreatmentSelectorModal') {
+                    e.target.remove();
+                }
+            };
+            
+            overlay.innerHTML = `
+                <div class="modal-content" onclick="event.stopPropagation()">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-[#1F2937] text-lg font-bold">选择主治</h3>
+                        <button onclick="this.closest('.modal-overlay').remove()" class="text-[#6B7280] hover:text-[#1F2937]" aria-label="关闭">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="text-xs text-[#6B7280] mb-3">
+                        点击可添加，用顿号分隔
+                    </div>
+                    <div class="space-y-2 max-h-[400px] overflow-y-auto pr-2">
+                        ${commonMainTreatments.map(treatment => `
+                            <button 
+                                class="w-full py-2.5 px-3 border-2 border-[#E5E7EB] rounded-lg text-[#1F2937] text-sm text-left hover:border-[#8E4337] hover:bg-[#F5EBE9] hover:text-[#8E4337] transition-colors"
+                                onclick="selectMainTreatment('${treatment}')"
+                                aria-label="选择${treatment}">
+                                ${treatment}
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(overlay);
+        }
+
+        // 选择主治
+        function selectMainTreatment(treatment) {
+            const input = document.getElementById('mainTreatment');
+            if (input.value.trim()) {
+                input.value += '、' + treatment;
+            } else {
+                input.value = treatment;
+            }
+            document.getElementById('mainTreatmentSelectorModal').remove();
+            showToast(`已添加：${treatment}`);
+        }
+
+        // 增加剂数
+        function increaseDosageCount() {
+            const input = document.getElementById('dosageCount');
+            const currentValue = parseInt(input.value) || 7;
+            if (currentValue < 30) {
+                input.value = currentValue + 1;
+                renderMedicineList(); // 更新总金额
+            }
+        }
+
+        // 减少剂数
+        function decreaseDosageCount() {
+            const input = document.getElementById('dosageCount');
+            const currentValue = parseInt(input.value) || 7;
+            if (currentValue > 1) {
+                input.value = currentValue - 1;
+                renderMedicineList(); // 更新总金额
+            }
+        }
+
+        // 设置剂数
+        function setDosageCount(count) {
+            document.getElementById('dosageCount').value = count;
+            renderMedicineList(); // 更新总金额
+            showToast(`已设置为 ${count} 剂`);
+        }
+
+        // 提交处方
+        function submitPrescription() {
+            // 验证
+            if (medicines.length === 0) {
+                showToast('请至少添加一味药品');
+                return;
+            }
+
+            const functionDescription = document.getElementById('functionDescription').value.trim();
+            const mainTreatment = document.getElementById('mainTreatment').value.trim();
+            const usageMethod = document.getElementById('usageMethod').value.trim();
+
+            if (!functionDescription || !mainTreatment || !usageMethod) {
+                showToast('请填写完整的处方信息');
+                return;
+            }
+
+            showToast('正在开具处方...');
+            
+            setTimeout(() => {
+                showToast('处方开具成功 ✓', 2000);
+                setTimeout(() => {
+                    // 返回上一页或跳转到处方详情页
+                    window.history.back();
+                }, 2000);
+            }, 1500);
+        }
+
+        // 页面加载时初始化
+        window.onload = function() {
+            renderMedicineList();
+        };
+    </script>
+</body>
+</html>
+
