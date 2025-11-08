@@ -181,8 +181,17 @@
     "vite-plugin-restart": "^1.0.0",
     "vue-tsc": "^3.0.6"
   },
+  "pnpm": {
+    "overrides": {
+      "unconfig": "7.3.2"
+    }
+  },
+  "overrides": {
+    "unconfig": "7.3.2"
+  },
   "resolutions": {
-    "bin-wrapper": "npm:bin-wrapper-china"
+    "bin-wrapper": "npm:bin-wrapper-china",
+    "unconfig": "7.3.2"
   },
   "lint-staged": {
     "*": "eslint --fix"
