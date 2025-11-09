@@ -19,6 +19,9 @@ const formData = reactive({
   careAdvice: ''      // 调护建议
 })
 
+// 控制处方开具确认弹窗显示
+const prescriptionModalVisible = ref(false)
+
 // 模拟获取问诊信息
 function fetchConsultationInfo() {
   // 实际项目中应调用API获取数据
@@ -41,6 +44,13 @@ function submitEndConsultation() {
   // 实际项目中应调用API提交数据
   console.log('提交结束问诊数据:', formData)
   
+  // 显示处方开具确认弹窗
+  prescriptionModalVisible.value = true
+}
+
+// 稍后开方
+function postponePrescription() {
+  prescriptionModalVisible.value = false
   uni.showToast({
     title: '问诊已结束', 
     icon: 'none',
@@ -50,6 +60,16 @@ function submitEndConsultation() {
         router.back()
       }, 1500)
     }
+  })
+}
+
+// 立即开方
+function createPrescription() {
+  prescriptionModalVisible.value = false
+  // 跳转到处方开具页面
+  router.push({
+    path: '/pages-doctor-diagnosis/yuyinwenzhen/prescription-create',
+    query: { consultationId }
   })
 }
 
@@ -279,5 +299,50 @@ onMounted(() => {
         </div>
       </div>
     </main>
+    
+    <!-- 处方开具确认弹窗 -->
+    <transition name="fade">
+      <div v-if="prescriptionModalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div class="w-[80%] max-w-[300px] rounded-lg bg-white p-5 text-center">
+          <div class="flex justify-center mb-4">
+            <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-orange-500">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm0-18c4.418 0 8 3.582 8 8s-3.582 8-8 8-8-3.582-8-8 3.582-8 8-8z"/>
+                <path d="M12 11c.552 0 1 .448 1 1v4c0 .552-.448 1-1 1s-1-.448-1-1v-4c0-.552.448-1 1-1zm0-3c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1z"/>
+              </svg>
+            </div>
+          </div>
+          <h3 class="text-lg font-semibold text-gray-800 mb-2">处方开具</h3>
+          <p class="text-sm text-gray-600 mb-5">是否需要为患者开具处方？</p>
+          <div class="grid grid-cols-2 gap-3">
+            <button 
+              class="py-2.5 border border-gray-300 rounded-lg text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors"
+              @click="postponePrescription"
+            >
+              稍后开方
+            </button>
+            <button 
+              class="py-2.5 bg-[#8E4337] rounded-lg text-white text-sm font-medium hover:bg-[#6E2F25] transition-colors"
+              @click="createPrescription"
+            >
+              立即开方
+            </button>
+          </div>
+        </div>
+      </div>
+    </transition>
   </div>
 </template>
+
+<style scoped>
+/* 弹窗过渡动画 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
