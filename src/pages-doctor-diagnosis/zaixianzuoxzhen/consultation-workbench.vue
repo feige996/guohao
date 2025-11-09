@@ -1,0 +1,1009 @@
+<script setup lang="ts">
+import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
+// 移除不正确的组件导入，使用原生组件或正确的导入方式
+
+// 路由实例
+const router = useRouter()
+
+// 响应式数据
+const isLoading = ref(false)
+const currentPatient = ref<Patient | null>(null)
+const waitingPatients = ref<Patient[]>([])
+const isModalVisible = ref(false)
+const modalContent = reactive({
+  icon: '',
+  title: '',
+  message: '',
+})
+const modalCallback = ref<(() => void) | null>(null)
+const isIMVisible = ref(false)
+const messages = ref<Message[]>([])
+const messageInput = ref('')
+const currentTime = ref('')
+const isConsultationActive = ref(true)
+const remainingTime = ref('01:28:45')
+
+// 类型定义
+interface Patient {
+  id: string
+  name: string
+  age: number
+  gender: string
+  avatar: string
+  consultationType: string
+  price: number
+  symptoms: string
+  waitTime: string
+  medicalRecordId: string
+  hasBeenCalled?: boolean
+}
+
+interface Message {
+  id: string
+  content: string
+  sender: 'doctor' | 'patient'
+  timestamp: string
+}
+
+// 获取模拟数据
+function getPatientData() {
+  const zhangWei = {
+    id: '1',
+    name: '张伟',
+    age: 35,
+    gender: '男',
+    avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
+    consultationType: '图文问诊',
+    price: 50,
+    symptoms: '头痛、咳嗽、发热',
+    waitTime: '0分钟',
+    medicalRecordId: 'MR1001',
+  }
+
+  const liWei = {
+    id: '2',
+    name: '李伟',
+    age: 28,
+    gender: '男',
+    avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
+    consultationType: '图文问诊',
+    price: 50,
+    symptoms: '腹痛、腹泻',
+    waitTime: '5分钟',
+    medicalRecordId: 'MR1002',
+  }
+
+  const chenMei = {
+    id: '3',
+    name: '陈梅',
+    age: 42,
+    gender: '女',
+    avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
+    consultationType: '图文问诊',
+    price: 50,
+    symptoms: '高血压、头晕',
+    waitTime: '10分钟',
+    medicalRecordId: 'MR1003',
+  }
+
+  const wangJun = {
+    id: '4',
+    name: '王军',
+    age: 55,
+    gender: '男',
+    avatar: 'https://img.yzcdn.cn/vant/cat.jpeg',
+    consultationType: '图文问诊',
+    price: 50,
+    symptoms: '胸闷、气短',
+    waitTime: '15分钟',
+    medicalRecordId: 'MR1004',
+  }
+
+  return { zhangWei, liWei, chenMei, wangJun }
+}
+
+// 页面加载时初始化数据
+onMounted(() => {
+  const { zhangWei, liWei, chenMei, wangJun } = getPatientData()
+  currentPatient.value = zhangWei
+  waitingPatients.value = [liWei, chenMei, wangJun]
+  updateTime()
+  setInterval(updateTime, 60000)
+  checkConsultationStatus()
+
+  // 监听ESC键关闭弹窗
+  document.addEventListener('keydown', handleEscKey)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('keydown', handleEscKey)
+})
+
+// ESC键处理
+function handleEscKey(e) {
+  if (e.key === 'Escape' && isModalVisible.value) {
+    closeModal()
+  }
+}
+
+// 更新当前时间
+function updateTime() {
+  const now = new Date()
+  const hours = now.getHours().toString().padStart(2, '0')
+  const minutes = now.getMinutes().toString().padStart(2, '0')
+  currentTime.value = `${hours}:${minutes}`
+}
+
+// 返回上一页
+function goBack() {
+  router.back()
+}
+
+// 刷新数据
+function refreshData(event) {
+  const target = event.currentTarget as HTMLButtonElement
+  target.classList.add('btn-loading')
+
+  setTimeout(() => {
+    const { zhangWei, liWei, chenMei, wangJun } = getPatientData()
+    currentPatient.value = zhangWei
+    waitingPatients.value = [liWei, chenMei, wangJun]
+    target.classList.remove('btn-loading')
+    showToast('刷新成功')
+  }, 1000)
+}
+
+// 显示Toast提示
+function showToast(message: string) {
+  const toast = document.getElementById('toast')
+  if (toast) {
+    toast.textContent = message
+    toast.classList.add('show')
+    setTimeout(() => {
+      toast.classList.remove('show')
+    }, 2000)
+  }
+}
+
+// 查看病历
+  function viewMedicalRecord(patientId: string) {
+    showToast('正在查看病历...');
+    // 跳转到病历页面
+    setTimeout(() => {
+      router.push({
+        path: '/pages-doctor-diagnosis/yuyinwenzhen/medical-record',
+        query: { patientId }
+      });
+    }, 300);
+  }
+
+// 进入问诊（打开IM聊天窗口）
+function startConsultation(patient: Patient) {
+  currentPatient.value = patient
+  openIMChat()
+}
+
+// 打开IM聊天窗口
+function openIMChat() {
+  isIMVisible.value = true
+  // 初始化聊天记录
+  messages.value = [
+    {
+      id: '1',
+      content: '医生您好，我最近一直头痛，已经持续三天了。',
+      sender: 'patient',
+      timestamp: '10:00',
+    },
+    {
+      id: '2',
+      content: '您好，请详细描述一下您的症状，比如是哪种类型的头痛，有没有伴随其他不适？',
+      sender: 'doctor',
+      timestamp: '10:01',
+    },
+    {
+      id: '3',
+      content: '就是太阳穴两侧胀痛，有时会伴有恶心，但没有呕吐。',
+      sender: 'patient',
+      timestamp: '10:02',
+    },
+  ]
+
+  nextTick(() => {
+    scrollToBottom()
+  })
+}
+
+// 关闭IM聊天窗口
+function closeIMChat() {
+  isIMVisible.value = false
+}
+
+// 发送消息
+function sendMessage() {
+  if (!messageInput.value.trim())
+    return
+
+  const newMessage: Message = {
+    id: Date.now().toString(),
+    content: messageInput.value.trim(),
+    sender: 'doctor',
+    timestamp: currentTime.value,
+  }
+
+  messages.value.push(newMessage)
+  messageInput.value = ''
+
+  nextTick(() => {
+    scrollToBottom()
+  })
+
+  // 模拟患者回复
+  setTimeout(() => {
+    const patientReply: Message = {
+      id: (Date.now() + 1).toString(),
+      content: '好的，我明白了，谢谢医生。',
+      sender: 'patient',
+      timestamp: currentTime.value,
+    }
+    messages.value.push(patientReply)
+
+    nextTick(() => {
+      scrollToBottom()
+    })
+  }, 2000)
+}
+
+// 滚动到聊天底部
+function scrollToBottom() {
+  const messageList = document.getElementById('messageList')
+  if (messageList) {
+    messageList.scrollTop = messageList.scrollHeight
+  }
+}
+
+// 结束问诊
+function endConsultation() {
+  showModal(
+    'icon-warning',
+    '结束问诊',
+    '确定要结束当前问诊吗？',
+    () => {
+      if (currentPatient.value) {
+        showToast('问诊已结束')
+        // 模拟开具处方
+        showPrescriptionModal()
+        // 从等待队列中取出下一位患者
+        if (waitingPatients.value.length > 0) {
+          currentPatient.value = waitingPatients.value.shift() || null
+        }
+        else {
+          currentPatient.value = null
+        }
+      }
+    },
+  )
+}
+
+// 显示开具处方弹窗
+function showPrescriptionModal() {
+  showModal(
+    'icon-prescription',
+    '开具处方',
+    '是否为患者开具处方？',
+    () => {
+      showToast('处方已开具')
+      // 实际项目中应跳转到处方页面
+    },
+  )
+}
+
+// 呼叫患者
+function callPatient(patient: Patient, event: Event) {
+  const target = event.currentTarget as HTMLButtonElement
+
+  showModal(
+    'icon-call',
+    '叫号确认',
+    `确定要呼叫患者 ${patient.name} 吗？`,
+    () => {
+      target.innerHTML = '<span class="loading-spinner mr-2"></span> 叫号中...'
+      target.disabled = true
+      target.classList.add('bg-gray-300')
+      target.classList.remove('bg-[#8E4337]', 'hover:bg-[#7B3429]')
+
+      // 模拟叫号成功
+      setTimeout(() => {
+        showSuccessModal(
+          '叫号成功',
+          `患者 ${patient.name} 已收到叫号通知，请等待患者响应（3分钟内有效）`,
+        )
+
+        patient.hasBeenCalled = true
+
+        // 3分钟后检查患者是否响应
+        setTimeout(() => {
+          checkPatientResponse(patient)
+        }, 180000)
+      }, 1500)
+    },
+  )
+}
+
+// 检查患者响应
+function checkPatientResponse(patient: Patient) {
+  // 模拟患者响应
+  const hasResponded = Math.random() > 0.3 // 70%概率响应
+
+  if (hasResponded) {
+    // 患者响应，进入问诊
+    const patientIndex = waitingPatients.value.findIndex(p => p.id === patient.id)
+    if (patientIndex > -1) {
+      // 从等待队列移除
+      const removedPatients = waitingPatients.value.splice(patientIndex, 1)
+      if (removedPatients.length > 0) {
+        // 设置为当前问诊患者
+        currentPatient.value = removedPatients[0]
+        // 打开聊天窗口
+        openIMChat()
+      }
+    }
+    showToast('患者已响应，正在为您转接...')
+  }
+  else {
+    showToast('患者未响应，请重新叫号或跳过')
+  }
+}
+
+// 显示成功弹窗
+function showSuccessModal(title: string, message: string) {
+  modalContent.icon = 'icon-success'
+  modalContent.title = title
+  modalContent.message = message
+  modalCallback.value = null
+  isModalVisible.value = true
+}
+
+// 显示确认弹窗
+function showModal(icon: string, title: string, message: string, callback: () => void) {
+  modalContent.icon = icon
+  modalContent.title = title
+  modalContent.message = message
+  modalCallback.value = callback
+  isModalVisible.value = true
+}
+
+// 关闭弹窗
+function closeModal() {
+  isModalVisible.value = false
+}
+
+// 确认弹窗操作
+function confirmModal() {
+  if (modalCallback.value) {
+    modalCallback.value()
+  }
+  closeModal()
+}
+
+// 结束坐诊
+function endWork() {
+  showModal(
+    'icon-warning',
+    '结束坐诊',
+    '结束后需要重新开启才能接诊，确定要结束坐诊吗？',
+    () => {
+      // 清除坐诊状态
+      localStorage.removeItem('consultationStatus')
+      localStorage.removeItem('consultationStartTime')
+      showToast('已结束坐诊')
+      // 实际项目中应跳转到医生首页
+      router.push('/')
+    },
+  )
+}
+
+// 检查坐诊状态
+function checkConsultationStatus() {
+  const status = localStorage.getItem('consultationStatus')
+  isConsultationActive.value = status === 'active'
+
+  // 如果有开始坐诊时间，计算已坐诊时长
+  const startTime = localStorage.getItem('consultationStartTime')
+  if (startTime) {
+    updateConsultationDuration(startTime)
+  }
+}
+
+// 更新坐诊时长
+function updateConsultationDuration(startTimeStr: string) {
+  const startTime = new Date(startTimeStr)
+  const updateDuration = () => {
+    const now = new Date()
+    const durationMs = now.getTime() - startTime.getTime()
+    const hours = Math.floor(durationMs / (1000 * 60 * 60))
+    const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60))
+    const seconds = Math.floor((durationMs % (1000 * 60)) / 1000)
+
+    // 更新UI显示
+    remainingTime.value = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+  }
+
+  updateDuration()
+  const timer = setInterval(updateDuration, 1000)
+
+  onBeforeUnmount(() => {
+    clearInterval(timer)
+  })
+}
+
+// 输入框自动调整高度
+function autoResizeTextarea(event) {
+  const textarea = event.target;
+  if (textarea) {
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight}px`;
+  }
+}
+</script>
+
+<template>
+  <view class="relative mx-auto max-w-[375px] min-h-screen w-full bg-[#F3F1ED] pb-5">
+    <!-- Toast 通知 -->
+    <div id="toast" class="toast" />
+
+    <!-- 确认弹窗 -->
+    <div id="confirmModal" class="modal-overlay" :class="{ show: isModalVisible }" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-content">
+        <div id="modalContent" class="mb-6">
+          <div id="modalIcon" class="mx-auto mb-4 h-12 w-12 flex items-center justify-center rounded-full bg-[#FEF2F2]">
+            <svg v-if="modalContent.icon === 'icon-warning'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#EF4444" class="h-6 w-6">
+              <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+            </svg>
+            <svg v-else-if="modalContent.icon === 'icon-success'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#10B981" class="h-6 w-6">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <h3 id="modalTitle" class="mb-2 text-center text-lg text-[#1F2937] font-bold">
+            {{ modalContent.title }}
+          </h3>
+          <p id="modalMessage" class="text-center text-sm text-[#6B7280] leading-relaxed">
+            {{ modalContent.message }}
+          </p>
+        </div>
+        <div id="modalButtons" class="grid grid-cols-2 gap-3">
+          <button
+            id="modalCancelBtn"
+            class="cursor-pointer border-2 border-[#E5E7EB] rounded-lg py-3 text-sm text-[#6B7280] font-medium transition-colors active:scale-98 hover:bg-[#F9FAFB]"
+            aria-label="取消"
+            @click="closeModal"
+          >
+            取消
+          </button>
+          <button
+            id="modalConfirmBtn"
+            class="cursor-pointer rounded-lg bg-[#EF4444] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#DC2626]"
+            aria-label="确认"
+            @click="confirmModal"
+          >
+            确认
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 顶部导航 -->
+    <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4">
+      <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="返回上一页" @click="goBack">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+          <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <h1 class="text-lg text-[#333333] font-bold">
+        在线坐诊
+      </h1>
+      <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="刷新数据" @click="refreshData">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+          <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
+        </svg>
+      </button>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="flex flex-col gap-5 px-4 pb-20 pt-[72px]">
+      <!-- 坐诊状态头部卡片 -->
+      <section class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-5 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
+        <div class="mb-4 flex items-center gap-2">
+          <!-- 坐诊图标 -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#10B981" class="h-5 w-5">
+            <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+          </svg>
+          <span class="flex items-center gap-2 text-base text-[#10B981] font-semibold">
+            <span class="status-dot" />
+            在线坐诊中
+          </span>
+        </div>
+
+        <!-- 倒计时 -->
+        <div class="mb-4">
+          <div class="mb-2 text-sm text-[#6B7280]">
+            剩余坐诊时间
+          </div>
+          <div class="timer-text">
+            {{ remainingTime }}
+          </div>
+        </div>
+
+        <!-- 统计信息 -->
+        <div class="grid grid-cols-3 gap-2 text-center" style="font-size: 12px;">
+          <div class="rounded-lg bg-[#F9FAFB] p-3">
+            <div class="text-lg text-[#8E4337] font-bold">
+              28
+            </div>
+            <div class="mt-1 text-xs text-[#6B7280]">
+              已接诊
+            </div>
+          </div>
+          <div class="rounded-lg bg-[#F9FAFB] p-3">
+            <div class="text-lg text-[#8E4337] font-bold">
+              {{ waitingPatients.length }}
+            </div>
+            <div class="mt-1 text-xs text-[#6B7280]">
+              等待中
+            </div>
+          </div>
+          <div class="rounded-lg bg-[#F9FAFB] p-3">
+            <div class="text-lg text-[#8E4337] font-bold">
+              ¥1400
+            </div>
+            <div class="mt-1 text-xs text-[#6B7280]">
+              今日收入
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 正在问诊的患者 -->
+      <section v-if="currentPatient" class="consult-card w-full border border-[#E5E7EB] rounded-[20px] bg-white p-4 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
+        <div class="mb-4 flex items-center justify-between">
+          <h2 class="text-base text-[#333333] font-bold">
+            正在问诊
+          </h2>
+          <span class="rounded-full bg-[#FEF3C7] px-2 py-1 text-xs text-[#92400E]">进行中</span>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <!-- 患者头像 -->
+          <div class="relative">
+            <img :src="currentPatient.avatar" alt="患者头像" class="h-14 w-14 border-2 border-[#F3F1ED] rounded-full object-cover">
+            <span class="absolute h-5 w-5 border-2 border-white rounded-full bg-[#10B981] -bottom-1 -right-1" />
+          </div>
+
+          <!-- 患者信息 -->
+          <div class="flex-1">
+            <div class="mb-1 flex flex-wrap items-center gap-2">
+              <span class="inline-block max-w-[80px] text-ellipsis text-[#1F2937] font-semibold">{{ currentPatient.name }}</span>
+              <span class="text-sm text-[#6B7280]">{{ currentPatient.age }}岁/{{ currentPatient.gender }}</span>
+            </div>
+            <div class="mb-1 text-xs text-[#6B7280]">
+              {{ currentPatient.consultationType }} · ¥{{ currentPatient.price }}
+            </div>
+            <div class="text-ellipsis-2 text-xs text-[#6B7280]">
+              {{ currentPatient.symptoms }}
+            </div>
+          </div>
+
+          <!-- 操作按钮 -->
+          <div class="flex gap-2">
+            <button
+              class="min-w-[100px] border border-[#8E4337] rounded-lg bg-white px-3 py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#8E4337] hover:text-white"
+              aria-label="进入问诊"
+              @click="startConsultation(currentPatient)"
+            >
+              进入问诊
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 暂无问诊 -->
+      <section v-else class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-8 text-center shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#D1D5DB" class="mx-auto mb-4 h-16 w-16">
+          <path d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+          <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h13.5a3 3 0 013 3V19.5a3 3 0 01-3 3H4.5a3 3 0 01-3-3V4.5zm19.5 0v15a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5V4.5a1.5 1.5 0 011.5-1.5h13.5a1.5 1.5 0 011.5 1.5z" clip-rule="evenodd" />
+        </svg>
+        <div class="text-sm text-[#6B7280]">
+          暂无正在问诊的患者
+        </div>
+      </section>
+
+      <!-- 等待队列 -->
+      <section class="w-full">
+        <div class="mb-3 flex items-center justify-between">
+          <h2 class="text-base text-[#333333] font-bold">
+            等待队列
+          </h2>
+          <span class="rounded-full bg-[#FEE2E2] px-2 py-1 text-xs text-[#B91C1C]">{{ waitingPatients.length }}人</span>
+        </div>
+
+        <!-- 等待队列列表 -->
+        <div class="space-y-3">
+          <!-- 等待患者卡片 -->
+          <div v-for="patient in waitingPatients" :key="patient.id" class="card-hover border border-[#E5E7EB] rounded-[12px] bg-white p-4 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+            <div class="flex gap-3">
+              <!-- 患者头像 -->
+              <img :src="patient.avatar" alt="患者头像" class="h-12 w-12 border-2 border-[#F3F1ED] rounded-full object-cover">
+
+              <!-- 患者信息 -->
+              <div class="flex-1">
+                <div class="mb-1 flex flex-wrap items-center gap-2">
+                  <span class="inline-block max-w-[80px] text-ellipsis text-[#1F2937] font-semibold">{{ patient.name }}</span>
+                  <span class="text-sm text-[#6B7280]">{{ patient.age }}岁/{{ patient.gender }}</span>
+                </div>
+                <div class="mb-1 text-xs text-[#6B7280]">
+                  {{ patient.consultationType }} · ¥{{ patient.price }}
+                </div>
+                <div class="text-ellipsis-2 mb-1 text-xs text-[#6B7280]">
+                  {{ patient.symptoms }}
+                </div>
+                <div class="flex flex-wrap items-center justify-between">
+                  <div class="flex flex-shrink-0 items-center gap-1 text-xs text-[#F59E0B]">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-3 w-3">
+                      <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6v.75a.75.75 0 01-1.5 0V6a.75.75 0 011.5 0zm0 3.75a.75.75 0 00-1.5 0v.008c0 .414.336.75.75.75s.75-.336.75-.75V9.75zm0 3.75a.75.75 0 00-1.5 0v.008c0 .414.336.75.75.75s.75-.336.75-.75v-.008z" clip-rule="evenodd" />
+                    </svg>
+                    已等待{{ patient.waitTime }}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 操作按钮 -->
+            <div class="mt-3 flex flex-wrap gap-2">
+              <button
+                class="min-w-[80px] flex-1 border border-[#D1D5DB] rounded-lg bg-white px-3 py-2 text-xs text-[#6B7280] font-medium transition-colors hover:bg-[#F9FAFB]"
+                aria-label="查看病历"
+                @click="viewMedicalRecord(patient.medicalRecordId)"
+              >
+                查看病历
+              </button>
+              <button
+                :id="`call-confirm-${patient.id}`"
+                class="min-w-[80px] flex-1 rounded-lg bg-[#8E4337] px-3 py-2 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]"
+                :disabled="patient.hasBeenCalled"
+                :class="{ 'bg-gray-300': patient.hasBeenCalled }"
+                aria-label="呼叫患者"
+                @click="callPatient(patient, $event)"
+              >
+                {{ patient.hasBeenCalled ? '已叫号' : '呼叫患者' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- 空状态 -->
+          <div v-if="waitingPatients.length === 0" class="rounded-[12px] bg-[#F9FAFB] p-6 text-center">
+            <div class="text-sm text-[#6B7280]">
+              暂无等待患者
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 结束坐诊按钮 -->
+    <div class="fixed bottom-5 left-0 right-0 mx-auto max-w-[375px] px-4">
+      <button
+        class="w-full rounded-lg bg-[#EF4444] py-3 text-sm text-white font-medium shadow-[0px_4px_12px_0px_rgba(239,68,68,0.3)] transition-colors hover:bg-[#DC2626]"
+        aria-label="结束坐诊"
+        @click="endWork"
+      >
+        结束坐诊
+      </button>
+    </div>
+
+    <!-- IM聊天弹窗 -->
+    <div v-if="isIMVisible" class="fixed inset-0 z-50 flex flex-col bg-black bg-opacity-50">
+      <!-- IM聊天头部 -->
+      <div class="h-[56px] flex items-center justify-between border-b border-[#E5E7EB] bg-white px-4">
+        <div class="flex items-center gap-3">
+          <button class="text-[#333333]" aria-label="关闭聊天" @click="closeIMChat">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
+              <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div v-if="currentPatient" class="flex items-center gap-2">
+            <img :src="currentPatient.avatar" alt="患者头像" class="h-8 w-8 rounded-full object-cover">
+            <div>
+              <div class="text-sm font-semibold">
+                {{ currentPatient.name }}
+              </div>
+              <div class="text-xs text-[#6B7280]">
+                {{ currentPatient.consultationType }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="rounded-lg bg-[#8E4337] px-3 py-1 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]" aria-label="结束问诊" @click="endConsultation">
+          结束问诊
+        </button>
+      </div>
+
+      <!-- 主诉信息卡片 -->
+      <div class="border-b border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3">
+        <div class="mb-1 text-xs text-[#6B7280]">
+          主诉
+        </div>
+        <div v-if="currentPatient" class="text-sm text-[#1F2937]">
+          {{ currentPatient.symptoms }}
+        </div>
+      </div>
+
+      <!-- 消息列表 -->
+      <div id="messageList" class="scrollbar-thin flex-1 overflow-y-auto bg-[#F3F1ED] p-4 space-y-4">
+        <!-- 时间分隔 -->
+        <div class="flex justify-center">
+          <div class="rounded-full bg-black bg-opacity-20 px-3 py-1 text-xs text-white">
+            {{ currentTime }}
+          </div>
+        </div>
+
+        <!-- 消息项 -->
+        <div v-for="message in messages" :key="message.id" class="flex" :class="[message.sender === 'patient' ? 'justify-start' : 'justify-end']">
+          <div v-if="message.sender === 'patient'" class="max-w-[75%] flex items-end gap-2">
+            <img v-if="currentPatient" :src="currentPatient.avatar" alt="患者头像" class="h-8 w-8 rounded-full object-cover">
+            <div>
+              <div class="rounded-lg rounded-tl-none bg-white px-4 py-2 shadow-sm">
+                <div class="text-sm text-[#333333]">
+                  {{ message.content }}
+                </div>
+              </div>
+              <div class="ml-1 mt-1 text-xs text-[#9CA3AF]">
+                {{ message.timestamp }}
+              </div>
+            </div>
+          </div>
+
+          <div v-else class="max-w-[75%] flex items-end gap-2">
+            <div class="text-right">
+              <div class="rounded-lg rounded-tr-none bg-[#8E4337] px-4 py-2 shadow-sm">
+                <div class="text-sm text-white">
+                  {{ message.content }}
+                </div>
+              </div>
+              <div class="mr-1 mt-1 text-xs text-[#9CA3AF]">
+                {{ message.timestamp }}
+              </div>
+            </div>
+            <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt="医生头像" class="h-8 w-8 rounded-full object-cover">
+          </div>
+        </div>
+      </div>
+
+      <!-- 输入区域 -->
+      <div class="border-t border-[#E5E7EB] bg-white p-3">
+        <div class="flex items-end gap-2">
+          <!-- 功能按钮 -->
+          <div class="flex gap-2">
+            <button class="h-8 w-8 flex items-center justify-center rounded-full text-[#6B7280] hover:bg-[#F3F4F6]" aria-label="表情">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
+              </svg>
+            </button>
+            <button class="h-8 w-8 flex items-center justify-center rounded-full text-[#6B7280] hover:bg-[#F3F4F6]" aria-label="图片">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+                <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+
+          <!-- 输入框 -->
+          <div class="relative flex-1">
+            <textarea
+              v-model="messageInput"
+              class="w-full resize-none overflow-hidden border border-[#D1D5DB] rounded-full px-4 py-2 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
+              placeholder="请输入消息..."
+              rows="1"
+              aria-label="消息输入框"
+            />
+          </div>
+
+          <!-- 发送按钮 -->
+          <button
+            class="rounded-full bg-[#8E4337] px-4 py-2 text-sm text-white font-medium transition-colors disabled:bg-gray-300 hover:bg-[#7B3429]"
+            :disabled="!messageInput.trim()"
+            aria-label="发送消息"
+            @click="sendMessage"
+          >
+            发送
+          </button>
+        </div>
+      </div>
+    </div>
+  </view>
+</template>
+
+<style scoped>
+/* 基础样式重置 */
+* {
+  box-sizing: border-box;
+}
+
+/* Toast 通知样式 */
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(-100px);
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+  max-width: 300px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 按钮加载状态 */
+.btn-loading {
+  position: relative;
+  color: transparent !important;
+  pointer-events: none;
+}
+
+.btn-loading::after {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spinner 0.6s linear infinite;
+}
+
+/* 动画 */
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* 状态点 */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* 计时器文本 */
+.timer-text {
+  font-size: 40px;
+  font-weight: 700;
+  color: #8e4337;
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+/* 模态弹窗 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  max-width: 320px;
+  width: calc(100% - 48px);
+  z-index: 1000;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.modal-overlay.show .modal-content {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 卡片基础样式 */
+.consult-card {
+  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* 卡片悬浮效果 */
+.card-hover {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* 文本溢出控制 */
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-ellipsis-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 滚动条样式 */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+/* 加载动画 */
+.loading-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  border-top-color: transparent;
+  animation: spinner 0.6s linear infinite;
+}
+</style>
