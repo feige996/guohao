@@ -164,7 +164,7 @@ function goBack() {
 
 // 查看问诊详情
 function viewConsultationDetail(id: string) {
-  router.push(`/consultation-detail?id=${id}`)
+  router.push(`/pages-doctor-diagnosis/yuyinwenzhen/consultation-detail?id=${id}`)
 }
 
 // 打开IM聊天
@@ -322,7 +322,7 @@ function createPrescription(id: string) {
         <article
           v-for="record in filteredRecords"
           :key="record.id"
-          class="w-full border rounded-[20px] bg-white p-4 box-border shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] transition-all duration-300 hover:border-[#8E4337]/20 hover:shadow-[0px_8px_24px_0px_rgba(0,0,0,0.08)]"
+          class="w-full border rounded-[20px] bg-white p-4 box-border shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)] transition-all duration-300 hover:border-[#8E4337]/20 hover:shadow-[0px_8px_24px_0px_rgba(0,0,0,0.08)] break-words overflow-hidden"
           :class="{ 'border-2 border-[#FEE2E2]': record.status === 'ongoing', 'border-[#F3F4F6]': record.status !== 'ongoing' }"
         >
           <!-- 患者信息 -->
@@ -345,19 +345,19 @@ function createPrescription(id: string) {
                 </svg>
               </div>
             </div>
-            <div class="flex-1">
+            <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-2">
-                <div class="flex-1">
+                <div class="flex-1 min-w-0">
                   <h3 class="mb-1 text-base text-[#1F2937] font-bold truncate">
                     {{ record.patientName }} · {{ record.age }}
                   </h3>
-                  <div class="flex items-center gap-2">
-                    <span class="text-xs text-[#6B7280]">{{ record.typeText }}</span>
-                    <span class="h-1 w-1 rounded-full bg-[#D1D5DB]" />
-                    <span class="text-xs text-[#9CA3AF]">{{ record.timestamp }}</span>
+                  <div class="flex items-center gap-2 whitespace-nowrap">
+                    <span class="text-xs text-[#6B7280] truncate">{{ record.typeText }}</span>
+                    <span class="h-1 w-1 rounded-full bg-[#D1D5DB] flex-shrink-0" />
+                    <span class="text-xs text-[#9CA3AF] truncate">{{ record.timestamp }}</span>
                   </div>
                 </div>
-                <span :class="`px-2.5 py-1 rounded-full text-xs font-bold whitespace-nowrap ${record.statusClass}`">
+                <span :class="`px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap ${record.statusClass} flex-shrink-0`">
                   <template v-if="record.status === 'ongoing'">
                     <span class="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#EA580C]" />
                   </template>
@@ -368,7 +368,7 @@ function createPrescription(id: string) {
           </div>
 
           <!-- 开方状态卡片 -->
-          <div class="mb-4 border border-[#F3F4F6] rounded-xl bg-[#F9FAFB] p-3 box-border">
+          <div class="mb-4 border border-[#F3F4F6] rounded-xl bg-[#F9FAFB] p-3 box-border w-full break-words overflow-hidden">
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <div class="h-8 w-8" :class="record.prescribed ? 'bg-[#10B981]' : 'bg-[#6B7280]'">
@@ -385,13 +385,26 @@ function createPrescription(id: string) {
                   </div>
                 </div>
               </div>
+              <!-- 进行中的未开方记录显示去开方按钮 -->
+              <template v-if="record.status === 'ongoing' && !record.prescribed">
+                <button
+                  class="flex items-center justify-center gap-1 rounded-lg bg-[#8E4337] py-1.5 px-3 text-xs text-white font-semibold shadow-[#8E4337]/30 transition-all active:scale-95 hover:bg-[#6E2F25] truncate box-border"
+                  aria-label="去开方"
+                  @click="createPrescription(record.id)"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-3 w-3">
+                    <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0v-1.5h-1.5a.75.75 0 0 1 0-1.5h1.5v-1.5A.75.75 0 0 1 8 2ZM3.75 8a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1-.75-.75ZM2 12.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
+                  </svg>
+                  去开方
+                </button>
+              </template>
             </div>
           </div>
 
           <!-- 操作按钮 -->
-          <div class="grid grid-cols-2 gap-2">
+          <div class="grid grid-cols-2 gap-2 w-full">
             <button
-              class="flex items-center justify-center gap-1 border-2 border-[#8E4337] rounded-xl py-2.5 text-sm text-[#8E4337] font-semibold transition-all active:scale-95 hover:bg-[#F5EBE9] truncate"
+              class="flex items-center justify-center gap-1 border-2 border-[#8E4337] rounded-xl py-2.5 text-sm text-[#8E4337] font-semibold transition-all active:scale-95 hover:bg-[#F5EBE9] truncate w-full box-border"
               aria-label="查看详情"
               @click="viewConsultationDetail(record.id)"
             >
@@ -403,7 +416,7 @@ function createPrescription(id: string) {
             </button>
             <template v-if="record.status === 'ongoing'">
               <button
-                class="flex items-center justify-center gap-1 rounded-xl bg-[#8E4337] py-2.5 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:bg-[#6E2F25] truncate"
+                class="flex items-center justify-center gap-1 rounded-xl bg-[#8E4337] py-2.5 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:bg-[#6E2F25] truncate w-full box-border"
                 aria-label="结束问诊"
                 @click="endConsultation(record.id)"
               >
@@ -415,19 +428,19 @@ function createPrescription(id: string) {
             </template>
             <template v-else-if="!record.prescribed">
               <button
-                class="flex items-center justify-center gap-1 rounded-xl from-[#8E4337] to-[#6E2F25] bg-gradient-to-r py-2.5 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:from-[#6E2F25] hover:to-[#5A2520] truncate"
-                aria-label="生成处方"
+                class="flex items-center justify-center gap-1 rounded-xl from-[#8E4337] to-[#6E2F25] bg-gradient-to-r py-2.5 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:from-[#6E2F25] hover:to-[#5A2520] truncate w-full box-border"
+                aria-label="去开方"
                 @click="createPrescription(record.id)"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4">
                   <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0v-1.5h-1.5a.75.75 0 0 1 0-1.5h1.5v-1.5A.75.75 0 0 1 8 2ZM3.75 8a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1-.75-.75ZM2 12.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
                 </svg>
-                生成处方
+                去开方
               </button>
             </template>
             <template v-else>
               <button
-                class="flex items-center justify-center gap-2 rounded-xl from-[#8E4337] to-[#6E2F25] bg-gradient-to-r py-3 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:from-[#6E2F25] hover:to-[#5A2520]"
+                class="flex items-center justify-center gap-2 rounded-xl from-[#8E4337] to-[#6E2F25] bg-gradient-to-r py-3 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:from-[#6E2F25] hover:to-[#5A2520] truncate w-full box-border"
                 aria-label="查看问诊记录"
                 @click="openIMChat(record.patientName, record.age, '女', record.avatar, record.symptoms)"
               >
