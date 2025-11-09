@@ -209,7 +209,7 @@ function endConsultation(id: string) {
 
 // 生成处方
 function createPrescription(id: string) {
-  router.push(`/prescription-create?id=${id}`)
+  router.push(`/pages-doctor-diagnosis/yuyinwenzhen/prescription-create?id=${id}`)
 }
 </script>
 
