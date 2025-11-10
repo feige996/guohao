@@ -17,8 +17,8 @@ function showToast(message: string) {
 </script>
 
 <template>
-  <div class="min-h-screen flex justify-center bg-[#F9FAFB] px-4 py-4">
-    <div class="max-w-[400px] w-full flex flex-col items-center">
+  <div class="min-h-screen px-5 py-4">
+    <div class="mx-auto max-w-[400px] w-full flex flex-col items-center gap-4">
       <!-- 图文语音消息接诊卡片 -->
       <JieZhenCard />
 
