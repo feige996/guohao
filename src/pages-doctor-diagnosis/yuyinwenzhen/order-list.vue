@@ -275,46 +275,48 @@ onMounted(() => {
     </header> -->
 
     <!-- 统计卡片 -->
-    <section class="from-[#8E4337] via-[#9B4D41] to-[#B85C4F] bg-gradient-to-br px-5 py-6 shadow-lg">
-      <div class="grid grid-cols-2 gap-4">
-        <!-- 待接单统计 -->
-        <div class="flex flex-col cursor-pointer items-center justify-center rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition-all hover:bg-white/15">
-          <div class="mb-3 h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="h-6 w-6">
-              <path d="M5.625 3.75a2.625 2.625 0 100 5.25h12.75a2.625 2.625 0 000-5.25H5.625zM3.75 11.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zM3 15.75a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3.75 18.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z" />
-            </svg>
+    <div class="px-4 py-1">
+      <section class="rounded-xl from-[#8E4337] via-[#9B4D41] to-[#B85C4F] bg-gradient-to-br px-4 py-6 shadow-lg">
+        <div class="grid grid-cols-2 gap-4">
+          <!-- 待接单统计 -->
+          <div class="flex flex-col cursor-pointer items-center justify-center rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition-all hover:bg-white/15">
+            <div class="mb-3 h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="h-6 w-6">
+                <path d="M5.625 3.75a2.625 2.625 0 100 5.25h12.75a2.625 2.625 0 000-5.25H5.625zM3.75 11.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zM3 15.75a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3.75 18.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z" />
+              </svg>
+            </div>
+            <div class="stat-number mb-1 text-4xl text-white font-bold">
+              {{ pendingCount }}
+            </div>
+            <div class="text-sm text-white/90 font-medium">
+              待接单
+            </div>
           </div>
-          <div class="stat-number mb-1 text-4xl text-white font-bold">
-            {{ pendingCount }}
-          </div>
-          <div class="text-sm text-white/90 font-medium">
-            待接单
-          </div>
-        </div>
 
-        <!-- 今日已接统计 -->
-        <div class="flex flex-col cursor-pointer items-center justify-center rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition-all hover:bg-white/15">
-          <div class="mb-3 h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="h-6 w-6">
-              <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-            </svg>
-          </div>
-          <div class="stat-number mb-1 text-4xl text-white font-bold">
-            {{ todayCount }}
-          </div>
-          <div class="text-sm text-white/90 font-medium">
-            今日已接
+          <!-- 今日已接统计 -->
+          <div class="flex flex-col cursor-pointer items-center justify-center rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition-all hover:bg-white/15">
+            <div class="mb-3 h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="h-6 w-6">
+                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+              </svg>
+            </div>
+            <div class="stat-number mb-1 text-4xl text-white font-bold">
+              {{ todayCount }}
+            </div>
+            <div class="text-sm text-white/90 font-medium">
+              今日已接
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
 
     <!-- 标签页 -->
-    <nav class="sticky top-0 z-40 bg-white px-4 shadow-sm">
+    <nav class="sticky top-0 z-40 px-4">
       <div class="flex items-center">
         <button
-          class="flex flex-1 items-center justify-center gap-1 py-3 text-sm font-medium transition-colors"
-          :class="currentTab === 'all' ? 'text-[#8E4337] border-b-2 border-[#8E4337]' : 'text-[#6B7280]'"
+          class="flex flex-1 items-center justify-center gap-1 py-2 text-sm font-medium transition-colors"
+          :class="currentTab === 'all' ? 'text-[#8E4337] bg-red-50 rounded-lg' : 'text-[#6B7280]'"
           aria-label="全部待接单"
           @click="switchTab('all')"
         >
@@ -324,8 +326,8 @@ onMounted(() => {
           </span>
         </button>
         <button
-          class="flex flex-1 items-center justify-center gap-1 py-3 text-sm font-medium transition-colors"
-          :class="currentTab === 'waiting' ? 'text-[#8E4337] border-b-2 border-[#8E4337]' : 'text-[#6B7280]'"
+          class="flex flex-1 items-center justify-center gap-1 py-2 text-sm font-medium transition-colors"
+          :class="currentTab === 'waiting' ? 'text-[#8E4337] bg-red-50 rounded-lg' : 'text-[#6B7280]'"
           aria-label="待响应"
           @click="switchTab('waiting')"
         >
@@ -335,8 +337,8 @@ onMounted(() => {
           </span>
         </button>
         <button
-          class="flex flex-1 items-center justify-center gap-1 py-3 text-sm font-medium transition-colors"
-          :class="currentTab === 'viewed' ? 'text-[#8E4337] border-b-2 border-[#8E4337]' : 'text-[#6B7280]'"
+          class="flex flex-1 items-center justify-center gap-1 py-2 text-sm font-medium transition-colors"
+          :class="currentTab === 'viewed' ? 'text-[#8E4337] bg-red-50 rounded-lg' : 'text-[#6B7280]'"
           aria-label="已拒绝"
           @click="switchTab('viewed')"
         >
@@ -349,7 +351,7 @@ onMounted(() => {
     </nav>
 
     <!-- 订单列表 -->
-    <main class="px-3 pt-4 space-y-4">
+    <main class="px-4 pt-5 space-y-4">
       <!-- 订单卡片 -->
       <Jiedan
         v-for="order in filteredOrders"
