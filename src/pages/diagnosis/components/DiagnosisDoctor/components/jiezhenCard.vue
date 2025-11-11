@@ -61,11 +61,12 @@ function handleReceiveConsultation() {
       :class="{ 'opacity-70 cursor-not-allowed': isLoading }"
       @click="handleReceiveConsultation"
     >
-      <span v-if="!isLoading">
+      <div v-if="!isLoading" class="flex items-center justify-center">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-6 align-middle">
           <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clip-rule="evenodd" />
         </svg>
-        立即接诊</span>
+        <span>立即接诊</span>
+      </div>
       <span v-else class="flex items-center">
         <svg class="mr-2 h-4 w-4 animate-spin text-[#8E4337] -ml-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
           <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
