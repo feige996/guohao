@@ -2,12 +2,14 @@
 import { computed, ref } from 'vue'
 
 // 自定义toast函数替代不存在的模块
+const toastVisible = ref(false)
+const toastMessage = ref('')
 function showToast(message: string, duration: number = 2000): void {
-  uni.showToast({
-    title: message,
-    icon: 'none',
-    duration,
-  })
+  toastMessage.value = message
+  toastVisible.value = true
+  setTimeout(() => {
+    toastVisible.value = false
+  }, duration)
 }
 
 // 定义类型接口
@@ -29,104 +31,144 @@ interface Template {
   functionDescription: string
   mainTreatment: string
   usageMethod: string
+  precautions?: string
   medicines: Medicine[]
 }
 
 // 响应式状态
-const toastVisible = ref(false)
-const toastMessage = ref('')
-// 修改处方类型定义，包含'all'选项
-const prescriptionType = ref<'all' | 'granule' | 'decoction' | 'mixture'>('granule')
+const prescriptionType = ref<'granule' | 'decoction' | 'mixture'>('granule')
 const dosageCount = ref(7)
 const functionDescription = ref('')
 const mainTreatment = ref('')
 const usageMethod = ref('')
+const precautions = ref('')
 const templateModalVisible = ref(false)
 const medicineModalVisible = ref(false)
 const functionSelectorVisible = ref(false)
 const mainTreatmentSelectorVisible = ref(false)
+const medicineSearchQuery = ref('')
+const currentMedicineFilter = ref('all')
+const currentTemplateFilter = ref('all')
 
 // 药品和模板数据
 const medicines = ref<Medicine[]>([])
 const templates = ref<Template[]>([
   {
     id: '1',
-    name: '麻黄汤',
-    type: 'decoction',
-    functionDescription: '发汗解表，宣肺平喘',
-    mainTreatment: '外感风寒表实证',
-    usageMethod: '水煎服，每日一剂',
+    name: '益气养阴颗粒方',
+    type: 'granule',
+    functionDescription: '益气养阴、清热生津',
+    mainTreatment: '消渴病、气阴两虚',
+    usageMethod: '温开水冲服，每日2-3次，饭后服用',
+    precautions: '忌食辛辣、油腻食物',
     medicines: [
-      { id: '1', name: '麻黄', specification: '10g', unit: 'g', quantity: 10, price: 5.2, category: '解表药', type: 'decoction' },
-      { id: '2', name: '桂枝', specification: '10g', unit: 'g', quantity: 10, price: 4.5, category: '解表药', type: 'decoction' },
-      { id: '3', name: '杏仁', specification: '10g', unit: 'g', quantity: 10, price: 6.8, category: '止咳平喘药', type: 'decoction' },
-      { id: '4', name: '甘草', specification: '6g', unit: 'g', quantity: 6, price: 3.2, category: '补虚药', type: 'decoction' },
+      { id: '1', name: '生地黄颗粒', specification: '3g', unit: 'g', quantity: 3, price: 1.5, category: '清热凉血', type: 'granule' },
+      { id: '2', name: '山药颗粒', specification: '3g', unit: 'g', quantity: 3, price: 1.2, category: '补脾养胃', type: 'granule' },
+      { id: '3', name: '黄芪颗粒', specification: '4g', unit: 'g', quantity: 4, price: 2.0, category: '补气', type: 'granule' },
+      { id: '4', name: '天花粉颗粒', specification: '2.5g', unit: 'g', quantity: 2.5, price: 1.3, category: '清热生津', type: 'granule' },
     ],
   },
   {
     id: '2',
-    name: '桂枝汤',
+    name: '柴胡疏肝散',
     type: 'decoction',
-    functionDescription: '解肌发表，调和营卫',
-    mainTreatment: '外感风寒表虚证',
-    usageMethod: '水煎服，每日一剂',
+    functionDescription: '疏肝理气、活血止痛',
+    mainTreatment: '肝郁气滞、胸胁胀痛',
+    usageMethod: '水煎服，每日一剂，分早晚两次温服',
     medicines: [
-      { id: '5', name: '桂枝', specification: '12g', unit: 'g', quantity: 12, price: 4.5, category: '解表药', type: 'decoction' },
-      { id: '6', name: '芍药', specification: '12g', unit: 'g', quantity: 12, price: 7.3, category: '补虚药', type: 'decoction' },
-      { id: '7', name: '甘草', specification: '6g', unit: 'g', quantity: 6, price: 3.2, category: '补虚药', type: 'decoction' },
-      { id: '8', name: '生姜', specification: '3片', unit: '片', quantity: 3, price: 1.5, category: '解表药', type: 'decoction' },
-      { id: '9', name: '大枣', specification: '12枚', unit: '枚', quantity: 12, price: 8.0, category: '补虚药', type: 'decoction' },
+      { id: '101', name: '柴胡', specification: '10g', unit: 'g', quantity: 10, price: 1.2, category: '解表', type: 'decoction' },
+      { id: '102', name: '当归', specification: '10g', unit: 'g', quantity: 10, price: 1.8, category: '补血活血', type: 'decoction' },
+      { id: '103', name: '白芍', specification: '12g', unit: 'g', quantity: 12, price: 1.1, category: '养血敛阴', type: 'decoction' },
     ],
   },
 ])
 
 // 药品数据库（模拟）
 const medicineDatabase = ref<Medicine[]>([
-  { id: '1', name: '麻黄', specification: '10g', unit: 'g', quantity: 10, price: 5.2, category: '解表药', type: 'decoction' },
-  { id: '2', name: '桂枝', specification: '10g', unit: 'g', quantity: 10, price: 4.5, category: '解表药', type: 'decoction' },
-  { id: '3', name: '杏仁', specification: '10g', unit: 'g', quantity: 10, price: 6.8, category: '止咳平喘药', type: 'decoction' },
-  { id: '4', name: '甘草', specification: '6g', unit: 'g', quantity: 6, price: 3.2, category: '补虚药', type: 'decoction' },
-  { id: '5', name: '麻黄颗粒', specification: '10g', unit: 'g', quantity: 10, price: 8.5, category: '解表药', type: 'granule' },
-  { id: '6', name: '桂枝颗粒', specification: '10g', unit: 'g', quantity: 10, price: 7.8, category: '解表药', type: 'granule' },
-  { id: '7', name: '杏仁颗粒', specification: '10g', unit: 'g', quantity: 10, price: 10.2, category: '止咳平喘药', type: 'granule' },
-  { id: '8', name: '甘草颗粒', specification: '6g', unit: 'g', quantity: 6, price: 5.5, category: '补虚药', type: 'granule' },
+  // 颗粒
+  { id: '1', name: '生地黄颗粒', specification: '3g', unit: 'g', quantity: 3, price: 1.5, category: '清热凉血', type: 'granule' },
+  { id: '2', name: '山药颗粒', specification: '3g', unit: 'g', quantity: 3, price: 1.2, category: '补脾养胃', type: 'granule' },
+  { id: '3', name: '黄芪颗粒', specification: '4g', unit: 'g', quantity: 4, price: 2.0, category: '补气', type: 'granule' },
+  { id: '4', name: '天花粉颗粒', specification: '2.5g', unit: 'g', quantity: 2.5, price: 1.3, category: '清热生津', type: 'granule' },
+  { id: '5', name: '葛根颗粒', specification: '3g', unit: 'g', quantity: 3, price: 1.4, category: '解肌退热', type: 'granule' },
+  { id: '6', name: '麦冬颗粒', specification: '2.5g', unit: 'g', quantity: 2.5, price: 1.8, category: '养阴润肺', type: 'granule' },
+  { id: '7', name: '五味子颗粒', specification: '1.5g', unit: 'g', quantity: 1.5, price: 2.5, category: '收敛固涩', type: 'granule' },
+  { id: '8', name: '丹参颗粒', specification: '3g', unit: 'g', quantity: 3, price: 1.6, category: '活血化瘀', type: 'granule' },
+  // 饮片
+  { id: '101', name: '柴胡', specification: '10g', unit: 'g', quantity: 10, price: 1.2, category: '解表', type: 'decoction' },
+  { id: '102', name: '黄柏', specification: '10g', unit: 'g', quantity: 10, price: 0.8, category: '清热燥湿', type: 'decoction' },
+  { id: '103', name: '枸杞子', specification: '10g', unit: 'g', quantity: 10, price: 1.0, category: '补益肝肾', type: 'decoction' },
+  { id: '104', name: '菊花', specification: '10g', unit: 'g', quantity: 10, price: 0.6, category: '清热解毒', type: 'decoction' },
+  { id: '105', name: '桔梗', specification: '6g', unit: 'g', quantity: 6, price: 0.5, category: '宣肺祛痰', type: 'decoction' },
+  { id: '106', name: '薄荷', specification: '6g', unit: 'g', quantity: 6, price: 0.4, category: '疏散风热', type: 'decoction' },
 ])
 
 // 常用功用和主治
 const commonFunctions = [
-  '发汗解表',
-  '宣肺平喘',
-  '清热解毒',
-  '活血化瘀',
-  '健脾利湿',
+  // 补益类
   '补气养血',
+  '益气养阴',
   '滋阴补肾',
-  '温阳散寒',
+  '温阳补肾',
+  '补中益气',
+  '养血安神',
+  '健脾益气',
+  '补益肝肾',
+  // 清热类
+  '清热解毒',
+  '清热生津',
+  '清热燥湿',
+  '清热凉血',
+  '清肝明目',
+  '清热泻火',
+  // 解表类
+  '疏风解表',
+  '发散风寒',
+  '疏风清热',
+  '解肌退热',
+  // 理气类
+  '疏肝理气',
+  '行气止痛',
+  '理气健脾',
+  '行气导滞',
+  // 活血类
+  '活血化瘀',
+  '活血止痛',
+  '活血调经',
+  '破血逐瘀',
 ]
 
 const commonMainTreatments = [
-  '外感风寒表实证',
-  '外感风寒表虚证',
-  '风热感冒',
-  '湿热内蕴',
-  '气血两虚',
-  '肝肾阴虚',
-  '脾肾阳虚',
+  // 内科
+  '感冒风寒',
+  '感冒风热',
+  '咳嗽痰多',
+  '气喘咳嗽',
+  '失眠多梦',
+  '心悸怔忡',
+  '头痛头晕',
+  '高血压',
+  '消渴病（糖尿病）',
+  '气阴两虚',
+  '脾胃虚弱',
+  '中气下陷',
+  '肝郁气滞',
+  '肝火上炎',
+  '肝阳上亢',
+  '心肾不交',
+  '肾阳虚',
+  '肾阴虚',
+  '阴虚火旺',
   '气滞血瘀',
+  '痰湿内阻',
+  '湿热蕴结',
 ]
-
-// 获取药品分类列表
-function getCategories(): string[] {
-  const categories: Set<string> = new Set()
-  medicineDatabase.value.forEach(med => categories.add(med.category))
-  return Array.from(categories)
-}
 
 // 获取类型名称
 function getTypeName(type: string): string {
   const typeMap: Record<string, string> = {
     all: '全部',
-    granule: '颗粒剂',
+    granule: '颗粒',
     decoction: '饮片',
     mixture: '混合',
   }
@@ -135,17 +177,26 @@ function getTypeName(type: string): string {
 
 // 过滤后的模板和药品列表
 const filteredTemplates = computed(() => {
-  if (prescriptionType.value === 'mixture' || prescriptionType.value === 'all') {
-    return templates.value
+  let result = templates.value
+  if (currentTemplateFilter.value !== 'all') {
+    result = result.filter(t => t.type === currentTemplateFilter.value)
   }
-  return templates.value.filter(t => t.type === prescriptionType.value)
+  return result
 })
 
 const filteredMedicines = computed(() => {
-  if (prescriptionType.value === 'mixture' || prescriptionType.value === 'all') {
-    return medicineDatabase.value
+  let result = medicineDatabase.value
+  if (currentMedicineFilter.value !== 'all') {
+    result = result.filter(m => m.type === currentMedicineFilter.value)
   }
-  return medicineDatabase.value.filter(m => m.type === prescriptionType.value)
+  if (medicineSearchQuery.value.trim() !== '') {
+    const query = medicineSearchQuery.value.toLowerCase()
+    result = result.filter(m =>
+      m.name.toLowerCase().includes(query)
+      || m.category.toLowerCase().includes(query),
+    )
+  }
+  return result
 })
 
 // 计算总金额
@@ -154,6 +205,12 @@ const totalAmount = computed(() => {
     return acc + (medicine.price * medicine.quantity * dosageCount.value)
   }, 0)
   return sum
+})
+
+const singleDosageAmount = computed(() => {
+  if (medicines.value.length === 0)
+    return 0
+  return totalAmount.value / dosageCount.value
 })
 
 // 方法 - 使用function关键字声明
@@ -165,9 +222,12 @@ function selectPrescriptionType(type: 'granule' | 'decoction' | 'mixture'): void
   prescriptionType.value = type
 }
 
-// 支持'all'类型的选择器函数
-function setPrescriptionType(type: 'all' | 'granule' | 'decoction' | 'mixture'): void {
-  prescriptionType.value = type
+function setTemplateFilter(filter: string): void {
+  currentTemplateFilter.value = filter as 'all' | 'granule' | 'decoction' | 'mixture'
+}
+
+function setMedicineFilter(filter: string): void {
+  currentMedicineFilter.value = filter as 'all' | 'granule' | 'decoction'
 }
 
 function openTemplateModal(): void {
@@ -244,8 +304,10 @@ function removeMedicine(index: number): void {
   showToast('已删除药品')
 }
 
-function updateMedicineQuantity(index: number, quantity: number): void {
-  if (quantity > 0) {
+function updateMedicineQuantity(index: number, event: Event): void {
+  const input = event.target as HTMLInputElement
+  const quantity = Number(input.value)
+  if (!Number.isNaN(quantity) && quantity > 0) {
     medicines.value[index].quantity = quantity
   }
 }
@@ -275,6 +337,9 @@ function applyTemplate(template: Template): void {
   functionDescription.value = template.functionDescription
   mainTreatment.value = template.mainTreatment
   usageMethod.value = template.usageMethod
+  if (template.precautions) {
+    precautions.value = template.precautions
+  }
 
   // 清空并添加药品
   medicines.value = template.medicines.map(med => ({ ...med }))
@@ -290,7 +355,6 @@ function saveAsTemplate(): void {
   }
 
   // 这里应该是弹出一个输入模板名称的对话框，然后保存
-  // 为了简单起见，这里直接提示
   showToast('模板保存功能待实现')
 }
 
@@ -320,547 +384,568 @@ function submitPrescription(): void {
 
 // 查看病历
 function viewMedicalRecord(): void {
-  showToast('查看病历功能待实现')
+  uni.navigateTo({
+    url: '/pages-doctor-diagnosis/yuyinwenzhen/medical-record',
+  })
 }
 </script>
 
 <template>
-  <view class="min-h-screen flex flex-col bg-gray-50">
-    <!-- Toast 通知 -->
-    <transition name="fade">
-      <view v-if="toastVisible" class="fixed left-1/2 top-20 z-50 transform rounded-lg bg-black/70 px-4 py-2 text-white -translate-x-1/2">
-        {{ toastMessage }}
-      </view>
-    </transition>
+  <div class="prescription-create box-border max-w-full w-full overflow-x-hidden">
+    <!-- Toast通知 -->
+    <div v-if="toastVisible" class="fixed left-1/2 top-1/2 z-50 transform rounded-lg bg-black/70 px-4 py-2 text-sm text-white -translate-x-1/2 -translate-y-1/2">
+      {{ toastMessage }}
+    </div>
 
-    <!-- 模板选择弹窗 -->
-    <transition name="slide">
-      <view v-if="templateModalVisible" class="fixed inset-0 z-50 flex items-end justify-center bg-black/50">
-        <view class="max-h-[80vh] w-full overflow-y-auto rounded-t-lg bg-white" @click.stop>
-          <view class="flex items-center justify-between border-b p-4">
-            <h3 class="text-lg text-gray-800 font-bold">
-              选择模板
-            </h3>
-            <button class="text-gray-500 hover:text-gray-800" @click="closeTemplateModal">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-              </svg>
-            </button>
-          </view>
-          <view class="p-4">
-            <view class="mb-4 flex overflow-x-auto pb-2 space-x-2">
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-                :class="{ 'bg-blue-500 text-white': prescriptionType === 'all' }"
-                @click="setPrescriptionType('all')"
-              >
-                {{ getTypeName('all') }}
-              </button>
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-                :class="{ 'bg-blue-500 text-white': prescriptionType === 'granule' }"
-                @click="selectPrescriptionType('granule')"
-              >
-                {{ getTypeName('granule') }}
-              </button>
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-                :class="{ 'bg-blue-500 text-white': prescriptionType === 'decoction' }"
-                @click="selectPrescriptionType('decoction')"
-              >
-                {{ getTypeName('decoction') }}
-              </button>
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-                :class="{ 'bg-blue-500 text-white': prescriptionType === 'mixture' }"
-                @click="selectPrescriptionType('mixture')"
-              >
-                {{ getTypeName('mixture') }}
-              </button>
-            </view>
-            <view class="space-y-3">
-              <button
-                v-for="template in filteredTemplates"
-                :key="template.id"
-                class="w-full border rounded-lg p-4 text-left transition-colors hover:bg-gray-50"
-                @click="applyTemplate(template)"
-              >
-                <div class="flex items-start justify-between">
-                  <h4 class="text-gray-800 font-medium">
-                    {{ template.name }}
-                  </h4>
-                  <span
-                    class="rounded-full px-2 py-0.5 text-xs"
-                    :class="{
-                      'bg-purple-100 text-purple-600': template.type === 'granule',
-                      'bg-red-100 text-red-600': template.type === 'decoction',
-                      'bg-orange-100 text-orange-600': template.type === 'mixture',
-                    }"
-                  >
-                    {{ getTypeName(template.type) }}
-                  </span>
-                </div>
-                <p class="mt-2 text-sm text-gray-600">
-                  {{ template.functionDescription }}
-                </p>
-                <p class="mt-1 text-sm text-gray-600">
-                  {{ template.mainTreatment }}
-                </p>
-                <p class="mt-2 text-xs text-gray-500">
-                  {{ template.medicines.length }} 味药
-                </p>
-              </button>
-              <div v-if="filteredTemplates.length === 0" class="py-8 text-center text-gray-500">
-                暂无相关模板
-              </div>
-            </view>
-          </view>
-        </view>
-      </view>
-    </transition>
-
-    <!-- 药品选择弹窗 -->
-    <transition name="slide">
-      <view v-if="medicineModalVisible" class="fixed inset-0 z-50 flex items-end justify-center bg-black/50">
-        <view class="max-h-[80vh] w-full overflow-y-auto rounded-t-lg bg-white" @click.stop>
-          <view class="flex items-center justify-between border-b p-4">
-            <h3 class="text-lg text-gray-800 font-bold">
-              选择药品
-            </h3>
-            <button class="text-gray-500 hover:text-gray-800" @click="closeMedicineModal">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-              </svg>
-            </button>
-          </view>
-          <view class="p-4">
-            <div class="mb-4">
-              <input
-                type="text"
-                placeholder="搜索药品名称或规格"
-                class="w-full border rounded-lg px-4 py-2 text-sm"
-              >
-            </div>
-            <div class="mb-4 flex overflow-x-auto pb-2 space-x-2">
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-              >
-                全部
-              </button>
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-              >
-                解表药
-              </button>
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-              >
-                清热药
-              </button>
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-              >
-                止咳平喘药
-              </button>
-              <button
-                class="whitespace-nowrap rounded-full bg-gray-200 px-4 py-2 text-sm text-gray-700"
-              >
-                补虚药
-              </button>
-            </div>
-            <div class="space-y-3">
-              <button
-                v-for="medicine in filteredMedicines"
-                :key="medicine.id"
-                class="w-full border rounded-lg p-4 text-left transition-colors hover:bg-gray-50"
-                @click="addMedicineToList(medicine)"
-              >
-                <div class="flex items-start justify-between">
-                  <h4 class="text-gray-800 font-medium">
-                    {{ medicine.name }}
-                  </h4>
-                  <span
-                    class="rounded-full px-2 py-0.5 text-xs"
-                    :class="{
-                      'bg-purple-100 text-purple-600': medicine.type === 'granule',
-                      'bg-red-100 text-red-600': medicine.type === 'decoction',
-                      'bg-orange-100 text-orange-600': medicine.type === 'mixture',
-                    }"
-                  >
-                    {{ getTypeName(medicine.type) }}
-                  </span>
-                </div>
-                <p class="mt-1 text-sm text-gray-600">
-                  {{ medicine.specification }} / {{ medicine.unit }}
-                </p>
-                <div class="mt-2 flex items-center justify-between">
-                  <span class="text-xs text-gray-500">{{ medicine.category }}</span>
-                  <span class="text-sm text-gray-800 font-medium">¥{{ medicine.price.toFixed(2) }}</span>
-                </div>
-              </button>
-            </div>
-          </view>
-        </view>
-      </view>
-    </transition>
-
-    <!-- 功用选择器弹窗 -->
-    <transition name="slide">
-      <view v-if="functionSelectorVisible" class="fixed inset-0 z-50 flex items-end justify-center bg-black/50">
-        <view class="max-h-[80vh] w-full overflow-y-auto rounded-t-lg bg-white" @click.stop>
-          <view class="flex items-center justify-between border-b p-4">
-            <h3 class="text-lg text-gray-800 font-bold">
-              选择功用
-            </h3>
-            <button class="text-gray-500 hover:text-gray-800" @click="closeFunctionSelector">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-              </svg>
-            </button>
-          </view>
-          <div class="p-4">
-            <div class="mb-3 text-xs text-gray-500">
-              点击可添加，用顿号分隔
-            </div>
-            <div class="max-h-[400px] overflow-y-auto pr-2 space-y-2">
-              <button
-                v-for="func in commonFunctions"
-                :key="func"
-                class="w-full border-2 border-gray-200 rounded-lg px-3 py-2.5 text-left text-sm text-gray-800 transition-colors hover:border-red-800 hover:bg-red-50 hover:text-red-800"
-                @click="selectFunction(func)"
-              >
-                {{ func }}
-              </button>
-            </div>
-          </div>
-        </view>
-      </view>
-    </transition>
-
-    <!-- 主治选择器弹窗 -->
-    <transition name="slide">
-      <view v-if="mainTreatmentSelectorVisible" class="fixed inset-0 z-50 flex items-end justify-center bg-black/50">
-        <view class="max-h-[80vh] w-full overflow-y-auto rounded-t-lg bg-white" @click.stop>
-          <view class="flex items-center justify-between border-b p-4">
-            <h3 class="text-lg text-gray-800 font-bold">
-              选择主治
-            </h3>
-            <button class="text-gray-500 hover:text-gray-800" @click="closeMainTreatmentSelector">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-              </svg>
-            </button>
-          </view>
-          <div class="p-4">
-            <div class="mb-3 text-xs text-gray-500">
-              点击可添加，用顿号分隔
-            </div>
-            <div class="max-h-[400px] overflow-y-auto pr-2 space-y-2">
-              <button
-                v-for="treatment in commonMainTreatments"
-                :key="treatment"
-                class="w-full border-2 border-gray-200 rounded-lg px-3 py-2.5 text-left text-sm text-gray-800 transition-colors hover:border-red-800 hover:bg-red-50 hover:text-red-800"
-                @click="selectMainTreatment(treatment)"
-              >
-                {{ treatment }}
-              </button>
-            </div>
-          </div>
-        </view>
-      </view>
-    </transition>
-
-    <!-- 页面内容 -->
-    <header class="bg-white shadow-sm">
-      <div class="flex items-center justify-between px-4 py-3">
-        <button class="p-1 text-gray-700" @click="goBack">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
-            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+    <!-- 顶部导航栏 -->
+    <!-- <div class="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center">
+        <button @click="goBack" class="w-8 h-8 flex items-center justify-center">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 12H5" stroke="#333" stroke-width="2" stroke-linecap="round"/>
+            <path d="M12 19L5 12L12 5" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </button>
-        <h1 class="text-lg text-gray-800 font-bold">
-          开具处方
-        </h1>
-        <button class="border border-red-800 rounded-full px-3 py-1 text-sm text-red-800 transition-colors hover:bg-red-50" @click="openTemplateModal">
-          选择模板
+        <h1 class="text-lg font-medium ml-2">开具处方</h1>
+      </div>
+      <div class="flex items-center gap-4">
+        <button @click="viewMedicalRecord" class="text-base text-[#8E4337]">
+          病历
+        </button>
+        <button @click="openTemplateModal" class="text-base text-[#975518]">
+          模板
         </button>
       </div>
-    </header>
+    </div> -->
 
-    <main class="flex-1 overflow-y-auto p-4 space-y-4">
-      <!-- 患者信息 -->
-      <view class="rounded-lg bg-white p-4 shadow-sm">
-        <div class="flex items-center justify-between">
-          <div class="flex items-center space-x-3">
-            <view class="h-12 w-12 flex items-center justify-center rounded-full bg-blue-100">
-              <span class="text-blue-600 font-medium">王女士</span>
-            </view>
-            <div>
-              <h3 class="text-gray-800 font-medium">
-                王女士
-              </h3>
+    <!-- 模板选择弹窗 -->
+    <div v-if="templateModalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
+        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+          <h3 class="text-lg text-[#1F2937] font-medium">
+            选择模板
+          </h3>
+          <button class="text-xl text-gray-500 transition-colors hover:text-gray-700" @click="closeTemplateModal">
+            ×
+          </button>
+        </div>
+        <div class="p-4">
+          <div class="mb-4 flex border-b border-gray-200">
+            <button
+              v-for="type in ['all', 'granule', 'decoction', 'mixture']"
+              :key="type"
+              class="px-4 py-2 text-sm"
+              :class="[currentTemplateFilter === type ? 'text-[#975518] border-b-2 border-[#975518]' : 'text-gray-500']"
+              @click="setTemplateFilter(type)"
+            >
+              {{ getTypeName(type) }}
+            </button>
+          </div>
+          <div class="max-h-[300px] overflow-y-auto">
+            <div
+              v-for="template in filteredTemplates"
+              :key="template.id"
+              class="mb-3 cursor-pointer border border-gray-200 rounded-lg p-3 transition-colors hover:border-[#975518]"
+              @click="applyTemplate(template)"
+            >
+              <div class="mb-2 flex items-start justify-between">
+                <h4 class="text-base font-medium">
+                  {{ template.name }}
+                </h4>
+                <span class="rounded bg-[#f5e9d7] px-2 py-0.5 text-xs text-[#975518]">{{ getTypeName(template.type) }}</span>
+              </div>
+              <p class="mb-1 text-sm text-gray-700">
+                {{ template.functionDescription }}
+              </p>
               <p class="text-sm text-gray-500">
-                28岁 | 女
+                {{ template.mainTreatment }}
               </p>
             </div>
           </div>
-          <button class="rounded-full bg-gray-100 px-3 py-1.5 text-sm text-gray-700 transition-colors hover:bg-gray-200" @click="viewMedicalRecord">
-            查看病历
+        </div>
+      </div>
+    </div>
+
+    <!-- 药品选择弹窗 -->
+    <div v-if="medicineModalVisible" class="fixed inset-0 z-50 flex flex-col bg-black/50 px-4">
+      <div class="mt-auto w-full rounded-t-xl bg-white shadow-lg">
+        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+          <h3 class="text-lg text-[#1F2937] font-medium">
+            添加药品
+          </h3>
+          <button class="text-xl text-gray-500 transition-colors hover:text-gray-700" @click="closeMedicineModal">
+            ×
           </button>
         </div>
-      </view>
+        <div class="p-4">
+          <div class="relative mb-4">
+            <input
+              v-model="medicineSearchQuery"
+              type="text"
+              placeholder="搜索药品名称或分类"
+              class="w-full border border-gray-300 rounded-lg px-10 py-2 focus:border-[#975518] focus:outline-none focus:ring-2 focus:ring-[#975518]/30"
+            >
+            <svg class="absolute left-3 top-1/2 transform text-gray-400 -translate-y-1/2" width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
+              <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+          <div class="mb-4 flex overflow-x-auto border-b border-gray-200">
+            <button
+              v-for="type in ['all', 'granule', 'decoction']"
+              :key="type"
+              class="whitespace-nowrap px-4 py-2 text-sm"
+              :class="[currentMedicineFilter === type ? 'text-[#975518] border-b-2 border-[#975518]' : 'text-gray-500']"
+              @click="setMedicineFilter(type)"
+            >
+              {{ getTypeName(type) }}
+            </button>
+          </div>
+          <div class="max-h-[400px] overflow-y-auto">
+            <div
+              v-for="medicine in filteredMedicines"
+              :key="medicine.id"
+              class="mb-3 flex cursor-pointer items-center justify-between border border-gray-200 rounded-lg p-3 transition-colors hover:border-[#975518]"
+              @click="addMedicineToList(medicine)"
+            >
+              <div>
+                <h4 class="mb-1 text-base font-medium">
+                  {{ medicine.name }}
+                </h4>
+                <p class="text-sm text-gray-500">
+                  {{ medicine.category }}
+                </p>
+              </div>
+              <div class="text-right">
+                <p class="mb-1 text-sm text-gray-700">
+                  {{ medicine.specification }}
+                </p>
+                <p class="text-sm text-[#975518] font-medium">
+                  ￥{{ medicine.price.toFixed(2) }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页面内容 -->
+    <div class="content box-border min-h-screen bg-gray-100 px-4 py-4 pb-20">
+      <!-- 患者信息简要 -->
+      <div class="mb-2 box-border w-full overflow-hidden rounded-[20px] bg-white p-4 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+        <div class="flex items-center gap-3">
+          <div class="h-12 w-12 flex-shrink-0 overflow-hidden rounded-full">
+            <img src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_640.jpg" alt="吴姗姗" class="h-full w-full object-cover">
+          </div>
+          <div class="flex-1">
+            <div class="mb-1 flex items-center gap-2">
+              <span class="truncate text-base text-[#1F2937] font-bold">吴姗姗</span>
+              <span class="rounded-full bg-[#FEF2F2] px-2 py-0.5 text-xs text-[#EF4444] font-semibold">女</span>
+              <span class="text-xs text-[#6B7280]">32岁</span>
+            </div>
+            <div class="truncate text-xs text-[#6B7280]">
+              患者编号：GH973212
+            </div>
+          </div>
+          <button class="border border-[#8E4337] rounded-lg px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]" aria-label="查看病历" @click="viewMedicalRecord">
+            病历
+          </button>
+        </div>
+      </div>
 
       <!-- 处方类型选择 -->
-      <view class="rounded-lg bg-white p-4 shadow-sm">
-        <h2 class="mb-3 text-base text-gray-800 font-medium">
-          处方类型
-        </h2>
+      <div class="mb-2 box-border rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+        <div class="mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
+            <path fill-rule="evenodd" d="M10 1c-1.716 0-3.408.106-5.07.31C3.806 1.45 3 2.414 3 3.517V18.25a.75.75 0 001.075.676L10 16.082l5.925 2.844A.75.75 0 0017 18.25V3.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 1z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-lg text-[#333333] font-bold leading-7">处方类型</span>
+        </div>
+
         <div class="grid grid-cols-3 gap-3">
           <button
-            class="border border-gray-200 rounded-lg bg-gray-50 p-3 text-center text-gray-600"
-            :class="{ 'bg-purple-100 text-purple-700 border-2 border-purple-500': prescriptionType === 'granule' }"
-            @click="selectPrescriptionType('granule')"
+            v-for="(type, index) in ['granule', 'decoction', 'mixture'] as const"
+            :id="`type-${index + 1}`"
+            :key="type"
+            class="rounded-xl p-4 transition-all hover:shadow-md"
+            :class="[
+              prescriptionType === type
+                ? 'border-2 border-[#8E4337] bg-[#F5EBE9]'
+                : 'border-2 border-[#E5E7EB] bg-white',
+            ]"
+            @click="selectPrescriptionType(type)"
           >
-            <div class="mb-1 text-xl">
-              💊
-            </div>
-            <div class="text-sm font-medium">
-              颗粒剂
-            </div>
-          </button>
-          <button
-            class="border border-gray-200 rounded-lg bg-gray-50 p-3 text-center text-gray-600"
-            :class="{ 'bg-red-100 text-red-700 border-2 border-red-500': prescriptionType === 'decoction' }"
-            @click="selectPrescriptionType('decoction')"
-          >
-            <div class="mb-1 text-xl">
-              🌿
-            </div>
-            <div class="text-sm font-medium">
-              饮片
-            </div>
-          </button>
-          <button
-            class="border border-gray-200 rounded-lg bg-gray-50 p-3 text-center text-gray-600"
-            :class="{ 'bg-orange-100 text-orange-700 border-2 border-orange-500': prescriptionType === 'mixture' }"
-            @click="selectPrescriptionType('mixture')"
-          >
-            <div class="mb-1 text-xl">
-              ⚖️
-            </div>
-            <div class="text-sm font-medium">
-              混合
+            <div class="flex flex-col items-center gap-2">
+              <svg v-if="type === 'granule'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="h-8 w-8">
+                <path d="M11.25 5.337c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.036 1.007-1.875 2.25-1.875S15 2.34 15 3.375c0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959 0 .332.278.598.61.578 1.91-.114 3.79-.342 5.632-.676a.75.75 0 01.878.645 49.17 49.17 0 01.376 5.452.657.657 0 01-.66.664c-.354 0-.675-.186-.958-.401a1.647 1.647 0 00-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401.31 0 .557.262.534.571a48.774 48.774 0 01-.595 4.845.75.75 0 01-.61.61c-1.82.317-3.673.533-5.555.642a.58.58 0 01-.611-.581c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.035-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959a.641.641 0 01-.658.643 49.118 49.118 0 01-4.708-.36.75.75 0 01-.645-.878c.293-1.614.504-3.257.629-4.924A.53.53 0 005.337 15c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82.75.75 0 01.83-.832c1.343.155 2.703.254 4.077.294a.64.64 0 00.657-.642z" />
+              </svg>
+              <svg v-else-if="type === 'decoction'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" :fill="prescriptionType === type ? '#8E4337' : '#6B7280'" class="h-8 w-8">
+                <path fill-rule="evenodd" d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z" clip-rule="evenodd" />
+              </svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" :fill="prescriptionType === type ? '#8E4337' : '#6B7280'" class="h-8 w-8">
+                <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z" />
+                <path d="M3.265 10.602l7.668 4.129a2.25 2.25 0 002.134 0l7.668-4.13 1.37.739a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.71 0l-9.75-5.25a.75.75 0 010-1.32l1.37-.738z" />
+                <path d="M10.933 19.231l-7.668-4.13-1.37.739a.75.75 0 000 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z" />
+              </svg>
+              <span
+                class="text-sm font-bold" :class="[
+                  prescriptionType === type ? 'text-[#8E4337]' : 'text-[#6B7280]',
+                ]"
+              >
+                {{ getTypeName(type) }}
+              </span>
             </div>
           </button>
         </div>
-      </view>
+      </div>
 
       <!-- 处方信息 -->
-      <view class="rounded-lg bg-white p-4 shadow-sm">
-        <h2 class="mb-3 text-base text-gray-800 font-medium">
-          处方信息
-        </h2>
+      <div class="mb-4 rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+        <div class="mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-lg text-[#333333] font-bold leading-7">处方信息</span>
+        </div>
 
-        <!-- 功用 -->
-        <div class="mb-4">
-          <label class="mb-1 block text-sm text-gray-700 font-medium">功用</label>
-          <div class="relative">
-            <textarea
-              v-model="functionDescription"
-              placeholder="请输入处方功用，多个功用用顿号分隔"
-              class="h-20 w-full resize-none border rounded-lg px-3 py-2 text-sm"
-            />
+        <div class="space-y-4">
+          <!-- 功用描述 -->
+          <div>
+            <label class="mb-2 block text-sm text-[#374151] font-medium" for="functionDescription">功用描述</label>
+            <div class="mb-2 flex gap-2">
+              <textarea
+                id="functionDescription"
+                v-model="functionDescription"
+                rows="2"
+                placeholder="如：益气养阴、清热生津..."
+                class="min-h-[60px] flex-1 resize-none border border-[#E5E7EB] rounded-lg bg-white px-3 py-2 text-sm text-[#1F2937] focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#8E4337] focus:ring-opacity-20 placeholder-[#9CA3AF]"
+              />
+            </div>
             <button
-              class="absolute bottom-2 right-2 rounded bg-gray-100 px-2 py-1 text-xs text-gray-700 transition-colors hover:bg-gray-200"
+              class="w-full flex items-center justify-center gap-1 border border-[#8E4337] rounded-lg bg-[#F5EBE9] py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
               @click="openFunctionSelector"
             >
-              常用选择
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+                <path d="M10 3.75a2 2 0 10-4 0 2 2 0 004 0zM17.25 4.5a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM5 3.75a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 17a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM17.25 17a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM9 10a.75.75 0 01-.75.75h-5.5a.75.75 0 010-1.5h5.5A.75.75 0 019 10zM17.25 10.75a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM14 10a2 2 0 10-4 0 2 2 0 004 0zM10 16.25a2 2 0 10-4 0 2 2 0 004 0z" />
+              </svg>
+              选择常用功用
             </button>
           </div>
-          <div class="mt-2 flex flex-wrap gap-1">
-            <button
-              v-for="func in commonFunctions.slice(0, 4)"
-              :key="func"
-              class="rounded bg-gray-100 px-2 py-1 text-xs text-gray-700 transition-colors hover:bg-gray-200"
-              @click="selectFunction(func)"
-            >
-              {{ func }}
-            </button>
-          </div>
-        </div>
 
-        <!-- 主治 -->
-        <div class="mb-4">
-          <label class="mb-1 block text-sm text-gray-700 font-medium">主治</label>
-          <div class="relative">
-            <textarea
-              v-model="mainTreatment"
-              placeholder="请输入处方主治，多个主治用顿号分隔"
-              class="h-20 w-full resize-none border rounded-lg px-3 py-2 text-sm"
-            />
+          <!-- 主治 -->
+          <div>
+            <label class="mb-2 block text-sm text-[#374151] font-medium" for="mainTreatment">主治</label>
+            <div class="mb-2 flex gap-2">
+              <textarea
+                id="mainTreatment"
+                v-model="mainTreatment"
+                rows="2"
+                placeholder="如：消渴病、气阴两虚..."
+                class="min-h-[60px] flex-1 resize-none border border-[#E5E7EB] rounded-lg bg-white px-3 py-2 text-sm text-[#1F2937] focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#8E4337] focus:ring-opacity-20 placeholder-[#9CA3AF]"
+              />
+            </div>
             <button
-              class="absolute bottom-2 right-2 rounded bg-gray-100 px-2 py-1 text-xs text-gray-700 transition-colors hover:bg-gray-200"
+              class="w-full flex items-center justify-center gap-1 border border-[#8E4337] rounded-lg bg-[#F5EBE9] py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
               @click="openMainTreatmentSelector"
             >
-              常用选择
-            </button>
-          </div>
-          <div class="mt-2 flex flex-wrap gap-1">
-            <button
-              v-for="treatment in commonMainTreatments.slice(0, 4)"
-              :key="treatment"
-              class="rounded bg-gray-100 px-2 py-1 text-xs text-gray-700 transition-colors hover:bg-gray-200"
-              @click="selectMainTreatment(treatment)"
-            >
-              {{ treatment }}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+                <path d="M10 3.75a2 2 0 10-4 0 2 2 0 004 0zM17.25 4.5a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM5 3.75a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 17a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM17.25 17a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM9 10a.75.75 0 01-.75.75h-5.5a.75.75 0 010-1.5h5.5A.75.75 0 019 10zM17.25 10.75a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM14 10a2 2 0 10-4 0 2 2 0 004 0zM10 16.25a2 2 0 10-4 0 2 2 0 004 0z" />
+              </svg>
+              选择常用主治
             </button>
           </div>
         </div>
-      </view>
+      </div>
 
       <!-- 药品明细 -->
-      <view class="rounded-lg bg-white p-4 shadow-sm">
-        <div class="mb-3 flex items-center justify-between">
-          <h2 class="text-base text-gray-800 font-medium">
-            药品明细
-          </h2>
-          <button class="rounded-full bg-red-800 px-3 py-1.5 text-sm text-white transition-colors hover:bg-red-700" @click="openMedicineModal">
-            添加药品
-          </button>
-        </div>
+      <div class="mb-4 rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+        <div class="mb-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
+              <path d="M10.75 16.82A7.462 7.462 0 0115 15.5c.71 0 1.396.098 2.046.282A.75.75 0 0018 15.06v-11a.75.75 0 00-.546-.721A9.006 9.006 0 0015 3a8.963 8.963 0 00-4.25 1.065V16.82zM9.25 4.065A8.963 8.963 0 005 3c-.85 0-1.673.118-2.454.339A.75.75 0 002 4.06v11a.75.75 0 00.954.721A7.506 7.506 0 015 15.5c1.579 0 3.042.487 4.25 1.32V4.065z" />
+            </svg>
+            <span class="text-lg text-[#333333] font-bold leading-7">药品明细</span>
+          </div>
 
-        <!-- 剂数控制 -->
-        <div class="mb-4 flex items-center justify-between rounded-lg bg-gray-50 p-3">
-          <div class="flex items-center">
-            <button class="h-8 w-8 flex items-center justify-center border rounded-full bg-white text-gray-700" @click="decreaseDosageCount">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-                <path fill-rule="evenodd" d="M4 10a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z" clip-rule="evenodd" />
+          <div class="flex items-center gap-2">
+            <button class="flex items-center gap-1 border-2 border-[#8E4337] rounded-lg px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]" @click="openTemplateModal">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+                <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
+                <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
               </svg>
+              使用药方
             </button>
-            <input
-              v-model.number="dosageCount"
-              type="number"
-              min="1"
-              max="30"
-              class="mx-3 w-12 border rounded py-1 text-center text-gray-800"
-            >
-            <button class="h-8 w-8 flex items-center justify-center border rounded-full bg-white text-gray-700" @click="increaseDosageCount">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-                <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+            <button class="flex items-center gap-1 rounded-lg bg-[#8E4337] px-3 py-1.5 text-xs text-white font-medium transition-colors hover:bg-[#6E2F25]" @click="openMedicineModal">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
               </svg>
+              添加药品
             </button>
           </div>
-          <div class="flex space-x-2">
-            <button class="border rounded bg-white px-2 py-1 text-xs text-gray-700" @click="setDosageCount(3)">
-              3剂
-            </button>
-            <button class="border rounded bg-white px-2 py-1 text-xs text-gray-700" @click="setDosageCount(5)">
-              5剂
-            </button>
-            <button class="border rounded bg-white px-2 py-1 text-xs text-gray-700" @click="setDosageCount(7)">
-              7剂
-            </button>
-            <button class="border rounded bg-white px-2 py-1 text-xs text-gray-700" @click="setDosageCount(14)">
-              14剂
+        </div>
+
+        <!-- 处方剂数 -->
+        <div class="mb-4 border border-[#E5E7EB] rounded-xl bg-[#F9FAFB] p-4">
+          <label class="mb-3 block text-sm text-[#374151] font-medium" for="dosageCount">处方剂数</label>
+          <div class="flex items-center gap-3">
+            <div class="flex flex-1 items-center gap-2">
+              <button
+                class="h-10 w-10 flex items-center justify-center border-2 border-[#E5E7EB] rounded-lg bg-white text-[#6B7280] transition-colors active:scale-95 hover:border-[#8E4337] hover:bg-[#F3F4F6] hover:text-[#8E4337]"
+                @click="decreaseDosageCount"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                  <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
+                </svg>
+              </button>
+
+              <input
+                id="dosageCount"
+                v-model.number="dosageCount"
+                type="number"
+                class="h-10 flex-1 border-2 border-[#8E4337] rounded-lg bg-white px-4 py-2.5 text-center text-lg text-[#8E4337] font-bold focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
+              >
+
+              <button
+                class="h-10 w-10 flex items-center justify-center border-2 border-[#E5E7EB] rounded-lg bg-white text-[#6B7280] transition-colors active:scale-95 hover:border-[#8E4337] hover:bg-[#F3F4F6] hover:text-[#8E4337]"
+                @click="increaseDosageCount"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                  <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
+                </svg>
+              </button>
+            </div>
+            <span class="text-sm text-[#6B7280] font-medium">剂</span>
+          </div>
+          <div class="mt-3 flex gap-2">
+            <button
+              v-for="count in [3, 5, 7, 14, 30]"
+              :key="count"
+              :class="[
+                dosageCount === count
+                  ? 'rounded-lg border border-[#8E4337] bg-[#F5EBE9] px-3 py-1.5 text-xs font-medium text-[#8E4337]'
+                  : 'rounded-lg bg-[#F3F4F6] px-3 py-1.5 text-xs font-medium text-[#6B7280]',
+              ]"
+              class="transition-colors hover:bg-[#F5EBE9] hover:text-[#8E4337]"
+              @click="setDosageCount(count)"
+            >
+              {{ count }}剂
             </button>
           </div>
         </div>
 
         <!-- 药品列表 -->
-        <div v-if="medicines.length === 0" class="py-8 text-center text-gray-500">
-          暂无药品，请点击添加药品按钮
-        </div>
-        <div v-else class="mb-4 space-y-3">
+        <div v-if="medicines.length > 0" class="space-y-3">
+          <!-- 药品列表头部 -->
+          <div class="grid grid-cols-12 rounded-xl bg-[#F9FAFB] p-3 text-sm text-[#6B7280]">
+            <div class="col-span-5">
+              药品名称
+            </div>
+            <div class="col-span-3 text-center">
+              剂量
+            </div>
+            <div class="col-span-3 text-right">
+              金额
+            </div>
+            <div class="col-span-1 text-center">
+              操作
+            </div>
+          </div>
+
+          <!-- 药品项 -->
           <div
             v-for="(medicine, index) in medicines"
             :key="medicine.id"
-            class="flex items-center justify-between border rounded-lg p-3"
+            class="grid grid-cols-12 items-center border border-[#E5E7EB] rounded-xl bg-white p-3"
           >
-            <div class="flex-1">
-              <div class="mb-1 flex items-center justify-between">
-                <h4 class="text-gray-800 font-medium">
-                  {{ medicine.name }}
-                </h4>
-                <span
-                  class="rounded-full px-2 py-0.5 text-xs"
-                  :class="{
-                    'bg-purple-100 text-purple-600': medicine.type === 'granule',
-                    'bg-red-100 text-red-600': medicine.type === 'decoction',
-                    'bg-orange-100 text-orange-600': medicine.type === 'mixture',
-                  }"
-                >
-                  {{ getTypeName(medicine.type) }}
-                </span>
+            <div class="col-span-5">
+              <div class="text-[#333333] font-medium">
+                {{ medicine.name }}
               </div>
-              <p class="mb-1 text-sm text-gray-600">
-                {{ medicine.specification }} / {{ medicine.unit }}
-              </p>
-              <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                  <span class="mr-1 text-sm text-gray-500">剂量：</span>
-                  <input
-                    v-model.number="medicine.quantity"
-                    type="number"
-                    min="1"
-                    class="w-12 border rounded py-1 text-center text-sm text-gray-800"
-                    @input="updateMedicineQuantity(index, medicine.quantity)"
-                  >
-                  <span class="ml-1 text-sm text-gray-500">{{ medicine.unit }}</span>
-                </div>
-                <span class="text-sm text-gray-800 font-medium">¥{{ (medicine.price * medicine.quantity).toFixed(2) }}</span>
+              <div class="text-xs text-[#9CA3AF]">
+                {{ medicine.category }}
               </div>
             </div>
-            <button
-              class="ml-3 p-2 text-gray-500 hover:text-red-500"
-              @click="removeMedicine(index)"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-              </svg>
-            </button>
+            <div class="col-span-3 flex items-center justify-center">
+              <input
+                type="number"
+                :value="medicine.quantity.toString()"
+                class="h-9 w-16 border border-[#E5E7EB] rounded-lg px-3 text-center text-sm focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:ring-opacity-20"
+                @input="updateMedicineQuantity(index, $event as unknown as Event)"
+              >
+              <span class="ml-2 text-sm text-[#6B7280]">{{ medicine.unit }}</span>
+            </div>
+            <div class="col-span-3 text-right">
+              <div class="text-[#8E4337] font-medium">
+                ￥{{ (medicine.price * medicine.quantity * dosageCount).toFixed(2) }}
+              </div>
+              <div class="text-xs text-[#9CA3AF]">
+                ￥{{ medicine.price.toFixed(2) }}/{{ medicine.unit }}
+              </div>
+            </div>
+            <div class="col-span-1 text-center">
+              <button
+                class="h-8 w-8 flex items-center justify-center border border-[#E5E7EB] rounded-full bg-white text-[#6B7280] transition-colors hover:border-[#DC2626] hover:text-[#DC2626]"
+                @click="removeMedicine(index)"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
+                  <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 006 3.75v10.5A2.75 2.75 0 008.75 17h2.5A2.75 2.75 0 0014 15.25v-10.5A2.75 2.75 0 0011.25 1h-2.5zm0 2C8.336 3 8 3.336 8 3.75v10.5c0 .414.336.75.75.75h2.5a.75.75 0 00.75-.75v-10.5c0-.414-.336-.75-.75-.75h-2.5z" clip-rule="evenodd" />
+                  <path d="M3.493 6.27c.054-.864.736-1.547 1.598-1.547h7.91c.862 0 1.544.683 1.598 1.547l.211 3.584a2.25 2.25 0 01-2.231 2.472H5.453a2.25 2.25 0 01-2.231-2.472L3.493 6.27z" />
+                </svg>
+              </button>
+            </div>
           </div>
+        </div>
+        <div v-else class="rounded-xl bg-[#F9FAFB] p-4 text-center text-sm text-[#9CA3AF]">
+          暂无药品，请点击"添加药品"按钮
+        </div>
+      </div>
+
+      <!-- 用法及注意事项 -->
+      <div class="mb-4 rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+        <div class="mb-4 flex items-center gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
+          </svg>
+          <span class="text-lg text-[#333333] font-bold leading-7">用法及注意事项</span>
         </div>
 
-        <!-- 用法及注意事项 -->
-        <div class="mb-4">
-          <label class="mb-1 block text-sm text-gray-700 font-medium">用法及注意事项</label>
-          <textarea
-            v-model="usageMethod"
-            placeholder="请输入用法及注意事项"
-            class="h-24 w-full resize-none border rounded-lg px-3 py-2 text-sm"
-          />
-        </div>
+        <div class="space-y-4">
+          <!-- 用法 -->
+          <div>
+            <label class="mb-2 block text-sm text-[#374151] font-medium" for="usageMethod">用法</label>
+            <textarea
+              id="usageMethod"
+              v-model="usageMethod"
+              rows="3"
+              placeholder="如：水煎服，每日1剂，分早晚两次温服..."
+              class="w-full resize-none border border-[#E5E7EB] rounded-lg px-3 py-2 text-sm text-[#1F2937] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
+            />
+          </div>
 
-        <!-- 总金额 -->
-        <div class="flex items-center justify-between rounded-lg bg-gray-50 p-3">
-          <div class="text-gray-700">
-            单剂总金额：
-          </div>
-          <div class="text-gray-800 font-medium">
-            ¥{{ (totalAmount / dosageCount).toFixed(2) }}
-          </div>
-        </div>
-        <div class="mt-2 flex items-center justify-between rounded-lg bg-gray-50 p-3">
-          <div class="text-gray-700">
-            总金额：
-          </div>
-          <div class="text-lg text-red-800 font-medium">
-            ¥{{ totalAmount.toFixed(2) }}
+          <!-- 注意事项 -->
+          <div>
+            <label class="mb-2 block text-sm text-[#374151] font-medium" for="precautions">注意事项</label>
+            <textarea
+              id="precautions"
+              v-model="precautions"
+              rows="3"
+              placeholder="如：忌食辛辣、油腻食物；孕妇慎用..."
+              class="w-full resize-none border border-[#E5E7EB] rounded-lg px-3 py-2 text-sm text-[#1F2937] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
+            />
           </div>
         </div>
-      </view>
-    </main>
+      </div>
 
-    <!-- 底部按钮 -->
-    <footer class="bg-white p-4 shadow-sm">
-      <div class="flex space-x-3">
-        <button class="flex-1 border border-red-800 rounded-lg py-3 text-red-800 font-medium transition-colors hover:bg-red-50" @click="saveAsTemplate">
-          保存为模板
+      <!-- 总金额 -->
+      <!-- <div class="mb-2 box-border bg-white p-4">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-sm text-gray-600">
+              单剂金额
+            </div>
+            <div class="mt-1 text-base font-medium">
+              ￥{{ singleDosageAmount.toFixed(2) }}
+            </div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-gray-600">
+              总金额
+            </div>
+            <div class="mt-1 text-xl text-[#975518] font-medium">
+              ￥{{ totalAmount.toFixed(2) }}
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </div>
+
+    <!-- 底部操作栏 -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white px-4 py-3">
+      <div class="grid grid-cols-2 gap-3">
+        <button
+          class="flex items-center justify-center gap-2 border-2 border-[#8E4337] rounded-lg py-3 text-sm text-[#8E4337] font-medium transition-colors active:scale-98 hover:bg-[#F5EBE9]"
+          aria-label="保存为模板"
+          @click="saveAsTemplate"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
+            <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
+          </svg>
+          保存模板
         </button>
-        <button class="flex-1 rounded-lg bg-red-800 py-3 text-white font-medium transition-colors hover:bg-red-700" @click="submitPrescription">
+        <button
+          class="flex items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
+          aria-label="开具处方"
+          @click="submitPrescription"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
+            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+          </svg>
           开具处方
         </button>
       </div>
-    </footer>
-  </view>
+    </div>
+
+    <!-- 功用选择器弹窗 -->
+    <div v-if="functionSelectorVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
+        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+          <h3 class="text-lg text-[#1F2937] font-medium">
+            选择功用
+          </h3>
+          <button class="text-xl text-gray-500 transition-colors hover:text-gray-700" @click="closeFunctionSelector">
+            ×
+          </button>
+        </div>
+        <div class="px-4 py-2">
+          <p class="text-sm text-gray-500">
+            点击可添加，用逗号分隔
+          </p>
+        </div>
+        <div class="p-4">
+          <div class="grid grid-cols-2 max-h-[300px] gap-3 overflow-y-auto">
+            <div
+              v-for="(func, index) in commonFunctions"
+              :key="index"
+              class="cursor-pointer border border-gray-200 rounded-lg p-3 text-center transition-all hover:border-[#8E4337] hover:bg-[#F5EBE9] hover:shadow-sm"
+              @click="selectFunction(func)"
+            >
+              {{ func }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主治选择器弹窗 -->
+    <div v-if="mainTreatmentSelectorVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
+      <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
+        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+          <h3 class="text-lg text-[#1F2937] font-medium">
+            选择主治
+          </h3>
+          <button class="text-xl text-gray-500 transition-colors hover:text-gray-700" @click="closeMainTreatmentSelector">
+            ×
+          </button>
+        </div>
+        <div class="px-4 py-2">
+          <p class="text-sm text-gray-500">
+            点击可添加，用逗号分隔
+          </p>
+        </div>
+        <div class="p-4">
+          <div class="grid grid-cols-2 max-h-[300px] gap-3 overflow-y-auto">
+            <div
+              v-for="(treatment, index) in commonMainTreatments"
+              :key="index"
+              class="cursor-pointer border border-gray-200 rounded-lg p-3 text-center transition-all hover:border-[#8E4337] hover:bg-[#F5EBE9] hover:shadow-sm"
+              @click="selectMainTreatment(treatment)"
+            >
+              {{ treatment }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>

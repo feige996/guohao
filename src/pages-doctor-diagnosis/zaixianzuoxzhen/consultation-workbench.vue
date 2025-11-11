@@ -167,16 +167,16 @@ function showToast(message: string) {
 }
 
 // 查看病历
-  function viewMedicalRecord(patientId: string) {
-    showToast('正在查看病历...');
-    // 跳转到病历页面
-    setTimeout(() => {
-      router.push({
-        path: '/pages-doctor-diagnosis/yuyinwenzhen/medical-record',
-        query: { patientId }
-      });
-    }, 300);
-  }
+function viewMedicalRecord(patientId: string) {
+  showToast('正在查看病历...')
+  // 跳转到病历页面
+  setTimeout(() => {
+    router.push({
+      path: '/pages-doctor-diagnosis/yuyinwenzhen/medical-record',
+      query: { patientId },
+    })
+  }, 300)
+}
 
 // 进入问诊（打开IM聊天窗口）
 function startConsultation(patient: Patient) {
@@ -439,16 +439,16 @@ function updateConsultationDuration(startTimeStr: string) {
 
 // 输入框自动调整高度
 function autoResizeTextarea(event) {
-  const textarea = event.target;
+  const textarea = event.target
   if (textarea) {
-    textarea.style.height = 'auto';
-    textarea.style.height = `${textarea.scrollHeight}px`;
+    textarea.style.height = 'auto'
+    textarea.style.height = `${textarea.scrollHeight}px`
   }
 }
 </script>
 
 <template>
-  <view class="relative mx-auto max-w-[375px] min-h-screen w-full bg-[#F3F1ED] pb-5">
+  <view class="relative mx-auto max-w-[375px] min-h-screen w-full pb-5">
     <!-- Toast 通知 -->
     <div id="toast" class="toast" />
 
@@ -493,7 +493,7 @@ function autoResizeTextarea(event) {
     </div>
 
     <!-- 顶部导航 -->
-    <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4">
+    <!-- <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4">
       <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="返回上一页" @click="goBack">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
           <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
@@ -507,10 +507,10 @@ function autoResizeTextarea(event) {
           <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
         </svg>
       </button>
-    </header>
+    </header> -->
 
     <!-- 主内容区 -->
-    <main class="flex flex-col gap-5 px-4 pb-20 pt-[72px]">
+    <main class="flex flex-col gap-5 px-4 pb-20 pt-[24px]">
       <!-- 坐诊状态头部卡片 -->
       <section class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-5 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
         <div class="mb-4 flex items-center gap-2">
@@ -563,46 +563,76 @@ function autoResizeTextarea(event) {
         </div>
       </section>
 
-      <!-- 正在问诊的患者 -->
-      <section v-if="currentPatient" class="consult-card w-full border border-[#E5E7EB] rounded-[20px] bg-white p-4 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
-        <div class="mb-4 flex items-center justify-between">
-          <h2 class="text-base text-[#333333] font-bold">
-            正在问诊
-          </h2>
-          <span class="rounded-full bg-[#FEF3C7] px-2 py-1 text-xs text-[#92400E]">进行中</span>
-        </div>
-
-        <div class="flex items-center gap-3">
-          <!-- 患者头像 -->
-          <div class="relative">
-            <img :src="currentPatient.avatar" alt="患者头像" class="h-14 w-14 border-2 border-[#F3F1ED] rounded-full object-cover">
-            <span class="absolute h-5 w-5 border-2 border-white rounded-full bg-[#10B981] -bottom-1 -right-1" />
+      <!-- 正在问诊的患者卡片 -->
+      <section v-if="currentPatient" class="w-full border-2 border-[#8E4337] rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+        <div class="mb-4 flex items-start gap-3">
+          <!-- 头像 -->
+          <div class="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full">
+            <img :src="currentPatient.avatar" alt="患者头像" class="h-full w-full object-cover">
           </div>
 
           <!-- 患者信息 -->
           <div class="flex-1">
-            <div class="mb-1 flex flex-wrap items-center gap-2">
-              <span class="inline-block max-w-[80px] text-ellipsis text-[#1F2937] font-semibold">{{ currentPatient.name }}</span>
-              <span class="text-sm text-[#6B7280]">{{ currentPatient.age }}岁/{{ currentPatient.gender }}</span>
+            <div class="mb-2 flex items-center gap-2">
+              <span class="text-lg text-[#1F2937] font-bold">{{ currentPatient.name }}</span>
+              <div class="ml-auto flex items-center gap-2">
+                <div class="flex items-center gap-1 rounded-full bg-[#F5EBE9] px-2.5 py-1">
+                  <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-[#8E4337]" />
+                  <span class="text-xs text-[#8E4337] font-bold">问诊中</span>
+                </div>
+                <div class="rounded-full bg-[#8E4337] px-2.5 py-1">
+                  <span class="text-xs text-white font-bold">12:34</span>
+                </div>
+              </div>
             </div>
-            <div class="mb-1 text-xs text-[#6B7280]">
-              {{ currentPatient.consultationType }} · ¥{{ currentPatient.price }}
-            </div>
-            <div class="text-ellipsis-2 text-xs text-[#6B7280]">
-              {{ currentPatient.symptoms }}
-            </div>
-          </div>
 
-          <!-- 操作按钮 -->
-          <div class="flex gap-2">
-            <button
-              class="min-w-[100px] border border-[#8E4337] rounded-lg bg-white px-3 py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#8E4337] hover:text-white"
-              aria-label="进入问诊"
-              @click="startConsultation(currentPatient)"
-            >
-              进入问诊
-            </button>
+            <!-- 问诊类型 -->
+            <div class="mb-2 flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-4 w-4">
+                <path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />
+              </svg>
+              <span class="text-sm text-[#6B7280] font-medium">视频通话中...</span>
+            </div>
+
+            <!-- 症状 -->
+            <div class="text-sm text-[#6B7280]">
+              症状：{{ currentPatient.symptoms }}
+            </div>
           </div>
+        </div>
+
+        <!-- 按钮组 - 一行显示 -->
+        <div class="flex gap-2">
+          <button
+            class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#F5EBE9] py-2.5 text-xs text-[#8E4337] font-medium transition-colors active:scale-98 hover:bg-[#E5D5D0]"
+            aria-label="查看病历"
+            @click="viewMedicalRecord(currentPatient.medicalRecordId)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
+              <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 011 16.5v-13z" />
+            </svg>
+            病历
+          </button>
+          <button
+            class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#8E4337] py-2.5 text-xs text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
+            aria-label="进入问诊"
+            @click="startConsultation(currentPatient)"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3 w-2.5">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clip-rule="evenodd" />
+            </svg>
+            进入问诊
+          </button>
+          <button
+            class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#B45309] py-2.5 text-xs text-white font-medium transition-colors active:scale-98 hover:bg-[#92400E]"
+            aria-label="结束问诊"
+            @click="endConsultation"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3 w-2.5">
+              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+            </svg>
+            结束问诊
+          </button>
         </div>
       </section>
 

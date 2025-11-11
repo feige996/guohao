@@ -9,14 +9,14 @@ const consultationId = route.query.id as string
 // 表单数据
 const formData = reactive({
   chiefComplaint: '', // 主诉
-  inspection: '',     // 望诊
-  auscultation: '',   // 闻诊
-  inquiry: '',        // 问诊
-  pulse: '',          // 切诊
-  diagnosis: '',      // 诊断结果
-  syndromeType: '',   // 辨证分型
+  inspection: '', // 望诊
+  auscultation: '', // 闻诊
+  inquiry: '', // 问诊
+  pulse: '', // 切诊
+  diagnosis: '', // 诊断结果
+  syndromeType: '', // 辨证分型
   syndromeAnalysis: '', // 辨证分析
-  careAdvice: ''      // 调护建议
+  careAdvice: '', // 调护建议
 })
 
 // 控制处方开具确认弹窗显示
@@ -35,15 +35,15 @@ function submitEndConsultation() {
     uni.showToast({ title: '请输入主诉', icon: 'none' })
     return
   }
-  
+
   if (!formData.diagnosis) {
     uni.showToast({ title: '请输入诊断结果', icon: 'none' })
     return
   }
-  
+
   // 实际项目中应调用API提交数据
   console.log('提交结束问诊数据:', formData)
-  
+
   // 显示处方开具确认弹窗
   prescriptionModalVisible.value = true
 }
@@ -52,14 +52,14 @@ function submitEndConsultation() {
 function postponePrescription() {
   prescriptionModalVisible.value = false
   uni.showToast({
-    title: '问诊已结束', 
+    title: '问诊已结束',
     icon: 'none',
     success: () => {
       // 延迟返回，让用户看到提示
       setTimeout(() => {
         router.back()
       }, 1500)
-    }
+    },
   })
 }
 
@@ -69,7 +69,7 @@ function createPrescription() {
   // 跳转到处方开具页面
   router.push({
     path: '/pages-doctor-diagnosis/yuyinwenzhen/prescription-create',
-    query: { consultationId }
+    query: { consultationId },
   })
 }
 
@@ -122,49 +122,39 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="relative mx-auto max-w-[375px] min-h-screen w-full bg-[#F9FAFB] pb-5">
-    <!-- 顶部导航 -->
-    <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4 shadow-sm">
-      <button
-        class="text-[#333333] transition-colors hover:text-[#6B7280]"
-        aria-label="返回上一页"
-        @click="router.back()"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-          <path fill-rule="evenodd" d="M7.28 7.72a.75.75 0 010 1.06l-2.47 2.47H21a.75.75 0 010 1.5H4.81l2.47 2.47a.75.75 0 11-1.06 1.06l-3.75-3.75a.75.75 0 010-1.06l3.75-3.75a.75.75 0 011.06 0z" clip-rule="evenodd" />
-        </svg>
-      </button>
-      <h1 class="text-lg text-[#333333] font-bold leading-7">
-        结束问诊
-      </h1>
-      <div class="w-6"></div> <!-- 占位，保持标题居中 -->
-    </header>
-
+  <div class="min-h-screen bg-white">
     <!-- 表单内容 -->
-    <main class="mt-[56px] p-4 space-y-5 overflow-y-auto max-h-[calc(100vh-56px)]">
+    <main class="p-4 pb-32 space-y-5">
+      <!-- 添加足够的底部内边距防止内容被遮挡 -->
       <!-- 主诉 -->
-      <div class="space-y-2">
-        <label class="text-sm font-semibold text-[#333333]">
-          主诉<span class="text-[#EF4444]">*</span>
+      <div>
+        <label class="mb-2 block text-base text-[#374151] font-medium" for="chiefComplaint">
+          主诉 <span class="text-[#EF4444]">*</span>
         </label>
         <textarea
+          id="chiefComplaint"
           v-model="formData.chiefComplaint"
+          rows="4"
           placeholder="请输入主诉..."
-          class="w-full min-h-[80px] px-4 py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
-        ></textarea>
+          class="mx-auto w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-base text-[#1F2937] focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
+          style="border: 2px solid black; box-sizing: border-box;"
+        />
       </div>
 
       <!-- 四诊信息 -->
       <div class="space-y-3">
-        <h3 class="text-sm font-semibold text-[#333333]">四诊信息</h3>
-        
+        <h3 class="text-sm text-[#333333] font-semibold">
+          四诊信息
+        </h3>
+
         <!-- 望诊 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">望诊</label>
-          <div class="flex items-center justify-between w-full px-4 py-3 border border-[#E5E7EB] rounded-lg">
-            <span class="text-sm text-[#9CA3AF]">面色、舌质、精神状态等...</span>
-            <button 
-              class="text-sm text-[#8E4337] font-medium" 
+          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid black; box-sizing: border-box;">
+            <span class="text-sm text-[#9CA3AF] flex-1">面色、舌质、精神状态等...</span>
+            <button
+              class="text-sm text-[#8E4337] font-medium whitespace-nowrap"
+              style="margin-left: auto;"
               @click="selectInspection"
             >
               选择
@@ -175,10 +165,11 @@ onMounted(() => {
         <!-- 闻诊 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">闻诊</label>
-          <div class="flex items-center justify-between w-full px-4 py-3 border border-[#E5E7EB] rounded-lg">
-            <span class="text-sm text-[#9CA3AF]">语声、呼吸、咳嗽等...</span>
-            <button 
-              class="text-sm text-[#8E4337] font-medium" 
+          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid black; box-sizing: border-box;">
+            <span class="text-sm text-[#9CA3AF] flex-1">语声、呼吸、咳嗽等...</span>
+            <button
+              class="text-sm text-[#8E4337] font-medium whitespace-nowrap"
+              style="margin-left: auto;"
               @click="selectAuscultation"
             >
               选择
@@ -192,13 +183,15 @@ onMounted(() => {
           <textarea
             v-model="formData.inquiry"
             placeholder="症状详情、伴随症状、大小便、睡眠等..."
-            class="w-full min-h-[60px] px-4 py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
-          ></textarea>
+            class="mx-auto min-h-[60px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
+            style="border: 2px solid black; box-sizing: border-box;"
+          />
         </div>
 
         <!-- 常用模板按钮 -->
-        <button 
-          class="w-full flex items-center justify-center py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#8E4337] font-medium hover:bg-[#F5EBE9] transition-colors"
+        <button
+          class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]"
+          style="border: 2px solid black; box-sizing: border-box;"
           @click="selectCommonTemplate"
         >
           选择常用模板
@@ -207,10 +200,11 @@ onMounted(() => {
         <!-- 切诊 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">切诊</label>
-          <div class="flex items-center justify-between w-full px-4 py-3 border border-[#E5E7EB] rounded-lg">
-            <span class="text-sm text-[#9CA3AF]">脉象、血压、体温等...</span>
-            <button 
-              class="text-sm text-[#8E4337] font-medium" 
+          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid black; box-sizing: border-box;">
+            <span class="text-sm text-[#9CA3AF] flex-1">脉象、血压、体温等...</span>
+            <button
+              class="text-sm text-[#8E4337] font-medium whitespace-nowrap"
+              style="margin-left: auto;"
               @click="selectPulse"
             >
               选择
@@ -221,26 +215,30 @@ onMounted(() => {
 
       <!-- 诊断与调护 -->
       <div class="space-y-3">
-        <h3 class="text-sm font-semibold text-[#333333]">诊断与调护</h3>
-        
+        <h3 class="text-sm text-[#333333] font-semibold">
+          诊断与调护
+        </h3>
+
         <!-- 诊断结果 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">诊断结果<span class="text-[#EF4444]">*</span></label>
           <textarea
             v-model="formData.diagnosis"
             placeholder="请输入诊断结果..."
-            class="w-full min-h-[80px] px-4 py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
-          ></textarea>
+            class="mx-auto min-h-[80px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
+            style="border: 2px solid black; box-sizing: border-box;"
+          />
         </div>
 
         <!-- 辨证分型 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">辨证分型</label>
-          <div class="flex items-center justify-between w-full px-4 py-3 border border-[#E5E7EB] rounded-lg">
-            <span v-if="formData.syndromeType" class="text-sm text-[#1F2937]">{{ formData.syndromeType }}</span>
-            <span v-else class="text-sm text-[#9CA3AF]">请输入或选择辨证分型...</span>
-            <button 
-              class="text-sm text-[#8E4337] font-medium" 
+          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid black; box-sizing: border-box;">
+            <span v-if="formData.syndromeType" class="text-sm text-[#1F2937] flex-1">{{ formData.syndromeType }}</span>
+            <span v-else class="text-sm text-[#9CA3AF] flex-1">请输入或选择辨证分型...</span>
+            <button
+              class="text-sm text-[#8E4337] font-medium whitespace-nowrap"
+              style="margin-left: auto;"
               @click="selectSyndromeType"
             >
               选择
@@ -254,10 +252,12 @@ onMounted(() => {
           <textarea
             v-model="formData.syndromeAnalysis"
             placeholder="例如：患者长期工作压力大思虑过度，耗伤心气血导致气血不足失养所致头痛。治以益气养血安神定志。"
-            class="w-full min-h-[100px] px-4 py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
-          ></textarea>
-          <button 
-            class="w-full flex items-center justify-center py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#8E4337] font-medium hover:bg-[#F5EBE9] transition-colors"
+            class="mx-auto min-h-[100px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
+            style="border: 2px solid black; box-sizing: border-box;"
+          />
+          <button
+            class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]"
+            style="border: 2px solid black; box-sizing: border-box;"
             @click="selectSyndromeTemplate"
           >
             选择辨证分析模板
@@ -270,10 +270,12 @@ onMounted(() => {
           <textarea
             v-model="formData.careAdvice"
             placeholder="请输入或选择调护建议..."
-            class="w-full min-h-[80px] px-4 py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#1F2937] placeholder-[#9CA3AF] focus:outline-none focus:ring-2 focus:ring-[#8E4337] focus:border-transparent resize-none"
-          ></textarea>
-          <button 
-            class="w-full flex items-center justify-center py-3 border border-[#E5E7EB] rounded-lg text-sm text-[#8E4337] font-medium hover:bg-[#F5EBE9] transition-colors"
+            class="mx-auto min-h-[80px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
+            style="border: 2px solid black; box-sizing: border-box;"
+          />
+          <button
+            class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]"
+            style="border: 2px solid black; box-sizing: border-box;"
             @click="selectCareAdvice"
           >
             选择调护建议
@@ -282,16 +284,16 @@ onMounted(() => {
       </div>
 
       <!-- 底部按钮区域 -->
-      <div class="fixed left-0 right-0 bottom-0 max-w-[375px] w-full mx-auto p-4 bg-white border-t border-[#E5E7EB]">
+      <div class="fixed bottom-0 left-0 right-0 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white p-4">
         <div class="grid grid-cols-2 gap-3">
-          <button 
-            class="py-3 border-2 border-[#E5E7EB] rounded-lg text-[#6B7280] text-sm font-medium hover:bg-[#F9FAFB] transition-colors"
+          <button
+            class="border-2 border-[#E5E7EB] rounded-lg py-3 text-sm text-[#6B7280] font-medium transition-colors hover:bg-[#F9FAFB]"
             @click="router.back()"
           >
             取消
           </button>
-          <button 
-            class="py-3 bg-[#8E4337] rounded-lg text-white text-sm font-medium hover:bg-[#6E2F25] transition-colors"
+          <button
+            class="rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors hover:bg-[#6E2F25]"
             @click="submitEndConsultation"
           >
             确认结束
@@ -299,30 +301,34 @@ onMounted(() => {
         </div>
       </div>
     </main>
-    
+
     <!-- 处方开具确认弹窗 -->
     <transition name="fade">
-      <div v-if="prescriptionModalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-        <div class="w-[80%] max-w-[300px] rounded-lg bg-white p-5 text-center">
-          <div class="flex justify-center mb-4">
-            <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-orange-500">
-                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10zm0-18c4.418 0 8 3.582 8 8s-3.582 8-8 8-8-3.582-8-8 3.582-8 8-8z"/>
-                <path d="M12 11c.552 0 1 .448 1 1v4c0 .552-.448 1-1 1s-1-.448-1-1v-4c0-.552.448-1 1-1zm0-3c.552 0 1 .448 1 1s-.448 1-1 1-1-.448-1-1 .448-1 1-1z"/>
+      <div v-if="prescriptionModalVisible" class="pointer-events-auto fixed inset-0 z-50 bg-black/50 opacity-100">
+        <div class="fixed left-1/2 top-1/2 max-w-[320px] w-[calc(100%-48px)] transform rounded-[16px] bg-white p-6 text-center shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 -translate-x-1/2 -translate-y-1/2">
+          <div class="mb-6">
+            <div class="mx-auto mb-4 h-12 w-12 flex items-center justify-center rounded-full bg-[#F5EBE9]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="h-6 w-6">
+                <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
+                <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
               </svg>
             </div>
+            <h3 class="mb-2 text-lg text-[#1F2937] font-bold">
+              处方开具
+            </h3>
+            <p class="text-sm text-[#6B7280] leading-relaxed">
+              是否需要为患者开具处方？
+            </p>
           </div>
-          <h3 class="text-lg font-semibold text-gray-800 mb-2">处方开具</h3>
-          <p class="text-sm text-gray-600 mb-5">是否需要为患者开具处方？</p>
           <div class="grid grid-cols-2 gap-3">
-            <button 
-              class="py-2.5 border border-gray-300 rounded-lg text-gray-600 text-sm font-medium hover:bg-gray-50 transition-colors"
+            <button
+              class="border-2 border-[#E5E7EB] rounded-lg py-3 text-sm text-[#6B7280] font-medium transition-colors active:scale-98 hover:bg-[#F9FAFB]"
               @click="postponePrescription"
             >
               稍后开方
             </button>
-            <button 
-              class="py-2.5 bg-[#8E4337] rounded-lg text-white text-sm font-medium hover:bg-[#6E2F25] transition-colors"
+            <button
+              class="rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
               @click="createPrescription"
             >
               立即开方
@@ -338,11 +344,26 @@ onMounted(() => {
 /* 弹窗过渡动画 */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.3s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
+  opacity: 0;
+}
+
+.fade-enter-active > div,
+.fade-leave-active > div {
+  transition: all 0.3s ease;
+}
+
+.fade-enter-from > div {
+  transform: translate(-50%, -50%) scale(0.9);
+  opacity: 0;
+}
+
+.fade-leave-to > div {
+  transform: translate(-50%, -50%) scale(0.9);
   opacity: 0;
 }
 </style>
