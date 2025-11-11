@@ -65,7 +65,7 @@ function showMoreOptions(): void {
 </script>
 
 <template>
-  <div class="relative mx-auto max-w-[375px] min-h-screen w-full bg-[#F9FAFB] pb-[80px]">
+  <div class="relative mx-auto max-w-[375px] min-h-screen w-full pb-[80px]">
     <!-- Toast 通知 -->
     <div class="toast" :class="{ show: isToastVisible }">
       {{ toastMessage }}
@@ -77,7 +77,7 @@ function showMoreOptions(): void {
     </div>
 
     <!-- 顶部导航 -->
-    <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4 shadow-sm">
+    <!-- <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4 shadow-sm">
       <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="返回上一页" @click="goBack()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
           <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
@@ -91,10 +91,10 @@ function showMoreOptions(): void {
           <path fill-rule="evenodd" d="M4.5 12a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
         </svg>
       </button>
-    </header>
+    </header> -->
 
     <!-- 主内容区 -->
-    <main class="px-4 pt-[64px] space-y-4">
+    <main class="px-4 pt-[24px] space-y-4">
       <!-- 患者基本信息 -->
       <section class="w-full border border-[#F3F4F6] rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="flex items-center gap-3">
@@ -234,7 +234,7 @@ function showMoreOptions(): void {
             <span class="text-lg text-[#333333] font-bold leading-7">四诊信息</span>
           </div>
           <button
-            class="text-[#8E4337] transition-colors hover:text-[#6E2F25]"
+            class="m-0 ml-auto appearance-none border-0 bg-transparent text-[#8E4337] outline-none transition-transform hover:text-[#6E2F25] focus:ring-0"
             aria-label="展开/折叠"
             @click="toggleSection('fourDiagnosis')"
           >
