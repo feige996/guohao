@@ -132,8 +132,8 @@ function acceptOrder(orderId: string): void {
 
     <!-- 操作按钮 -->
     <div class="grid grid-cols-2 gap-2">
-      <button
-        class="flex cursor-pointer items-center justify-center gap-1 border-2 border-[#D1D5DB] rounded-xl py-3 text-sm text-[#6B7280] font-semibold transition-all active:scale-95 hover:border-[#9CA3AF] hover:bg-[#F9FAFB]"
+      <div
+        class="flex cursor-pointer items-center justify-center gap-1 border-2 border-[#D1D5DB] rounded-xl bg-[#FCE7E3] py-3 text-sm text-[#6B7280] font-semibold transition-all"
         :disabled="loadingOrderIds.has(order.id)"
         aria-label="暂不接单"
         @click="rejectOrder(order.id)"
@@ -142,8 +142,8 @@ function acceptOrder(orderId: string): void {
           <path d="M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z" />
         </svg>
         暂不接单
-      </button>
-      <button
+      </div>
+      <div
         class="flex items-center justify-center gap-1 rounded-xl bg-[#8E4337] py-3 text-sm text-white font-semibold shadow-md transition-all active:scale-95 hover:bg-[#6E2F25]"
         :class="{ 'relative text-transparent cursor-not-allowed': loadingOrderIds.has(order.id) }"
         :disabled="loadingOrderIds.has(order.id)"
@@ -161,7 +161,7 @@ function acceptOrder(orderId: string): void {
         <div v-else class="absolute inset-0 flex items-center justify-center">
           <div class="h-4 w-4 animate-spin border-2 border-white border-t-transparent rounded-full" />
         </div>
-      </button>
+      </div>
     </div>
   </article>
 </template>
