@@ -24,7 +24,6 @@ definePage({
   style: {
     navigationStyle: 'default',
     navigationBarTitleText: '问诊提醒',
-    navigationBarBackgroundColor: '#fff',
   },
 })
 
