@@ -20,6 +20,14 @@ const activeTab = ref('全部')
 const tabs = ['全部', '已确认', '待确认', '待付款']
 const appointments = ref<AppointmentItem[]>([])
 
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '问诊提醒',
+    navigationBarBackgroundColor: '#fff',
+  },
+})
+
 // 模拟预约数据
 const mockAppointments: AppointmentItem[] = [
   {
