@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
 // 问诊记录类型定义
 export interface ConsultationRecord {
   id: string
@@ -58,7 +56,7 @@ function handleOpenChat() {
     age: props.record.age,
     gender: '女', // 实际项目中应从数据中获取
     avatar: props.record.avatar,
-    symptoms: props.record.symptoms
+    symptoms: props.record.symptoms,
   })
 }
 </script>
