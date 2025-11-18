@@ -114,6 +114,11 @@ function handleSaveAddress() {
 function handleBack() {
   uni.navigateBack()
 }
+
+// 处理默认地址切换
+function handleDefaultChange(e) {
+  formData.default = e.detail.value
+}
 </script>
 
 <template>
@@ -217,13 +222,13 @@ function handleBack() {
       <view class="label text-gray-700">
         设置默认地址
       </view>
-      <switch v-model="formData.default" color="#d4380d" />
+      <switch :checked="formData.default" color="#d4380d" @change="handleDefaultChange" />
     </view>
 
     <!-- 保存按钮 -->
-    <view class="save-button-container flex justify-center items-center mt-6">
-      <button 
-        class="save-button w-[calc(100%-2rem)] py-2 rounded-md text-white font-medium"
+    <view class="save-button-container mt-6 flex items-center justify-center">
+      <button
+        class="save-button w-[calc(100%-2rem)] rounded-md py-2 text-white font-medium"
         style="background-color: #d4380d"
         @click="handleSaveAddress"
       >
