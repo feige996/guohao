@@ -13,6 +13,8 @@ const patientInfo = reactive({
 // 时间选择
 const selectedYear = ref('2025')
 const selectedMonth = ref('05')
+const selectedYearIndex = ref(1) // 2025年在数组中的索引
+const selectedMonthIndex = ref(4) // 5月在数组中的索引（5-1=4）
 
 // 年份和月份选项
 const yearOptions = []
@@ -114,14 +116,16 @@ function handleDateSelect(date: string) {
 
 // 处理年份选择
 function handleYearChange(e: any) {
-  selectedYear.value = e.detail.value
+  selectedYearIndex.value = e.detail.value
+  selectedYear.value = yearOptions[e.detail.value]
   // 这里可以根据选择的年份更新日期列表
   console.log('选择年份:', selectedYear.value)
 }
 
 // 处理月份选择
 function handleMonthChange(e: any) {
-  selectedMonth.value = e.detail.value
+  selectedMonthIndex.value = e.detail.value
+  selectedMonth.value = monthOptions[e.detail.value]
   // 这里可以根据选择的月份更新日期列表
   console.log('选择月份:', selectedMonth.value)
 }
@@ -184,13 +188,13 @@ onMounted(() => {
     <!-- 时间选择 -->
     <view class="mt-4 bg-white px-4 py-3">
       <view class="flex items-center justify-between">
-        <picker v-model="selectedYear" :range="yearOptions" @change="handleYearChange" class="flex items-center">
+        <picker :value="selectedYearIndex" :range="yearOptions" @change="handleYearChange" class="flex items-center">
           <view class="flex items-center gap-1">
             <text>{{ selectedYear }}</text>
             <text class="text-gray-500 text-xl">▼</text>
           </view>
         </picker>
-        <picker v-model="selectedMonth" :range="monthOptions" @change="handleMonthChange" class="flex items-center">
+        <picker :value="selectedMonthIndex" :range="monthOptions" @change="handleMonthChange" class="flex items-center">
           <view class="flex items-center gap-1">
             <text>{{ selectedMonth }}</text>
             <text class="text-gray-500 text-xl">▼</text>

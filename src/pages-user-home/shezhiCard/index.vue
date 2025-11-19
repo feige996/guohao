@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import { useRouter } from '@dcloudio/uni-app'
 import { useUserStore } from '@/store/userStore'
 import { reactive } from 'vue'
 
-const router = useRouter()
 const userStore = useUserStore()
 
 // 模拟用户信息，实际应从store获取
@@ -16,17 +14,23 @@ const userInfo = reactive({
 
 // 跳转到在线客服
 function goToCustomerService() {
-  router.push('/pages-user-home/shezhiCard/chat')
+  uni.navigateTo({
+    url: '/pages-user-home/shezhiCard/chat'
+  })
 }
 
 // 跳转到消息服务
 function goToMessageService() {
-  router.push('/pages-user-home/shezhiCard/message-service')
+  uni.navigateTo({
+    url: '/pages-user-home/shezhiCard/message-service'
+  })
 }
 
 // 跳转到反馈页面
 function goToFeedback() {
-  router.push('/pages-user-home/shezhiCard/feedback')
+  uni.navigateTo({
+    url: '/pages-user-home/shezhiCard/feedback'
+  })
 }
 
 // 退出登录
@@ -38,7 +42,9 @@ function handleLogout() {
     success: (res) => {
       if (res.confirm) {
         userStore.logout()
-        router.replace('/pages/login/index')
+        uni.reLaunch({
+          url: '/pages/login/index'
+        })
       }
     }
   })

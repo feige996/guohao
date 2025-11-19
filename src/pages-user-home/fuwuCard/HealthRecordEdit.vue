@@ -21,6 +21,12 @@ const editData = reactive({
   healthAnalysis: '系统导入'
 })
 
+// picker组件需要的索引值
+const genderIndex = ref(0) // 性别索引（男=0，女=1）
+const yearIndex = ref(10) // 年份索引
+const monthIndex = ref(5) // 月份索引（6月=5）
+const dayIndex = ref(29) // 日期索引（30日=29）
+
 
 
 // 年份选项
@@ -210,8 +216,9 @@ function handleSaveAndShare() {
             <span class="text-sm text-gray-500 block mb-1">性别</span>
             <view class="border border-gray-200 rounded">
               <picker
-                v-model="editData.gender"
+                :value="genderIndex"
                 :range="['男', '女']"
+                @change="(e) => { genderIndex = e.detail.value; editData.gender = ['男', '女'][e.detail.value] }"
               >
                 <view class="px-3 py-2 text-sm flex justify-between items-center">
                   <text>{{ editData.gender }}</text>
@@ -296,8 +303,9 @@ function handleSaveAndShare() {
             <view class="flex space-x-2">
               <view class="flex-1 border border-gray-200 rounded">
                 <picker
-                  v-model="editData.year"
+                  :value="yearIndex"
                   :range="yearOptions"
+                  @change="(e) => { yearIndex = e.detail.value; editData.year = yearOptions[e.detail.value] }"
                 >
                   <view class="px-3 py-2 text-sm text-center">
                     {{ editData.year }}
@@ -307,8 +315,9 @@ function handleSaveAndShare() {
               <text class="self-center text-sm">年</text>
               <view class="flex-1 border border-gray-200 rounded">
                 <picker
-                  v-model="editData.month"
+                  :value="monthIndex"
                   :range="monthOptions"
+                  @change="(e) => { monthIndex = e.detail.value; editData.month = monthOptions[e.detail.value] }"
                 >
                   <view class="px-3 py-2 text-sm text-center">
                     {{ editData.month }}
@@ -318,8 +327,9 @@ function handleSaveAndShare() {
               <text class="self-center text-sm">月</text>
               <view class="flex-1 border border-gray-200 rounded">
                 <picker
-                  v-model="editData.day"
+                  :value="dayIndex"
                   :range="dayOptions"
+                  @change="(e) => { dayIndex = e.detail.value; editData.day = dayOptions[e.detail.value] }"
                 >
                   <view class="px-3 py-2 text-sm text-center">
                     {{ editData.day }}
