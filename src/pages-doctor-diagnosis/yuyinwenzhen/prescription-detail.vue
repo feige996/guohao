@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 const toastMessage = ref('')
 const isToastVisible = ref(false)
 
@@ -18,7 +15,7 @@ function showToast(message: string, duration = 2000): void {
 
 // 返回上一页
 function goBack(): void {
-  router.back()
+  uni.navigateBack()
 }
 </script>
 

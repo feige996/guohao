@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
 // 移除不正确的组件导入，使用原生组件或正确的导入方式
-
-// 路由实例
-const router = useRouter()
 
 // 响应式数据
 const isLoading = ref(false)
@@ -137,7 +133,7 @@ function updateTime() {
 
 // 返回上一页
 function goBack() {
-  router.back()
+  uni.navigateBack()
 }
 
 // 刷新数据
@@ -171,9 +167,8 @@ function viewMedicalRecord(patientId: string) {
   showToast('正在查看病历...')
   // 跳转到病历页面
   setTimeout(() => {
-    router.push({
-      path: '/pages-doctor-diagnosis/yuyinwenzhen/medical-record',
-      query: { patientId },
+    uni.navigateTo({
+      url: `/pages-doctor-diagnosis/yuyinwenzhen/medical-record?patientId=${patientId}`
     })
   }, 300)
 }
@@ -398,7 +393,9 @@ function endWork() {
       localStorage.removeItem('consultationStartTime')
       showToast('已结束坐诊')
       // 实际项目中应跳转到医生首页
-      router.push('/')
+      uni.switchTab({
+        url: '/pages/index/index'
+      })
     },
   )
 }

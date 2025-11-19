@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 // 响应式状态管理
 const expandedSections = ref<Record<string, boolean>>({
@@ -24,7 +21,7 @@ function toggleRecord(recordId: string) {
 
 // 返回上一页
 function goBack() {
-  router.back()
+  uni.navigateBack()
 }
 
 // 刷新数据
@@ -39,7 +36,9 @@ function refreshData() {
 function viewPrescription(prescriptionId: string) {
   uni.showToast({ title: '正在打开处方详情...', icon: 'none' })
   setTimeout(() => {
-    router.push('/pages-doctor-diagnosis/yuyinwenzhen/prescription-detail')
+    uni.navigateTo({
+      url: '/pages-doctor-diagnosis/yuyinwenzhen/prescription-detail'
+    })
   }, 500)
 }
 

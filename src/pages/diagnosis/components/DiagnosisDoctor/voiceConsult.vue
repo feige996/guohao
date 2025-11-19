@@ -1,9 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-// 定义页面配置
-const router = useRouter()
 
 // 定义消息类型
 interface Message {

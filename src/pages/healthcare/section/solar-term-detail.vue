@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
-import { useRoute } from 'vue-router'
 
 // 定义节气基础接口
 interface SolarTerm {
@@ -22,13 +21,12 @@ const termDetail = ref<SolarTermDetail | null>(null)
 // 是否播放音频
 const isPlaying = ref(false)
 
-// 获取路由参数
-const route = useRoute()
-
-// 获取节气ID - 同时考虑params和query中的id参数
+// 获取节气ID - 从页面栈中获取参数
 const termId = computed(() => {
-  // 优先从params中获取，然后尝试从query中获取
-  const id = (route.params.id as string) || (route.query.id as string) || ''
+  const pages = getCurrentPages()
+  const currentPage = pages[pages.length - 1]
+  const options = currentPage?.options || {}
+  const id = options.id || ''
   console.log('Computed termId:', id)
   return id
 })
@@ -149,17 +147,15 @@ function handleBack() {
 
 // 监听页面加载
 onMounted(() => {
-  // 完整输出路由对象以调试
-  console.log('路由对象完整信息:', route)
-  console.log('路由params:', route.params)
-  console.log('路由query:', route.query)
+  // 获取当前页面参数
+  const pages = getCurrentPages()
+  const currentPage = pages[pages.length - 1]
+  const options = currentPage?.options || {}
+  
+  console.log('页面参数:', options)
 
-  // 尝试多种方式获取id
-  const idFromParams = String(route.params.id || '')
-  const idFromQuery = String(route.query.id || '')
-
-  // 优先使用termId computed属性，它已经处理了参数获取逻辑
-  const id = termId.value || idFromParams || idFromQuery || 'yushui'
+  // 使用termId computed属性获取ID
+  const id = termId.value || options.id || 'yushui'
 
   console.log('加载节气详情 - 最终使用的ID:', id)
 
@@ -188,14 +184,14 @@ try {
     ;(currentPage as any).onShareAppMessage = function () {
       return {
         title: '节气养生 - 传统中医养生智慧',
-        path: `/pages/normal/healthcare/solar-term-detail?id=${route.params.id}`,
+        path: `/pages/normal/healthcare/solar-term-detail?id=${termId.value}`,
       }
     }
 
     ;(currentPage as any).onShareTimeline = function () {
       return {
         title: '节气养生 - 传统中医养生智慧',
-        query: `id=${route.params.id}`,
+        query: `id=${termId.value}`,
       }
     }
   }

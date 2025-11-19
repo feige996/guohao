@@ -4,7 +4,6 @@ import type { ConsultationRecord } from './components/wenzhen.vue'
 import { onMounted, reactive, ref } from 'vue'
 // import { showToast } from '@/utils'
 
-import { useRouter } from 'vue-router'
 import Wenzhen from './components/wenzhen.vue'
 
 // 模态框配置
@@ -19,7 +18,6 @@ interface ModalConfig {
 }
 
 // 状态管理
-const router = useRouter()
 const currentTab = ref('all')
 const filteredRecords = ref<ConsultationRecord[]>([])
 
@@ -109,12 +107,14 @@ function filterRecords() {
 
 // 返回上一页
 function goBack() {
-  router.back()
+  uni.navigateBack()
 }
 
 // 查看问诊详情
 function viewConsultationDetail(id: string) {
-  router.push(`/pages-doctor-diagnosis/yuyinwenzhen/consultation-detail?id=${id}`)
+  uni.navigateTo({
+    url: `/pages-doctor-diagnosis/yuyinwenzhen/consultation-detail?id=${id}`
+  })
 }
 
 // 打开IM聊天
@@ -143,14 +143,20 @@ function confirmAction() {
 
 // 结束问诊
 function endConsultation(id: string) {
+  // 存储当前问诊ID，供目标页面使用
+  uni.setStorageSync('currentConsultationId', id)
   // 跳转到结束问诊页面，而不是显示简单的确认弹窗
   // 这样可以显示包含主诉、四诊信息、诊断结果等的完整表单
-  router.push(`/pages-doctor-diagnosis/yuyinwenzhen/end-consultation?id=${id}`)
+  uni.navigateTo({
+    url: '/pages-doctor-diagnosis/yuyinwenzhen/end-consultation'
+  })
 }
 
 // 生成处方
 function createPrescription(id: string) {
-  router.push(`/pages-doctor-diagnosis/yuyinwenzhen/prescription-create?id=${id}`)
+  uni.navigateTo({
+    url: `/pages-doctor-diagnosis/yuyinwenzhen/prescription-create?id=${id}`
+  })
 }
 </script>
 

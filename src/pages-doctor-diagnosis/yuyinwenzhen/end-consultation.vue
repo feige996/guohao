@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 
-const router = useRouter()
-const route = useRoute()
-const consultationId = route.query.id as string
+const consultationId = uni.getStorageSync('currentConsultationId') || ''
 
 // 表单数据
 const formData = reactive({
@@ -57,7 +54,7 @@ function postponePrescription() {
     success: () => {
       // 延迟返回，让用户看到提示
       setTimeout(() => {
-        router.back()
+        uni.navigateBack()
       }, 1500)
     },
   })
@@ -65,11 +62,10 @@ function postponePrescription() {
 
 // 立即开方
 function createPrescription() {
-  prescriptionModalVisible.value = false
+  prescriptionModal.value = false
   // 跳转到处方开具页面
-  router.push({
-    path: '/pages-doctor-diagnosis/yuyinwenzhen/prescription-create',
-    query: { consultationId },
+  uni.navigateTo({
+    url: `/pages-doctor-diagnosis/yuyinwenzhen/prescription-create?id=${consultationId}`
   })
 }
 
@@ -288,7 +284,7 @@ onMounted(() => {
         <div class="grid grid-cols-2 gap-3">
           <button
             class="border-2 border-[#E5E7EB] rounded-lg py-3 text-sm text-[#6B7280] font-medium transition-colors hover:bg-[#F9FAFB]"
-            @click="router.back()"
+            @click="uni.navigateBack()"
           >
             取消
           </button>

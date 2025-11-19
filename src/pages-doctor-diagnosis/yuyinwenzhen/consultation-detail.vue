@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 const toastMessage = ref('')
 const isToastVisible = ref(false)
 const isImageViewerActive = ref(false)
@@ -23,7 +20,7 @@ function showToast(message: string, duration = 2000): void {
 
 // 返回上一页
 function goBack(): void {
-  router.back()
+  uni.navigateBack()
 }
 
 // 切换章节展开/折叠
@@ -46,7 +43,9 @@ function closeImageViewer(): void {
 function viewMedicalRecord(): void {
   showToast('正在打开完整病历...')
   setTimeout(() => {
-    router.push('/pages-doctor-diagnosis/yuyinwenzhen/medical-record')
+    uni.navigateTo({
+      url: '/pages-doctor-diagnosis/yuyinwenzhen/medical-record'
+    })
   }, 500)
 }
 
@@ -54,7 +53,9 @@ function viewMedicalRecord(): void {
 function viewPrescriptionDetail(): void {
   showToast('正在打开处方详情...')
   setTimeout(() => {
-    router.push('/pages-doctor-diagnosis/yuyinwenzhen/prescription-detail')
+    uni.navigateTo({
+      url: '/pages-doctor-diagnosis/yuyinwenzhen/prescription-detail'
+    })
   }, 500)
 }
 

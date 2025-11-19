@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
 
 interface ConsultationSession {
   id: string
@@ -18,9 +17,6 @@ const sessions = ref<ConsultationSession[]>([])
 
 // 当前激活的Tab
 const activeTab = ref<'ongoing' | 'all'>('ongoing')
-
-// 路由实例
-const router = useRouter()
 
 // 初始化模拟数据
 sessions.value = [
@@ -62,7 +58,9 @@ function handleSwitchTab(tab: 'ongoing' | 'all') {
   if (tab === 'all') {
     try {
       // 跳转到全部问诊记录页面
-      router.push('/pages-doctor-diagnosis/yuyinwenzhen/consultation-records')
+      uni.navigateTo({
+        url: '/pages-doctor-diagnosis/yuyinwenzhen/consultation-records'
+      })
     }
     catch (error) {
       console.error('路由跳转失败:', error)

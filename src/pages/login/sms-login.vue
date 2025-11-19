@@ -208,7 +208,9 @@ const {
     // 检查用户默认首页是否存在，如果不存在则使用默认页面
     // const defaultPage = userStore.userDefaultIndexPage || '/pages/tabbar/index_Normal'
     // console.log(userStore.userDefaultIndexPage)
-    // router.pushTab(defaultPage)
+    // uni.switchTab({
+    //   url: defaultPage
+    // })
   }, 50)
 })
 
