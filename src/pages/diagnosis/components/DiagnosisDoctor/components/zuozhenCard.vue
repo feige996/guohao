@@ -56,9 +56,7 @@ function enterWorkbench(): void {
   <div class="mb-5 w-full rounded-[20px] bg-white p-5 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)]">
     <div class="mb-4 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-5 w-5 text-[#8E4337]">
-          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor" />
-        </svg>
+        <wd-icon name="user-circle" size="22px" />
         <span class="text-lg text-[#333333] font-medium leading-7">在线坐诊</span>
       </div>
 
@@ -83,6 +81,17 @@ function enterWorkbench(): void {
         开启后可接收新的在线问诊
       </div>
     </div>
+    <!-- <wd-button
+      class="w-full flex items-center justify-center gap-2 rounded-lg py-3 text-sm font-medium leading-5 transition-colors active:scale-98"
+      :class="isOnline
+        ? 'bg-[#8E4337] text-white hover:bg-[#6E2F25]'
+        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+      "
+      @click="enterWorkbench"
+    >
+      <wd-icon name="add1" size="22px" />
+      进入坐诊工作台
+    </wd-button> -->
 
     <button
       class="w-full flex items-center justify-center gap-2 rounded-lg py-3 text-sm font-medium leading-5 transition-colors active:scale-98"
@@ -92,9 +101,7 @@ function enterWorkbench(): void {
       "
       @click="enterWorkbench"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-4 w-4" :fill="isOnline ? 'white' : '#9CA3AF'">
-        <path d="M9 5v2m0 4v2m0 4v2M9 3h.01M12 3h.01M15 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
+      <wd-icon name="add1" size="22px" />
       进入坐诊工作台
     </button>
   </div>
