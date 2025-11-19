@@ -108,15 +108,20 @@ onMounted(() => {
   setInterval(updateTime, 60000)
   checkConsultationStatus()
 
-  // 监听ESC键关闭弹窗
+  // #ifdef H5
+  // 监听ESC键关闭弹窗（仅在H5平台支持）
   document.addEventListener('keydown', handleEscKey)
+  // #endif
 })
 
 onBeforeUnmount(() => {
+  // #ifdef H5
+  // 移除ESC键监听（仅在H5平台支持）
   document.removeEventListener('keydown', handleEscKey)
+  // #endif
 })
 
-// ESC键处理
+// ESC键处理（仅在H5平台支持）
 function handleEscKey(e) {
   if (e.key === 'Escape' && isModalVisible.value) {
     closeModal()
@@ -152,14 +157,11 @@ function refreshData(event) {
 
 // 显示Toast提示
 function showToast(message: string) {
-  const toast = document.getElementById('toast')
-  if (toast) {
-    toast.textContent = message
-    toast.classList.add('show')
-    setTimeout(() => {
-      toast.classList.remove('show')
-    }, 2000)
-  }
+  uni.showToast({
+    title: message,
+    icon: 'none',
+    duration: 2000
+  })
 }
 
 // 查看病历
@@ -250,11 +252,14 @@ function sendMessage() {
 }
 
 // 滚动到聊天底部
+const messageListRef = ref<HTMLElement | null>(null)
+
 function scrollToBottom() {
-  const messageList = document.getElementById('messageList')
-  if (messageList) {
-    messageList.scrollTop = messageList.scrollHeight
-  }
+  nextTick(() => {
+    if (messageListRef.value) {
+      messageListRef.value.scrollTop = messageListRef.value.scrollHeight
+    }
+  })
 }
 
 // 结束问诊
@@ -389,8 +394,8 @@ function endWork() {
     '结束后需要重新开启才能接诊，确定要结束坐诊吗？',
     () => {
       // 清除坐诊状态
-      localStorage.removeItem('consultationStatus')
-      localStorage.removeItem('consultationStartTime')
+      uni.removeStorageSync('consultationStatus')
+      uni.removeStorageSync('consultationStartTime')
       showToast('已结束坐诊')
       // 实际项目中应跳转到医生首页
       uni.switchTab({
@@ -402,11 +407,11 @@ function endWork() {
 
 // 检查坐诊状态
 function checkConsultationStatus() {
-  const status = localStorage.getItem('consultationStatus')
+  const status = uni.getStorageSync('consultationStatus')
   isConsultationActive.value = status === 'active'
 
   // 如果有开始坐诊时间，计算已坐诊时长
-  const startTime = localStorage.getItem('consultationStartTime')
+  const startTime = uni.getStorageSync('consultationStartTime')
   if (startTime) {
     updateConsultationDuration(startTime)
   }
@@ -765,7 +770,7 @@ function autoResizeTextarea(event) {
       </div>
 
       <!-- 消息列表 -->
-      <div id="messageList" class="scrollbar-thin flex-1 overflow-y-auto bg-[#F3F1ED] p-4 space-y-4">
+      <div ref="messageListRef" class="scrollbar-thin flex-1 overflow-y-auto bg-[#F3F1ED] p-4 space-y-4">
         <!-- 时间分隔 -->
         <div class="flex justify-center">
           <div class="rounded-full bg-black bg-opacity-20 px-3 py-1 text-xs text-white">

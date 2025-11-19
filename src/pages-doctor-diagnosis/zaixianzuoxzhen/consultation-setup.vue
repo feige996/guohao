@@ -74,7 +74,8 @@ function handleCancel() {
       if (res.confirm) {
         showToast('已取消')
         setTimeout(() => {
-          uni.navigateTo({ url: '/pages-doctor-diagnosis/zaixianzuoxzhen/index' })
+          // 返回上一页
+          uni.navigateBack()
         }, 1000)
       }
     },
@@ -133,16 +134,16 @@ function handleStartConsultation() {
     isLoading.value = false
     showToast('坐诊已开启 ✓', 1500)
 
-    // 保存状态到 localStorage
-    localStorage.setItem('consultationActive', 'true')
-    localStorage.setItem('consultationData', JSON.stringify({
+    // 保存状态到 uni-app 存储
+    uni.setStorageSync('consultationActive', 'true')
+    uni.setStorageSync('consultationData', JSON.stringify({
       types: consultationTypes,
       prices,
       duration: duration.value,
       maxPatients: maxPatients.value,
     }))
     // 清除旧的开始时间
-    localStorage.removeItem('consultationStartTime')
+    uni.removeStorageSync('consultationStartTime')
 
     setTimeout(() => {
       uni.navigateTo({ url: '/pages-doctor-diagnosis/zaixianzuoxzhen/consultation-workbench' })
