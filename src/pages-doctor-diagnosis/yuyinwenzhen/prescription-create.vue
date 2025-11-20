@@ -6,8 +6,8 @@ definePage({
   style: {
     navigationStyle: 'default',
     navigationBarTitleText: '开具处方',
-    navigationBarBackgroundColor: '#fff'
-  }
+    navigationBarBackgroundColor: '#fff',
+  },
 })
 
 // 自定义toast函数替代不存在的模块
@@ -406,27 +406,6 @@ function viewMedicalRecord(): void {
       {{ toastMessage }}
     </div>
 
-    <!-- 顶部导航栏 -->
-    <!-- <div class="sticky top-0 z-40 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center">
-        <button @click="goBack" class="w-8 h-8 flex items-center justify-center">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M19 12H5" stroke="#333" stroke-width="2" stroke-linecap="round"/>
-            <path d="M12 19L5 12L12 5" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <h1 class="text-lg font-medium ml-2">开具处方</h1>
-      </div>
-      <div class="flex items-center gap-4">
-        <button @click="viewMedicalRecord" class="text-base text-[#8E4337]">
-          病历
-        </button>
-        <button @click="openTemplateModal" class="text-base text-[#975518]">
-          模板
-        </button>
-      </div>
-    </div> -->
-
     <!-- 模板选择弹窗 -->
     <div v-if="templateModalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
@@ -557,48 +536,40 @@ function viewMedicalRecord(): void {
               患者编号：GH973212
             </div>
           </div>
-          <button class="border border-[#8E4337] rounded-lg px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]" aria-label="查看病历" @click="viewMedicalRecord">
+          <wd-button size="small" class="px-3 py-1 text-xs">
             病历
-          </button>
+          </wd-button>
         </div>
       </div>
 
       <!-- 处方类型选择 -->
       <div class="mb-2 box-border rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-            <path fill-rule="evenodd" d="M10 1c-1.716 0-3.408.106-5.07.31C3.806 1.45 3 2.414 3 3.517V18.25a.75.75 0 001.075.676L10 16.082l5.925 2.844A.75.75 0 0017 18.25V3.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 1z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="books" size="22px" color="blue" />
           <span class="text-lg text-[#333333] font-bold leading-7">处方类型</span>
         </div>
 
-        <div class="grid grid-cols-3 gap-3">
+        <div class="grid grid-cols-3 gap-4 px-4 pr-4">
           <button
             v-for="(type, index) in ['granule', 'decoction', 'mixture'] as const"
             :id="`type-${index + 1}`"
             :key="type"
-            class="rounded-xl p-4 transition-all hover:shadow-md"
+            plain
+            type="primary"
+            class="h-22! rounded-lg! hover:shadow-md!"
             :class="[
               prescriptionType === type
-                ? 'border-2 border-[#8E4337] bg-[#F5EBE9]'
-                : 'border-2 border-[#E5E7EB] bg-white',
+                ? 'border-[#8E4337]! bg-[#F5EBE9]!'
+                : 'border-[#E5E7EB]! bg-white!',
             ]"
             @click="selectPrescriptionType(type)"
           >
-            <div class="flex flex-col items-center gap-2">
-              <svg v-if="type === 'granule'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="h-8 w-8">
-                <path d="M11.25 5.337c0-.355-.186-.676-.401-.959a1.647 1.647 0 01-.349-1.003c0-1.036 1.007-1.875 2.25-1.875S15 2.34 15 3.375c0 .369-.128.713-.349 1.003-.215.283-.401.604-.401.959 0 .332.278.598.61.578 1.91-.114 3.79-.342 5.632-.676a.75.75 0 01.878.645 49.17 49.17 0 01.376 5.452.657.657 0 01-.66.664c-.354 0-.675-.186-.958-.401a1.647 1.647 0 00-1.003-.349c-1.035 0-1.875 1.007-1.875 2.25s.84 2.25 1.875 2.25c.369 0 .713-.128 1.003-.349.283-.215.604-.401.959-.401.31 0 .557.262.534.571a48.774 48.774 0 01-.595 4.845.75.75 0 01-.61.61c-1.82.317-3.673.533-5.555.642a.58.58 0 01-.611-.581c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.035-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959a.641.641 0 01-.658.643 49.118 49.118 0 01-4.708-.36.75.75 0 01-.645-.878c.293-1.614.504-3.257.629-4.924A.53.53 0 005.337 15c-.355 0-.676.186-.959.401-.29.221-.634.349-1.003.349-1.036 0-1.875-1.007-1.875-2.25s.84-2.25 1.875-2.25c.369 0 .713.128 1.003.349.283.215.604.401.959.401a.656.656 0 00.659-.663 47.703 47.703 0 00-.31-4.82.75.75 0 01.83-.832c1.343.155 2.703.254 4.077.294a.64.64 0 00.657-.642z" />
-              </svg>
-              <svg v-else-if="type === 'decoction'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" :fill="prescriptionType === type ? '#8E4337' : '#6B7280'" class="h-8 w-8">
-                <path fill-rule="evenodd" d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z" clip-rule="evenodd" />
-              </svg>
-              <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" :fill="prescriptionType === type ? '#8E4337' : '#6B7280'" class="h-8 w-8">
-                <path d="M11.644 1.59a.75.75 0 01.712 0l9.75 5.25a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.712 0l-9.75-5.25a.75.75 0 010-1.32l9.75-5.25z" />
-                <path d="M3.265 10.602l7.668 4.129a2.25 2.25 0 002.134 0l7.668-4.13 1.37.739a.75.75 0 010 1.32l-9.75 5.25a.75.75 0 01-.71 0l-9.75-5.25a.75.75 0 010-1.32l1.37-.738z" />
-                <path d="M10.933 19.231l-7.668-4.13-1.37.739a.75.75 0 000 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 000-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 01-2.134-.001z" />
-              </svg>
+            <div class="flex flex-col px-4">
+              <wd-icon v-if="type === 'granule'" name="fork" size="18px" :color="prescriptionType === type ? '#8E4337' : '#6B7280'" />
+              <wd-icon v-else-if="type === 'decoction'" name="cloud-upload" size="18px" :color="prescriptionType === type ? '#8E4337' : '#6B7280'" />
+              <wd-icon v-else name="a-controlplatform" size="18px" :color="prescriptionType === type ? '#8E4337' : '#6B7280'" />
               <span
-                class="text-sm font-bold" :class="[
+                class="text-xs font-medium" :class="[
                   prescriptionType === type ? 'text-[#8E4337]' : 'text-[#6B7280]',
                 ]"
               >
