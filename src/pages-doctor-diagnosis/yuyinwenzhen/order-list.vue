@@ -2,6 +2,15 @@
 import { computed, onMounted, ref } from 'vue'
 import Jiedan from './components/jiedan.vue'
 
+// 页面配置
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '医生待接单',
+    navigationBarBackgroundColor: '#fff'
+  }
+})
+
 // 订单接口定义
 interface Order {
   id: string

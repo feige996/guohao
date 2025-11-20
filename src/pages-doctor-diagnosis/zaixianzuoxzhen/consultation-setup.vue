@@ -1,6 +1,16 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 
+// 页面配置
+// @ts-expect-error
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '开启坐诊',
+    navigationBarBackgroundColor: '#fff'
+  }
+})
+
 // 问诊类型状态
 const consultationTypes = reactive({
   text: true,

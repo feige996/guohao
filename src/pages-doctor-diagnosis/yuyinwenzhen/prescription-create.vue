@@ -1,6 +1,15 @@
 <script setup lang="ts" charset="utf-8">
 import { computed, ref } from 'vue'
 
+// 页面配置
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '开具处方',
+    navigationBarBackgroundColor: '#fff'
+  }
+})
+
 // 自定义toast函数替代不存在的模块
 const toastVisible = ref(false)
 const toastMessage = ref('')

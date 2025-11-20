@@ -6,6 +6,15 @@ import { onMounted, reactive, ref } from 'vue'
 
 import Wenzhen from './components/wenzhen.vue'
 
+// 页面配置
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '问诊记录',
+    navigationBarBackgroundColor: '#fff'
+  }
+})
+
 // 模态框配置
 interface ModalConfig {
   show: boolean

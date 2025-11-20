@@ -1,5 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+
+// 页面配置
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '问诊详情',
+    navigationBarBackgroundColor: '#fff'
+  }
+})
 const toastMessage = ref('')
 const isToastVisible = ref(false)
 const isImageViewerActive = ref(false)

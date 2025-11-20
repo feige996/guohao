@@ -1,5 +1,15 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
+
+// 页面配置
+// @ts-expect-error
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '在线坐诊',
+    navigationBarBackgroundColor: '#fff',
+  },
+})
 // 移除不正确的组件导入，使用原生组件或正确的导入方式
 
 // 响应式数据
@@ -160,7 +170,7 @@ function showToast(message: string) {
   uni.showToast({
     title: message,
     icon: 'none',
-    duration: 2000
+    duration: 2000,
   })
 }
 
@@ -170,7 +180,7 @@ function viewMedicalRecord(patientId: string) {
   // 跳转到病历页面
   setTimeout(() => {
     uni.navigateTo({
-      url: `/pages-doctor-diagnosis/yuyinwenzhen/medical-record?patientId=${patientId}`
+      url: `/pages-doctor-diagnosis/yuyinwenzhen/medical-record?patientId=${patientId}`,
     })
   }, 300)
 }
@@ -399,7 +409,7 @@ function endWork() {
       showToast('已结束坐诊')
       // 实际项目中应跳转到医生首页
       uni.switchTab({
-        url: '/pages/index/index'
+        url: '/pages/index/index',
       })
     },
   )

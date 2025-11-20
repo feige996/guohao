@@ -1,6 +1,15 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
+// 页面配置
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '患者病历',
+    navigationBarBackgroundColor: '#fff'
+  }
+})
+
 // 响应式状态管理
 const expandedSections = ref<Record<string, boolean>>({
   medicalHistory: true,
