@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import Jiedan from './components/jiedan.vue'
+import { WdSegmented, WdBadge } from 'wot-design-uni'
 
 // 页面配置
 definePage({
   style: {
     navigationStyle: 'default',
     navigationBarTitleText: '医生待接单',
-    navigationBarBackgroundColor: '#fff'
-  }
+    navigationBarBackgroundColor: '#fff',
+  },
 })
 
 // 订单接口定义
@@ -110,6 +111,23 @@ const badgeCounts = computed(() => {
     viewed: orders.value.filter(order => order.status === 'rejected').length,
   }
 })
+
+// 分段器选项
+const segmentedOptions = computed(() => [
+  { value: 'all', label: '全部', badge: badgeCounts.value.all },
+  { value: 'waiting', label: '待响应', badge: badgeCounts.value.waiting },
+  { value: 'viewed', label: '已拒绝', badge: badgeCounts.value.viewed },
+])
+
+// 分段器变化处理
+function handleSegmentChange(value: string): void {
+  const tabNames = {
+    all: '全部待接单',
+    waiting: '待响应',
+    viewed: '已拒绝',
+  }
+  showToast(`切换到${tabNames[value as keyof typeof tabNames]}`)
+}
 
 // 显示Toast
 function showToast(message: string, duration: number = 2000): void {
@@ -321,42 +339,20 @@ onMounted(() => {
     </div>
 
     <!-- 标签页 -->
-    <nav class="sticky top-0 z-40 px-4">
-      <div class="flex items-center">
-        <button
-          class="flex flex-1 items-center justify-center gap-1 py-2 text-sm font-medium transition-colors"
-          :class="currentTab === 'all' ? 'text-[#8E4337] bg-red-50 rounded-lg' : 'text-[#6B7280]'"
-          aria-label="全部待接单"
-          @click="switchTab('all')"
-        >
-          <span>全部</span>
-          <span v-if="badgeCounts.all > 0" class="h-[18px] min-w-[18px] inline-flex items-center justify-center rounded-[9px] bg-[#EF4444] px-1.5 text-[11px] text-white font-bold">
-            {{ badgeCounts.all }}
-          </span>
-        </button>
-        <button
-          class="flex flex-1 items-center justify-center gap-1 py-2 text-sm font-medium transition-colors"
-          :class="currentTab === 'waiting' ? 'text-[#8E4337] bg-red-50 rounded-lg' : 'text-[#6B7280]'"
-          aria-label="待响应"
-          @click="switchTab('waiting')"
-        >
-          <span>待响应</span>
-          <span v-if="badgeCounts.waiting > 0" class="h-[18px] min-w-[18px] inline-flex items-center justify-center rounded-[9px] bg-[#EF4444] px-1.5 text-[11px] text-white font-bold">
-            {{ badgeCounts.waiting }}
-          </span>
-        </button>
-        <button
-          class="flex flex-1 items-center justify-center gap-1 py-2 text-sm font-medium transition-colors"
-          :class="currentTab === 'viewed' ? 'text-[#8E4337] bg-red-50 rounded-lg' : 'text-[#6B7280]'"
-          aria-label="已拒绝"
-          @click="switchTab('viewed')"
-        >
-          <span>已拒绝</span>
-          <span v-if="badgeCounts.viewed > 0" class="h-[18px] min-w-[18px] inline-flex items-center justify-center rounded-[9px] bg-[#9CA3AF] px-1.5 text-[11px] text-white font-bold">
-            {{ badgeCounts.viewed }}
-          </span>
-        </button>
-      </div>
+    <nav class="sticky top-0 z-40 px-4 pb-2 pt-4">
+      <wd-segmented
+        v-model:value="currentTab"
+        :options="segmentedOptions"
+        class="w-full"
+        size="large"
+        :style="{ height: '40px', fontSize: '16px' }"
+        @change="handleSegmentChange"
+      >
+        <template #label="{ option }">
+          {{ option.label }}
+          <wd-badge v-if="option.badge" :value="option.badge" class="ml-1" />
+        </template>
+      </wd-segmented>
     </nav>
 
     <!-- 订单列表 -->
