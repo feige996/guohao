@@ -104,28 +104,39 @@ const filteredOrders = computed(() => {
 
 // 计算属性 - 各标签页数量
 const badgeCounts = computed(() => {
+  // 动态计算各标签页的订单数量
   return {
-    all: orders.value.length,
-    waiting: orders.value.filter(order => order.status === 'waiting').length,
-    viewed: orders.value.filter(order => order.status === 'rejected').length,
+    all: orders.value.length, // 全部订单数量
+    waiting: orders.value.filter(order => order.status === 'waiting').length, // 待响应订单数量
+    viewed: orders.value.filter(order => order.status === 'rejected').length, // 已拒绝订单数量
   }
 })
 
+// 分段器选项扩展类型
+interface CustomSegmentedOption {
+  value: string
+  label: string
+  badge?: number
+}
+
 // 分段器选项
-const segmentedOptions = computed(() => [
-  { value: 'all', label: '全部', badge: badgeCounts.value.all },
-  { value: 'waiting', label: '待响应', badge: badgeCounts.value.waiting },
-  { value: 'viewed', label: '已拒绝', badge: badgeCounts.value.viewed },
-])
+const segmentedOptions = computed(() => {
+  const options = [
+    { value: 'all', label: '全部', badge: badgeCounts.value.all },
+    { value: 'waiting', label: '待响应', badge: badgeCounts.value.waiting },
+    { value: 'viewed', label: '已拒绝', badge: badgeCounts.value.viewed },
+  ] as CustomSegmentedOption[]
+  console.log('segmentedOptions:', options)
+  return options
+})
 
 // 分段器变化处理
-function handleSegmentChange(value: string): void {
-  const tabNames = {
-    all: '全部待接单',
-    waiting: '待响应',
-    viewed: '已拒绝',
-  }
-  showToast(`切换到${tabNames[value as keyof typeof tabNames]}`)
+function handleSegmentChange(): void {
+  // 不依赖事件参数，直接从currentTab.value和segmentedOptions中获取当前选中的标签名称
+  // 这样可以确保显示的标签名称与用户看到的完全一致
+  const currentOption = segmentedOptions.value.find(option => option.value === currentTab.value)
+  const tabName = currentOption ? currentOption.label : '未知标签'
+  showToast(`切换到${tabName}`)
 }
 
 // 显示Toast
@@ -147,12 +158,15 @@ function goBack(): void {
 // 切换标签页
 function switchTab(tab: string): void {
   currentTab.value = tab
-  const tabNames = {
-    all: '全部待接单',
+  // 根据用户需求，点击哪个标签就显示哪个名称
+  const tabNames: Record<string, string> = {
+    all: '全部',
     waiting: '待响应',
     viewed: '已拒绝',
   }
-  showToast(`切换到${tabNames[tab as keyof typeof tabNames]}`)
+  // 确保tab是有效的键，如果不是则使用默认值
+  const tabName = tabNames[tab] || tab
+  showToast(`切换到${tabName}`)
 }
 
 // 打开确认弹窗
@@ -231,7 +245,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="box-border min-h-screen w-full bg-[#F9FAFB] pb-5">
+  <div class="box-border h-full min-h-screen w-full bg-[#F9FAFB]">
     <!-- Toast 通知 -->
     <div
       class="fixed left-1/2 top-20 z-1000 max-w-[300px] transform rounded-lg bg-[rgba(0,0,0,0.8)] px-6 py-3 text-center text-sm text-white transition-all duration-300 -translate-x-1/2" :class="[{
@@ -287,106 +301,107 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- 顶部导航
-    <header class="fixed left-0 right-0 top-0 z-50 h-[56px] w-full flex items-center justify-between bg-white px-4 shadow-sm">
-      <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="返回上一页" @click="goBack">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-          <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
-        </svg>
-      </button>
-      <h1 class="text-lg text-[#1F2937] font-bold">
-        医生待接单
-      </h1>
-      <div class="w-6" />
-    </header> -->
+    <!-- 主内容滚动容器 -->
+    <div class="w-full overflow-y-auto pb-5">
+      <!-- 统计卡片 -->
+      <div class="px-4 py-1">
+        <section class="rounded-xl from-[#8E4337] via-[#9B4D41] to-[#B85C4F] bg-gradient-to-br px-4 py-6 shadow-lg">
+          <div class="grid grid-cols-2 gap-4">
+            <!-- 待接单统计 -->
+            <div class="flex flex-col cursor-pointer items-center justify-center rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition-all hover:bg-white/15">
+              <div class="mb-3 h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="h-6 w-6">
+                  <path d="M5.625 3.75a2.625 2.625 0 100 5.25h12.75a2.625 2.625 0 000-5.25H5.625zM3.75 11.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zM3 15.75a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3.75 18.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z" />
+                </svg>
+              </div>
+              <div class="stat-number mb-1 text-4xl text-white font-bold">
+                {{ pendingCount }}
+              </div>
+              <div class="text-sm text-white/90 font-medium">
+                待接单
+              </div>
+            </div>
 
-    <!-- 统计卡片 -->
-    <div class="px-4 py-1">
-      <section class="rounded-xl from-[#8E4337] via-[#9B4D41] to-[#B85C4F] bg-gradient-to-br px-4 py-6 shadow-lg">
-        <div class="grid grid-cols-2 gap-4">
-          <!-- 待接单统计 -->
-          <div class="flex flex-col cursor-pointer items-center justify-center rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition-all hover:bg-white/15">
-            <div class="mb-3 h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="h-6 w-6">
-                <path d="M5.625 3.75a2.625 2.625 0 100 5.25h12.75a2.625 2.625 0 000-5.25H5.625zM3.75 11.25a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75zM3 15.75a.75.75 0 01.75-.75h16.5a.75.75 0 010 1.5H3.75a.75.75 0 01-.75-.75zM3.75 18.75a.75.75 0 000 1.5h16.5a.75.75 0 000-1.5H3.75z" />
-              </svg>
-            </div>
-            <div class="stat-number mb-1 text-4xl text-white font-bold">
-              {{ pendingCount }}
-            </div>
-            <div class="text-sm text-white/90 font-medium">
-              待接单
+            <!-- 今日已接统计 -->
+            <div class="flex flex-col cursor-pointer items-center justify-center rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition-all hover:bg-white/15">
+              <div class="mb-3 h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="h-6 w-6">
+                  <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <div class="stat-number mb-1 text-4xl text-white font-bold">
+                {{ todayCount }}
+              </div>
+              <div class="text-sm text-white/90 font-medium">
+                今日已接
+              </div>
             </div>
           </div>
+        </section>
+      </div>
 
-          <!-- 今日已接统计 -->
-          <div class="flex flex-col cursor-pointer items-center justify-center rounded-2xl bg-white/10 p-4 backdrop-blur-sm transition-all hover:bg-white/15">
-            <div class="mb-3 h-12 w-12 flex items-center justify-center rounded-full bg-white/20">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" class="h-6 w-6">
-                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-              </svg>
-            </div>
-            <div class="stat-number mb-1 text-4xl text-white font-bold">
-              {{ todayCount }}
-            </div>
-            <div class="text-sm text-white/90 font-medium">
-              今日已接
-            </div>
+      <!-- 标签页 -->
+      <nav class="relative z-40 px-4 pb-2 pt-4">
+        <wd-segmented
+          v-model:value="currentTab"
+          :options="segmentedOptions"
+          class="w-full"
+          size="large"
+          :style="{ height: '40px', fontSize: '16px' }"
+          @change="handleSegmentChange"
+        >
+          <template #label="{ option }">
+            <!-- 标签文本 -->
+            {{ (option as CustomSegmentedOption).label }}
+            <!-- 动态显示徽章，使用自定义样式确保可见性 -->
+            <span
+              v-if="(option as CustomSegmentedOption).badge && (option as CustomSegmentedOption).badge > 0"
+              class="ml-1 h-[20px] min-w-[20px] inline-flex items-center justify-center rounded-full text-[12px] text-white font-bold"
+              :class="{
+                'bg-[#FF3B30]': option.value === 'waiting', // 待响应使用红色徽章
+                'bg-[#FF9500]': option.value === 'all' || option.value === 'viewed', // 其他使用橙色徽章
+              }"
+            >
+              {{ (option as CustomSegmentedOption).badge }}
+            </span>
+          </template>
+        </wd-segmented>
+      </nav>
+
+      <!-- 订单列表 -->
+      <main class="px-4 pt-5 space-y-4">
+        <!-- 订单卡片 -->
+        <Jiedan
+          v-for="order in filteredOrders"
+          :key="order.id"
+          :order="order"
+          :loading-order-ids="loadingOrderIds"
+          @reject="rejectOrder"
+          @accept="acceptOrder"
+        />
+
+        <!-- 空状态 -->
+        <div v-if="filteredOrders.length === 0" class="flex flex-col items-center justify-center py-16">
+          <div class="mb-4 h-20 w-20 flex items-center justify-center rounded-full bg-[#F3F4F6]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#9CA3AF" class="h-10 w-10">
+              <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
+              <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
+            </svg>
           </div>
+          <h3 class="mb-2 text-base text-[#1F2937] font-bold">
+            暂无待接订单
+          </h3>
+          <p class="text-sm text-[#6B7280]">
+            当前没有需要处理的派单
+          </p>
         </div>
-      </section>
+
+        <!-- 底部提示 -->
+        <div v-else class="py-4 text-center">
+          <span class="text-sm text-[#9CA3AF]">没有更多了</span>
+        </div>
+      </main>
     </div>
-
-    <!-- 标签页 -->
-    <nav class="sticky top-0 z-40 px-4 pb-2 pt-4">
-      <wd-segmented
-        v-model:value="currentTab"
-        :options="segmentedOptions"
-        class="w-full"
-        size="large"
-        :style="{ height: '40px', fontSize: '16px' }"
-        @change="handleSegmentChange"
-      >
-        <template #label="{ option }">
-          {{ option.label }}
-          <wd-badge v-if="option.badge" :value="option.badge" class="ml-1" />
-        </template>
-      </wd-segmented>
-    </nav>
-
-    <!-- 订单列表 -->
-    <main class="px-4 pt-5 space-y-4">
-      <!-- 订单卡片 -->
-      <Jiedan
-        v-for="order in filteredOrders"
-        :key="order.id"
-        :order="order"
-        :loading-order-ids="loadingOrderIds"
-        @reject="rejectOrder"
-        @accept="acceptOrder"
-      />
-
-      <!-- 空状态 -->
-      <div v-if="filteredOrders.length === 0" class="flex flex-col items-center justify-center py-16">
-        <div class="mb-4 h-20 w-20 flex items-center justify-center rounded-full bg-[#F3F4F6]">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#9CA3AF" class="h-10 w-10">
-            <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
-            <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
-          </svg>
-        </div>
-        <h3 class="mb-2 text-base text-[#1F2937] font-bold">
-          暂无待接订单
-        </h3>
-        <p class="text-sm text-[#6B7280]">
-          当前没有需要处理的派单
-        </p>
-      </div>
-
-      <!-- 底部提示 -->
-      <div v-else class="py-4 text-center">
-        <span class="text-sm text-[#9CA3AF]">没有更多了</span>
-      </div>
-    </main>
   </div>
 </template>
 
