@@ -827,28 +827,24 @@ function viewMedicalRecord(): void {
     </div>
 
     <!-- 底部操作栏 -->
-    <div class="fixed bottom-0 left-0 right-0 z-40 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white px-4 py-3">
-      <div class="grid grid-cols-2 gap-3">
-        <button
-          class="flex items-center justify-center gap-2 border-2 border-[#8E4337] rounded-lg py-3 text-sm text-[#8E4337] font-medium transition-colors active:scale-98 hover:bg-[#F5EBE9]"
+    <div class="fixed bottom-0 center flex border-t border-[#E5E7EB] bg-white px-14 py-3">
+      <div class="grid grid-cols-2 gap-10">
+        <wd-button
+          plain
           aria-label="保存为模板"
           @click="saveAsTemplate"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-            <path fill-rule="evenodd" d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="books" size="16px" color="blue" />
           保存模板
-        </button>
-        <button
-          class="flex items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
+        </wd-button>
+        <wd-button
+          plain
           aria-label="开具处方"
           @click="submitPrescription"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="check1" size="16px" color="blue" />
           开具处方
-        </button>
+        </wd-button>
       </div>
     </div>
 
