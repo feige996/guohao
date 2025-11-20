@@ -559,18 +559,18 @@ function viewMedicalRecord(): void {
             class="h-22! rounded-lg! hover:shadow-md!"
             :class="[
               prescriptionType === type
-                ? 'border-[#8E4337]! bg-[#F5EBE9]!'
+                ? 'border-[#3B82F6]! bg-[#EFF6FF]!'
                 : 'border-[#E5E7EB]! bg-white!',
             ]"
             @click="selectPrescriptionType(type)"
           >
             <div class="flex flex-col px-4">
-              <wd-icon v-if="type === 'granule'" name="fork" size="18px" :color="prescriptionType === type ? '#8E4337' : '#6B7280'" />
-              <wd-icon v-else-if="type === 'decoction'" name="cloud-upload" size="18px" :color="prescriptionType === type ? '#8E4337' : '#6B7280'" />
-              <wd-icon v-else name="a-controlplatform" size="18px" :color="prescriptionType === type ? '#8E4337' : '#6B7280'" />
+              <wd-icon v-if="type === 'granule'" name="fork" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
+              <wd-icon v-else-if="type === 'decoction'" name="cloud-upload" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
+              <wd-icon v-else name="a-controlplatform" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
               <span
                 class="text-xs font-medium" :class="[
-                  prescriptionType === type ? 'text-[#8E4337]' : 'text-[#6B7280]',
+                  prescriptionType === type ? 'text-[#3B82F6]' : 'text-[#6B7280]',
                 ]"
               >
                 {{ getTypeName(type) }}
@@ -583,9 +583,7 @@ function viewMedicalRecord(): void {
       <!-- 处方信息 -->
       <div class="mb-4 rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="warning" size="22px" color="blue" />
           <span class="text-lg text-[#333333] font-bold leading-7">处方信息</span>
         </div>
 
@@ -599,18 +597,16 @@ function viewMedicalRecord(): void {
                 v-model="functionDescription"
                 rows="2"
                 placeholder="如：益气养阴、清热生津..."
-                class="min-h-[60px] flex-1 resize-none border border-[#E5E7EB] rounded-lg bg-white px-3 py-2 text-sm text-[#1F2937] focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#8E4337] focus:ring-opacity-20 placeholder-[#9CA3AF]"
+                class="min-h-[60px] w-full resize-none border border-[#E5E7EB] rounded-lg bg-white px-3 py-2 text-sm text-[#1F2937] transition-all focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#8E4337] focus:ring-opacity-20 placeholder-[#9CA3AF]"
               />
             </div>
-            <button
+            <wd-button
               class="w-full flex items-center justify-center gap-1 border border-[#8E4337] rounded-lg bg-[#F5EBE9] py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
               @click="openFunctionSelector"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
-                <path d="M10 3.75a2 2 0 10-4 0 2 2 0 004 0zM17.25 4.5a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM5 3.75a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 17a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM17.25 17a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM9 10a.75.75 0 01-.75.75h-5.5a.75.75 0 010-1.5h5.5A.75.75 0 019 10zM17.25 10.75a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM14 10a2 2 0 10-4 0 2 2 0 004 0zM10 16.25a2 2 0 10-4 0 2 2 0 004 0z" />
-              </svg>
+              <wd-icon name="search" size="16px" />
               选择常用功用
-            </button>
+            </wd-button>
           </div>
 
           <!-- 主治 -->
@@ -625,15 +621,13 @@ function viewMedicalRecord(): void {
                 class="min-h-[60px] flex-1 resize-none border border-[#E5E7EB] rounded-lg bg-white px-3 py-2 text-sm text-[#1F2937] focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-offset-0 focus:ring-[#8E4337] focus:ring-opacity-20 placeholder-[#9CA3AF]"
               />
             </div>
-            <button
+            <wd-button
               class="w-full flex items-center justify-center gap-1 border border-[#8E4337] rounded-lg bg-[#F5EBE9] py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
               @click="openMainTreatmentSelector"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
-                <path d="M10 3.75a2 2 0 10-4 0 2 2 0 004 0zM17.25 4.5a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM5 3.75a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5a.75.75 0 01.75.75zM4.25 17a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM17.25 17a.75.75 0 000-1.5h-5.5a.75.75 0 000 1.5h5.5zM9 10a.75.75 0 01-.75.75h-5.5a.75.75 0 010-1.5h5.5A.75.75 0 019 10zM17.25 10.75a.75.75 0 000-1.5h-1.5a.75.75 0 000 1.5h1.5zM14 10a2 2 0 10-4 0 2 2 0 004 0zM10 16.25a2 2 0 10-4 0 2 2 0 004 0z" />
-              </svg>
+              <wd-icon name="search" size="22px" />
               选择常用主治
-            </button>
+            </wd-button>
           </div>
         </div>
       </div>
@@ -642,27 +636,19 @@ function viewMedicalRecord(): void {
       <div class="mb-4 rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-              <path d="M10.75 16.82A7.462 7.462 0 0115 15.5c.71 0 1.396.098 2.046.282A.75.75 0 0018 15.06v-11a.75.75 0 00-.546-.721A9.006 9.006 0 0015 3a8.963 8.963 0 00-4.25 1.065V16.82zM9.25 4.065A8.963 8.963 0 005 3c-.85 0-1.673.118-2.454.339A.75.75 0 002 4.06v11a.75.75 0 00.954.721A7.506 7.506 0 015 15.5c1.579 0 3.042.487 4.25 1.32V4.065z" />
-            </svg>
+            <wd-icon name="subscribe" size="20px" />
             <span class="text-lg text-[#333333] font-bold leading-7">药品明细</span>
           </div>
 
-          <div class="flex items-center gap-2">
-            <button class="flex items-center gap-1 border-2 border-[#8E4337] rounded-lg px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]" @click="openTemplateModal">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
-                <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
-                <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
-              </svg>
-              使用药方
-            </button>
-            <button class="flex items-center gap-1 rounded-lg bg-[#8E4337] px-3 py-1.5 text-xs text-white font-medium transition-colors hover:bg-[#6E2F25]" @click="openMedicineModal">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
-                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-              </svg>
-              添加药品
-            </button>
-          </div>
+          <div class="flex items-center gap-2" />
+          <wd-button size="small">
+            <wd-icon name="spool" size="12px" />
+            使用药方
+          </wd-button>
+          <wd-button size="small">
+            <wd-icon name="add" size="12px" />
+            添加药品
+          </wd-button>
         </div>
 
         <!-- 处方剂数 -->
