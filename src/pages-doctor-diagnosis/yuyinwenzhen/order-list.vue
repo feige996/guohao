@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue'
 import Jiedan from './components/jiedan.vue'
-import { WdSegmented, WdBadge } from 'wot-design-uni'
 
 // 页面配置
 definePage({
