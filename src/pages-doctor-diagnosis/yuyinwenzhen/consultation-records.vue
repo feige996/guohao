@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // 导入问诊记录类型和组件
 import type { ConsultationRecord } from './components/wenzhen.vue'
-import { onMounted, reactive, ref } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 // import { showToast } from '@/utils'
 
 import Wenzhen from './components/wenzhen.vue'
@@ -11,8 +11,8 @@ definePage({
   style: {
     navigationStyle: 'default',
     navigationBarTitleText: '问诊记录',
-    navigationBarBackgroundColor: '#fff'
-  }
+    navigationBarBackgroundColor: '#fff',
+  },
 })
 
 // 模态框配置
@@ -96,6 +96,28 @@ function switchTab(tab: string) {
   filterRecords()
 }
 
+// 分段器选项类型
+interface CustomSegmentedOption {
+  value: string
+  label: string
+}
+
+// 分段器选项
+const segmentedOptions = computed(() => {
+  const options = [
+    { value: 'all', label: '全部' },
+    { value: 'ongoing', label: '进行中' },
+    { value: 'completed', label: '已完成' },
+    { value: 'unprescribed', label: '未开方' },
+  ] as CustomSegmentedOption[]
+  return options
+})
+
+// 分段器变化处理
+function handleSegmentChange(): void {
+  filterRecords()
+}
+
 // 根据标签页过滤记录
 function filterRecords() {
   let result = consultationRecords
@@ -122,7 +144,7 @@ function goBack() {
 // 查看问诊详情
 function viewConsultationDetail(id: string) {
   uni.navigateTo({
-    url: `/pages-doctor-diagnosis/yuyinwenzhen/consultation-detail?id=${id}`
+    url: `/pages-doctor-diagnosis/yuyinwenzhen/consultation-detail?id=${id}`,
   })
 }
 
@@ -157,68 +179,36 @@ function endConsultation(id: string) {
   // 跳转到结束问诊页面，而不是显示简单的确认弹窗
   // 这样可以显示包含主诉、四诊信息、诊断结果等的完整表单
   uni.navigateTo({
-    url: '/pages-doctor-diagnosis/yuyinwenzhen/end-consultation'
+    url: '/pages-doctor-diagnosis/yuyinwenzhen/end-consultation',
   })
 }
 
 // 生成处方
 function createPrescription(id: string) {
   uni.navigateTo({
-    url: `/pages-doctor-diagnosis/yuyinwenzhen/prescription-create?id=${id}`
+    url: `/pages-doctor-diagnosis/yuyinwenzhen/prescription-create?id=${id}`,
   })
 }
 </script>
 
 <template>
-  <div class="relative mx-auto max-w-[375px] min-h-screen w-full">
+  <div class="relative min-h-screen w-full">
     <!-- 标签页导航 -->
-    <div class="sticky top-0 z-40 border-b border-[#F0F0F0] bg-white px-4 py-3">
-      <div class="flex space-x-2">
-        <button
-          class="w-1/4 rounded-lg py-2 text-center text-sm font-medium transition-all duration-300"
-          :class="currentTab === 'all'
-            ? 'text-white bg-[#8E4337]'
-            : 'text-[#6B7280] bg-[#F9FAFB]'"
-          aria-label="全部"
-          @click="switchTab('all')"
-        >
-          全部
-        </button>
-
-        <button
-          class="w-1/4 rounded-lg py-2 text-center text-sm font-medium transition-all duration-300"
-          :class="currentTab === 'ongoing'
-            ? 'text-white bg-[#8E4337]'
-            : 'text-[#6B7280] bg-[#F9FAFB]'"
-          aria-label="进行中"
-          @click="switchTab('ongoing')"
-        >
-          进行中
-        </button>
-
-        <button
-          class="w-1/4 rounded-lg py-2 text-center text-sm font-medium transition-all duration-300"
-          :class="currentTab === 'completed'
-            ? 'text-white bg-[#8E4337]'
-            : 'text-[#6B7280] bg-[#F9FAFB]'"
-          aria-label="已完成"
-          @click="switchTab('completed')"
-        >
-          已完成
-        </button>
-
-        <button
-          class="w-1/4 rounded-lg py-2 text-center text-sm font-medium transition-all duration-300"
-          :class="currentTab === 'unprescribed'
-            ? 'text-white bg-[#8E4337]'
-            : 'text-[#6B7280] bg-[#F9FAFB]'"
-          aria-label="未开方"
-          @click="switchTab('unprescribed')"
-        >
-          未开方
-        </button>
-      </div>
-    </div>
+    <nav class="sticky top-0 z-40 border-b border-[#F0F0F0] bg-white px-4 py-3">
+      <wd-segmented
+        v-model:value="currentTab"
+        :options="segmentedOptions"
+        class="w-full"
+        size="large"
+        :style="{ height: '40px', fontSize: '14px', width: '100%' }"
+        @change="handleSegmentChange"
+      >
+        <template #label="{ option }">
+          <!-- 标签文本 -->
+          {{ (option as CustomSegmentedOption).label }}
+        </template>
+      </wd-segmented>
+    </nav>
 
     <!-- 问诊记录列表 -->
     <main class="px-4 pt-4 space-y-4">

@@ -73,17 +73,10 @@ function handleOpenChat() {
           <img :src="record.avatar" :alt="record.patientName" class="h-full w-full object-cover">
         </div>
         <!-- 问诊类型图标 -->
-        <div class="absolute h-6 w-6 flex items-center justify-center border-2 border-white rounded-full from-[#8E4337] to-[#6E2F25] bg-gradient-to-br shadow-md -bottom-1 -right-1">
-          <svg v-if="record.type === 'text'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="h-3 w-3">
-            <path d="M2.87 2.298a.75.75 0 0 0-.812 1.021L3.39 6.624a1 1 0 0 0 .928.626H8.25a.75.75 0 0 1 0 1.5H4.318a1 1 0 0 0-.927.626l-1.333 3.305a.75.75 0 0 0 .811 1.022 24.89 24.89 0 0 0 11.668-5.115.75.75 0 0 0 0-1.175A24.89 24.89 0 0 0 2.869 2.298Z" />
-          </svg>
-          <svg v-else-if="record.type === 'video'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="h-3 w-3">
-            <path d="M5 4.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5v-7Z" />
-            <path d="M11.5 6.823v2.354c.274-.176.5-.46.5-.823v-.708a1 1 0 0 0-.5-.823Z" />
-          </svg>
-          <svg v-else xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="h-3 w-3">
-            <path d="M1 2.5A2.5 2.5 0 0 1 3.5 0H10a2.5 2.5 0 0 1 2.5 2.5V13a2.5 2.5 0 0 1-2.5 2.5H3.5A2.5 2.5 0 0 1 1 13V2.5ZM3.5 1A1.5 1.5 0 0 0 2 2.5v10A1.5 1.5 0 0 0 3.5 14h6.5a1.5 1.5 0 0 0 1.5-1.5v-10A1.5 1.5 0 0 0 10 1H3.5Zm5.364 6.15a.5.5 0 0 1 .5.5v.793l2.364 1.382a.5.5 0 0 1 0 .848l-2.364 1.382V12a.5.5 0 0 1-1 0V9.828l-2.364 1.382a.5.5 0 0 1-.5-.848l2.364-1.382V6.65a.5.5 0 0 1 .5-.5z" />
-          </svg>
+        <div class="absolute h-6 w-6 flex items-center justify-center border-2 border-white rounded-full bg-[#8E4337] shadow-md -bottom-1 -right-1">
+          <wd-icon v-if="record.type === 'text'" name="camera" size="16px" color="white" />
+          <wd-icon v-else-if="record.type === 'video'" name="video" size="16px" color="white" />
+          <wd-icon v-else name="phone" size="16px" color="white" />
         </div>
       </div>
       <div class="min-w-0 flex-1">
@@ -112,16 +105,14 @@ function handleOpenChat() {
     <div class="mb-4 box-border w-full overflow-hidden break-words border border-[#F3F4F6] rounded-xl bg-[#F9FAFB] p-3">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <div class="h-8 w-8" :class="record.prescribed ? 'bg-[#10B981]' : 'bg-[#6B7280]'">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="white" class="ml-2 mt-2 h-4 w-4">
-              <path fill-rule="evenodd" d="M12.416 3.376a.75.75 0 0 1 .208 1.04l-5 7.5a.75.75 0 0 1-1.154.114l-3-3a.75.75 0 0 1 1.06-1.06l2.353 2.353 4.493-6.74a.75.75 0 0 1 1.04-.207Z" clip-rule="evenodd" />
-            </svg>
+          <div class="h-8 w-8 flex items-center justify-center" :class="record.prescribed ? 'bg-[#10B981]' : 'bg-[#EF4444]'">
+            <wd-icon name="check" size="16px" color="white" />
           </div>
           <div>
             <div class="text-xs text-[#6B7280] font-medium">
               开方状态
             </div>
-            <div :class="record.prescribed ? 'text-[#10B981]' : 'text-[#6B7280]'" class="text-sm font-bold">
+            <div :class="record.prescribed ? 'text-[#10B981]' : 'text-[#EF4444]'" class="text-sm font-bold">
               {{ record.prescribed ? '已开方' : '未开方' }}
             </div>
           </div>
@@ -129,7 +120,7 @@ function handleOpenChat() {
         <!-- 进行中的未开方记录显示去开方按钮 -->
         <template v-if="record.status === 'ongoing' && !record.prescribed">
           <button
-            class="box-border flex items-center justify-center gap-1 truncate rounded-lg bg-[#8E4337] px-3 py-1.5 text-xs text-white font-semibold shadow-[#8E4337]/30 transition-all active:scale-95 hover:bg-[#6E2F25]"
+            class="box-border flex items-center justify-center gap-1 truncate rounded-lg bg-[#8E4337] px-3 py-1.5 text-xs text-white font-semibold shadow-[0px_2px_4px_rgba(142,67,55,0.3)] transition-all active:scale-95 hover:bg-[#6E2F25]"
             aria-label="去开方"
             @click="handleCreatePrescription"
           >
@@ -144,52 +135,49 @@ function handleOpenChat() {
 
     <!-- 操作按钮 -->
     <div class="grid grid-cols-2 w-full gap-2">
-      <button
-        class="box-border w-full flex items-center justify-center gap-1 truncate border-2 border-[#8E4337] rounded-xl py-2.5 text-sm text-[#8E4337] font-semibold transition-all active:scale-95 hover:bg-[#F5EBE9]"
+      <wd-button
+        block
+        type="primary"
+        class="box-border w-full flex items-center justify-center gap-1 truncate border-2 border-[#3B82F6] rounded-sm bg-[#3B82F6] py-2.5 text-sm text-white font-semibold transition-all active:scale-95 hover:bg-[#2563EB]"
         aria-label="查看详情"
         @click="handleViewDetail"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4">
-          <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />
-          <path fill-rule="evenodd" d="M1.38 8.28a.87.87 0 0 1 0-.566 7.003 7.003 0 0 1 13.238.006.87.87 0 0 1 0 .566A7.003 7.003 0 0 1 1.379 8.28ZM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" clip-rule="evenodd" />
-        </svg>
-        查看详情
-      </button>
+        <wd-icon name="view" size="16px" class="align-middle" />
+        <span class="align-middle">查看详情</span>
+      </wd-button>
       <template v-if="record.status === 'ongoing'">
-        <button
-          class="box-border w-full flex items-center justify-center gap-1 truncate rounded-xl bg-[#8E4337] py-2.5 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:bg-[#6E2F25]"
+        <wd-button
+          block
+          class="box-border w-full flex items-center justify-center gap-1 truncate border-2 rounded-sm py-2.5 text-sm text-white font-semibold transition-all active:scale-95 border-[#EF4444]! bg-[#EF4444]! hover:bg-[#DC2626]!"
           aria-label="结束问诊"
           @click="handleEndConsultation"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4">
-            <path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 0 1 0 1.06L9.06 10l4.72 4.72a.75.75 0 1 1-1.06 1.06L8 11.06l-4.72 4.72a.75.75 0 0 1-1.06-1.06L6.94 10 2.22 5.28a.75.75 0 0 1 1.06-1.06L8 8.94l4.72-4.72a.75.75 0 0 1 1.06 0Z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="close" size="16px" />
           结束问诊
-        </button>
+        </wd-button>
       </template>
       <template v-else-if="!record.prescribed">
-        <button
-          class="box-border w-full flex items-center justify-center gap-1 truncate rounded-xl from-[#8E4337] to-[#6E2F25] bg-gradient-to-r py-2.5 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:from-[#6E2F25] hover:to-[#5A2520]"
+        <wd-button
+          block
+          class="box-border w-full flex items-center justify-center gap-1 truncate rounded-sm py-2.5 text-sm text-white font-semibold shadow-lg transition-all active:scale-95 bg-[#F59E0B]! shadow-[0px_4px_8px_rgba(245,158,11,0.3)]! hover:bg-[#D97706]!"
           aria-label="去开方"
           @click="handleCreatePrescription"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4">
-            <path fill-rule="evenodd" d="M8 2a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0v-1.5h-1.5a.75.75 0 0 1 0-1.5h1.5v-1.5A.75.75 0 0 1 8 2ZM3.75 8a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1-.75-.75ZM2 12.25a.75.75 0 0 1 .75-.75h10.5a.75.75 0 0 1 0 1.5H2.75a.75.75 0 0 1-.75-.75Z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="backtop-rectangle" size="16px" />
           去开方
-        </button>
+        </wd-button>
       </template>
       <template v-else>
-        <button
-          class="box-border w-full flex items-center justify-center gap-2 truncate rounded-xl from-[#8E4337] to-[#6E2F25] bg-gradient-to-r py-3 text-sm text-white font-semibold shadow-[#8E4337]/30 shadow-lg transition-all active:scale-95 hover:from-[#6E2F25] hover:to-[#5A2520]"
+        <wd-button
+          block
+          type="success"
+          class="box-border w-full flex items-center justify-center gap-1 truncate border-2 border-[#10B981] rounded-sm bg-[#10B981] py-2.5 text-sm text-white font-semibold transition-all active:scale-95 hover:bg-[#059669]"
           aria-label="查看问诊记录"
           @click="handleOpenChat"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4">
-            <path d="M2.87 2.298a.75.75 0 0 0-.812 1.021L3.39 6.624a1 1 0 0 0 .928.626H8.25a.75.75 0 0 1 0 1.5H4.318a1 1 0 0 0-.927.626l-1.333 3.305a.75.75 0 0 0 .811 1.022 24.89 24.89 0 0 0 11.668-5.115.75.75 0 0 0 0-1.175A24.89 24.89 0 0 0 2.869 2.298Z" />
-          </svg>
-          问诊记录
-        </button>
+          <wd-icon name="chat" size="16px" class="align-middle" />
+          <span class="align-middle">问诊记录</span>
+        </wd-button>
       </template>
     </div>
   </article>
