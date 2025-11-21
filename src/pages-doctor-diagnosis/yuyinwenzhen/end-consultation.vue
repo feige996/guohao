@@ -411,25 +411,25 @@ onMounted(() => {
         type="careAdvice"
         @select="handleCareAdviceSelect"
       />
-
-      <!-- 底部按钮区域 -->
-      <div class="fixed bottom-0 left-0 right-0 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white p-4">
-        <div class="grid grid-cols-2 gap-3">
-          <button
-            class="border-2 border-[#1677FF] py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
-            @click="handleCancel"
-          >
-            确认取消
-          </button>
-          <button
-            class="rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors hover:bg-[#0958D9]"
-            @click="submitEndConsultation"
-          >
-            确认结束
-          </button>
-        </div>
-      </div>
     </main>
+
+    <!-- 底部按钮区域 -->
+    <div class="fixed bottom-0 left-0 right-0 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white p-4">
+      <div class="grid grid-cols-2 gap-3">
+        <button
+          class="border-2 border-[#1677FF] py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
+          @click="handleCancel"
+        >
+          确认取消
+        </button>
+        <button
+          class="rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors hover:bg-[#0958D9]"
+          @click="submitEndConsultation"
+        >
+          确认结束
+        </button>
+      </div>
+    </div>
 
     <!-- 处方开具确认弹窗 -->
     <transition name="fade">

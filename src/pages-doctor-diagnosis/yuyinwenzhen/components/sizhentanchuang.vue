@@ -140,8 +140,18 @@ function handleItemClick(item: string | { title: string, content: string }) {
   // 对于辨证分析模板，直接选中并确认
   if (props.type === 'syndromeAnalysisTemplate') {
     const template = item as { title: string, content: string }
-    emit('select', template.content)
+    // 先复制内容，确保在关闭弹窗前数据已准备好
+    const templateContent = template.content
+
+    // 先关闭弹窗
     emit('update:visible', false)
+
+    // 使用setTimeout确保弹窗已关闭后再发出select事件
+    setTimeout(() => {
+      emit('select', templateContent)
+      // 重置选中项
+      selectedItems.value = []
+    }, 100)
     return
   }
 
@@ -164,15 +174,31 @@ function handleConfirm() {
   // 根据类型决定连接符
   const separator = props.type === 'syndromeType' ? '、' : ', '
   const result = selectedItems.value.join(separator)
-  emit('select', result)
-  // 重置选中项
-  selectedItems.value = []
+
+  // 先复制结果，确保在关闭弹窗前数据已准备好
+  const selectedResult = result
+
+  // 先关闭弹窗，再发出select事件，避免iOS平台上的时序问题
   emit('update:visible', false)
+
+  // 使用setTimeout确保弹窗已关闭后再发出select事件
+  setTimeout(() => {
+    emit('select', selectedResult)
+    // 重置选中项
+    selectedItems.value = []
+  }, 100)
 }
 
 // 处理关闭弹窗
 function handleClose() {
+  // 先关闭弹窗
   emit('update:visible', false)
+
+  // 使用setTimeout确保弹窗已关闭后再重置选中项
+  setTimeout(() => {
+    // 重置选中项
+    selectedItems.value = []
+  }, 100)
 }
 
 // 监听props变化
@@ -238,7 +264,7 @@ watch(
               </p>
             </div>
           </div>
-          
+
           <!-- 调护建议使用红色边框样式 -->
           <div v-else-if="type === 'careAdvice'" class="space-y-3">
             <div
@@ -251,10 +277,12 @@ watch(
               }"
               @click="handleItemClick(item)"
             >
-              <span class="text-sm" :class="{
-                'text-[#B91C1C] font-medium': selectedItems.includes(item),
-                'text-[#333333]': !selectedItems.includes(item),
-              }">
+              <span
+                class="text-sm" :class="{
+                  'text-[#B91C1C] font-medium': selectedItems.includes(item),
+                  'text-[#333333]': !selectedItems.includes(item),
+                }"
+              >
                 {{ item }}
               </span>
             </div>
