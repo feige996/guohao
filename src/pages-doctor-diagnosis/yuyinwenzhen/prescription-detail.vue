@@ -29,7 +29,7 @@ function goBack(): void {
 </script>
 
 <template>
-  <div class="relative mx-auto box-border max-w-[375px] min-h-screen w-full bg-[#F9FAFB] pb-5">
+  <div class="relative mx-auto box-border max-w-[375px] min-h-screen w-full pb-5">
     <div class="relative mx-auto max-w-[375px] min-h-screen w-full pb-5">
       <!-- Toast 通知 -->
       <div class="toast" :class="{ show: isToastVisible }">
@@ -50,7 +50,7 @@ function goBack(): void {
       <!-- 主内容区 -->
       <main class="px-4 pt-[24px] space-y-4">
         <!-- 处方状态 -->
-        <section class="box-border w-full overflow-hidden break-words rounded-[20px] from-[#8E4337] to-[#6E2F25] bg-gradient-to-r p-5 text-white shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+        <section class="box-sizing border-box w-full overflow-hidden break-words rounded-[20px] bg-[#8E4337] p-5 text-white shadow-sm">
           <div class="mb-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
               <wd-icon name="check-circle-filled" size="22px" color="#fff" />
@@ -60,7 +60,7 @@ function goBack(): void {
           </div>
           <div class="grid grid-cols-2 gap-3 text-sm">
             <div>
-              <div class="mb-1 text-xs text-white/70">
+              <div class="mb-1 text-xs text-white opacity-70">
                 处方编号
               </div>
               <div class="font-medium">
@@ -68,7 +68,7 @@ function goBack(): void {
               </div>
             </div>
             <div>
-              <div class="mb-1 text-xs text-white/70">
+              <div class="mb-1 text-xs text-white opacity-70">
                 开方时间
               </div>
               <div class="font-medium">

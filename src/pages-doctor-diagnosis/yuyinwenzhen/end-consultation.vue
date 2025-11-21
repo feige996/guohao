@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
+import SizhenTanChuang from './components/sizhentanchuang.vue'
 
 const consultationId = uni.getStorageSync('currentConsultationId') || ''
+
+// 页面配置
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '结束问诊',
+    navigationBarBackgroundColor: '#fff',
+  },
+})
 
 // 表单数据
 const formData = reactive({
@@ -18,6 +28,21 @@ const formData = reactive({
 
 // 控制处方开具确认弹窗显示
 const prescriptionModalVisible = ref(false)
+
+// 控制望诊选择弹窗显示
+const inspectionModalVisible = ref(false)
+
+// 控制问诊模板弹窗显示
+const inquiryTemplateModalVisible = ref(false)
+
+// 控制辨证分型弹窗显示
+const syndromeTypeModalVisible = ref(false)
+
+// 控制辨证分析模板弹窗显示
+const syndromeAnalysisTemplateModalVisible = ref(false)
+
+// 控制调护建议弹窗显示
+const careAdviceModalVisible = ref(false)
 
 // 模拟获取问诊信息
 function fetchConsultationInfo() {
@@ -62,53 +87,92 @@ function postponePrescription() {
 
 // 立即开方
 function createPrescription() {
-  prescriptionModal.value = false
+  prescriptionModalVisible.value = false
   // 跳转到处方开具页面
   uni.navigateTo({
-    url: `/pages-doctor-diagnosis/yuyinwenzhen/prescription-create?id=${consultationId}`
+    url: `/pages-doctor-diagnosis/yuyinwenzhen/prescription-create?id=${consultationId}`,
   })
 }
 
 // 选择常用模板
 function selectCommonTemplate() {
-  // 实际项目中应打开模板选择器
-  uni.showToast({ title: '选择常用模板', icon: 'none' })
+  inquiryTemplateModalVisible.value = true
 }
 
 // 选择辨证分析模板
 function selectSyndromeTemplate() {
-  // 实际项目中应打开辨证分析模板选择器
-  uni.showToast({ title: '选择辨证分析模板', icon: 'none' })
+  syndromeAnalysisTemplateModalVisible.value = true
+}
+
+// 处理辨证分析模板选择结果
+function handleSyndromeAnalysisTemplateSelect(value: string) {
+  formData.syndromeAnalysis = value
 }
 
 // 选择调护建议
 function selectCareAdvice() {
-  // 实际项目中应打开调护建议选择器
-  uni.showToast({ title: '选择调护建议', icon: 'none' })
+  careAdviceModalVisible.value = true
 }
+
+// 处理调护建议选择结果
+function handleCareAdviceSelect(value: string) {
+  formData.careAdvice = value
+}
+
+// 当前正在选择的数据类型
+const currentSelectType = ref<'inspection' | 'auscultation' | 'pulse'>('inspection')
 
 // 选择望诊信息
 function selectInspection() {
-  // 实际项目中应打开望诊选择器
-  uni.showToast({ title: '选择望诊信息', icon: 'none' })
+  currentSelectType.value = 'inspection'
+  inspectionModalVisible.value = true
 }
 
 // 选择闻诊信息
 function selectAuscultation() {
-  // 实际项目中应打开闻诊选择器
-  uni.showToast({ title: '选择闻诊信息', icon: 'none' })
+  currentSelectType.value = 'auscultation'
+  inspectionModalVisible.value = true
 }
 
 // 选择切诊信息
 function selectPulse() {
-  // 实际项目中应打开切诊选择器
-  uni.showToast({ title: '选择切诊信息', icon: 'none' })
+  currentSelectType.value = 'pulse'
+  inspectionModalVisible.value = true
+}
+
+// 处理选择结果
+function handleInspectionSelect(value: string) {
+  switch (currentSelectType.value) {
+    case 'inspection':
+      formData.inspection = value
+      break
+    case 'auscultation':
+      formData.auscultation = value
+      break
+    case 'pulse':
+      formData.pulse = value
+      break
+  }
+}
+
+// 处理问诊模板选择结果
+function handleInquiryTemplateSelect(value: string) {
+  formData.inquiry = value
+}
+
+// 处理取消操作
+function handleCancel() {
+  uni.navigateBack()
 }
 
 // 选择辨证分型
 function selectSyndromeType() {
-  // 实际项目中应打开辨证分型选择器
-  uni.showToast({ title: '选择辨证分型', icon: 'none' })
+  syndromeTypeModalVisible.value = true
+}
+
+// 处理辨证分型选择结果
+function handleSyndromeTypeSelect(value: string) {
+  formData.syndromeType = value
 }
 
 // 生命周期
@@ -124,7 +188,7 @@ onMounted(() => {
       <!-- 添加足够的底部内边距防止内容被遮挡 -->
       <!-- 主诉 -->
       <div>
-        <label class="mb-2 block text-base text-[#374151] font-medium" for="chiefComplaint">
+        <label class="mb-2 block text-base text-[#333333] font-medium" for="chiefComplaint">
           主诉 <span class="text-[#EF4444]">*</span>
         </label>
         <textarea
@@ -132,8 +196,8 @@ onMounted(() => {
           v-model="formData.chiefComplaint"
           rows="4"
           placeholder="请输入主诉..."
-          class="mx-auto w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-base text-[#1F2937] focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
-          style="border: 2px solid black; box-sizing: border-box;"
+          class="mx-auto w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-base text-[#1F2937] focus:border-[#888888] focus:outline-none focus:ring-2 focus:ring-[#CCCCCC] placeholder-[#9CA3AF]"
+          style="border: 2px solid #E5E7EB; box-sizing: border-box;"
         />
       </div>
 
@@ -146,10 +210,16 @@ onMounted(() => {
         <!-- 望诊 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">望诊</label>
-          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid black; box-sizing: border-box;">
-            <span class="text-sm text-[#9CA3AF] flex-1">面色、舌质、精神状态等...</span>
+          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid #E5E7EB; box-sizing: border-box;">
+            <textarea
+              v-model="formData.inspection"
+              class="flex-1 resize-none border-0 bg-transparent p-0 text-sm text-[#1F2937] focus:outline-none placeholder-[#9CA3AF]"
+              placeholder="面色、舌质、精神状态等..."
+              rows="1"
+              style="height: 24px;"
+            />
             <button
-              class="text-sm text-[#8E4337] font-medium whitespace-nowrap"
+              class="whitespace-nowrap text-sm text-[#1677FF] font-medium"
               style="margin-left: auto;"
               @click="selectInspection"
             >
@@ -161,10 +231,16 @@ onMounted(() => {
         <!-- 闻诊 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">闻诊</label>
-          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid black; box-sizing: border-box;">
-            <span class="text-sm text-[#9CA3AF] flex-1">语声、呼吸、咳嗽等...</span>
+          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid #E5E7EB; box-sizing: border-box;">
+            <textarea
+              v-model="formData.auscultation"
+              class="flex-1 resize-none border-0 bg-transparent p-0 text-sm text-[#1F2937] focus:outline-none placeholder-[#9CA3AF]"
+              placeholder="语声、呼吸、咳嗽等..."
+              rows="1"
+              style="height: 24px;"
+            />
             <button
-              class="text-sm text-[#8E4337] font-medium whitespace-nowrap"
+              class="whitespace-nowrap text-sm text-[#1677FF] font-medium"
               style="margin-left: auto;"
               @click="selectAuscultation"
             >
@@ -179,15 +255,15 @@ onMounted(() => {
           <textarea
             v-model="formData.inquiry"
             placeholder="症状详情、伴随症状、大小便、睡眠等..."
-            class="mx-auto min-h-[60px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
-            style="border: 2px solid black; box-sizing: border-box;"
+            class="mx-auto min-h-[60px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#CCCCCC] placeholder-[#9CA3AF]"
+            style="border: 2px solid #E5E7EB; box-sizing: border-box;"
           />
         </div>
 
         <!-- 常用模板按钮 -->
         <button
-          class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]"
-          style="border: 2px solid black; box-sizing: border-box;"
+          class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
+          style="border: 2px solid #1677FF; box-sizing: border-box;"
           @click="selectCommonTemplate"
         >
           选择常用模板
@@ -196,10 +272,16 @@ onMounted(() => {
         <!-- 切诊 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">切诊</label>
-          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid black; box-sizing: border-box;">
-            <span class="text-sm text-[#9CA3AF] flex-1">脉象、血压、体温等...</span>
+          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid #E5E7EB; box-sizing: border-box;">
+            <textarea
+              v-model="formData.pulse"
+              class="flex-1 resize-none border-0 bg-transparent p-0 text-sm text-[#1F2937] focus:outline-none placeholder-[#9CA3AF]"
+              placeholder="脉象、血压、体温等..."
+              rows="1"
+              style="height: 24px;"
+            />
             <button
-              class="text-sm text-[#8E4337] font-medium whitespace-nowrap"
+              class="whitespace-nowrap text-sm text-[#1677FF] font-medium"
               style="margin-left: auto;"
               @click="selectPulse"
             >
@@ -221,19 +303,24 @@ onMounted(() => {
           <textarea
             v-model="formData.diagnosis"
             placeholder="请输入诊断结果..."
-            class="mx-auto min-h-[80px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
-            style="border: 2px solid black; box-sizing: border-box;"
+            class="mx-auto min-h-[80px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#CCCCCC] placeholder-[#9CA3AF]"
+            style="border: 2px solid #E5E7EB; box-sizing: border-box;"
           />
         </div>
 
         <!-- 辨证分型 -->
         <div class="space-y-1">
           <label class="text-xs text-[#6B7280]">辨证分型</label>
-          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid black; box-sizing: border-box;">
-            <span v-if="formData.syndromeType" class="text-sm text-[#1F2937] flex-1">{{ formData.syndromeType }}</span>
-            <span v-else class="text-sm text-[#9CA3AF] flex-1">请输入或选择辨证分型...</span>
+          <div class="w-full flex items-center rounded-lg px-4 py-3" style="border: 2px solid #E5E7EB; box-sizing: border-box;">
+            <input
+              v-model="formData.syndromeType"
+              type="text"
+              class="flex-1 text-sm outline-none"
+              placeholder="请输入或选择辨证分型..."
+              style="background: transparent;"
+            >
             <button
-              class="text-sm text-[#8E4337] font-medium whitespace-nowrap"
+              class="whitespace-nowrap text-sm text-[#1677FF] font-medium"
               style="margin-left: auto;"
               @click="selectSyndromeType"
             >
@@ -248,12 +335,12 @@ onMounted(() => {
           <textarea
             v-model="formData.syndromeAnalysis"
             placeholder="例如：患者长期工作压力大思虑过度，耗伤心气血导致气血不足失养所致头痛。治以益气养血安神定志。"
-            class="mx-auto min-h-[100px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
-            style="border: 2px solid black; box-sizing: border-box;"
+            class="mx-auto min-h-[100px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#CCCCCC] placeholder-[#9CA3AF]"
+            style="border: 2px solid #E5E7EB; box-sizing: border-box;"
           />
           <button
-            class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]"
-            style="border: 2px solid black; box-sizing: border-box;"
+            class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
+            style="border: 2px solid #1677FF; box-sizing: border-box;"
             @click="selectSyndromeTemplate"
           >
             选择辨证分析模板
@@ -266,12 +353,12 @@ onMounted(() => {
           <textarea
             v-model="formData.careAdvice"
             placeholder="请输入或选择调护建议..."
-            class="mx-auto min-h-[80px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#8E4337] placeholder-[#9CA3AF]"
-            style="border: 2px solid black; box-sizing: border-box;"
+            class="mx-auto min-h-[80px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#CCCCCC] placeholder-[#9CA3AF]"
+            style="border: 2px solid #E5E7EB; box-sizing: border-box;"
           />
           <button
-            class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#8E4337] font-medium transition-colors hover:bg-[#F5EBE9]"
-            style="border: 2px solid black; box-sizing: border-box;"
+            class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
+            style="border: 2px solid #1677FF; box-sizing: border-box;"
             @click="selectCareAdvice"
           >
             选择调护建议
@@ -279,17 +366,63 @@ onMounted(() => {
         </div>
       </div>
 
+      <!-- 望诊选择弹窗 -->
+      <SizhenTanChuang
+        v-model:visible="inspectionModalVisible"
+        :title="
+          currentSelectType === 'inspection'
+            ? '选择望诊描述'
+            : currentSelectType === 'auscultation'
+              ? '选择闻诊描述'
+              : '选择切诊描述'
+        "
+        :type="currentSelectType"
+        @select="handleInspectionSelect"
+      />
+
+      <!-- 问诊模板选择弹窗 -->
+      <SizhenTanChuang
+        v-model:visible="inquiryTemplateModalVisible"
+        title="选择问诊模板"
+        type="inquiryTemplate"
+        @select="handleInquiryTemplateSelect"
+      />
+
+      <!-- 辨证分型选择弹窗 -->
+      <SizhenTanChuang
+        v-model:visible="syndromeTypeModalVisible"
+        title="选择辨证分型"
+        type="syndromeType"
+        @select="handleSyndromeTypeSelect"
+      />
+
+      <!-- 辨证分析模板选择弹窗 -->
+      <SizhenTanChuang
+        v-model:visible="syndromeAnalysisTemplateModalVisible"
+        title="选择辨证分析模板"
+        type="syndromeAnalysisTemplate"
+        @select="handleSyndromeAnalysisTemplateSelect"
+      />
+
+      <!-- 调护建议选择弹窗 -->
+      <SizhenTanChuang
+        v-model:visible="careAdviceModalVisible"
+        title="选择调护建议"
+        type="careAdvice"
+        @select="handleCareAdviceSelect"
+      />
+
       <!-- 底部按钮区域 -->
       <div class="fixed bottom-0 left-0 right-0 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white p-4">
         <div class="grid grid-cols-2 gap-3">
           <button
-            class="border-2 border-[#E5E7EB] rounded-lg py-3 text-sm text-[#6B7280] font-medium transition-colors hover:bg-[#F9FAFB]"
-            @click="uni.navigateBack()"
+            class="border-2 border-[#1677FF] py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
+            @click="handleCancel"
           >
-            取消
+            确认取消
           </button>
           <button
-            class="rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors hover:bg-[#6E2F25]"
+            class="rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors hover:bg-[#0958D9]"
             @click="submitEndConsultation"
           >
             确认结束
@@ -303,8 +436,8 @@ onMounted(() => {
       <div v-if="prescriptionModalVisible" class="pointer-events-auto fixed inset-0 z-50 bg-black/50 opacity-100">
         <div class="fixed left-1/2 top-1/2 max-w-[320px] w-[calc(100%-48px)] transform rounded-[16px] bg-white p-6 text-center shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 -translate-x-1/2 -translate-y-1/2">
           <div class="mb-6">
-            <div class="mx-auto mb-4 h-12 w-12 flex items-center justify-center rounded-full bg-[#F5EBE9]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="h-6 w-6">
+            <div class="mx-auto mb-4 h-12 w-12 flex items-center justify-center rounded-full bg-[#F3F4F6]">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6B7280" class="h-6 w-6">
                 <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
                 <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
               </svg>
@@ -318,13 +451,13 @@ onMounted(() => {
           </div>
           <div class="grid grid-cols-2 gap-3">
             <button
-              class="border-2 border-[#E5E7EB] rounded-lg py-3 text-sm text-[#6B7280] font-medium transition-colors active:scale-98 hover:bg-[#F9FAFB]"
+              class="border-2 border-[#1677FF] py-3 text-sm text-[#1677FF] font-medium transition-colors active:scale-98 hover:bg-[#E6F4FF]"
               @click="postponePrescription"
             >
               稍后开方
             </button>
             <button
-              class="rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
+              class="rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#0958D9]"
               @click="createPrescription"
             >
               立即开方
