@@ -409,11 +409,11 @@ function viewMedicalRecord(): void {
     <!-- 模板选择弹窗 -->
     <div v-if="templateModalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
-        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+        <div class="relative flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <h3 class="text-lg text-[#1F2937] font-medium">
             选择模板
           </h3>
-          <button class="text-xl text-gray-500 transition-colors hover:text-gray-700" @click="closeTemplateModal">
+          <button class="absolute right-4 top-1/2 transform text-xl text-gray-500 transition-colors -translate-y-1/2 hover:text-gray-700" @click="closeTemplateModal">
             ×
           </button>
         </div>
@@ -457,11 +457,11 @@ function viewMedicalRecord(): void {
     <!-- 药品选择弹窗 -->
     <div v-if="medicineModalVisible" class="fixed inset-0 z-50 flex flex-col bg-black/50 px-4">
       <div class="mt-auto w-full rounded-t-xl bg-white shadow-lg">
-        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+        <div class="relative flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <h3 class="text-lg text-[#1F2937] font-medium">
             添加药品
           </h3>
-          <button class="text-xl text-gray-500 transition-colors hover:text-gray-700" @click="closeMedicineModal">
+          <button class="absolute right-4 top-1/2 transform text-xl text-gray-500 transition-colors -translate-y-1/2 hover:text-gray-700" @click="closeMedicineModal">
             ×
           </button>
         </div>
@@ -641,11 +641,11 @@ function viewMedicalRecord(): void {
           </div>
 
           <div class="flex items-center gap-2" />
-          <wd-button size="small">
+          <wd-button size="small" @click="openTemplateModal">
             <wd-icon name="spool" size="12px" />
             使用药方
           </wd-button>
-          <wd-button size="small">
+          <wd-button size="small" @click="openMedicineModal">
             <wd-icon name="add" size="12px" />
             添加药品
           </wd-button>
@@ -657,28 +657,24 @@ function viewMedicalRecord(): void {
           <div class="flex items-center gap-3">
             <div class="flex flex-1 items-center gap-2">
               <button
-                class="h-10 w-10 flex items-center justify-center border-2 border-[#E5E7EB] rounded-lg bg-white text-[#6B7280] transition-colors active:scale-95 hover:border-[#8E4337] hover:bg-[#F3F4F6] hover:text-[#8E4337]"
+                class="h-7 w-7 flex items-center justify-center"
                 @click="decreaseDosageCount"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                  <path d="M6.75 9.25a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" />
-                </svg>
+                <wd-icon name="decrease" size="16px" />
               </button>
 
               <input
                 id="dosageCount"
                 v-model.number="dosageCount"
                 type="number"
-                class="h-10 flex-1 border-2 border-[#8E4337] rounded-lg bg-white px-4 py-2.5 text-center text-lg text-[#8E4337] font-bold focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
+                class="h-10 flex-1 border-2 border-[#1677ff] rounded-lg bg-white px-4 py-2.5 text-center text-lg text-[#1677FF] font-bold focus:border-[#8E4337] focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
               >
 
               <button
-                class="h-10 w-10 flex items-center justify-center border-2 border-[#E5E7EB] rounded-lg bg-white text-[#6B7280] transition-colors active:scale-95 hover:border-[#8E4337] hover:bg-[#F3F4F6] hover:text-[#8E4337]"
+                class="h-7 w-7 flex items-center justify-center"
                 @click="increaseDosageCount"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-                  <path d="M10.75 6.75a.75.75 0 00-1.5 0v2.5h-2.5a.75.75 0 000 1.5h2.5v2.5a.75.75 0 001.5 0v-2.5h2.5a.75.75 0 000-1.5h-2.5v-2.5z" />
-                </svg>
+                <wd-icon name="add" size="16px" />
               </button>
             </div>
             <span class="text-sm text-[#6B7280] font-medium">剂</span>
@@ -689,10 +685,10 @@ function viewMedicalRecord(): void {
               :key="count"
               :class="[
                 dosageCount === count
-                  ? 'rounded-lg border border-[#8E4337] bg-[#F5EBE9] px-3 py-1.5 text-xs font-medium text-[#8E4337]'
-                  : 'rounded-lg bg-[#F3F4F6] px-3 py-1.5 text-xs font-medium text-[#6B7280]',
+                  ? 'h-7 w-12 flex items-center justify-center bg-white text-[#1677FF] text-xs '
+                  : 'h-7 w-12 flex items-center justify-center text-[#6B7280] text-xs',
               ]"
-              class="transition-colors hover:bg-[#F5EBE9] hover:text-[#8E4337]"
+              class="whitespace-nowrap transition-colors hover:bg-[#1677FF] hover:text-white"
               @click="setDosageCount(count)"
             >
               {{ count }}剂
@@ -770,9 +766,7 @@ function viewMedicalRecord(): void {
       <!-- 用法及注意事项 -->
       <div class="mb-4 rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="error-circle-filled" size="16px" color="blue" />
           <span class="text-lg text-[#333333] font-bold leading-7">用法及注意事项</span>
         </div>
 
@@ -851,12 +845,15 @@ function viewMedicalRecord(): void {
     <!-- 功用选择器弹窗 -->
     <div v-if="functionSelectorVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
-        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+        <div class="relative flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <h3 class="text-lg text-[#1F2937] font-medium">
             选择功用
           </h3>
-          <button class="text-xl text-gray-500 transition-colors hover:text-gray-700" @click="closeFunctionSelector">
-            ×
+          <button
+            class="absolute right-4 top-1/2 transform border-none bg-transparent px-1 text-xl -translate-y-1/2 !border-none"
+            @click="closeFunctionSelector"
+          >
+            <wd-icon name="close-normal" size="22px" />
           </button>
         </div>
         <div class="px-4 py-2">
@@ -882,11 +879,11 @@ function viewMedicalRecord(): void {
     <!-- 主治选择器弹窗 -->
     <div v-if="mainTreatmentSelectorVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
-        <div class="flex items-center justify-between border-b border-gray-200 px-4 py-3">
+        <div class="relative flex items-center justify-between border-b border-gray-200 px-4 py-3">
           <h3 class="text-lg text-[#1F2937] font-medium">
             选择主治
           </h3>
-          <button class="text-xl text-gray-500 transition-colors hover:text-gray-700" @click="closeMainTreatmentSelector">
+          <button class="absolute right-4 top-1/2 transform text-xl text-gray-500 transition-colors -translate-y-1/2 hover:text-gray-700" @click="closeMainTreatmentSelector">
             ×
           </button>
         </div>
