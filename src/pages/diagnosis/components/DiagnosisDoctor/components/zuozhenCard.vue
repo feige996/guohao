@@ -81,20 +81,9 @@ function enterWorkbench(): void {
         开启后可接收新的在线问诊
       </div>
     </div>
-    <!-- <wd-button
-      class="w-full flex items-center justify-center gap-2 rounded-lg py-3 text-sm font-medium leading-5 transition-colors active:scale-98"
-      :class="isOnline
-        ? 'bg-[#8E4337] text-white hover:bg-[#6E2F25]'
-        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-      "
-      @click="enterWorkbench"
-    >
-      <wd-icon name="add1" size="22px" />
-      进入坐诊工作台
-    </wd-button> -->
 
     <button
-      class="w-full flex items-center justify-center gap-2 rounded-lg py-3 text-sm font-medium leading-5 transition-colors active:scale-98"
+      class="w-full items-center justify-center gap-2 py-3 text-sm font-medium leading-5 transition-colors"
       :class="isOnline
         ? 'bg-[#8E4337] text-white hover:bg-[#6E2F25]'
         : 'bg-gray-100 text-gray-400 cursor-not-allowed'

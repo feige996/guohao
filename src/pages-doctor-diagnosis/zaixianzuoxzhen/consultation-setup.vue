@@ -2,13 +2,13 @@
 import { computed, reactive, ref } from 'vue'
 
 // 页面配置
-// @ts-expect-error
+
 definePage({
   style: {
     navigationStyle: 'default',
     navigationBarTitleText: '开启坐诊',
-    navigationBarBackgroundColor: '#fff'
-  }
+    navigationBarBackgroundColor: '#fff',
+  },
 })
 
 // 问诊类型状态
@@ -164,23 +164,6 @@ function handleStartConsultation() {
 
 <template>
   <div class="relative min-h-screen w-full bg-[#F9FAFB] pb-24">
-    <!-- 顶部导航 -->
-    <!-- <div class="fixed left-0 right-0 top-0 z-50 h-14 w-full flex items-center justify-between border-b border-[#E5E7EB] bg-white px-4">
-      <button
-        class="h-10 w-10 flex items-center justify-center -ml-2 focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
-        aria-label="返回"
-        @click="handleBack"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#333" class="h-5 w-5">
-          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
-        </svg>
-      </button>
-      <h1 class="text-lg text-[#333333] font-bold">
-        开启坐诊
-      </h1>
-      <div class="w-10" />
-    </div> -->
-
     <!-- 主内容区 -->
     <div class="box-border flex flex-col gap-5 px-4 pb-4 pt-[24px]">
       <!-- 问诊方式设置 -->
@@ -193,9 +176,7 @@ function handleStartConsultation() {
         <div class="mb-4 box-border w-full rounded-[20px] bg-white p-5 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)]">
           <div class="mb-4 flex items-center justify-between">
             <div class="flex flex-1 items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="h-5 w-5">
-                <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z" />
-              </svg>
+              <wd-icon name="chat1" size="22px" class="text-[#8E4337]" />
               <span class="truncate text-[#333333] font-medium">图文+语音消息</span>
             </div>
             <button
@@ -237,9 +218,7 @@ function handleStartConsultation() {
         <div class="mb-4 box-border w-full rounded-[20px] bg-white p-5 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)]">
           <div class="mb-4 flex items-center justify-between">
             <div class="flex flex-1 items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="h-5 w-5">
-                <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" />
-              </svg>
+              <wd-icon name="video" size="22px" class="text-[#8E4337]" />
               <span class="truncate text-[#333333] font-medium">实时视频问诊</span>
             </div>
             <button
@@ -281,9 +260,7 @@ function handleStartConsultation() {
         <div class="box-border w-full rounded-[20px] bg-white p-5 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)]">
           <div class="mb-4 flex items-center justify-between">
             <div class="flex flex-1 items-center gap-3">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#8E4337" class="h-5 w-5">
-                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
-              </svg>
+              <wd-icon name="call" size="22px" class="text-[#8E4337]" />
               <span class="truncate text-[#333333] font-medium">实时语音问诊</span>
             </div>
             <button

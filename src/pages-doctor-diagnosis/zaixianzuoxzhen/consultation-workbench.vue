@@ -2,7 +2,7 @@
 import { nextTick, onBeforeUnmount, onMounted, reactive, ref } from 'vue'
 
 // 页面配置
-// @ts-expect-error
+
 definePage({
   style: {
     navigationStyle: 'default',
@@ -290,6 +290,13 @@ function endConsultation() {
         else {
           currentPatient.value = null
         }
+        // 返回工作台
+        setTimeout(() => {
+          // 确保导航到正确的工作台页面
+          uni.navigateTo({
+            url: '/pages-doctor-diagnosis/zaixianzuoxzhen/consultation-workbench',
+          })
+        }, 1500)
       }
     },
   )
@@ -504,32 +511,13 @@ function autoResizeTextarea(event) {
       </div>
     </div>
 
-    <!-- 顶部导航 -->
-    <!-- <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4">
-      <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="返回上一页" @click="goBack">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-          <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
-        </svg>
-      </button>
-      <h1 class="text-lg text-[#333333] font-bold">
-        在线坐诊
-      </h1>
-      <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="刷新数据" @click="refreshData">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-          <path fill-rule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clip-rule="evenodd" />
-        </svg>
-      </button>
-    </header> -->
-
     <!-- 主内容区 -->
     <main class="flex flex-col gap-5 px-4 pb-20 pt-[24px]">
       <!-- 坐诊状态头部卡片 -->
       <section class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-5 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
         <div class="mb-4 flex items-center gap-2">
           <!-- 坐诊图标 -->
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#10B981" class="h-5 w-5">
-            <path fill-rule="evenodd" d="M8.603 3.799A4.49 4.49 0 0112 2.25c1.357 0 2.573.6 3.397 1.549a4.49 4.49 0 013.498 1.307 4.491 4.491 0 011.307 3.497A4.49 4.49 0 0121.75 12a4.49 4.49 0 01-1.549 3.397 4.491 4.491 0 01-1.307 3.497 4.491 4.491 0 01-3.497 1.307A4.49 4.49 0 0112 21.75a4.49 4.49 0 01-3.397-1.549 4.49 4.49 0 01-3.498-1.306 4.491 4.491 0 01-1.307-3.498A4.49 4.49 0 012.25 12c0-1.357.6-2.573 1.549-3.397a4.49 4.49 0 011.307-3.497 4.49 4.49 0 013.497-1.307zm7.007 6.387a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="check-circle-filled" size="22px" color="#10B981" />
           <span class="flex items-center gap-2 text-base text-[#10B981] font-semibold">
             <span class="status-dot" />
             在线坐诊中
@@ -566,10 +554,10 @@ function autoResizeTextarea(event) {
           </div>
           <div class="rounded-lg bg-[#F9FAFB] p-3">
             <div class="text-lg text-[#8E4337] font-bold">
-              ¥1400
+              12
             </div>
             <div class="mt-1 text-xs text-[#6B7280]">
-              今日收入
+              已完成
             </div>
           </div>
         </div>
@@ -600,9 +588,7 @@ function autoResizeTextarea(event) {
 
             <!-- 问诊类型 -->
             <div class="mb-2 flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-4 w-4">
-                <path d="M3.25 4A2.25 2.25 0 001 6.25v7.5A2.25 2.25 0 003.25 16h7.5A2.25 2.25 0 0013 13.75v-7.5A2.25 2.25 0 0010.75 4h-7.5zM19 4.75a.75.75 0 00-1.28-.53l-3 3a.75.75 0 00-.22.53v4.5c0 .199.079.39.22.53l3 3a.75.75 0 001.28-.53V4.75z" />
-              </svg>
+              <wd-icon name="video" size="16px" color="#8E4337" />
               <span class="text-sm text-[#6B7280] font-medium">视频通话中...</span>
             </div>
 
@@ -616,13 +602,11 @@ function autoResizeTextarea(event) {
         <!-- 按钮组 - 一行显示 -->
         <div class="flex gap-2">
           <button
-            class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#F5EBE9] py-2.5 text-xs text-[#8E4337] font-medium transition-colors active:scale-98 hover:bg-[#E5D5D0]"
+            class="flex flex-1 cursor-pointer items-center justify-center gap-1 bg-[#F5EBE9] py-2.5 text-xs text-[#8E4337] font-medium transition-colors active:scale-98 hover:bg-[#E5D5D0]"
             aria-label="查看病历"
             @click="viewMedicalRecord(currentPatient.medicalRecordId)"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
-              <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 011 16.5v-13z" />
-            </svg>
+            <wd-icon name="list" size="10px" color="#8E4337" />
             病历
           </button>
           <button
@@ -630,9 +614,7 @@ function autoResizeTextarea(event) {
             aria-label="进入问诊"
             @click="startConsultation(currentPatient)"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3 w-2.5">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="chevron-right-circle" size="10px" />
             进入问诊
           </button>
           <button
@@ -640,9 +622,7 @@ function autoResizeTextarea(event) {
             aria-label="结束问诊"
             @click="endConsultation"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3 w-2.5">
-              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="check1" size="10px" color="#fff" />
             结束问诊
           </button>
         </div>
@@ -690,9 +670,7 @@ function autoResizeTextarea(event) {
                 </div>
                 <div class="flex flex-wrap items-center justify-between">
                   <div class="flex flex-shrink-0 items-center gap-1 text-xs text-[#F59E0B]">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-3 w-3">
-                      <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zM12.75 6v.75a.75.75 0 01-1.5 0V6a.75.75 0 011.5 0zm0 3.75a.75.75 0 00-1.5 0v.008c0 .414.336.75.75.75s.75-.336.75-.75V9.75zm0 3.75a.75.75 0 00-1.5 0v.008c0 .414.336.75.75.75s.75-.336.75-.75v-.008z" clip-rule="evenodd" />
-                    </svg>
+                    <wd-icon name="warn-bold" size="16px" color-amber />
                     已等待{{ patient.waitTime }}
                   </div>
                 </div>
@@ -702,7 +680,7 @@ function autoResizeTextarea(event) {
             <!-- 操作按钮 -->
             <div class="mt-3 flex flex-wrap gap-2">
               <button
-                class="min-w-[80px] flex-1 border border-[#D1D5DB] rounded-lg bg-white px-3 py-2 text-xs text-[#6B7280] font-medium transition-colors hover:bg-[#F9FAFB]"
+                class="min-w-[80px] flex-1 border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-[#6B7280] font-medium transition-colors hover:bg-[#F9FAFB]"
                 aria-label="查看病历"
                 @click="viewMedicalRecord(patient.medicalRecordId)"
               >
@@ -710,7 +688,7 @@ function autoResizeTextarea(event) {
               </button>
               <button
                 :id="`call-confirm-${patient.id}`"
-                class="min-w-[80px] flex-1 rounded-lg bg-[#8E4337] px-3 py-2 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]"
+                class="min-w-[80px] flex-1 bg-[#8E4337] px-3 py-2 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]"
                 :disabled="patient.hasBeenCalled"
                 :class="{ 'bg-gray-300': patient.hasBeenCalled }"
                 aria-label="呼叫患者"
@@ -743,14 +721,12 @@ function autoResizeTextarea(event) {
     </div>
 
     <!-- IM聊天弹窗 -->
-    <div v-if="isIMVisible" class="fixed inset-0 z-50 flex flex-col bg-black bg-opacity-50">
+    <div v-if="isIMVisible" class="fixed inset-0 z-50 flex flex-col bg-black bg-opacity-50 pt-10">
       <!-- IM聊天头部 -->
       <div class="h-[56px] flex items-center justify-between border-b border-[#E5E7EB] bg-white px-4">
         <div class="flex items-center gap-3">
           <button class="text-[#333333]" aria-label="关闭聊天" @click="closeIMChat">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
-              <path fill-rule="evenodd" d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="warn-bold" size="16px" color="red" />
           </button>
           <div v-if="currentPatient" class="flex items-center gap-2">
             <img :src="currentPatient.avatar" alt="患者头像" class="h-8 w-8 rounded-full object-cover">
@@ -815,7 +791,7 @@ function autoResizeTextarea(event) {
                 {{ message.timestamp }}
               </div>
             </div>
-            <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt="医生头像" class="h-8 w-8 rounded-full object-cover">
+            <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt="医生头像" class="h-8 w-8 object-cover">
           </div>
         </div>
       </div>
@@ -825,15 +801,12 @@ function autoResizeTextarea(event) {
         <div class="flex items-end gap-2">
           <!-- 功能按钮 -->
           <div class="flex gap-2">
-            <button class="h-8 w-8 flex items-center justify-center rounded-full text-[#6B7280] hover:bg-[#F3F4F6]" aria-label="表情">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
-                <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
-              </svg>
+            <button class="h-8 w-8 flex items-center justify-center text-[#6B7280] hover:bg-[#F3F4F6]" aria-label="表情">
+              <!-- <wd-icon name="github-filled" size="16px" color="blue" /> -->
+              <wd-icon name="github-filled" size="16px" />
             </button>
-            <button class="h-8 w-8 flex items-center justify-center rounded-full text-[#6B7280] hover:bg-[#F3F4F6]" aria-label="图片">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
-                <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-              </svg>
+            <button class="h-8 w-8 flex items-center justify-center text-[#6B7280] hover:bg-[#F3F4F6]" aria-label="图片">
+              <wd-icon name="picture" size="16px" />
             </button>
           </div>
 
@@ -841,7 +814,7 @@ function autoResizeTextarea(event) {
           <div class="relative flex-1">
             <textarea
               v-model="messageInput"
-              class="w-full resize-none overflow-hidden border border-[#D1D5DB] rounded-full px-4 py-2 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
+              class="h-8 w-full resize-none overflow-hidden border border-[#D1D4DB] px-3 py-1.5 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
               placeholder="请输入消息..."
               rows="1"
               aria-label="消息输入框"
@@ -850,7 +823,7 @@ function autoResizeTextarea(event) {
 
           <!-- 发送按钮 -->
           <button
-            class="rounded-full bg-[#8E4337] px-4 py-2 text-sm text-white font-medium transition-colors disabled:bg-gray-300 hover:bg-[#7B3429]"
+            class="bg-[#8E4337] px-4 py-2 text-sm text-white font-medium transition-colors disabled:bg-gray-300 hover:bg-[#7B3429]"
             :disabled="!messageInput.trim()"
             aria-label="发送消息"
             @click="sendMessage"
