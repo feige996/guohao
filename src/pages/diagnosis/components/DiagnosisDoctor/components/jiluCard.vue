@@ -59,7 +59,7 @@ function handleSwitchTab(tab: 'ongoing' | 'all') {
     try {
       // 跳转到全部问诊记录页面
       uni.navigateTo({
-        url: '/pages-doctor-diagnosis/yuyinwenzhen/consultation-records'
+        url: '/pages-doctor-diagnosis/yuyinwenzhen/consultation-records',
       })
     }
     catch (error) {
@@ -94,7 +94,7 @@ function enterConsultation(sessionId: string) {
       <!-- Tab切换 -->
       <div class="flex rounded-full bg-gray-100 p-0.5">
         <button
-          class="rounded-full px-3 py-0.5 text-sm font-medium transition-colors"
+          class="px-3 py-0.5 text-sm font-medium transition-colors"
           :class="activeTab === 'ongoing'
             ? 'bg-[#8E4337] text-white'
             : 'text-gray-600 hover:bg-gray-200'
@@ -104,7 +104,7 @@ function enterConsultation(sessionId: string) {
           进行中
         </button>
         <button
-          class="rounded-full px-3 py-0.5 text-sm font-medium transition-colors"
+          class="px-3 py-0.5 text-sm font-medium transition-colors"
           :class="activeTab === 'all'
             ? 'bg-[#8E4337] text-white'
             : 'text-gray-600 hover:bg-gray-200'
