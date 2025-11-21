@@ -6,8 +6,8 @@ definePage({
   style: {
     navigationStyle: 'default',
     navigationBarTitleText: '处方详情',
-    navigationBarBackgroundColor: '#fff'
-  }
+    navigationBarBackgroundColor: '#fff',
+  },
 })
 const toastMessage = ref('')
 const isToastVisible = ref(false)
@@ -53,9 +53,7 @@ function goBack(): void {
         <section class="box-border w-full overflow-hidden break-words rounded-[20px] from-[#8E4337] to-[#6E2F25] bg-gradient-to-r p-5 text-white shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
           <div class="mb-3 flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-6 w-6">
-                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-              </svg>
+              <wd-icon name="check-circle-filled" size="22px" color="#fff" />
               <span class="text-lg font-bold">处方已开具</span>
             </div>
             <span class="rounded-full bg-white/20 px-3 py-1 text-xs font-bold">中药处方</span>
@@ -83,9 +81,7 @@ function goBack(): void {
         <!-- 患者信息 -->
         <section class="box-border w-full overflow-hidden break-words rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
           <div class="mb-4 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-              <path d="M10 8a3 3 0 100-6 3 3 0 000 6zM3.465 14.493a1.23 1.23 0 00.41 1.412A9.957 9.957 0 0010 18c2.31 0 4.438-.784 6.131-2.1.43-.333.604-.903.408-1.41a7.002 7.002 0 00-13.074.003z" />
-            </svg>
+            <wd-icon name="user-circle" size="22px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">患者信息</span>
           </div>
           <div class="grid grid-cols-2 gap-3 text-sm">
@@ -111,9 +107,7 @@ function goBack(): void {
         <!-- 诊断信息 -->
         <section class="box-border w-full overflow-hidden break-words rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
           <div class="mb-4 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="check-circle-filled" size="20px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">诊断信息</span>
           </div>
           <div class="space-y-2">
@@ -139,9 +133,7 @@ function goBack(): void {
         <!-- 处方信息 -->
         <section class="box-border w-full overflow-hidden break-words border-2 border-[#8E4337] rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
           <div class="mb-4 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-              <path fill-rule="evenodd" d="M4.5 2A1.5 1.5 0 003 3.5v13A1.5 1.5 0 004.5 18h11a1.5 1.5 0 001.5-1.5V7.621a1.5 1.5 0 00-.44-1.06l-4.12-4.122A1.5 1.5 0 0011.378 2H4.5zm2.25 8.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5zm0 3a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="list" size="20px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">处方内容</span>
           </div>
 
@@ -267,9 +259,7 @@ function goBack(): void {
         <!-- 用法说明 -->
         <section class="box-border w-full overflow-hidden break-words rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
           <div class="mb-4 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM8.94 6.94a.75.75 0 11-1.061-1.061 3 3 0 112.871 5.026v.345a.75.75 0 01-1.5 0v-.5c0-.72.57-1.172 1.081-1.287A1.5 1.5 0 108.94 6.94zM10 15a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="help-circle-filled" size="22px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">用法说明</span>
           </div>
           <div class="box-border overflow-hidden break-words border border-[#E5E7EB] rounded-xl bg-[#F9FAFB] p-4">
@@ -277,9 +267,7 @@ function goBack(): void {
               水煎服，每日1剂，分早晚两次温服，饭后服用。连服7天。
             </div>
             <div class="flex items-start gap-2 text-xs text-[#6B7280]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="mt-0.5 h-4 w-4 flex-shrink-0">
-                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
-              </svg>
+              <wd-icon name="error-circle-filled" size="16px" />
               <span class="break-words">煎药方法：先浸泡30分钟，大火煮沸后转小火煎煮30分钟，每剂煎两次，合并药液约400ml。</span>
             </div>
           </div>
@@ -288,9 +276,7 @@ function goBack(): void {
         <!-- 注意事项 -->
         <section class="box-border w-full overflow-hidden break-words rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
           <div class="mb-4 flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#EA580C" class="h-[18px] w-[18px]">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="error-circle-filled" size="22px" color="red" />
             <span class="text-lg text-[#333333] font-bold leading-7">注意事项</span>
           </div>
           <div class="box-border overflow-hidden break-words border border-[#FED7AA] rounded-xl bg-[#FFF7ED] p-4">
