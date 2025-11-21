@@ -6,8 +6,8 @@ definePage({
   style: {
     navigationStyle: 'default',
     navigationBarTitleText: '问诊详情',
-    navigationBarBackgroundColor: '#fff'
-  }
+    navigationBarBackgroundColor: '#fff',
+  },
 })
 const toastMessage = ref('')
 const isToastVisible = ref(false)
@@ -53,7 +53,7 @@ function viewMedicalRecord(): void {
   showToast('正在打开完整病历...')
   setTimeout(() => {
     uni.navigateTo({
-      url: '/pages-doctor-diagnosis/yuyinwenzhen/medical-record'
+      url: '/pages-doctor-diagnosis/yuyinwenzhen/medical-record',
     })
   }, 500)
 }
@@ -63,7 +63,7 @@ function viewPrescriptionDetail(): void {
   showToast('正在打开处方详情...')
   setTimeout(() => {
     uni.navigateTo({
-      url: '/pages-doctor-diagnosis/yuyinwenzhen/prescription-detail'
+      url: '/pages-doctor-diagnosis/yuyinwenzhen/prescription-detail',
     })
   }, 500)
 }
@@ -129,13 +129,11 @@ function showMoreOptions(): void {
             </div>
           </div>
           <button
-            class="flex items-center gap-1 rounded-lg bg-[#F5EBE9] px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
+            class="flex items-center gap-1 bg-[#F5EBE9] px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
             aria-label="查看病历"
             @click="viewMedicalRecord()"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-3.5 w-3.5">
-              <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
-            </svg>
+            <wd-icon name="note" size="16px" />
             病历
           </button>
         </div>
@@ -144,9 +142,7 @@ function showMoreOptions(): void {
       <!-- 问诊信息 -->
       <section class="w-full rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm.75-13a.75.75 0 00-1.5 0v5c0 .414.336.75.75.75h4a.75.75 0 000-1.5h-3.25V5z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="time-filled" size="16px" color="#8E4337" />
           <span class="text-lg text-[#333333] font-bold leading-7">问诊信息</span>
         </div>
 
@@ -155,9 +151,7 @@ function showMoreOptions(): void {
           <div class="flex items-center justify-between border-b border-[#E5E7EB] py-2">
             <span class="text-sm text-[#6B7280]">问诊类型</span>
             <div class="flex items-center gap-2">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-4 w-4">
-                <path d="M10 2c-1.716 0-3.408.106-5.07.31C3.806 2.45 3 3.414 3 4.517V17.25a.75.75 0 001.075.676L10 15.082l5.925 2.844A.75.75 0 0017 17.25V4.517c0-1.103-.806-2.068-1.93-2.207A41.403 41.403 0 0010 2z" />
-              </svg>
+              <wd-icon name="books" size="16px" color="#8E4337" />
               <span class="text-sm text-[#1F2937] font-medium">图文问诊</span>
             </div>
           </div>
@@ -185,9 +179,7 @@ function showMoreOptions(): void {
       <!-- 主诉与现病史 -->
       <section class="w-full rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-            <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
-          </svg>
+          <wd-icon name="file-paste" size="16px" color="#8E4337" />
           <span class="text-lg text-[#333333] font-bold leading-7">主诉与现病史</span>
         </div>
 
@@ -237,10 +229,7 @@ function showMoreOptions(): void {
       <section class="w-full rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-              <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
-              <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="view" size="16px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">四诊信息</span>
           </div>
           <button
@@ -248,9 +237,7 @@ function showMoreOptions(): void {
             aria-label="展开/折叠"
             @click="toggleSection('fourDiagnosis')"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5 transition-transform" :style="{ transform: expandedSections.fourDiagnosis ? 'rotate(0deg)' : 'rotate(-90deg)' }">
-              <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="arrow-down" size="16px" color="#8E4337" />
           </button>
         </div>
 
@@ -259,10 +246,7 @@ function showMoreOptions(): void {
             <!-- 望诊 -->
             <div class="rounded-xl bg-[#F9FAFB] p-3">
               <div class="mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-4 w-4">
-                  <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
-                  <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-                </svg>
+                <wd-icon name="view" size="16px" color="#8E4337" />
                 <span class="text-sm text-[#374151] font-semibold">望诊</span>
               </div>
               <div class="text-sm text-[#6B7280] leading-relaxed">
@@ -273,10 +257,7 @@ function showMoreOptions(): void {
             <!-- 闻诊 -->
             <div class="rounded-xl bg-[#F9FAFB] p-3">
               <div class="mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-4 w-4">
-                  <path d="M7 4a3 3 0 016 0v6a3 3 0 11-6 0V4z" />
-                  <path d="M5.5 9.643a.75.75 0 00-1.5 0V10c0 3.06 2.29 5.585 5.25 5.954V17.5h-1.5a.75.75 0 000 1.5h4.5a.75.75 0 000-1.5h-1.5v-1.546A6.001 6.001 0 0016 10v-.357a.75.75 0 00-1.5 0V10a4.5 4.5 0 01-9 0v-.357z" />
-                </svg>
+                <wd-icon name="user-talk" size="16px" color="#8E4337" />
                 <span class="text-sm text-[#374151] font-semibold">闻诊</span>
               </div>
               <div class="text-sm text-[#6B7280] leading-relaxed">
@@ -287,10 +268,7 @@ function showMoreOptions(): void {
             <!-- 问诊 -->
             <div class="rounded-xl bg-[#F9FAFB] p-3">
               <div class="mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-4 w-4">
-                  <path d="M3.505 2.365A41.369 41.369 0 019 2c1.863 0 3.697.124 5.495.365 1.247.167 2.18 1.108 2.435 2.268a4.45 4.45 0 00-.577-.069 43.141 43.141 0 00-4.706 0C9.229 4.696 7.5 6.727 7.5 8.998v2.24c0 1.413.67 2.735 1.76 3.562l-2.98 2.98A.75.75 0 015 17.25v-3.443c-.501-.048-1-.106-1.495-.172C2.033 13.438 1 12.162 1 10.72V5.28c0-1.441 1.033-2.717 2.505-2.914z" />
-                  <path d="M14 6c-.762 0-1.52.02-2.271.062C10.157 6.148 9 7.472 9 8.998v2.24c0 1.519 1.147 2.839 2.71 2.935.214.013.428.024.642.034.2.009.385.09.518.224l2.35 2.35a.75.75 0 001.28-.531v-2.07c1.453-.195 2.5-1.463 2.5-2.915V8.998c0-1.526-1.157-2.85-2.729-2.936A41.645 41.645 0 0014 6z" />
-                </svg>
+                <wd-icon name="chat1" size="16px" color="#8E4337" />
                 <span class="text-sm text-[#374151] font-semibold">问诊</span>
               </div>
               <div class="text-sm text-[#6B7280] leading-relaxed">
@@ -301,9 +279,7 @@ function showMoreOptions(): void {
             <!-- 切诊 -->
             <div class="rounded-xl bg-[#F9FAFB] p-3">
               <div class="mb-2 flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-4 w-4">
-                  <path d="M15.98 1.804a1 1 0 00-1.96 0l-.24 1.192a1 1 0 01-.784.785l-1.192.238a1 1 0 000 1.962l1.192.238a1 1 0 01.785.785l.238 1.192a1 1 0 001.962 0l.238-1.192a1 1 0 01.785-.785l1.192-.238a1 1 0 000-1.962l-1.192-.238a1 1 0 01-.785-.785l-.238-1.192zM6.949 5.684a1 1 0 00-1.898 0l-.683 2.051a1 1 0 01-.633.633l-2.051.683a1 1 0 000 1.898l2.051.684a1 1 0 01.633.632l.683 2.051a1 1 0 001.898 0l.683-2.051a1 1 0 01.633-.633l2.051-.683a1 1 0 000-1.898l-2.051-.683a1 1 0 01-.633-.633L6.95 5.684zM13.949 13.684a1 1 0 00-1.898 0l-.184.551a1 1 0 01-.632.633l-.551.183a1 1 0 000 1.898l.551.183a1 1 0 01.633.633l.183.551a1 1 0 001.898 0l.184-.551a1 1 0 01.632-.633l.551-.183a1 1 0 000-1.898l-.551-.184a1 1 0 01-.633-.632l-.183-.551z" />
-                </svg>
+                <wd-icon name="tips" size="16px" color="#8E4337" />
                 <span class="text-sm text-[#374151] font-semibold">切诊</span>
               </div>
               <div class="text-sm text-[#6B7280] leading-relaxed">
@@ -317,9 +293,7 @@ function showMoreOptions(): void {
       <!-- 诊断结果 -->
       <section class="w-full border-2 border-[#8E4337] rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="check-outline" size="22px" color="#8E4337" />
           <span class="text-lg text-[#333333] font-bold leading-7">诊断结果</span>
         </div>
 
@@ -360,9 +334,7 @@ function showMoreOptions(): void {
       <section class="w-full rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center justify-between">
           <div class="flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-              <path fill-rule="evenodd" d="M4.5 2A1.5 1.5 0 003 3.5v13A1.5 1.5 0 004.5 18h11a1.5 1.5 0 001.5-1.5V7.621a1.5 1.5 0 00-.44-1.06l-4.12-4.122A1.5 1.5 0 0011.378 2H4.5zm2.25 8.5a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5zm0 3a.75.75 0 000 1.5h6.5a.75.75 0 000-1.5h-6.5z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="list" size="20px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">处方信息</span>
           </div>
           <span class="rounded-full bg-[#10B981] px-2.5 py-1 text-xs text-white font-bold">已开方</span>
@@ -423,10 +395,7 @@ function showMoreOptions(): void {
             aria-label="查看处方详情"
             @click="viewPrescriptionDetail()"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-              <path d="M10 12.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
-              <path fill-rule="evenodd" d="M.664 10.59a1.651 1.651 0 010-1.186A10.004 10.004 0 0110 3c4.257 0 7.893 2.66 9.336 6.41.147.381.146.804 0 1.186A10.004 10.004 0 0110 17c-4.257 0-7.893-2.66-9.336-6.41zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="view" size="16px" />
             查看处方详情
           </button>
         </div>
@@ -435,9 +404,7 @@ function showMoreOptions(): void {
       <!-- 健康指导 -->
       <section class="w-full rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
         <div class="mb-4 flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#8E4337" class="h-[18px] w-[18px]">
-            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM8.94 6.94a.75.75 0 11-1.061-1.061 3 3 0 112.871 5.026v.345a.75.75 0 01-1.5 0v-.5c0-.72.57-1.172 1.081-1.287A1.5 1.5 0 108.94 6.94zM10 15a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd" />
-          </svg>
+          <wd-icon name="help-circle-filled" size="20px" color="#8E4337" />
           <span class="text-lg text-[#333333] font-bold leading-7">健康指导</span>
         </div>
 
@@ -483,9 +450,7 @@ function showMoreOptions(): void {
         aria-label="查看完整病历"
         @click="viewMedicalRecord()"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-          <path d="M3 3.5A1.5 1.5 0 014.5 2h6.879a1.5 1.5 0 011.06.44l4.122 4.12A1.5 1.5 0 0117 7.622V16.5a1.5 1.5 0 01-1.5 1.5h-11A1.5 1.5 0 013 16.5v-13z" />
-        </svg>
+        <wd-icon name="note" size="20px" />
         查看完整病历
       </button>
     </footer>
