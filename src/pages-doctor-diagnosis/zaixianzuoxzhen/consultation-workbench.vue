@@ -29,6 +29,8 @@ const messageInput = ref('')
 const currentTime = ref('')
 const isConsultationActive = ref(true)
 const remainingTime = ref('01:28:45')
+// 用于跟踪正在呼叫的患者
+const callingPatients = ref<Set<string>>(new Set())
 
 // 类型定义
 interface Patient {
@@ -317,33 +319,38 @@ function showPrescriptionModal() {
 
 // 呼叫患者
 function callPatient(patient: Patient, event: Event) {
-  const target = event.currentTarget as HTMLButtonElement
+  // 阻止事件冒泡
+  event.stopPropagation()
+  
+  const startCalling = () => {
+    // 添加到正在呼叫的患者集合中
+    callingPatients.value.add(patient.id)
+    
+    // 模拟叫号成功
+    setTimeout(() => {
+      showSuccessModal(
+        '叫号成功',
+        `患者 ${patient.name} 已收到叫号通知，请等待患者响应（3分钟内有效）`,
+      )
 
+      patient.hasBeenCalled = true
+      
+      // 从正在呼叫的集合中移除
+      callingPatients.value.delete(patient.id)
+
+      // 3分钟后检查患者是否响应
+      setTimeout(() => {
+        checkPatientResponse(patient)
+      }, 180000)
+    }, 1500)
+  }
+
+  // 为叫号确认弹窗设置特殊的圆形图标
   showModal(
-    'icon-call',
+    'icon-call-circle',
     '叫号确认',
     `确定要呼叫患者 ${patient.name} 吗？`,
-    () => {
-      target.innerHTML = '<span class="loading-spinner mr-2"></span> 叫号中...'
-      target.disabled = true
-      target.classList.add('bg-gray-300')
-      target.classList.remove('bg-[#8E4337]', 'hover:bg-[#7B3429]')
-
-      // 模拟叫号成功
-      setTimeout(() => {
-        showSuccessModal(
-          '叫号成功',
-          `患者 ${patient.name} 已收到叫号通知，请等待患者响应（3分钟内有效）`,
-        )
-
-        patient.hasBeenCalled = true
-
-        // 3分钟后检查患者是否响应
-        setTimeout(() => {
-          checkPatientResponse(patient)
-        }, 180000)
-      }, 1500)
-    },
+    startCalling
   )
 }
 
@@ -493,7 +500,7 @@ function autoResizeTextarea(event) {
         <div id="modalButtons" class="grid grid-cols-2 gap-3">
           <button
             id="modalCancelBtn"
-            class="cursor-pointer border-2 border-[#E5E7EB] rounded-lg py-3 text-sm text-[#6B7280] font-medium transition-colors active:scale-98 hover:bg-[#F9FAFB]"
+            class="cursor-pointer border-2 border-[#E5E7EB] py-3 text-sm text-[#6B7280] font-medium transition-colors active:scale-98 hover:bg-[#F9FAFB]"
             aria-label="取消"
             @click="closeModal"
           >
@@ -501,7 +508,7 @@ function autoResizeTextarea(event) {
           </button>
           <button
             id="modalConfirmBtn"
-            class="cursor-pointer rounded-lg bg-[#EF4444] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#DC2626]"
+            class="cursor-pointer bg-red-500 py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-red-600"
             aria-label="确认"
             @click="confirmModal"
           >
@@ -688,13 +695,17 @@ function autoResizeTextarea(event) {
               </button>
               <button
                 :id="`call-confirm-${patient.id}`"
-                class="min-w-[80px] flex-1 bg-[#8E4337] px-3 py-2 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]"
-                :disabled="patient.hasBeenCalled"
-                :class="{ 'bg-gray-300': patient.hasBeenCalled }"
+                class="min-w-[80px] flex-1 flex items-center justify-center gap-1 px-3 py-2 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]"
+                :class="{
+                  'bg-[#8E4337]': !patient.hasBeenCalled && !callingPatients.has(patient.id),
+                  'bg-gray-300': patient.hasBeenCalled || callingPatients.has(patient.id)
+                }"
+                :disabled="patient.hasBeenCalled || callingPatients.has(patient.id)"
                 aria-label="呼叫患者"
                 @click="callPatient(patient, $event)"
               >
-                {{ patient.hasBeenCalled ? '已叫号' : '呼叫患者' }}
+                <span v-if="callingPatients.has(patient.id)" class="loading-spinner h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+                {{ patient.hasBeenCalled ? '已叫号' : (callingPatients.has(patient.id) ? '叫号中...' : '呼叫患者') }}
               </button>
             </div>
           </div>
