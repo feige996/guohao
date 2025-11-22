@@ -28,7 +28,7 @@ const messages = ref<Message[]>([])
 const messageInput = ref('')
 const currentTime = ref('')
 const isConsultationActive = ref(true)
-const remainingTime = ref('01:28:45')
+const remainingTime = ref(128 * 60 * 1000) // 剩余坐诊时间，单位为毫秒
 // 用于跟踪正在呼叫的患者
 const callingPatients = ref<Set<string>>(new Set())
 
@@ -116,9 +116,6 @@ onMounted(() => {
   const { zhangWei, liWei, chenMei, wangJun } = getPatientData()
   currentPatient.value = zhangWei
   waitingPatients.value = [liWei, chenMei, wangJun]
-  updateTime()
-  setInterval(updateTime, 60000)
-  checkConsultationStatus()
 
   // #ifdef H5
   // 监听ESC键关闭弹窗（仅在H5平台支持）
@@ -429,40 +426,6 @@ function endWork() {
   )
 }
 
-// 检查坐诊状态
-function checkConsultationStatus() {
-  const status = uni.getStorageSync('consultationStatus')
-  isConsultationActive.value = status === 'active'
-
-  // 如果有开始坐诊时间，计算已坐诊时长
-  const startTime = uni.getStorageSync('consultationStartTime')
-  if (startTime) {
-    updateConsultationDuration(startTime)
-  }
-}
-
-// 更新坐诊时长
-function updateConsultationDuration(startTimeStr: string) {
-  const startTime = new Date(startTimeStr)
-  const updateDuration = () => {
-    const now = new Date()
-    const durationMs = now.getTime() - startTime.getTime()
-    const hours = Math.floor(durationMs / (1000 * 60 * 60))
-    const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60))
-    const seconds = Math.floor((durationMs % (1000 * 60)) / 1000)
-
-    // 更新UI显示
-    remainingTime.value = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
-  }
-
-  updateDuration()
-  const timer = setInterval(updateDuration, 1000)
-
-  onBeforeUnmount(() => {
-    clearInterval(timer)
-  })
-}
-
 // 输入框自动调整高度
 function autoResizeTextarea(event) {
   const textarea = event.target
@@ -528,7 +491,7 @@ function autoResizeTextarea(event) {
             剩余坐诊时间
           </div>
           <div class="timer-text">
-            {{ remainingTime }}
+            <wd-count-down :time="remainingTime" custom-class="text-[#8E4337]! text-3xl! font-bold!" />
           </div>
         </div>
         <!-- 结束坐诊按钮 -->
