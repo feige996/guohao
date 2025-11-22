@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 // 跳转到健康问答页面
-const goToHealthConsult = () => {
+function goToHealthConsult() {
   uni.navigateTo({
     url: '/pages-user-index/azixunCard/healthConsult',
     success: () => {
@@ -8,13 +8,14 @@ const goToHealthConsult = () => {
     },
     fail: (err) => {
       console.error('跳转到健康问答页面失败:', err)
-    }
+    },
   })
 }
+const searchQuery = ref('')
 </script>
 
 <template>
-  <view class="consultation-section relative mt-6 rounded-lg p-3 pt-6 cursor-pointer" @click="goToHealthConsult">
+  <view class="consultation-section relative mt-6 cursor-pointer rounded-lg p-3 pt-6" @click="goToHealthConsult">
     <view class="consultation-title">
       专业咨询
     </view>
@@ -26,7 +27,7 @@ const goToHealthConsult = () => {
       <view class="absolute bottom-12 right-2">
         <image src="/static/images/home-user/doctor-avatar.png" class="mt-4 h-[131px] w-[137px]" />
       </view>
-      <SearchBar placeholder="[健康管家]您最近身体怎么样？" is-ask-doctor search-text="问医生" />
+      <SearchBar placeholder="[健康管家]您最近身体怎么样？" is-ask-doctor search-text="问医生" @search="searchQuery = $event" />
     </view>
   </view>
 </template>

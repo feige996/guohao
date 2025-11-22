@@ -21,6 +21,7 @@ interface ServiceCardData {
   buttonText: string
 }
 
+const searchQuery = ref('')
 // 诊断卡片数据
 const diagnosisCardList: DiagnosisCardData[] = [{
   id: 'guide',
@@ -90,7 +91,7 @@ function handleServiceCardClick(data: ServiceCardData) {
 <template>
   <view class="">
     <!-- 搜索栏 -->
-    <SearchBar placeholder="搜索疾病、症状、科室等" />
+    <SearchBar placeholder="搜索疾病、症状、科室等" @search="searchQuery = $event" />
 
     <!-- 在线问诊 + 导诊顾问 卡片 -->
     <view class="w-full flex items-center pt-4">

@@ -3,12 +3,15 @@ import SearchBar from '@/components/SearchBar/index.vue'
 import FunctionCard from './components/FunctionCard.vue'
 import PatientSection from './components/PatientSection.vue'
 import SummaryCard from './components/SummaryCard.vue'
+
+// 定义响应式变量用于存储搜索输入框的值
+const searchQuery = ref('')
 </script>
 
 <template>
   <view class="page-patient px-3 pt-4">
     <!-- 搜索组件 -->
-    <SearchBar placeholder="搜索患者名称/疾病" />
+    <SearchBar placeholder="搜索患者名称/疾病" @search="searchQuery = $event" />
     <!-- 患者数据统计 -->
     <SummaryCard class="mt-3" />
 

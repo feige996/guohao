@@ -442,12 +442,12 @@ function viewMedicalRecord(): void {
                 </h4>
                 <span class="rounded bg-[#f5e9d7] px-2 py-0.5 text-xs text-[#975518]">{{ getTypeName(template.type) }}</span>
               </div>
-              <p class="mb-1 text-sm text-gray-700">
+              <view class="mb-1 text-sm text-gray-700">
                 {{ template.functionDescription }}
-              </p>
-              <p class="text-sm text-gray-500">
+              </view>
+              <view class="text-sm text-gray-500">
                 {{ template.mainTreatment }}
-              </p>
+              </view>
             </div>
           </div>
         </div>
@@ -465,16 +465,8 @@ function viewMedicalRecord(): void {
         </div>
         <div class="p-4">
           <div class="relative mb-4">
-            <input
-              v-model="medicineSearchQuery"
-              type="text"
-              placeholder="搜索药品名称或分类"
-              class="w-full border border-gray-300 rounded-lg px-10 py-2 focus:border-[#975518] focus:outline-none focus:ring-2 focus:ring-[#975518]/30"
-            >
-            <svg class="absolute left-3 top-1/2 transform text-gray-400 -translate-y-1/2" width="18" height="18" viewBox="0 0 24 24" fill="none">
-              <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2" />
-              <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
+            <!-- 搜索区域 -->
+            <SearchBar placeholder="搜索疾病、症状、科室等" @search="medicineSearchQuery = $event" />
           </div>
           <div class="mb-4 flex overflow-x-auto border-b border-gray-200">
             <button
@@ -840,9 +832,9 @@ function viewMedicalRecord(): void {
     <div v-if="functionSelectorVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
         <div class="relative flex items-center justify-between border-b border-gray-200 px-4 py-3">
-          <h3 class="text-lg text-[#1F2937] font-medium">
+          <view class="text-lg text-[#1F2937] font-medium">
             选择功用
-          </h3>
+          </view>
           <wd-icon name="close" @click="closeFunctionSelector" />
         </div>
         <div class="px-4 py-2">
@@ -869,15 +861,15 @@ function viewMedicalRecord(): void {
     <div v-if="mainTreatmentSelectorVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
         <div class="relative flex items-center justify-between border-b border-gray-200 px-4 py-3">
-          <h3 class="text-lg text-[#1F2937] font-medium">
+          <view class="text-lg text-[#1F2937] font-medium">
             选择主治
-          </h3>
+          </view>
           <wd-icon name="close" @click="closeMainTreatmentSelector" />
         </div>
         <div class="px-4 py-2">
-          <p class="text-sm text-gray-500">
+          <view class="text-sm text-gray-500">
             点击可添加，用逗号分隔
-          </p>
+          </view>
         </div>
         <div class="p-4">
           <div class="grid grid-cols-2 max-h-[300px] gap-3 overflow-y-auto">

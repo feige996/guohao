@@ -43,6 +43,9 @@ const tabList = ref([
 // 当前选中的tab
 const activeTabIndex = ref(0)
 
+// 定义响应式变量用于存储搜索输入框的值
+const searchQuery = ref('')
+
 // 不同分类的商品数据
 const allProducts = {
   all: [
@@ -259,7 +262,7 @@ function handleBack() {
 <template>
   <div class="px-3 pt-4">
     <!-- 搜索栏 -->
-    <SearchBar placeholder="搜索商品、品牌、分类等" />
+    <SearchBar placeholder="搜索商品、品牌、分类等" @search="searchQuery = $event" />
 
     <!-- 轮播图区域 -->
     <view class="mt-4">

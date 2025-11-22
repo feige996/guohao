@@ -13,6 +13,8 @@ withDefaults(defineProps<{
   searchText: '搜索',
 })
 
+const emit = defineEmits(['search'])
+
 // 响应式变量用于存储搜索输入框的值
 const searchQuery = ref('')
 
@@ -23,6 +25,7 @@ const searchQuery = ref('')
 function handleSearch() {
   console.log('搜索患者:', searchQuery.value)
   // 可以在这里添加额外的搜索逻辑
+  emit('search', searchQuery.value)
 }
 </script>
 

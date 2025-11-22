@@ -3,12 +3,15 @@ import ConstitutionCard from './components/ConstitutionCard.vue'
 import ConsultationSection from './components/ConsultationSection.vue'
 import DateCard from './components/DateCard.vue'
 import ExclusiveBenefitsSection from './components/ExclusiveBenefitsSection.vue'
+
+// 定义响应式变量用于存储搜索输入框的值
+const searchQuery = ref('')
 </script>
 
 <template>
   <view class="">
     <!-- 搜索区域 -->
-    <SearchBar placeholder="搜索疾病、症状、科室等" />
+    <SearchBar placeholder="搜索疾病、症状、科室等" @search="searchQuery = $event" />
 
     <!-- 专业咨询卡片 -->
     <ConsultationSection />

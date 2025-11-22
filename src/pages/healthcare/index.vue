@@ -22,6 +22,8 @@ definePage({
   },
 })
 
+const searchQuery = ref('')
+
 const tabList = [
   {
     name: '气节养生',
@@ -107,7 +109,7 @@ function handleTermClick(term: SolarTerm) {
     <!-- 固定头部区域 -->
     <view class="header-fixed">
       <!-- 搜索栏 -->
-      <SearchBar placeholder="搜索养生文章、中医知识等" />
+      <SearchBar placeholder="搜索养生文章、中医知识等" @search="searchQuery = $event" />
 
       <!-- 轮播图 -->
       <view class="mt-4">
