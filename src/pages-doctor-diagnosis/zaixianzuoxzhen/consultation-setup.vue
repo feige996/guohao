@@ -338,37 +338,24 @@ function handleStartConsultation() {
     <!-- 底部按钮 -->
     <div class="fixed bottom-0 left-0 right-0 z-50 box-border w-full border-t border-[#E5E7EB] bg-white/95 p-4 backdrop-blur-sm" style="max-width: 100vw; overflow-x: hidden;">
       <div class="flex gap-3">
-        <button
-          class="flex flex-1 cursor-pointer items-center justify-center gap-2 border-2 border-[#8E4337] rounded py-3 text-sm text-[#8E4337] font-medium leading-5 transition-all active:scale-98 hover:bg-[#8E4337] hover:text-white focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
-          :disabled="isLoading"
-          aria-label="取消开启坐诊"
+        <wd-button
+          plain
+          type="error"
+          icon="close"
+          class="w-full"
           @click="handleCancel"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-            <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-          </svg>
           取消
-        </button>
-        <button
-          class="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded py-3 text-sm text-white font-medium leading-5 transition-colors active:scale-98 hover:bg-[#6E2F25] focus:outline-none focus:ring-2 focus:ring-[#8E4337]"
-          :disabled="isLoading"
-          style="background-color: #8E4337;"
-          aria-label="确认开启坐诊"
+        </wd-button>
+        <wd-button
+          icon="check"
+          :loading="isLoading"
+          type="primary"
+          class="w-full"
           @click="handleStartConsultation"
         >
-          <template v-if="!isLoading">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-            </svg>
-            <span>开启坐诊</span>
-          </template>
-          <template v-else>
-            <div class="flex items-center gap-2">
-              <div class="h-4 w-4 animate-spin border-2 border-white border-t-transparent rounded-full" />
-              <span>正在开启...</span>
-            </div>
-          </template>
-        </button>
+          {{ isLoading ? '正在开启...' : '开启坐诊' }}
+        </wd-button>
       </div>
     </div>
   </div>
