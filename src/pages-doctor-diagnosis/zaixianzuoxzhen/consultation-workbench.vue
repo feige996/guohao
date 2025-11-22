@@ -480,7 +480,6 @@ function autoResizeTextarea(event) {
           <!-- 坐诊图标 -->
           <wd-icon name="check-circle-filled" size="22px" color="#10B981" />
           <span class="flex items-center gap-2 text-base text-[#10B981] font-semibold">
-            <span class="status-dot" />
             在线坐诊中
           </span>
         </div>
