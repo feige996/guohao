@@ -55,7 +55,7 @@ function acceptOrder(orderId: string): void {
 
     <!-- 订单号和状态 -->
     <view class="mb-4 flex items-center justify-between gap-2">
-      <view class="max-w-[150px] truncate text-[10px] text-[#9CA3AF]">
+      <view class="max-w-[200px] truncate text-[10px] text-[#9CA3AF]">
         {{ order.orderNumber }}
       </view>
       <view class="flex items-center gap-2">
@@ -98,7 +98,7 @@ function acceptOrder(orderId: string): void {
     </div>
 
     <!-- 订单信息 -->
-    <div class="grid grid-cols-3 mb-4 gap-1.5">
+    <div class="grid grid-cols-3 mb-4 gap-2">
       <div class="rounded-xl from-[#FFF7ED] to-[#FFEDD5] bg-gradient-to-br p-2.5 text-center">
         <div class="mb-1 text-xs text-[#EA580C] font-medium">
           金额
@@ -111,16 +111,22 @@ function acceptOrder(orderId: string): void {
         <div class="mb-1 text-xs text-[#6B7280] font-medium">
           派单
         </div>
-        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#1F2937] font-bold">
-          {{ order.dispatchTime }}
+        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#1F2937]">
+          {{ '10-10' }}
+        </div>
+        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#1F2937]">
+          {{ '14:20' }}
         </div>
       </div>
       <div class="rounded-xl from-[#FEE2E2] to-[#FECACA] bg-gradient-to-br p-2.5 text-center">
         <div class="mb-1 text-xs text-[#EF4444] font-medium">
           剩余
         </div>
-        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#EF4444] font-bold">
-          {{ order.remainingTime }}
+        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#EF4444]">
+          {{ '已超时' }}
+        </div>
+        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#EF4444]">
+          {{ '49分钟' }}
         </div>
       </div>
     </div>
