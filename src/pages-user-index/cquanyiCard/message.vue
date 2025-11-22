@@ -7,7 +7,6 @@ definePage({
   style: {
     navigationStyle: 'default',
     navigationBarTitleText: '我的消息',
-    navigationBarTextStyle: 'black',
   },
 })
 
@@ -194,7 +193,7 @@ function handleCategoryClick(categoryId: string) {
 </script>
 
 <template>
-  <view class="h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top}px`, paddingBottom: `${safeAreaInsets?.bottom}px` }">
+  <view class="h-screen flex flex-col bg-[#f5f7f4]" :style="{ paddingBottom: `${safeAreaInsets?.bottom}px` }">
     <!-- 顶部导航栏
     <view class="h-[92rpx] flex items-center justify-between border-b border-[#f0f0f0] bg-white px-[32rpx]">
       <view class="h-[44rpx] w-[44rpx] flex items-center justify-center" @click="goBack">
