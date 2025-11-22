@@ -232,13 +232,11 @@ function showMoreOptions(): void {
             <wd-icon name="view" size="16px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">四诊信息</span>
           </div>
-          <button
-            class="m-0 ml-auto appearance-none border-0 bg-transparent text-[#8E4337] outline-none transition-transform hover:text-[#6E2F25] focus:ring-0"
-            aria-label="展开/折叠"
+          <view
             @click="toggleSection('fourDiagnosis')"
           >
-            <wd-icon name="arrow-down" size="16px" color="#8E4337" />
-          </button>
+            <wd-icon name="arrow-down" size="16px" color="#8E4337" class="transition-transform duration-300" :class="{ '-rotate-90': expandedSections.fourDiagnosis }" />
+          </view>
         </div>
 
         <div class="collapsible-content" :class="{ expanded: expandedSections.fourDiagnosis }">
