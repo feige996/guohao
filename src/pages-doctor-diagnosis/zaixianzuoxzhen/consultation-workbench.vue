@@ -695,6 +695,7 @@ function autoResizeTextarea(event) {
                 type="warning"
                 icon="list"
                 class="w-full"
+                size="small"
                 @click="viewMedicalRecord(patient.medicalRecordId)"
               >
                 病历
@@ -704,6 +705,7 @@ function autoResizeTextarea(event) {
                 plain block
                 type="primary"
                 class="w-full"
+                size="small"
                 @click="callPatient(patient, $event)"
               >
                 呼叫患者
