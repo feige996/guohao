@@ -1,0 +1,286 @@
+/**
+ * 问诊记录数据（对应后端 app_AppointmentV2）
+ * 覆盖所有状态码、两种模式、三种问诊方式的演示数据
+ */
+
+import type { Appointment } from '@/types';
+import { ConsultMode, ConsultType, AssignMode, AppointmentStatus } from '@/types';
+import { mockDoctors } from './doctors';
+
+/**
+ * 问诊订单演示数据
+ * 
+ * 状态分类：
+ * - 1xx: 支付相关状态
+ * - 2xx: 派单模式专属状态
+ * - 3xx: 坐诊模式专属状态
+ * - 4xx: 问诊服务状态（通用）
+ * - 5xx: 退款相关状态
+ * - 9xx: 终止状态
+ * 
+ * 问诊模式：
+ * - 派单模式（DISPATCH）：智能匹配、指定医生
+ * - 坐诊模式（CLINIC）：在线坐诊
+ * 
+ * 问诊类型：
+ * - 图文问诊（TEXT）
+ * - 视频问诊（VIDEO）
+ * - 语音问诊（VOICE）
+ */
+export const consultationRecords: Appointment[] = [
+  
+  // ==================== 1xx: 支付相关状态 ====================
+  
+  // 100 - 待支付 - 派单模式 - 图文问诊
+  {
+    id: 101,
+    appointmentNo: "APT202411170101",
+    patientId: 10001,
+    consultMode: ConsultMode.DISPATCH,
+    consultType: ConsultType.TEXT,
+    originalConsultType: ConsultType.TEXT,
+    isUpgraded: false,
+    upgradeCount: 0,
+    assignMode: AssignMode.SMART,
+    status: AppointmentStatus.PENDING_PAYMENT,
+    symptoms: "最近总是失眠多梦，睡眠质量很差",
+    categoryTag: ["失眠多梦"],
+    amount: 99,
+    discountAmount: 0,
+    actualAmount: 99,
+    upgradeAmount: 0,
+    totalPaidAmount: 0,
+    paymentCompleteStatus: 0,
+    needPrescription: false,
+    refundStatus: 0,
+    createTime: "2024-11-17 14:30",
+  },
+  
+  // 102 - 支付失败 - 坐诊模式 - 视频问诊
+  {
+    id: 102,
+    appointmentNo: "APT202411170102",
+    patientId: 10001,
+    doctorId: 5,
+    consultMode: ConsultMode.CLINIC,
+    consultType: ConsultType.VIDEO,
+    originalConsultType: ConsultType.VIDEO,
+    isUpgraded: false,
+    upgradeCount: 0,
+    clinicRoomId: 1001,
+    status: AppointmentStatus.PAYMENT_FAILED,
+    symptoms: "腰椎间盘突出，需要复查",
+    categoryTag: ["腰痛腿痛"],
+    amount: 189,
+    discountAmount: 0,
+    actualAmount: 189,
+    upgradeAmount: 0,
+    totalPaidAmount: 0,
+    paymentCompleteStatus: 0,
+    needPrescription: false,
+    refundStatus: 0,
+    createTime: "2024-11-17 13:45",
+  },
+  
+  // 派单模式 - 智能匹配 - 已完成（待支付处方）
+  {
+    id: 2,
+    appointmentNo: "APT202411140001",
+    patientId: 10001,
+    doctorId: 2,
+    consultMode: ConsultMode.DISPATCH,
+    consultType: ConsultType.TEXT,
+    originalConsultType: ConsultType.TEXT,
+    isUpgraded: false,
+    upgradeCount: 0,
+    assignMode: AssignMode.SMART,
+    acceptTime: "2024-11-14 14:35",
+    status: AppointmentStatus.COMPLETED,
+    startTime: "2024-11-14 14:35",
+    endTime: "2024-11-14 16:20",
+    actualDuration: 105,
+    validUntil: "2024-11-16 14:35",
+    symptoms: "胸闷气短，偶尔心悸，想通过中医调理",
+    categoryTag: ["心悸胸闷"],
+    diagnosis: "气虚血瘀，心脉不畅",
+    treatmentPlan: "益气活血，通脉宁心",
+    amount: 89,
+    discountAmount: 0,
+    actualAmount: 89,
+    upgradeAmount: 0,
+    totalPaidAmount: 89,
+    firstPaymentMethod: "wechat",
+    firstPaymentTime: "2024-11-14 14:20",
+    paymentCompleteStatus: 2,
+    prescriptionId: 2001,
+    needPrescription: true,
+    refundStatus: 0,
+    createTime: "2024-11-14 14:20",
+  },
+  
+  // 派单模式 - 智能匹配 - 待接单
+  {
+    id: 3,
+    appointmentNo: "APT202411150002",
+    patientId: 10001,
+    consultMode: ConsultMode.DISPATCH,
+    consultType: ConsultType.TEXT,
+    originalConsultType: ConsultType.TEXT,
+    isUpgraded: false,
+    upgradeCount: 0,
+    assignMode: AssignMode.SMART,
+    assignExpireTime: "2024-11-15 17:20",
+    status: AppointmentStatus.WAITING_ACCEPT,
+    validUntil: "2024-11-17 15:20",
+    symptoms: "糖尿病复诊，想调整用药方案",
+    categoryTag: ["糖尿病调理"],
+    amount: 99,
+    discountAmount: 0,
+    actualAmount: 99,
+    upgradeAmount: 0,
+    totalPaidAmount: 99,
+    firstPaymentMethod: "alipay",
+    firstPaymentTime: "2024-11-15 15:20",
+    paymentCompleteStatus: 2,
+    needPrescription: false,
+    refundStatus: 0,
+    createTime: "2024-11-15 15:20",
+  },
+  
+  // 派单模式 - 指定医生 - 进行中
+  {
+    id: 4,
+    appointmentNo: "APT202411150003",
+    patientId: 10001,
+    doctorId: 3,
+    consultMode: ConsultMode.DISPATCH,
+    consultType: ConsultType.TEXT,
+    originalConsultType: ConsultType.TEXT,
+    isUpgraded: false,
+    upgradeCount: 0,
+    assignMode: AssignMode.ASSIGN,
+    specifiedDoctorId: 3,
+    acceptTime: "2024-11-15 09:30",
+    status: AppointmentStatus.CONSULTING,
+    startTime: "2024-11-15 09:30",
+    validUntil: "2024-11-17 09:00",
+    symptoms: "失眠多梦，睡眠质量差，已经持续一个月了",
+    categoryTag: ["失眠多梦"],
+    amount: 79,
+    discountAmount: 0,
+    actualAmount: 79,
+    upgradeAmount: 0,
+    totalPaidAmount: 79,
+    firstPaymentMethod: "wechat",
+    firstPaymentTime: "2024-11-15 09:00",
+    paymentCompleteStatus: 2,
+    needPrescription: false,
+    refundStatus: 0,
+    createTime: "2024-11-15 09:00",
+  },
+  
+  // 坐诊模式 - 图文问诊 - 进行中
+  {
+    id: 7,
+    appointmentNo: "APT202411150006",
+    patientId: 10001,
+    doctorId: 6,
+    consultMode: ConsultMode.CLINIC,
+    consultType: ConsultType.TEXT,
+    originalConsultType: ConsultType.TEXT,
+    isUpgraded: false,
+    upgradeCount: 0,
+    clinicRoomId: 1005,
+    queueNumber: 5,
+    queueTime: "2024-11-15 10:00",
+    status: AppointmentStatus.CONSULTING,
+    startTime: "2024-11-15 10:15",
+    validUntil: "2024-11-17 10:00",
+    symptoms: "皮肤过敏，红疹瘙痒",
+    categoryTag: ["湿疹皮炎"],
+    amount: 99,
+    discountAmount: 0,
+    actualAmount: 99,
+    upgradeAmount: 0,
+    totalPaidAmount: 99,
+    firstPaymentMethod: "wechat",
+    firstPaymentTime: "2024-11-15 10:00",
+    paymentCompleteStatus: 2,
+    needPrescription: false,
+    refundStatus: 0,
+    createTime: "2024-11-15 10:00",
+  },
+  
+  // 坐诊模式 - 视频问诊 - 排队中
+  {
+    id: 8,
+    appointmentNo: "APT202411150007",
+    patientId: 10001,
+    doctorId: 7,
+    consultMode: ConsultMode.CLINIC,
+    consultType: ConsultType.VIDEO,
+    originalConsultType: ConsultType.VIDEO,
+    isUpgraded: false,
+    upgradeCount: 0,
+    clinicRoomId: 1006,
+    queueNumber: 3,
+    queueTime: "2024-11-15 11:30",
+    status: AppointmentStatus.QUEUING,
+    validUntil: "2024-11-15 18:00",
+    symptoms: "腰椎间盘突出复查",
+    categoryTag: ["腰痛腿痛"],
+    amount: 189,
+    discountAmount: 0,
+    actualAmount: 189,
+    upgradeAmount: 0,
+    totalPaidAmount: 189,
+    firstPaymentMethod: "wechat",
+    firstPaymentTime: "2024-11-15 11:30",
+    paymentCompleteStatus: 2,
+    needPrescription: false,
+    refundStatus: 0,
+    createTime: "2024-11-15 11:30",
+  },
+  
+  // 坐诊模式 - 语音问诊 - 已完成
+  {
+    id: 9,
+    appointmentNo: "APT202411140002",
+    patientId: 10001,
+    doctorId: 8,
+    consultMode: ConsultMode.CLINIC,
+    consultType: ConsultType.VOICE,
+    originalConsultType: ConsultType.VOICE,
+    isUpgraded: false,
+    upgradeCount: 0,
+    clinicRoomId: 1007,
+    queueNumber: 8,
+    queueTime: "2024-11-14 09:00",
+    status: AppointmentStatus.COMPLETED,
+    startTime: "2024-11-14 09:15",
+    endTime: "2024-11-14 09:45",
+    actualDuration: 30,
+    symptoms: "月经不调，需要中医调理",
+    categoryTag: ["月经不调"],
+    diagnosis: "肝郁气滞，血瘀不畅",
+    treatmentPlan: "疏肝理气，活血调经",
+    amount: 139,
+    discountAmount: 0,
+    actualAmount: 139,
+    upgradeAmount: 0,
+    totalPaidAmount: 139,
+    firstPaymentMethod: "alipay",
+    firstPaymentTime: "2024-11-14 09:00",
+    paymentCompleteStatus: 2,
+    prescriptionId: 2002,
+    needPrescription: true,
+    rating: 5,
+    comment: "医生很专业，讲解很详细，非常满意",
+    commentTime: "2024-11-14 10:00",
+    refundStatus: 0,
+    createTime: "2024-11-14 09:00",
+  },
+];
+
+// 导出别名，保持向后兼容
+export const appointmentRecords = consultationRecords;
