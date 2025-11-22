@@ -161,33 +161,20 @@ function clearSearch() {
 </script>
 
 <template>
-  <view class="min-h-screen bg-[#f5f7f4]">
+  <view class="min-h-screen">
     <!-- 搜索栏和标签页连在一起 -->
-    <view class="bg-white">
+    <view class="">
       <!-- 搜索栏 -->
-      <view class="px-[24rpx] pb-[20rpx] pt-[24rpx]">
-        <view class="flex items-center border border-[#e0e0e0] rounded-[30rpx] bg-[#f8f8f8] px-[30rpx] py-[20rpx]">
-          <uni-icons type="search" size="24" color="#999999" class="mr-[16rpx]" />
-          <input
-            v-model="searchKeyword"
-            placeholder="搜索商品名称"
-            placeholder-class="text-[#999999]"
-            class="flex-1 bg-transparent text-[#333333] text-[30rpx]"
-            @confirm="handleSearch"
-          >
-          <uni-icons
-            v-if="searchKeyword"
-            type="closeempty"
-            size="24"
-            color="#999999"
-            class="ml-[16rpx]"
-            @click="clearSearch"
-          />
-        </view>
+      <view class="p-4">
+        <SearchBar
+          class="bg-[#f5f7f4]"
+          placeholder="搜索商品名称"
+          @search="searchKeyword = $event"
+        />
       </view>
 
       <!-- 标签页和管理按钮 -->
-      <view class="flex border-t border-[#f0f0f0]">
+      <view class="flex border-t border-[#f0f0f0] bg-white">
         <view
           class="relative flex-1 py-[28rpx] text-center"
           :class="activeTab === 'products' ? 'text-[#e6553a]' : 'text-[#666666]'"
