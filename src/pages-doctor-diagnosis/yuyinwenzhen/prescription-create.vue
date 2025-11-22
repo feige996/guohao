@@ -184,6 +184,8 @@ function getTypeName(type: string): string {
   return typeMap[type] || type
 }
 
+const ButtonTypeList = ['granule', 'decoction', 'mixture'] as const
+
 // 过滤后的模板和药品列表
 const filteredTemplates = computed(() => {
   let result = templates.value
@@ -410,17 +412,15 @@ function viewMedicalRecord(): void {
     <div v-if="templateModalVisible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 px-4">
       <div class="max-w-md w-full overflow-hidden rounded-xl bg-white shadow-lg">
         <div class="relative flex items-center justify-between border-b border-gray-200 px-4 py-3">
-          <h3 class="text-lg text-[#1F2937] font-medium">
+          <view class="text-lg text-[#1F2937] font-medium">
             选择模板
-          </h3>
-          <button class="absolute right-4 top-1/2 transform text-xl text-gray-500 transition-colors -translate-y-1/2 hover:text-gray-700" @click="closeTemplateModal">
-            ×
-          </button>
+          </view>
+          <wd-icon name="close" @click="closeTemplateModal" />
         </div>
         <div class="p-4">
           <div class="mb-4 flex border-b border-gray-200">
             <button
-              v-for="type in ['all', 'granule', 'decoction', 'mixture']"
+              v-for="type in ['all', 'granule', 'decoction']"
               :key="type"
               class="px-4 py-2 text-sm"
               :class="[currentTemplateFilter === type ? 'text-[#975518] border-b-2 border-[#975518]' : 'text-gray-500']"
@@ -458,12 +458,10 @@ function viewMedicalRecord(): void {
     <div v-if="medicineModalVisible" class="fixed inset-0 z-50 flex flex-col bg-black/50 px-4">
       <div class="mt-auto w-full rounded-t-xl bg-white shadow-lg">
         <div class="relative flex items-center justify-between border-b border-gray-200 px-4 py-3">
-          <h3 class="text-lg text-[#1F2937] font-medium">
+          <view class="text-lg text-[#1F2937] font-medium">
             添加药品
-          </h3>
-          <button class="absolute right-4 top-1/2 transform text-xl text-gray-500 transition-colors -translate-y-1/2 hover:text-gray-700" @click="closeMedicineModal">
-            ×
-          </button>
+          </view>
+          <wd-icon name="close" @click="closeMedicineModal" />
         </div>
         <div class="p-4">
           <div class="relative mb-4">
@@ -550,13 +548,11 @@ function viewMedicalRecord(): void {
         </div>
 
         <div class="grid grid-cols-3 gap-4 px-4 pr-4">
-          <button
-            v-for="(type, index) in ['granule', 'decoction', 'mixture'] as const"
+          <view
+            v-for="(type, index) in ButtonTypeList"
             :id="`type-${index + 1}`"
             :key="type"
-            plain
-            type="primary"
-            class="h-22! rounded-lg! hover:shadow-md!"
+            class="h-10 flex items-center justify-center gap-2 border rounded-lg border-solid"
             :class="[
               prescriptionType === type
                 ? 'border-[#3B82F6]! bg-[#EFF6FF]!'
@@ -564,19 +560,17 @@ function viewMedicalRecord(): void {
             ]"
             @click="selectPrescriptionType(type)"
           >
-            <div class="flex flex-col px-4">
-              <wd-icon v-if="type === 'granule'" name="fork" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
-              <wd-icon v-else-if="type === 'decoction'" name="cloud-upload" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
-              <wd-icon v-else name="a-controlplatform" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
-              <span
-                class="text-xs font-medium" :class="[
-                  prescriptionType === type ? 'text-[#3B82F6]' : 'text-[#6B7280]',
-                ]"
-              >
-                {{ getTypeName(type) }}
-              </span>
-            </div>
-          </button>
+            <wd-icon v-if="type === 'granule'" name="fork" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
+            <wd-icon v-else-if="type === 'decoction'" name="cloud-upload" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
+            <wd-icon v-else name="a-controlplatform" size="18px" :color="prescriptionType === type ? '#3B82F6' : '#6B7280'" />
+            <view
+              class="text-xs font-medium" :class="[
+                prescriptionType === type ? 'text-[#3B82F6]' : 'text-[#6B7280]',
+              ]"
+            >
+              {{ getTypeName(type) }}
+            </view>
+          </view>
         </div>
       </div>
 
@@ -601,10 +595,11 @@ function viewMedicalRecord(): void {
               />
             </div>
             <wd-button
-              class="w-full flex items-center justify-center gap-1 border border-[#8E4337] rounded-lg bg-[#F5EBE9] py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
+              icon="search"
+              block
+              type="primary"
               @click="openFunctionSelector"
             >
-              <wd-icon name="search" size="16px" />
               选择常用功用
             </wd-button>
           </div>
@@ -622,10 +617,11 @@ function viewMedicalRecord(): void {
               />
             </div>
             <wd-button
-              class="w-full flex items-center justify-center gap-1 border border-[#8E4337] rounded-lg bg-[#F5EBE9] py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
+              icon="search"
+              block
+              type="primary"
               @click="openMainTreatmentSelector"
             >
-              <wd-icon name="search" size="22px" />
               选择常用主治
             </wd-button>
           </div>
@@ -641,12 +637,10 @@ function viewMedicalRecord(): void {
           </div>
 
           <div class="flex items-center gap-2" />
-          <wd-button size="small" @click="openTemplateModal">
-            <wd-icon name="spool" size="12px" />
+          <wd-button size="small" icon="spool" @click="openTemplateModal">
             使用药方
           </wd-button>
-          <wd-button size="small" @click="openMedicineModal">
-            <wd-icon name="add" size="12px" />
+          <wd-button size="small" icon="add" @click="openMedicineModal">
             添加药品
           </wd-button>
         </div>

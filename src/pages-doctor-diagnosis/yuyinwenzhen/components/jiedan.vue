@@ -54,16 +54,18 @@ function acceptOrder(orderId: string): void {
     <div v-if="order.isUrgent" class="absolute right-0 top-0 h-20 w-20 rounded-full bg-[#EF4444] opacity-10 -mr-10 -mt-10" />
 
     <!-- 订单号和状态 -->
-    <div class="mb-4 flex items-center justify-between gap-2">
-      <span class="max-w-[120px] truncate text-[10px] text-[#9CA3AF]">{{ order.orderNumber }}</span>
-      <div class="flex items-center gap-2">
-        <span v-if="order.isOverdue" class="flex animate-pulse items-center gap-1 whitespace-nowrap rounded bg-[#FEE2E2] px-2 py-0.5 text-[10px] text-[#EF4444] font-bold">
+    <view class="mb-4 flex items-center justify-between gap-2">
+      <view class="max-w-[200px] truncate text-[10px] text-[#9CA3AF]">
+        {{ order.orderNumber }}
+      </view>
+      <view class="flex items-center gap-2">
+        <view v-if="order.isOverdue" class="flex animate-pulse items-center gap-1 whitespace-nowrap rounded bg-[#FEE2E2] px-2 py-0.5 text-[10px] text-[#EF4444] font-bold">
           <wd-icon name="error-circle-filled" size="10.5px" color="#EF4444" />
           超时
-        </span>
+        </view>
         <span class="flex-shrink-0 whitespace-nowrap rounded-full bg-[#FFF7ED] px-2.5 py-1 text-xs text-[#EA580C] font-bold">待响应</span>
-      </div>
-    </div>
+      </view>
+    </view>
 
     <!-- 患者信息 -->
     <div class="mb-4 flex items-center gap-3">
@@ -96,7 +98,7 @@ function acceptOrder(orderId: string): void {
     </div>
 
     <!-- 订单信息 -->
-    <div class="grid grid-cols-3 mb-4 gap-1.5">
+    <div class="grid grid-cols-3 mb-4 gap-2">
       <div class="rounded-xl from-[#FFF7ED] to-[#FFEDD5] bg-gradient-to-br p-2.5 text-center">
         <div class="mb-1 text-xs text-[#EA580C] font-medium">
           金额
@@ -109,32 +111,44 @@ function acceptOrder(orderId: string): void {
         <div class="mb-1 text-xs text-[#6B7280] font-medium">
           派单
         </div>
-        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#1F2937] font-bold">
-          {{ order.dispatchTime }}
+        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#1F2937]">
+          {{ '10-10' }}
+        </div>
+        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#1F2937]">
+          {{ '14:20' }}
         </div>
       </div>
       <div class="rounded-xl from-[#FEE2E2] to-[#FECACA] bg-gradient-to-br p-2.5 text-center">
         <div class="mb-1 text-xs text-[#EF4444] font-medium">
           剩余
         </div>
-        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#EF4444] font-bold">
-          {{ order.remainingTime }}
+        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#EF4444]">
+          {{ '已超时' }}
+        </div>
+        <div class="overflow-hidden text-ellipsis whitespace-nowrap text-xs text-[#EF4444]">
+          {{ '49分钟' }}
         </div>
       </div>
     </div>
 
     <!-- 操作按钮 -->
-    <div class="grid grid-cols-2 gap-2">
-      <div
-        class="flex cursor-pointer items-center justify-center gap-1 border-2 border-[#D1D5DB] rounded-xl bg-[#FCE7E3] py-3 text-sm text-[#6B7280] font-semibold transition-all"
-        :disabled="loadingOrderIds.has(order.id)"
-        aria-label="暂不接单"
+    <div class="grid grid-cols-2 gap-4">
+      <wd-button
+        plain hairline type="info"
         @click="rejectOrder(order.id)"
       >
-        <wd-icon name="close" size="16px" />
+        <wd-icon name="close" size="12px" />
         暂不接单
-      </div>
-      <div
+      </wd-button>
+      <wd-button
+        hairline type="primary"
+        :disabled="loadingOrderIds.has(order.id)"
+        @click="acceptOrder(order.id)"
+      >
+        <wd-icon name="check" size="12px" />
+        立即接单
+      </wd-button>
+      <!-- <div
         class="flex items-center justify-center gap-1 rounded-xl bg-[#8E4337] py-3 text-sm text-white font-semibold shadow-md transition-all active:scale-95 hover:bg-[#6E2F25]"
         :class="{ 'relative text-transparent cursor-not-allowed': loadingOrderIds.has(order.id) }"
         :disabled="loadingOrderIds.has(order.id)"
@@ -146,11 +160,10 @@ function acceptOrder(orderId: string): void {
           <wd-icon name="check" size="16px" />
           立即接单
         </template>
-        <!-- 加载动画 -->
         <div v-else class="absolute inset-0 flex items-center justify-center">
           <div class="h-4 w-4 animate-spin border-2 border-white border-t-transparent rounded-full" />
         </div>
-      </div>
+      </div> -->
     </div>
   </article>
 </template>

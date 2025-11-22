@@ -75,7 +75,7 @@ function showMoreOptions(): void {
 </script>
 
 <template>
-  <div class="relative mx-auto max-w-[375px] min-h-screen w-full pb-[80px]">
+  <div class="relative mx-auto min-h-screen w-full pb-[80px]">
     <!-- Toast 通知 -->
     <div class="toast" :class="{ show: isToastVisible }">
       {{ toastMessage }}
@@ -87,7 +87,7 @@ function showMoreOptions(): void {
     </div>
 
     <!-- 顶部导航 -->
-    <!-- <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4 shadow-sm">
+    <!-- <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px]  w-full flex items-center justify-between bg-white px-4 shadow-sm">
       <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="返回上一页" @click="goBack()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
           <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
@@ -232,13 +232,11 @@ function showMoreOptions(): void {
             <wd-icon name="view" size="16px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">四诊信息</span>
           </div>
-          <button
-            class="m-0 ml-auto appearance-none border-0 bg-transparent text-[#8E4337] outline-none transition-transform hover:text-[#6E2F25] focus:ring-0"
-            aria-label="展开/折叠"
+          <view
             @click="toggleSection('fourDiagnosis')"
           >
-            <wd-icon name="arrow-down" size="16px" color="#8E4337" />
-          </button>
+            <wd-icon name="arrow-down" size="16px" color="#8E4337" class="transition-transform duration-300" :class="{ '-rotate-90': expandedSections.fourDiagnosis }" />
+          </view>
         </div>
 
         <div class="collapsible-content" :class="{ expanded: expandedSections.fourDiagnosis }">
@@ -390,14 +388,14 @@ function showMoreOptions(): void {
           </div>
 
           <!-- 查看处方详情按钮 -->
-          <button
-            class="w-full flex items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors hover:bg-[#6E2F25]"
-            aria-label="查看处方详情"
+          <wd-button
+            block
+            size="large"
+            icon="view"
             @click="viewPrescriptionDetail()"
           >
-            <wd-icon name="view" size="16px" />
             查看处方详情
-          </button>
+          </wd-button>
         </div>
       </section>
 
@@ -441,19 +439,22 @@ function showMoreOptions(): void {
           </div>
         </div>
       </section>
+      <view class="h-4">
+        <!-- 预留空位，以防底部按钮被遮住 -->
+      </view>
     </main>
 
     <!-- 底部操作栏 -->
-    <footer class="fixed bottom-0 left-0 right-0 z-40 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white px-4 py-3">
-      <button
-        class="w-full flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
-        aria-label="查看完整病历"
+    <view class="fixed bottom-0 left-0 right-0 z-40 mx-auto w-full border-t border-[#E5E7EB] bg-white px-4 py-3">
+      <wd-button
+        icon="note"
+        size="large"
+        block
         @click="viewMedicalRecord()"
       >
-        <wd-icon name="note" size="20px" />
         查看完整病历
-      </button>
-    </footer>
+      </wd-button>
+    </view>
   </div>
 </template>
 

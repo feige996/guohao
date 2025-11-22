@@ -62,7 +62,7 @@ function callPatient() {
 </script>
 
 <template>
-  <view class="relative mx-auto max-w-[375px] min-h-screen w-full overflow-x-hidden pb-[60px]">
+  <view class="relative mx-auto min-h-screen w-full overflow-x-hidden pb-[60px]">
     <!-- 主要内容区 -->
     <main class="px-4 pt-[24px] space-y-5">
       <!-- 基本信息 -->
@@ -75,7 +75,7 @@ function callPatient() {
         <!-- 头像和姓名区域 -->
         <div class="mb-5 flex flex-col items-center">
           <div class="mb-3 h-24 w-24 overflow-hidden rounded-full ring-4 ring-[#F5EBE9]">
-            <img src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_640.jpg" alt="吴姗姗" class="h-full w-full object-cover">
+            <image src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_640.jpg" alt="吴姗姗" class="h-full w-full object-cover" />
           </div>
           <div class="mb-1 flex items-center gap-2">
             <span class="text-2xl text-[#1F2937] font-bold">吴姗姗</span>
@@ -87,7 +87,7 @@ function callPatient() {
         </div>
 
         <!-- 信息网格 -->
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div class="grid grid-cols-3 gap-3 sm:grid-cols-3">
           <!-- 年龄 -->
           <div class="rounded-xl bg-[#F9FAFB] p-3 text-center">
             <div class="mb-1 flex items-center justify-center gap-1">
@@ -100,7 +100,7 @@ function callPatient() {
           </div>
 
           <!-- 初诊日期 -->
-          <div class="rounded-xl bg-[#F9FAFB] p-3 text-center sm:col-span-2">
+          <div class="col-span-2 rounded-xl bg-[#F9FAFB] p-3 text-center">
             <div class="mb-1 flex items-center justify-center gap-1">
               <wd-icon name="calendar" size="16px" color="#8E4337" />
               <span class="text-xs text-[#6B7280]">初诊时间</span>
@@ -156,13 +156,13 @@ function callPatient() {
             <wd-icon name="file" size="22px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">病史与体质</span>
           </div>
-          <button
-            class="m-0 ml-auto appearance-none border-0 bg-transparent text-[#8E4337] outline-none transition-colors hover:text-[#6E2F25] focus:ring-0"
-            aria-label="展开/折叠"
+          <view
+            class="transition-transform duration-300"
+            :class="{ '-rotate-90': expandedSections.medicalHistory }"
             @click="toggleSection('medicalHistory')"
           >
             <wd-icon name="arrow-down" size="20px" color="#8E4337" />
-          </button>
+          </view>
         </div>
 
         <div class="max-h-0 overflow-hidden transition-all duration-300 ease" :style="{ maxHeight: expandedSections.medicalHistory ? '2000px' : '0px' }">
@@ -244,7 +244,7 @@ function callPatient() {
                 <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 003</span>
                 <div class="flex items-center gap-2">
                   <span class="whitespace-nowrap rounded-full bg-[#D1FAE5] px-2 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" />
+                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ '-rotate-90': expandedSections.record003 }" />
                 </div>
               </div>
               <div class="text-xs text-[#6B7280]">
@@ -333,7 +333,7 @@ function callPatient() {
                 <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 002</span>
                 <div class="flex items-center gap-2">
                   <span class="whitespace-nowrap rounded-full bg-[#E0E7FF] px-2 py-0.5 text-xs text-[#6366F1] font-semibold">视频问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" />
+                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ 'rotate-90': expandedSections.record002 }" />
                 </div>
               </div>
               <div class="text-xs text-[#6B7280]">
@@ -359,7 +359,7 @@ function callPatient() {
                 <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 001</span>
                 <div class="flex items-center gap-2">
                   <span class="rounded-full bg-[#D1FAE5] px-2.5 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" />
+                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ 'rotate-90': expandedSections.record001 }" />
                 </div>
               </div>
               <div class="text-xs text-[#6B7280]">
@@ -401,14 +401,14 @@ function callPatient() {
             <div class="mb-3 truncate text-xs text-[#6B7280]">
               益气养阴、清热生津
             </div>
-            <button
-              class="w-full flex items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-2.5 text-sm text-white font-medium transition-colors hover:bg-[#6E2F25]"
-              aria-label="查看处方详情"
+            <wd-button
+              icon="view"
+              block
+              size="large"
               @click="viewPrescription('current')"
             >
-              <wd-icon name="view" size="22px" color="#fff" />
               查看处方详情
-            </button>
+            </wd-button>
           </div>
 
           <!-- 历史处方 -->

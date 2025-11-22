@@ -29,15 +29,15 @@ function goBack(): void {
 </script>
 
 <template>
-  <div class="relative mx-auto box-border max-w-[375px] min-h-screen w-full pb-5">
-    <div class="relative mx-auto max-w-[375px] min-h-screen w-full pb-5">
+  <div class="relative mx-auto box-border min-h-screen w-full pb-5">
+    <div class="relative mx-auto min-h-screen w-full pb-5">
       <!-- Toast 通知 -->
       <div class="toast" :class="{ show: isToastVisible }">
         {{ toastMessage }}
       </div>
 
       <!-- 顶部导航 -->
-      <!-- <header class="w-full h-[56px] flex justify-between items-center px-4 bg-white fixed top-0 left-0 right-0 max-w-[375px] mx-auto z-50 shadow-sm">
+      <!-- <header class="w-full h-[56px] flex justify-between items-center px-4 bg-white fixed top-0 left-0 right-0  mx-auto z-50 shadow-sm">
             <button class="text-[#333333] hover:text-[#6B7280] transition-colors" @click="goBack" aria-label="返回上一页">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                     <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />

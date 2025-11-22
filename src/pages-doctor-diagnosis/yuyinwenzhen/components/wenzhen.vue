@@ -91,12 +91,12 @@ function handleOpenChat() {
               <span class="truncate text-xs text-[#9CA3AF]">{{ record.timestamp }}</span>
             </div>
           </div>
-          <span :class="`px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap ${record.statusClass} flex-shrink-0`">
+          <view :class="`px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center ${record.statusClass} flex-shrink-0`">
             <template v-if="record.status === 'ongoing'">
               <span class="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#EA580C]" />
             </template>
             {{ record.statusText }}
-          </span>
+          </view>
         </div>
       </div>
     </div>
@@ -105,8 +105,8 @@ function handleOpenChat() {
     <div class="mb-4 box-border w-full overflow-hidden break-words border border-[#F3F4F6] rounded-xl bg-[#F9FAFB] p-3">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
-          <div class="h-8 w-8 flex items-center justify-center" :class="record.prescribed ? 'bg-[#10B981]' : 'bg-[#EF4444]'">
-            <wd-icon name="check" size="16px" color="white" />
+          <div class="h-8 w-8 flex items-center justify-center rounded-lg" :class="record.prescribed ? 'bg-[#10B981]' : 'bg-[#EF4444]'">
+            <wd-icon :name="record.prescribed ? 'check' : 'info-circle-filled'" size="16px" color="white" />
           </div>
           <div>
             <div class="text-xs text-[#6B7280] font-medium">
@@ -118,63 +118,50 @@ function handleOpenChat() {
           </div>
         </div>
         <!-- 进行中的未开方记录显示去开方按钮 -->
-        <template v-if="record.status === 'ongoing' && !record.prescribed">
-          <button
-            class="box-border flex items-center justify-center gap-1 truncate rounded-lg bg-[#8E4337] px-3 py-1.5 text-xs text-white font-semibold shadow-[0px_2px_4px_rgba(142,67,55,0.3)] transition-all active:scale-95 hover:bg-[#6E2F25]"
-            aria-label="去开方"
+        <template v-if="!record.prescribed">
+          <wd-button
+            type="primary"
+            icon="backtop-rectangle"
             @click="handleCreatePrescription"
           >
-            <wd-icon name="backtop-rectangle" size="16px" />
             去开方
-          </button>
+          </wd-button>
         </template>
       </div>
     </div>
 
     <!-- 操作按钮 -->
     <div class="grid grid-cols-2 w-full gap-2">
-      <wd-button
-        block
-        type="primary"
-        class="box-border w-full flex items-center justify-center gap-1 truncate border-2 border-[#3B82F6] rounded-sm bg-[#3B82F6] py-2.5 text-sm text-white font-semibold transition-all active:scale-95 hover:bg-[#2563EB]"
-        aria-label="查看详情"
-        @click="handleViewDetail"
-      >
-        <wd-icon name="view" size="16px" class="align-middle" />
-        <span class="align-middle">查看详情</span>
-      </wd-button>
       <template v-if="record.status === 'ongoing'">
         <wd-button
-          block
-          class="box-border w-full flex items-center justify-center gap-1 truncate border-2 rounded-sm py-2.5 text-sm text-white font-semibold transition-all active:scale-95 border-[#EF4444]! bg-[#EF4444]! hover:bg-[#DC2626]!"
-          aria-label="结束问诊"
+          type="primary"
+          icon="check"
           @click="handleEndConsultation"
         >
-          <wd-icon name="close" size="16px" />
-          结束问诊
+          进入问诊
         </wd-button>
-      </template>
-      <template v-else-if="!record.prescribed">
         <wd-button
-          block
-          class="box-border w-full flex items-center justify-center gap-1 truncate rounded-sm py-2.5 text-sm text-white font-semibold shadow-lg transition-all active:scale-95 bg-[#F59E0B]! shadow-[0px_4px_8px_rgba(245,158,11,0.3)]! hover:bg-[#D97706]!"
-          aria-label="去开方"
-          @click="handleCreatePrescription"
+          type="warning"
+          icon="close"
+          @click="handleEndConsultation"
         >
-          <wd-icon name="backtop-rectangle" size="16px" />
-          去开方
+          结束问诊
         </wd-button>
       </template>
       <template v-else>
         <wd-button
-          block
+          type="primary"
+          icon="view"
+          @click="handleViewDetail"
+        >
+          查看详情
+        </wd-button>
+        <wd-button
           type="success"
-          class="box-border w-full flex items-center justify-center gap-1 truncate border-2 border-[#10B981] rounded-sm bg-[#10B981] py-2.5 text-sm text-white font-semibold transition-all active:scale-95 hover:bg-[#059669]"
-          aria-label="查看问诊记录"
+          icon="chat"
           @click="handleOpenChat"
         >
-          <wd-icon name="chat" size="16px" class="align-middle" />
-          <span class="align-middle">问诊记录</span>
+          问诊记录
         </wd-button>
       </template>
     </div>
