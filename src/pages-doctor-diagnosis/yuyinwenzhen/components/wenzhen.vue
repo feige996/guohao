@@ -82,9 +82,9 @@ function handleOpenChat() {
       <div class="min-w-0 flex-1">
         <div class="flex items-start justify-between gap-2">
           <div class="min-w-0 flex-1">
-            <h3 class="mb-1 truncate text-base text-[#1F2937] font-bold">
+            <view class="mb-1 truncate text-base text-[#1F2937] font-bold">
               {{ record.patientName }} · {{ record.age }}
-            </h3>
+            </view>
             <div class="flex items-center gap-2 whitespace-nowrap">
               <span class="truncate text-xs text-[#6B7280]">{{ record.typeText }}</span>
               <span class="h-1 w-1 flex-shrink-0 rounded-full bg-[#D1D5DB]" />
@@ -92,9 +92,9 @@ function handleOpenChat() {
             </div>
           </div>
           <view :class="`px-2 py-0.5 rounded-full text-xs font-bold whitespace-nowrap flex items-center ${record.statusClass} flex-shrink-0`">
-            <template v-if="record.status === 'ongoing'">
-              <span class="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#EA580C]" />
-            </template>
+            <block v-if="record.status === 'ongoing'">
+              <view class="mr-1 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[#EA580C]" />
+            </block>
             {{ record.statusText }}
           </view>
         </div>
@@ -120,6 +120,7 @@ function handleOpenChat() {
         <!-- 进行中的未开方记录显示去开方按钮 -->
         <template v-if="!record.prescribed">
           <wd-button
+            size="small"
             type="primary"
             icon="backtop-rectangle"
             @click="handleCreatePrescription"
@@ -150,6 +151,7 @@ function handleOpenChat() {
       </template>
       <template v-else>
         <wd-button
+          plain
           type="primary"
           icon="view"
           @click="handleViewDetail"
@@ -157,7 +159,7 @@ function handleOpenChat() {
           查看详情
         </wd-button>
         <wd-button
-          type="success"
+          type="primary"
           icon="chat"
           @click="handleOpenChat"
         >
