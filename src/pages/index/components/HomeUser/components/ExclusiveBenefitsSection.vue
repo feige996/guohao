@@ -45,22 +45,22 @@ const zsqyList: FunctionCardItem[] = [
   {
     id: 'appointment',
     title: '预约问诊',
-    bgImg: 'src/static/images/home-user/zsqy/appointment-icon.png',
+    bgImg: '/static/images/home-user/zsqy/appointment-icon.png',
   },
   {
     id: 'message',
     title: '我的消息',
-    bgImg: 'src/static/images/home-user/zsqy/message-icon.png',
+    bgImg: '/static/images/home-user/zsqy/message-icon.png',
   },
   {
     id: 'collection',
     title: '养生收藏',
-    bgImg: 'src/static/images/home-user/zsqy/collection-icon.png',
+    bgImg: '/static/images/home-user/zsqy/collection-icon.png',
   },
   {
     id: 'product',
     title: '关注商品',
-    bgImg: 'src/static/images/home-user/zsqy/product-icon.png',
+    bgImg: '/static/images/home-user/zsqy/product-icon.png',
   },
 ]
 </script>
@@ -75,17 +75,17 @@ const zsqyList: FunctionCardItem[] = [
       <view class="ml-auto text-xs text-[#999999]">
         设置
       </view>
-      <img
+      <image
         class="ml-1 h-[24rpx] w-[24rpx]"
         src="/static/images/home-user/settings-arrow.png"
-      >
+      />
     </view>
     <!-- 功能卡片网格布局 -->
     <view class="grid grid-cols-2 mt-3 gap-3">
       <view
         v-for="(item, index) in zsqyList"
         :key="item.id"
-        class="h-[60px] rounded-lg bg-cover bg-right p-3 text-sm text-[#333333] font-500 leading-[60px] active:opacity-80 transition-opacity"
+        class="h-[60px] rounded-lg bg-cover bg-right p-3 text-sm text-[#333333] font-500 transition-opacity leading-[60px] active:opacity-80"
         :class="{
           'bg-gradient-to-r from-blue-50 to-green-50': index === 0,
           'bg-gradient-to-r from-orange-50 to-yellow-50': index === 1,
@@ -93,7 +93,7 @@ const zsqyList: FunctionCardItem[] = [
           'bg-gradient-to-r from-pink-50 to-red-50': index === 3,
         }"
         :style="{
-          backgroundImage: `url(${item.bgImg})`,
+          backgroundImage: `url(${item.bgImg.replace('@/', '/')})`,
         }"
         @click="handleFunctionCardClick(item)"
       >
