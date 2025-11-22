@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { useUserStore } from '@/store/userStore'
 import DiagnosisDoctor from './components/DiagnosisDoctor/index.vue'
-import DiagnosisUser from './components/DiagnosisUser/index.vue'
+import DiagnosisUser from './components/DiagnosisUser/index.bak.vue'
 
 const userStore = useUserStore()
 
