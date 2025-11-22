@@ -843,12 +843,7 @@ function viewMedicalRecord(): void {
           <h3 class="text-lg text-[#1F2937] font-medium">
             选择功用
           </h3>
-          <button
-            class="absolute right-4 top-1/2 transform border-none bg-transparent px-1 text-xl -translate-y-1/2 !border-none"
-            @click="closeFunctionSelector"
-          >
-            <wd-icon name="close-normal" size="22px" />
-          </button>
+          <wd-icon name="close" @click="closeFunctionSelector" />
         </div>
         <div class="px-4 py-2">
           <p class="text-sm text-gray-500">
@@ -877,9 +872,7 @@ function viewMedicalRecord(): void {
           <h3 class="text-lg text-[#1F2937] font-medium">
             选择主治
           </h3>
-          <button class="absolute right-4 top-1/2 transform text-xl text-gray-500 transition-colors -translate-y-1/2 hover:text-gray-700" @click="closeMainTreatmentSelector">
-            ×
-          </button>
+          <wd-icon name="close" @click="closeMainTreatmentSelector" />
         </div>
         <div class="px-4 py-2">
           <p class="text-sm text-gray-500">
