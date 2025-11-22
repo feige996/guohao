@@ -637,12 +637,10 @@ function viewMedicalRecord(): void {
           </div>
 
           <div class="flex items-center gap-2" />
-          <wd-button size="small" @click="openTemplateModal">
-            <wd-icon name="spool" size="12px" />
+          <wd-button size="small" icon="spool" @click="openTemplateModal">
             使用药方
           </wd-button>
-          <wd-button size="small" @click="openMedicineModal">
-            <wd-icon name="add" size="12px" />
+          <wd-button size="small" icon="add" @click="openMedicineModal">
             添加药品
           </wd-button>
         </div>
