@@ -74,7 +74,6 @@ export default ({ command, mode }) => {
         // homePage 通过 vue 文件的 route-block 的type="home"来设定
         // pages 目录为 src/pages，分包目录不能配置在pages目录下
         subPackages: [
-          'src/pages-fg',
           'src/TUIKit',
           'src/pages-user-home',
           'src/pages-user-diagnosis',
