@@ -390,14 +390,14 @@ function showMoreOptions(): void {
           </div>
 
           <!-- 查看处方详情按钮 -->
-          <button
-            class="w-full flex items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors hover:bg-[#6E2F25]"
-            aria-label="查看处方详情"
+          <wd-button
+            block
+            size="large"
+            icon="view"
             @click="viewPrescriptionDetail()"
           >
-            <wd-icon name="view" size="16px" />
             查看处方详情
-          </button>
+          </wd-button>
         </div>
       </section>
 
@@ -441,19 +441,22 @@ function showMoreOptions(): void {
           </div>
         </div>
       </section>
+      <view class="h-4">
+        <!-- 预留空位，以防底部按钮被遮住 -->
+      </view>
     </main>
 
     <!-- 底部操作栏 -->
-    <footer class="fixed bottom-0 left-0 right-0 z-40 mx-auto w-full border-t border-[#E5E7EB] bg-white px-4 py-3">
-      <button
-        class="w-full flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
-        aria-label="查看完整病历"
+    <view class="fixed bottom-0 left-0 right-0 z-40 mx-auto w-full border-t border-[#E5E7EB] bg-white px-4 py-3">
+      <wd-button
+        icon="note"
+        size="large"
+        block
         @click="viewMedicalRecord()"
       >
-        <wd-icon name="note" size="20px" />
         查看完整病历
-      </button>
-    </footer>
+      </wd-button>
+    </view>
   </div>
 </template>
 

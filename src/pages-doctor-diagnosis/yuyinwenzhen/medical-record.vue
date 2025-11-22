@@ -62,7 +62,7 @@ function callPatient() {
 </script>
 
 <template>
-  <view class="relative mx-auto  min-h-screen w-full overflow-x-hidden pb-[60px]">
+  <view class="relative mx-auto min-h-screen w-full overflow-x-hidden pb-[60px]">
     <!-- 主要内容区 -->
     <main class="px-4 pt-[24px] space-y-5">
       <!-- 基本信息 -->
@@ -401,14 +401,14 @@ function callPatient() {
             <div class="mb-3 truncate text-xs text-[#6B7280]">
               益气养阴、清热生津
             </div>
-            <button
-              class="w-full flex items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-2.5 text-sm text-white font-medium transition-colors hover:bg-[#6E2F25]"
-              aria-label="查看处方详情"
+            <wd-button
+              icon="view"
+              block
+              size="large"
               @click="viewPrescription('current')"
             >
-              <wd-icon name="view" size="22px" color="#fff" />
               查看处方详情
-            </button>
+            </wd-button>
           </div>
 
           <!-- 历史处方 -->
