@@ -615,41 +615,44 @@ function autoResizeTextarea(event) {
           </div>
 
           <!-- 按钮组 - 一行显示 -->
-          <div class="flex gap-2">
-            <button
-              class="flex flex-1 cursor-pointer items-center justify-center gap-1 bg-[#F5EBE9] py-2.5 text-xs text-[#8E4337] font-medium transition-colors active:scale-98 hover:bg-[#E5D5D0]"
-              aria-label="查看病历"
+          <div class="w-full flex gap-2">
+            <wd-button
+              plain block
+              type="warning"
+              icon="list"
+              size="small"
+              class="w-full"
               @click="viewMedicalRecord(currentPatient.medicalRecordId)"
             >
-              <wd-icon name="list" size="10px" color="#8E4337" />
               病历
-            </button>
-            <button
-              class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#8E4337] py-2.5 text-xs text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
-              aria-label="进入问诊"
+            </wd-button>
+            <wd-button
+              icon="chat"
+              plain block
+              size="small"
+              type="success"
+              class="w-full"
               @click="startConsultation(currentPatient)"
             >
-              <wd-icon name="chevron-right-circle" size="10px" />
               进入问诊
-            </button>
-            <button
-              class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#B45309] py-2.5 text-xs text-white font-medium transition-colors active:scale-98 hover:bg-[#92400E]"
-              aria-label="结束问诊"
+            </wd-button>
+            <wd-button
+              icon="check"
+              plain block
+              size="small"
+              type="error"
+              class="w-full"
               @click="endConsultation"
             >
-              <wd-icon name="check1" size="10px" color="#fff" />
               结束问诊
-            </button>
+            </wd-button>
           </div>
         </view>
       </view>
 
       <!-- 暂无问诊 -->
       <view v-else class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-8 text-center shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#D1D5DB" class="mx-auto mb-4 h-16 w-16">
-          <path d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
-          <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h13.5a3 3 0 013 3V19.5a3 3 0 01-3 3H4.5a3 3 0 01-3-3V4.5zm19.5 0v15a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5V4.5a1.5 1.5 0 011.5-1.5h13.5a1.5 1.5 0 011.5 1.5z" clip-rule="evenodd" />
-        </svg>
+        <wd-icon name="user" size="48px" color="#D1D5DB" />
         <div class="text-sm text-[#6B7280]">
           暂无正在问诊的患者
         </div>
@@ -693,28 +696,25 @@ function autoResizeTextarea(event) {
             </div>
 
             <!-- 操作按钮 -->
-            <div class="mt-3 flex flex-wrap gap-2">
-              <button
-                class="min-w-[80px] flex-1 border border-[#D1D5DB] bg-white px-3 py-2 text-xs text-[#6B7280] font-medium transition-colors hover:bg-[#F9FAFB]"
-                aria-label="查看病历"
+            <div class="mt-3 w-full flex gap-2">
+              <wd-button
+                plain block
+                type="warning"
+                icon="list"
+                class="w-full"
                 @click="viewMedicalRecord(patient.medicalRecordId)"
               >
-                查看病历
-              </button>
-              <button
-                :id="`call-confirm-${patient.id}`"
-                class="min-w-[80px] flex flex-1 items-center justify-center gap-1 px-3 py-2 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]"
-                :class="{
-                  'bg-[#8E4337]': !patient.hasBeenCalled && !callingPatients.has(patient.id),
-                  'bg-gray-300': patient.hasBeenCalled || callingPatients.has(patient.id),
-                }"
-                :disabled="patient.hasBeenCalled || callingPatients.has(patient.id)"
-                aria-label="呼叫患者"
+                病历
+              </wd-button>
+              <wd-button
+                icon="chat"
+                plain block
+                type="primary"
+                class="w-full"
                 @click="callPatient(patient, $event)"
               >
-                <span v-if="callingPatients.has(patient.id)" class="loading-spinner h-3 w-3 animate-spin border-2 border-white border-t-transparent rounded-full" />
-                {{ patient.hasBeenCalled ? '已叫号' : (callingPatients.has(patient.id) ? '叫号中...' : '呼叫患者') }}
-              </button>
+                呼叫患者
+              </wd-button>
             </div>
           </div>
 
