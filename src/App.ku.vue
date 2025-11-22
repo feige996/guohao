@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { ConfigProviderThemeVars } from 'wot-design-uni'
 import { ref } from 'vue'
 import FgTabbar from '@/tabbar/index.vue'
 import { safeAreaInsets } from '@/utils/systemInfo'
@@ -12,16 +13,21 @@ onShow(() => {
   isCurrentPageTabbar.value = isPageTabbar(path)
   // console.log('isCurrentPageTabbar', isCurrentPageTabbar.value)
 })
+
+const themeVars: ConfigProviderThemeVars = {
+  colorTheme: '#8e4337',
+}
 </script>
 
 <template>
-  <view class="page-container" :style="{ paddingTop: isCurrentPageTabbar ? `${safeAreaInsets.top}px` : '0px' }">
-    <KuRootView />
-
-    <FgTabbar v-if="isCurrentPageTabbar" />
-    <wd-toast />
-    <wd-message-box />
-  </view>
+  <wd-config-provider :theme-vars="themeVars">
+    <view class="page-container" :style="{ paddingTop: isCurrentPageTabbar ? `${safeAreaInsets.top}px` : '0px' }">
+      <KuRootView />
+      <FgTabbar v-if="isCurrentPageTabbar" />
+      <wd-toast />
+      <wd-message-box />
+    </view>
+  </wd-config-provider>
 </template>
 
 <style scoped lang="scss">
