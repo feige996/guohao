@@ -54,16 +54,18 @@ function acceptOrder(orderId: string): void {
     <div v-if="order.isUrgent" class="absolute right-0 top-0 h-20 w-20 rounded-full bg-[#EF4444] opacity-10 -mr-10 -mt-10" />
 
     <!-- 订单号和状态 -->
-    <div class="mb-4 flex items-center justify-between gap-2">
-      <span class="max-w-[120px] truncate text-[10px] text-[#9CA3AF]">{{ order.orderNumber }}</span>
-      <div class="flex items-center gap-2">
-        <span v-if="order.isOverdue" class="flex animate-pulse items-center gap-1 whitespace-nowrap rounded bg-[#FEE2E2] px-2 py-0.5 text-[10px] text-[#EF4444] font-bold">
+    <view class="mb-4 flex items-center justify-between gap-2">
+      <view class="max-w-[150px] truncate text-[10px] text-[#9CA3AF]">
+        {{ order.orderNumber }}
+      </view>
+      <view class="flex items-center gap-2">
+        <view v-if="order.isOverdue" class="flex animate-pulse items-center gap-1 whitespace-nowrap rounded bg-[#FEE2E2] px-2 py-0.5 text-[10px] text-[#EF4444] font-bold">
           <wd-icon name="error-circle-filled" size="10.5px" color="#EF4444" />
           超时
-        </span>
+        </view>
         <span class="flex-shrink-0 whitespace-nowrap rounded-full bg-[#FFF7ED] px-2.5 py-1 text-xs text-[#EA580C] font-bold">待响应</span>
-      </div>
-    </div>
+      </view>
+    </view>
 
     <!-- 患者信息 -->
     <div class="mb-4 flex items-center gap-3">
@@ -126,20 +128,18 @@ function acceptOrder(orderId: string): void {
     <!-- 操作按钮 -->
     <div class="grid grid-cols-2 gap-4">
       <wd-button
-        plain hairline type="default"
-        class="border-[#E5E7EB] bg-[#F3F4F6] text-[#6B7280]"
+        plain hairline type="info"
         @click="rejectOrder(order.id)"
       >
-        <wd-icon name="close" size="12px" color="#6B7280" />
+        <wd-icon name="close" size="12px" />
         暂不接单
       </wd-button>
       <wd-button
-        hairline
-        class="border-[#8E4337] bg-[#8E4337] text-white"
+        hairline type="primary"
         :disabled="loadingOrderIds.has(order.id)"
         @click="acceptOrder(order.id)"
       >
-        <wd-icon name="check" size="12px" color="#ffffff" />
+        <wd-icon name="check" size="12px" />
         立即接单
       </wd-button>
       <!-- <div
