@@ -595,10 +595,11 @@ function viewMedicalRecord(): void {
               />
             </div>
             <wd-button
-              class="w-full flex items-center justify-center gap-1 border border-[#8E4337] rounded-lg bg-[#F5EBE9] py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
+              icon="search"
+              block
+              type="primary"
               @click="openFunctionSelector"
             >
-              <wd-icon name="search" size="16px" />
               选择常用功用
             </wd-button>
           </div>
@@ -616,10 +617,11 @@ function viewMedicalRecord(): void {
               />
             </div>
             <wd-button
-              class="w-full flex items-center justify-center gap-1 border border-[#8E4337] rounded-lg bg-[#F5EBE9] py-2 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#E5D5D0]"
+              icon="search"
+              block
+              type="primary"
               @click="openMainTreatmentSelector"
             >
-              <wd-icon name="search" size="22px" />
               选择常用主治
             </wd-button>
           </div>
