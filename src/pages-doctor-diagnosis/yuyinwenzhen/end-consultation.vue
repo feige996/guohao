@@ -414,7 +414,7 @@ onMounted(() => {
     </main>
 
     <!-- 底部按钮区域 -->
-    <div class="fixed bottom-0 left-0 right-0 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white p-4">
+    <div class="fixed bottom-0 left-0 right-0 mx-auto  w-full border-t border-[#E5E7EB] bg-white p-4">
       <div class="grid grid-cols-2 gap-3">
         <button
           class="border-2 border-[#1677FF] py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"

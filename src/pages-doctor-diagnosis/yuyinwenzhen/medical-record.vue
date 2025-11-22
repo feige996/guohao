@@ -62,7 +62,7 @@ function callPatient() {
 </script>
 
 <template>
-  <view class="relative mx-auto max-w-[375px] min-h-screen w-full overflow-x-hidden pb-[60px]">
+  <view class="relative mx-auto  min-h-screen w-full overflow-x-hidden pb-[60px]">
     <!-- 主要内容区 -->
     <main class="px-4 pt-[24px] space-y-5">
       <!-- 基本信息 -->

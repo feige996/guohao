@@ -474,7 +474,7 @@ function autoResizeTextarea(event) {
 </script>
 
 <template>
-  <view class="relative mx-auto max-w-[375px] min-h-screen w-full pb-5">
+  <view class="relative mx-auto  min-h-screen w-full pb-5">
     <!-- Toast 通知 -->
     <div id="toast" class="toast" />
 
@@ -721,7 +721,7 @@ function autoResizeTextarea(event) {
     </main>
 
     <!-- 结束坐诊按钮 -->
-    <div class="fixed bottom-5 left-0 right-0 mx-auto max-w-[375px] px-4">
+    <div class="fixed bottom-5 left-0 right-0 mx-auto  px-4">
       <button
         class="w-full rounded-lg bg-[#EF4444] py-3 text-sm text-white font-medium shadow-[0px_4px_12px_0px_rgba(239,68,68,0.3)] transition-colors hover:bg-[#DC2626]"
         aria-label="结束坐诊"

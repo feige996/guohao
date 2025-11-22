@@ -75,7 +75,7 @@ function showMoreOptions(): void {
 </script>
 
 <template>
-  <div class="relative mx-auto max-w-[375px] min-h-screen w-full pb-[80px]">
+  <div class="relative mx-auto min-h-screen w-full pb-[80px]">
     <!-- Toast 通知 -->
     <div class="toast" :class="{ show: isToastVisible }">
       {{ toastMessage }}
@@ -87,7 +87,7 @@ function showMoreOptions(): void {
     </div>
 
     <!-- 顶部导航 -->
-    <!-- <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px] max-w-[375px] w-full flex items-center justify-between bg-white px-4 shadow-sm">
+    <!-- <header class="fixed left-0 right-0 top-0 z-50 mx-auto h-[56px]  w-full flex items-center justify-between bg-white px-4 shadow-sm">
       <button class="text-[#333333] transition-colors hover:text-[#6B7280]" aria-label="返回上一页" @click="goBack()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-6 w-6">
           <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
@@ -444,7 +444,7 @@ function showMoreOptions(): void {
     </main>
 
     <!-- 底部操作栏 -->
-    <footer class="fixed bottom-0 left-0 right-0 z-40 mx-auto max-w-[375px] w-full border-t border-[#E5E7EB] bg-white px-4 py-3">
+    <footer class="fixed bottom-0 left-0 right-0 z-40 mx-auto w-full border-t border-[#E5E7EB] bg-white px-4 py-3">
       <button
         class="w-full flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
         aria-label="查看完整病历"
