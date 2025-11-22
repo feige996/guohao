@@ -75,7 +75,7 @@ function callPatient() {
         <!-- 头像和姓名区域 -->
         <div class="mb-5 flex flex-col items-center">
           <div class="mb-3 h-24 w-24 overflow-hidden rounded-full ring-4 ring-[#F5EBE9]">
-            <img src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_640.jpg" alt="吴姗姗" class="h-full w-full object-cover">
+            <image src="https://cdn.pixabay.com/photo/2016/11/29/09/38/adult-1868750_640.jpg" alt="吴姗姗" class="h-full w-full object-cover" />
           </div>
           <div class="mb-1 flex items-center gap-2">
             <span class="text-2xl text-[#1F2937] font-bold">吴姗姗</span>
@@ -87,7 +87,7 @@ function callPatient() {
         </div>
 
         <!-- 信息网格 -->
-        <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div class="grid grid-cols-3 gap-3 sm:grid-cols-3">
           <!-- 年龄 -->
           <div class="rounded-xl bg-[#F9FAFB] p-3 text-center">
             <div class="mb-1 flex items-center justify-center gap-1">
@@ -100,7 +100,7 @@ function callPatient() {
           </div>
 
           <!-- 初诊日期 -->
-          <div class="rounded-xl bg-[#F9FAFB] p-3 text-center sm:col-span-2">
+          <div class="col-span-2 rounded-xl bg-[#F9FAFB] p-3 text-center">
             <div class="mb-1 flex items-center justify-center gap-1">
               <wd-icon name="calendar" size="16px" color="#8E4337" />
               <span class="text-xs text-[#6B7280]">初诊时间</span>
