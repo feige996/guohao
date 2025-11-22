@@ -46,7 +46,7 @@ function generateTestUserSig(): void {
     userStore.userSig = result.userSig
     userStore.userInfo = {
       ...userStore.userInfo,
-      id: debugForm.value.userID,
+      id: Number(debugForm.value.userID),
     }
 
     loginInfo.value = {
@@ -106,7 +106,7 @@ async function initializeTUIKit(): Promise<void> {
 // 跳转到会话列表
 function openConversationList(): void {
   uni.navigateTo({
-    url: '/TUIKit/index',
+    url: '/TUIKit/components/TUIConversation/index',
   })
 }
 
