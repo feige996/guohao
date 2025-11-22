@@ -167,10 +167,10 @@ function handleStartConsultation() {
     <!-- 主内容区 -->
     <div class="box-border flex flex-col gap-5 px-4 pb-4 pt-[24px]">
       <!-- 问诊方式设置 -->
-      <section>
-        <h2 class="mb-4 text-base text-[#333333] font-bold">
+      <view>
+        <view class="mb-4 text-base text-[#333333] font-bold">
           问诊方式和价格
-        </h2>
+        </view>
 
         <!-- 图文+语音消息 -->
         <div class="mb-4 box-border w-full rounded-[20px] bg-white p-5 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)]">
@@ -207,9 +207,9 @@ function handleStartConsultation() {
                   aria-label="图文问诊价格"
                 >
               </div>
-              <p class="mt-2 text-xs text-[#6B7280]">
+              <view class="mt-2 text-xs text-[#6B7280]">
                 <span class="truncate">48小时多轮对话，支持文字、图片、语音消息</span>
-              </p>
+              </view>
             </div>
           </div>
         </div>
@@ -249,9 +249,9 @@ function handleStartConsultation() {
                   aria-label="视频问诊价格"
                 >
               </div>
-              <p class="mt-2 text-xs text-[#6B7280]">
+              <view class="mt-2 text-xs text-[#6B7280]">
                 <span class="truncate">15-20分钟基础时长，面对面视频通话</span>
-              </p>
+              </view>
             </div>
           </div>
         </div>
@@ -291,19 +291,19 @@ function handleStartConsultation() {
                   aria-label="语音问诊价格"
                 >
               </div>
-              <p class="mt-2 text-xs text-[#6B7280]">
+              <view class="mt-2 text-xs text-[#6B7280]">
                 <span class="truncate">15-20分钟基础时长，纯语音通话</span>
-              </p>
+              </view>
             </div>
           </div>
         </div>
-      </section>
+      </view>
 
       <!-- 坐诊设置 -->
-      <section>
-        <h2 class="mb-4 text-base text-[#333333] font-bold">
+      <view>
+        <view class="mb-4 text-base text-[#333333] font-bold">
           坐诊设置
-        </h2>
+        </view>
         <div class="box-border w-full rounded-[20px] bg-white p-5 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)]">
           <div class="space-y-6">
             <div>
@@ -332,7 +332,7 @@ function handleStartConsultation() {
             </div>
           </div>
         </div>
-      </section>
+      </view>
     </div>
 
     <!-- 底部按钮 -->

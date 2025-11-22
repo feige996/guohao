@@ -321,11 +321,11 @@ function showPrescriptionModal() {
 function callPatient(patient: Patient, event: Event) {
   // 阻止事件冒泡
   event.stopPropagation()
-  
+
   const startCalling = () => {
     // 添加到正在呼叫的患者集合中
     callingPatients.value.add(patient.id)
-    
+
     // 模拟叫号成功
     setTimeout(() => {
       showSuccessModal(
@@ -334,7 +334,7 @@ function callPatient(patient: Patient, event: Event) {
       )
 
       patient.hasBeenCalled = true
-      
+
       // 从正在呼叫的集合中移除
       callingPatients.value.delete(patient.id)
 
@@ -350,7 +350,7 @@ function callPatient(patient: Patient, event: Event) {
     'icon-call-circle',
     '叫号确认',
     `确定要呼叫患者 ${patient.name} 吗？`,
-    startCalling
+    startCalling,
   )
 }
 
@@ -474,21 +474,16 @@ function autoResizeTextarea(event) {
 </script>
 
 <template>
-  <view class="relative mx-auto  min-h-screen w-full pb-5">
+  <view class="relative mx-auto min-h-screen w-full pb-5">
     <!-- Toast 通知 -->
     <div id="toast" class="toast" />
 
-    <!-- 确认弹窗 -->
+    <!-- 结束坐诊确认弹窗 -->
     <div id="confirmModal" class="modal-overlay" :class="{ show: isModalVisible }" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-content">
         <div id="modalContent" class="mb-6">
           <div id="modalIcon" class="mx-auto mb-4 h-12 w-12 flex items-center justify-center rounded-full bg-[#FEF2F2]">
-            <svg v-if="modalContent.icon === 'icon-warning'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#EF4444" class="h-6 w-6">
-              <path fill-rule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
-            </svg>
-            <svg v-else-if="modalContent.icon === 'icon-success'" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#10B981" class="h-6 w-6">
-              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd" />
-            </svg>
+            <wd-icon name="error-circle-filled" size="24px" color="#EF4444" />
           </div>
           <h3 id="modalTitle" class="mb-2 text-center text-lg text-[#1F2937] font-bold">
             {{ modalContent.title }}
@@ -497,23 +492,19 @@ function autoResizeTextarea(event) {
             {{ modalContent.message }}
           </p>
         </div>
-        <div id="modalButtons" class="grid grid-cols-2 gap-3">
-          <button
-            id="modalCancelBtn"
-            class="cursor-pointer border-2 border-[#E5E7EB] py-3 text-sm text-[#6B7280] font-medium transition-colors active:scale-98 hover:bg-[#F9FAFB]"
-            aria-label="取消"
+        <div class="grid grid-cols-2 gap-3">
+          <wd-button
+            type="info"
             @click="closeModal"
           >
             取消
-          </button>
-          <button
-            id="modalConfirmBtn"
-            class="cursor-pointer bg-red-500 py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-red-600"
-            aria-label="确认"
+          </wd-button>
+          <wd-button
+            type="error"
             @click="confirmModal"
           >
             确认
-          </button>
+          </wd-button>
         </div>
       </div>
     </div>
@@ -521,7 +512,7 @@ function autoResizeTextarea(event) {
     <!-- 主内容区 -->
     <main class="flex flex-col gap-5 px-4 pb-20 pt-[24px]">
       <!-- 坐诊状态头部卡片 -->
-      <section class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-5 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
+      <view class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-5 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
         <div class="mb-4 flex items-center gap-2">
           <!-- 坐诊图标 -->
           <wd-icon name="check-circle-filled" size="22px" color="#10B981" />
@@ -540,103 +531,121 @@ function autoResizeTextarea(event) {
             {{ remainingTime }}
           </div>
         </div>
-
-        <!-- 统计信息 -->
+        <!-- 结束坐诊按钮 -->
+        <div class="">
+          <wd-button
+            block
+            type="error"
+            @click="endWork"
+          >
+            结束坐诊
+          </wd-button>
+        </div>
+      </view>
+      <!-- 统计信息 -->
+      <view class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-5 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
         <div class="grid grid-cols-3 gap-2 text-center" style="font-size: 12px;">
-          <div class="rounded-lg bg-[#F9FAFB] p-3">
-            <div class="text-lg text-[#8E4337] font-bold">
+          <div class="rounded-lg p-3">
+            <div class="mt-1 text-xs text-[#6B7280]">
+              排队中
+            </div>
+            <div class="text-lg font-bold">
               28
             </div>
+          </div>
+          <div class="rounded-lg p-3">
             <div class="mt-1 text-xs text-[#6B7280]">
-              已接诊
+              问诊中
+            </div>
+            <div class="text-lg text-[#8E4337] font-bold">
+              1
             </div>
           </div>
-          <div class="rounded-lg bg-[#F9FAFB] p-3">
-            <div class="text-lg text-[#8E4337] font-bold">
-              {{ waitingPatients.length }}
-            </div>
-            <div class="mt-1 text-xs text-[#6B7280]">
-              等待中
-            </div>
-          </div>
-          <div class="rounded-lg bg-[#F9FAFB] p-3">
-            <div class="text-lg text-[#8E4337] font-bold">
-              12
-            </div>
+          <div class="rounded-lg p-3">
             <div class="mt-1 text-xs text-[#6B7280]">
               已完成
             </div>
+            <div class="text-lg font-bold">
+              12
+            </div>
           </div>
         </div>
-      </section>
-
+      </view>
       <!-- 正在问诊的患者卡片 -->
-      <section v-if="currentPatient" class="w-full border-2 border-[#8E4337] rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
-        <div class="mb-4 flex items-start gap-3">
-          <!-- 头像 -->
-          <div class="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full">
-            <img :src="currentPatient.avatar" alt="患者头像" class="h-full w-full object-cover">
-          </div>
+      <view v-if="currentPatient">
+        <div class="mb-3 flex items-center justify-between">
+          <view class="text-base text-[#333333] font-bold">
+            正在问诊
+          </view>
+        </div>
 
-          <!-- 患者信息 -->
-          <div class="flex-1">
-            <div class="mb-2 flex items-center gap-2">
-              <span class="text-lg text-[#1F2937] font-bold">{{ currentPatient.name }}</span>
-              <div class="ml-auto flex items-center gap-2">
-                <div class="flex items-center gap-1 rounded-full bg-[#F5EBE9] px-2.5 py-1">
-                  <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-[#8E4337]" />
-                  <span class="text-xs text-[#8E4337] font-bold">问诊中</span>
-                </div>
-                <div class="rounded-full bg-[#8E4337] px-2.5 py-1">
-                  <span class="text-xs text-white font-bold">12:34</span>
+        <view class="w-full border-2 border-[#8E4337] rounded-[20px] bg-white p-5 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
+          <div class="mb-4 flex items-start gap-3">
+            <!-- 头像 -->
+            <div class="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full">
+              <image :src="currentPatient.avatar" alt="患者头像" class="h-full w-full object-cover" />
+            </div>
+
+            <!-- 患者信息 -->
+            <div class="flex-1">
+              <div class="mb-2 flex items-center gap-2">
+                <span class="text-lg text-[#1F2937] font-bold">{{ currentPatient.name }}</span>
+                <div class="ml-auto flex items-center gap-2">
+                  <div class="flex items-center gap-1 rounded-full bg-[#F5EBE9] px-2.5 py-1">
+                    <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-[#8E4337]" />
+                    <span class="text-xs text-[#8E4337] font-bold">问诊中</span>
+                  </div>
+                  <div class="rounded-full bg-[#8E4337] px-2.5 py-1">
+                    <span class="text-xs text-white font-bold">12:34</span>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <!-- 问诊类型 -->
-            <div class="mb-2 flex items-center gap-2">
-              <wd-icon name="video" size="16px" color="#8E4337" />
-              <span class="text-sm text-[#6B7280] font-medium">视频通话中...</span>
-            </div>
+              <!-- 问诊类型 -->
+              <div class="mb-2 flex items-center gap-2">
+                <wd-icon name="video" size="16px" color="#8E4337" />
+                <span class="text-sm text-[#6B7280] font-medium">视频通话中...</span>
+              </div>
 
-            <!-- 症状 -->
-            <div class="text-sm text-[#6B7280]">
-              症状：{{ currentPatient.symptoms }}
+              <!-- 症状 -->
+              <div class="text-sm text-[#6B7280]">
+                症状：{{ currentPatient.symptoms }}
+              </div>
             </div>
           </div>
-        </div>
 
-        <!-- 按钮组 - 一行显示 -->
-        <div class="flex gap-2">
-          <button
-            class="flex flex-1 cursor-pointer items-center justify-center gap-1 bg-[#F5EBE9] py-2.5 text-xs text-[#8E4337] font-medium transition-colors active:scale-98 hover:bg-[#E5D5D0]"
-            aria-label="查看病历"
-            @click="viewMedicalRecord(currentPatient.medicalRecordId)"
-          >
-            <wd-icon name="list" size="10px" color="#8E4337" />
-            病历
-          </button>
-          <button
-            class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#8E4337] py-2.5 text-xs text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
-            aria-label="进入问诊"
-            @click="startConsultation(currentPatient)"
-          >
-            <wd-icon name="chevron-right-circle" size="10px" />
-            进入问诊
-          </button>
-          <button
-            class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#B45309] py-2.5 text-xs text-white font-medium transition-colors active:scale-98 hover:bg-[#92400E]"
-            aria-label="结束问诊"
-            @click="endConsultation"
-          >
-            <wd-icon name="check1" size="10px" color="#fff" />
-            结束问诊
-          </button>
-        </div>
-      </section>
+          <!-- 按钮组 - 一行显示 -->
+          <div class="flex gap-2">
+            <button
+              class="flex flex-1 cursor-pointer items-center justify-center gap-1 bg-[#F5EBE9] py-2.5 text-xs text-[#8E4337] font-medium transition-colors active:scale-98 hover:bg-[#E5D5D0]"
+              aria-label="查看病历"
+              @click="viewMedicalRecord(currentPatient.medicalRecordId)"
+            >
+              <wd-icon name="list" size="10px" color="#8E4337" />
+              病历
+            </button>
+            <button
+              class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#8E4337] py-2.5 text-xs text-white font-medium transition-colors active:scale-98 hover:bg-[#6E2F25]"
+              aria-label="进入问诊"
+              @click="startConsultation(currentPatient)"
+            >
+              <wd-icon name="chevron-right-circle" size="10px" />
+              进入问诊
+            </button>
+            <button
+              class="flex flex-1 cursor-pointer items-center justify-center gap-1 rounded-lg bg-[#B45309] py-2.5 text-xs text-white font-medium transition-colors active:scale-98 hover:bg-[#92400E]"
+              aria-label="结束问诊"
+              @click="endConsultation"
+            >
+              <wd-icon name="check1" size="10px" color="#fff" />
+              结束问诊
+            </button>
+          </div>
+        </view>
+      </view>
 
       <!-- 暂无问诊 -->
-      <section v-else class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-8 text-center shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
+      <view v-else class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-8 text-center shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#D1D5DB" class="mx-auto mb-4 h-16 w-16">
           <path d="M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
           <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 013-3h13.5a3 3 0 013 3V19.5a3 3 0 01-3 3H4.5a3 3 0 01-3-3V4.5zm19.5 0v15a1.5 1.5 0 01-1.5 1.5H4.5a1.5 1.5 0 01-1.5-1.5V4.5a1.5 1.5 0 011.5-1.5h13.5a1.5 1.5 0 011.5 1.5z" clip-rule="evenodd" />
@@ -644,15 +653,14 @@ function autoResizeTextarea(event) {
         <div class="text-sm text-[#6B7280]">
           暂无正在问诊的患者
         </div>
-      </section>
+      </view>
 
       <!-- 等待队列 -->
-      <section class="w-full">
+      <view class="w-full">
         <div class="mb-3 flex items-center justify-between">
-          <h2 class="text-base text-[#333333] font-bold">
-            等待队列
-          </h2>
-          <span class="rounded-full bg-[#FEE2E2] px-2 py-1 text-xs text-[#B91C1C]">{{ waitingPatients.length }}人</span>
+          <view class="text-base text-[#333333] font-bold">
+            等待队列（{{ waitingPatients.length }}人）
+          </view>
         </div>
 
         <!-- 等待队列列表 -->
@@ -661,7 +669,7 @@ function autoResizeTextarea(event) {
           <div v-for="patient in waitingPatients" :key="patient.id" class="card-hover border border-[#E5E7EB] rounded-[12px] bg-white p-4 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.06)]">
             <div class="flex gap-3">
               <!-- 患者头像 -->
-              <img :src="patient.avatar" alt="患者头像" class="h-12 w-12 border-2 border-[#F3F1ED] rounded-full object-cover">
+              <image :src="patient.avatar" alt="患者头像" class="h-12 w-12 border-2 border-[#F3F1ED] rounded-full object-cover" />
 
               <!-- 患者信息 -->
               <div class="flex-1">
@@ -695,16 +703,16 @@ function autoResizeTextarea(event) {
               </button>
               <button
                 :id="`call-confirm-${patient.id}`"
-                class="min-w-[80px] flex-1 flex items-center justify-center gap-1 px-3 py-2 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]"
+                class="min-w-[80px] flex flex-1 items-center justify-center gap-1 px-3 py-2 text-xs text-white font-medium transition-colors hover:bg-[#7B3429]"
                 :class="{
                   'bg-[#8E4337]': !patient.hasBeenCalled && !callingPatients.has(patient.id),
-                  'bg-gray-300': patient.hasBeenCalled || callingPatients.has(patient.id)
+                  'bg-gray-300': patient.hasBeenCalled || callingPatients.has(patient.id),
                 }"
                 :disabled="patient.hasBeenCalled || callingPatients.has(patient.id)"
                 aria-label="呼叫患者"
                 @click="callPatient(patient, $event)"
               >
-                <span v-if="callingPatients.has(patient.id)" class="loading-spinner h-3 w-3 animate-spin rounded-full border-2 border-white border-t-transparent"></span>
+                <span v-if="callingPatients.has(patient.id)" class="loading-spinner h-3 w-3 animate-spin border-2 border-white border-t-transparent rounded-full" />
                 {{ patient.hasBeenCalled ? '已叫号' : (callingPatients.has(patient.id) ? '叫号中...' : '呼叫患者') }}
               </button>
             </div>
@@ -717,19 +725,8 @@ function autoResizeTextarea(event) {
             </div>
           </div>
         </div>
-      </section>
+      </view>
     </main>
-
-    <!-- 结束坐诊按钮 -->
-    <div class="fixed bottom-5 left-0 right-0 mx-auto  px-4">
-      <button
-        class="w-full rounded-lg bg-[#EF4444] py-3 text-sm text-white font-medium shadow-[0px_4px_12px_0px_rgba(239,68,68,0.3)] transition-colors hover:bg-[#DC2626]"
-        aria-label="结束坐诊"
-        @click="endWork"
-      >
-        结束坐诊
-      </button>
-    </div>
 
     <!-- IM聊天弹窗 -->
     <div v-if="isIMVisible" class="fixed inset-0 z-50 flex flex-col bg-black bg-opacity-50 pt-10">
@@ -740,7 +737,7 @@ function autoResizeTextarea(event) {
             <wd-icon name="warn-bold" size="16px" color="red" />
           </button>
           <div v-if="currentPatient" class="flex items-center gap-2">
-            <img :src="currentPatient.avatar" alt="患者头像" class="h-8 w-8 rounded-full object-cover">
+            <image :src="currentPatient.avatar" alt="患者头像" class="h-8 w-8 rounded-full object-cover" />
             <div>
               <div class="text-sm font-semibold">
                 {{ currentPatient.name }}
@@ -778,7 +775,7 @@ function autoResizeTextarea(event) {
         <!-- 消息项 -->
         <div v-for="message in messages" :key="message.id" class="flex" :class="[message.sender === 'patient' ? 'justify-start' : 'justify-end']">
           <div v-if="message.sender === 'patient'" class="max-w-[75%] flex items-end gap-2">
-            <img v-if="currentPatient" :src="currentPatient.avatar" alt="患者头像" class="h-8 w-8 rounded-full object-cover">
+            <image v-if="currentPatient" :src="currentPatient.avatar" alt="患者头像" class="h-8 w-8 rounded-full object-cover" />
             <div>
               <div class="rounded-lg rounded-tl-none bg-white px-4 py-2 shadow-sm">
                 <div class="text-sm text-[#333333]">
@@ -802,7 +799,7 @@ function autoResizeTextarea(event) {
                 {{ message.timestamp }}
               </div>
             </div>
-            <img src="https://img.yzcdn.cn/vant/cat.jpeg" alt="医生头像" class="h-8 w-8 object-cover">
+            <image src="https://img.yzcdn.cn/vant/cat.jpeg" alt="医生头像" class="h-8 w-8 object-cover" />
           </div>
         </div>
       </div>
