@@ -234,148 +234,275 @@ function callPatient() {
         </div>
 
         <!-- 时间线 -->
-        <div class="space-y-4">
-          <!-- 问诊记录 003 -->
-          <div class="relative pl-6 before:absolute before:bottom-[-20px] before:left-7 before:top-[40px] before:w-0.5 before:bg-[#E5E7EB] before:content-['']">
-            <div class="absolute left-0 top-1 h-4 w-4 border-2 border-white rounded-full bg-[#8E4337] shadow-sm" />
-
-            <div class="cursor-pointer overflow-hidden rounded-xl bg-[#F9FAFB] p-3 transition-colors hover:bg-[#F3F4F6] sm:p-4" @click="toggleRecord('record003')">
-              <div class="mb-2 flex items-center justify-between">
-                <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 003</span>
-                <div class="flex items-center gap-2">
-                  <span class="whitespace-nowrap rounded-full bg-[#D1FAE5] px-2 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ '-rotate-90': expandedSections.record003 }" />
+        <wd-steps :active="1" vertical dot>
+          <wd-step>
+            <template #title>
+              <div class="cursor-pointer overflow-hidden rounded-xl bg-[#F9FAFB] p-3 transition-colors hover:bg-[#F3F4F6] sm:p-4" @click="toggleRecord('record003')">
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 003</span>
+                  <div class="flex items-center gap-2">
+                    <span class="whitespace-nowrap rounded-full bg-[#D1FAE5] px-2 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
+                    <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ '-rotate-90': expandedSections.record003 }" />
+                  </div>
+                </div>
+                <div class="text-xs text-[#6B7280]">
+                  2025-06-10 10:30
                 </div>
               </div>
-              <div class="text-xs text-[#6B7280]">
-                2025-06-10 10:30
-              </div>
-            </div>
-
-            <div class="max-h-0 overflow-hidden transition-all duration-300 ease" :style="{ maxHeight: expandedSections.record003 ? '2000px' : '0px' }">
-              <div class="mt-3 overflow-hidden border border-[#E5E7EB] rounded-xl bg-white p-3 space-y-3 sm:p-4">
-                <!-- 四诊信息 -->
-                <div>
-                  <div class="mb-2 flex items-center gap-2 text-sm text-[#374151] font-semibold">
-                    <wd-icon name="history" size="16px" color="#8E4337" />
-                    四诊信息
-                  </div>
-                  <div class="text-sm space-y-2">
-                    <div class="overflow-hidden">
-                      <span class="text-[#6B7280]">问诊：</span><span class="text-[#1F2937]">服药前餐前血糖12.6mmol/L，现降至4.5mmol/L。口干明显减轻，体力较前好转，夜尿1次。睡眠可，大便调。</span>
+            </template>
+            <template #description>
+              <!-- 问诊记录 003 -->
+              <div class="max-h-0 overflow-hidden transition-all duration-300 ease" :style="{ maxHeight: expandedSections.record003 ? '2000px' : '0px' }">
+                <div class="mt-3 overflow-hidden border border-[#E5E7EB] rounded-xl bg-white p-3 space-y-3 sm:p-4">
+                  <!-- 四诊信息 -->
+                  <div>
+                    <div class="mb-2 flex items-center gap-2 text-sm text-[#374151] font-semibold">
+                      <wd-icon name="history" size="16px" color="#8E4337" />
+                      四诊信息
                     </div>
-                    <div><span class="text-[#6B7280]">望诊：</span><span class="text-[#1F2937]">舌质红，苔薄白。</span></div>
-                    <div><span class="text-[#6B7280]">切诊：</span><span class="text-[#1F2937]">脉象未及（线上问诊），语音清晰。</span></div>
-                  </div>
-                </div>
-
-                <!-- 辨证分析 -->
-                <div class="rounded-lg bg-[#FFF7ED] p-3">
-                  <div class="mb-1 text-sm text-[#EA580C] font-semibold">
-                    辨证分析
-                  </div>
-                  <div class="text-sm text-[#6B7280] leading-relaxed">
-                    药后血糖显著下降，气阴得补，内热得清，故见诸症改善。舌象提示热象渐退。
-                  </div>
-                </div>
-
-                <!-- 方药 -->
-                <div>
-                  <div class="mb-2 text-sm text-[#374151] font-semibold">
-                    方药
-                  </div>
-                  <div class="rounded-lg bg-[#F5EBE9] p-3">
-                    <div class="mb-2 text-sm text-[#8E4337] font-semibold">
-                      自拟方加减
-                    </div>
-                    <div class="text-xs text-[#6B7280] leading-relaxed">
-                      生地黄15g、山药15g、黄芪20g、天花粉12g、葛根15g、麦冬12g、五味子6g、丹参15g、川芎10g、山茱萸10g
-                    </div>
-                    <div class="mt-2 flex items-center gap-2">
-                      <button
-                        class="flex items-center gap-1 rounded bg-white px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#F9FAFB]"
-                        aria-label="查看处方详情"
-                        @click="viewPrescription('003')"
-                      >
-                        <wd-icon name="view" size="16px" color="#8E4337" />
-                        查看处方详情
-                      </button>
+                    <div class="text-sm space-y-2">
+                      <div class="overflow-hidden">
+                        <span class="text-[#6B7280]">问诊：</span><span class="text-[#1F2937]">服药前餐前血糖12.6mmol/L，现降至4.5mmol/L。口干明显减轻，体力较前好转，夜尿1次。睡眠可，大便调。</span>
+                      </div>
+                      <div><span class="text-[#6B7280]">望诊：</span><span class="text-[#1F2937]">舌质红，苔薄白。</span></div>
+                      <div><span class="text-[#6B7280]">切诊：</span><span class="text-[#1F2937]">脉象未及（线上问诊），语音清晰。</span></div>
                     </div>
                   </div>
-                </div>
 
-                <!-- 健康指导 -->
-                <div>
-                  <div class="mb-1 text-sm text-[#374151] font-semibold">
-                    健康指导
+                  <!-- 辨证分析 -->
+                  <div class="rounded-lg bg-[#FFF7ED] p-3">
+                    <div class="mb-1 text-sm text-[#EA580C] font-semibold">
+                      辨证分析
+                    </div>
+                    <div class="text-sm text-[#6B7280] leading-relaxed">
+                      药后血糖显著下降，气阴得补，内热得清，故见诸症改善。舌象提示热象渐退。
+                    </div>
                   </div>
-                  <div class="text-sm text-[#6B7280] leading-relaxed">
-                    建议继续当前治疗，饮食宜清淡，忌甜食，适当运动。
+
+                  <!-- 方药 -->
+                  <div>
+                    <div class="mb-2 text-sm text-[#374151] font-semibold">
+                      方药
+                    </div>
+                    <div class="rounded-lg bg-[#F5EBE9] p-3">
+                      <div class="mb-2 text-sm text-[#8E4337] font-semibold">
+                        自拟方加减
+                      </div>
+                      <div class="text-xs text-[#6B7280] leading-relaxed">
+                        生地黄15g、山药15g、黄芪20g、天花粉12g、葛根15g、麦冬12g、五味子6g、丹参15g、川芎10g、山茱萸10g
+                      </div>
+                      <div class="mt-2 flex items-center gap-2">
+                        <button
+                          class="flex items-center gap-1 rounded bg-white px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#F9FAFB]"
+                          aria-label="查看处方详情"
+                          @click="viewPrescription('003')"
+                        >
+                          <wd-icon name="view" size="16px" color="#8E4337" />
+                          查看处方详情
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 健康指导 -->
+                  <div>
+                    <div class="mb-1 text-sm text-[#374151] font-semibold">
+                      健康指导
+                    </div>
+                    <div class="text-sm text-[#6B7280] leading-relaxed">
+                      建议继续当前治疗，饮食宜清淡，忌甜食，适当运动。
+                    </div>
+                  </div>
+
+                  <!-- 随访计划 -->
+                  <div class="flex items-center gap-2 text-sm">
+                    <wd-icon name="calendar" size="16px" color="#10B981" />
+                    <span class="text-[#6B7280]">随访计划：</span>
+                    <span class="text-[#10B981] font-medium">2025-06-30 复诊</span>
                   </div>
                 </div>
-
-                <!-- 随访计划 -->
-                <div class="flex items-center gap-2 text-sm">
-                  <wd-icon name="calendar" size="16px" color="#10B981" />
-                  <span class="text-[#6B7280]">随访计划：</span>
-                  <span class="text-[#10B981] font-medium">2025-06-30 复诊</span>
+              </div>
+            </template>
+          </wd-step>
+          <wd-step>
+            <template #title>
+              <div class="cursor-pointer overflow-hidden rounded-xl bg-[#F9FAFB] p-3 transition-colors hover:bg-[#F3F4F6] sm:p-4" @click="toggleRecord('record002')">
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 002</span>
+                  <div class="flex items-center gap-2">
+                    <span class="whitespace-nowrap rounded-full bg-[#D1FAE5] px-2 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
+                    <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ '-rotate-90': expandedSections.record002 }" />
+                  </div>
+                </div>
+                <div class="text-xs text-[#6B7280]">
+                  2025-06-10 10:30
                 </div>
               </div>
-            </div>
-          </div>
+            </template>
+            <template #description>
+              <!-- 问诊记录 003 -->
+              <div class="max-h-0 overflow-hidden transition-all duration-300 ease" :style="{ maxHeight: expandedSections.record002 ? '2000px' : '0px' }">
+                <div class="mt-3 overflow-hidden border border-[#E5E7EB] rounded-xl bg-white p-3 space-y-3 sm:p-4">
+                  <!-- 四诊信息 -->
+                  <div>
+                    <div class="mb-2 flex items-center gap-2 text-sm text-[#374151] font-semibold">
+                      <wd-icon name="history" size="16px" color="#8E4337" />
+                      四诊信息
+                    </div>
+                    <div class="text-sm space-y-2">
+                      <div class="overflow-hidden">
+                        <span class="text-[#6B7280]">问诊：</span><span class="text-[#1F2937]">服药前餐前血糖12.6mmol/L，现降至4.5mmol/L。口干明显减轻，体力较前好转，夜尿1次。睡眠可，大便调。</span>
+                      </div>
+                      <div><span class="text-[#6B7280]">望诊：</span><span class="text-[#1F2937]">舌质红，苔薄白。</span></div>
+                      <div><span class="text-[#6B7280]">切诊：</span><span class="text-[#1F2937]">脉象未及（线上问诊），语音清晰。</span></div>
+                    </div>
+                  </div>
 
-          <!-- 问诊记录 002 -->
-          <div class="relative pl-6 before:absolute before:bottom-[-20px] before:left-7 before:top-[40px] before:w-0.5 before:bg-[#E5E7EB] before:content-['']">
-            <div class="absolute left-0 top-1 h-4 w-4 border-2 border-white rounded-full bg-[#D1D5DB] shadow-sm" />
+                  <!-- 辨证分析 -->
+                  <div class="rounded-lg bg-[#FFF7ED] p-3">
+                    <div class="mb-1 text-sm text-[#EA580C] font-semibold">
+                      辨证分析
+                    </div>
+                    <div class="text-sm text-[#6B7280] leading-relaxed">
+                      药后血糖显著下降，气阴得补，内热得清，故见诸症改善。舌象提示热象渐退。
+                    </div>
+                  </div>
 
-            <div class="cursor-pointer overflow-hidden rounded-xl bg-[#F9FAFB] p-3 transition-colors hover:bg-[#F3F4F6] sm:p-4" @click="toggleRecord('record002')">
-              <div class="mb-2 flex items-center justify-between">
-                <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 002</span>
-                <div class="flex items-center gap-2">
-                  <span class="whitespace-nowrap rounded-full bg-[#E0E7FF] px-2 py-0.5 text-xs text-[#6366F1] font-semibold">视频问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ 'rotate-90': expandedSections.record002 }" />
+                  <!-- 方药 -->
+                  <div>
+                    <div class="mb-2 text-sm text-[#374151] font-semibold">
+                      方药
+                    </div>
+                    <div class="rounded-lg bg-[#F5EBE9] p-3">
+                      <div class="mb-2 text-sm text-[#8E4337] font-semibold">
+                        自拟方加减
+                      </div>
+                      <div class="text-xs text-[#6B7280] leading-relaxed">
+                        生地黄15g、山药15g、黄芪20g、天花粉12g、葛根15g、麦冬12g、五味子6g、丹参15g、川芎10g、山茱萸10g
+                      </div>
+                      <div class="mt-2 flex items-center gap-2">
+                        <button
+                          class="flex items-center gap-1 rounded bg-white px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#F9FAFB]"
+                          aria-label="查看处方详情"
+                          @click="viewPrescription('003')"
+                        >
+                          <wd-icon name="view" size="16px" color="#8E4337" />
+                          查看处方详情
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 健康指导 -->
+                  <div>
+                    <div class="mb-1 text-sm text-[#374151] font-semibold">
+                      健康指导
+                    </div>
+                    <div class="text-sm text-[#6B7280] leading-relaxed">
+                      建议继续当前治疗，饮食宜清淡，忌甜食，适当运动。
+                    </div>
+                  </div>
+
+                  <!-- 随访计划 -->
+                  <div class="flex items-center gap-2 text-sm">
+                    <wd-icon name="calendar" size="16px" color="#10B981" />
+                    <span class="text-[#6B7280]">随访计划：</span>
+                    <span class="text-[#10B981] font-medium">2025-06-30 复诊</span>
+                  </div>
                 </div>
               </div>
-              <div class="text-xs text-[#6B7280]">
-                2025-03-15 14:20
-              </div>
-            </div>
-
-            <div class="max-h-0 overflow-hidden transition-all duration-300 ease" :style="{ maxHeight: expandedSections.record002 ? '2000px' : '0px' }">
-              <div class="mt-3 overflow-hidden border border-[#E5E7EB] rounded-xl bg-white p-3 space-y-3 sm:p-4">
-                <div class="overflow-hidden text-sm text-[#6B7280]">
-                  症状有所好转，血糖控制平稳，继续观察治疗效果。调整方剂用量。
+            </template>
+          </wd-step>
+          <wd-step>
+            <template #title>
+              <div class="cursor-pointer overflow-hidden rounded-xl bg-[#F9FAFB] p-3 transition-colors hover:bg-[#F3F4F6] sm:p-4" @click="toggleRecord('record001')">
+                <div class="mb-2 flex items-center justify-between">
+                  <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 001</span>
+                  <div class="flex items-center gap-2">
+                    <span class="whitespace-nowrap rounded-full bg-[#D1FAE5] px-2 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
+                    <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ '-rotate-90': expandedSections.record001 }" />
+                  </div>
+                </div>
+                <div class="text-xs text-[#6B7280]">
+                  2025-06-10 10:30
                 </div>
               </div>
-            </div>
-          </div>
+            </template>
+            <template #description>
+              <!-- 问诊记录 003 -->
+              <div class="max-h-0 overflow-hidden transition-all duration-300 ease" :style="{ maxHeight: expandedSections.record001 ? '2000px' : '0px' }">
+                <div class="mt-3 overflow-hidden border border-[#E5E7EB] rounded-xl bg-white p-3 space-y-3 sm:p-4">
+                  <!-- 四诊信息 -->
+                  <div>
+                    <div class="mb-2 flex items-center gap-2 text-sm text-[#374151] font-semibold">
+                      <wd-icon name="history" size="16px" color="#8E4337" />
+                      四诊信息
+                    </div>
+                    <div class="text-sm space-y-2">
+                      <div class="overflow-hidden">
+                        <span class="text-[#6B7280]">问诊：</span><span class="text-[#1F2937]">服药前餐前血糖12.6mmol/L，现降至4.5mmol/L。口干明显减轻，体力较前好转，夜尿1次。睡眠可，大便调。</span>
+                      </div>
+                      <div><span class="text-[#6B7280]">望诊：</span><span class="text-[#1F2937]">舌质红，苔薄白。</span></div>
+                      <div><span class="text-[#6B7280]">切诊：</span><span class="text-[#1F2937]">脉象未及（线上问诊），语音清晰。</span></div>
+                    </div>
+                  </div>
 
-          <!-- 问诊记录 001 -->
-          <div class="relative pl-6">
-            <div class="absolute left-0 top-1 h-4 w-4 border-2 border-white rounded-full bg-[#D1D5DB] shadow-sm" />
+                  <!-- 辨证分析 -->
+                  <div class="rounded-lg bg-[#FFF7ED] p-3">
+                    <div class="mb-1 text-sm text-[#EA580C] font-semibold">
+                      辨证分析
+                    </div>
+                    <div class="text-sm text-[#6B7280] leading-relaxed">
+                      药后血糖显著下降，气阴得补，内热得清，故见诸症改善。舌象提示热象渐退。
+                    </div>
+                  </div>
 
-            <div class="cursor-pointer overflow-hidden rounded-xl bg-[#F9FAFB] p-3 transition-colors hover:bg-[#F3F4F6] sm:p-4" @click="toggleRecord('record001')">
-              <div class="mb-2 flex items-center justify-between">
-                <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 001</span>
-                <div class="flex items-center gap-2">
-                  <span class="rounded-full bg-[#D1FAE5] px-2.5 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ 'rotate-90': expandedSections.record001 }" />
+                  <!-- 方药 -->
+                  <div>
+                    <div class="mb-2 text-sm text-[#374151] font-semibold">
+                      方药
+                    </div>
+                    <div class="rounded-lg bg-[#F5EBE9] p-3">
+                      <div class="mb-2 text-sm text-[#8E4337] font-semibold">
+                        自拟方加减
+                      </div>
+                      <div class="text-xs text-[#6B7280] leading-relaxed">
+                        生地黄15g、山药15g、黄芪20g、天花粉12g、葛根15g、麦冬12g、五味子6g、丹参15g、川芎10g、山茱萸10g
+                      </div>
+                      <div class="mt-2 flex items-center gap-2">
+                        <button
+                          class="flex items-center gap-1 rounded bg-white px-3 py-1.5 text-xs text-[#8E4337] font-medium transition-colors hover:bg-[#F9FAFB]"
+                          aria-label="查看处方详情"
+                          @click="viewPrescription('003')"
+                        >
+                          <wd-icon name="view" size="16px" color="#8E4337" />
+                          查看处方详情
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 健康指导 -->
+                  <div>
+                    <div class="mb-1 text-sm text-[#374151] font-semibold">
+                      健康指导
+                    </div>
+                    <div class="text-sm text-[#6B7280] leading-relaxed">
+                      建议继续当前治疗，饮食宜清淡，忌甜食，适当运动。
+                    </div>
+                  </div>
+
+                  <!-- 随访计划 -->
+                  <div class="flex items-center gap-2 text-sm">
+                    <wd-icon name="calendar" size="16px" color="#10B981" />
+                    <span class="text-[#6B7280]">随访计划：</span>
+                    <span class="text-[#10B981] font-medium">2025-06-30 复诊</span>
+                  </div>
                 </div>
               </div>
-              <div class="text-xs text-[#6B7280]">
-                2025-01-06 09:15
-              </div>
-            </div>
-
-            <div class="max-h-0 overflow-hidden transition-all duration-300 ease" :style="{ maxHeight: expandedSections.record001 ? '2000px' : '0px' }">
-              <div class="mt-3 overflow-hidden border border-[#E5E7EB] rounded-xl bg-white p-3 space-y-3 sm:p-4">
-                <div class="text-sm text-[#6B7280]">
-                  初诊，确诊为消渴病（2型糖尿病），辨证为气阴两虚兼有瘀血。予以益气养阴、清热生津之法治疗。
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+            </template>
+          </wd-step>
+        </wd-steps>
       </section>
 
       <!-- 处方记录 -->
