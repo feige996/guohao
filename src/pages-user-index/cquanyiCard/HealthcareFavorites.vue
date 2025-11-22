@@ -6,7 +6,7 @@ import { safeAreaInsets } from '@/utils/systemInfo'
 // 页面配置
 definePage({
   style: {
-    navigationBarTitleText: '标题',
+    navigationBarTitleText: '养生收藏',
     navigationStyle: 'default',
   },
 })
@@ -275,32 +275,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <view class="healthcare-favorites-page min-h-screen bg-gray-50">
-    <view class="sticky top-0 z-10 bg-white shadow-sm">
+  <view class="healthcare-favorites-page min-h-screen">
+    <view class="sticky top-0 z-10 shadow-sm">
       <!-- 搜索栏 -->
-      <view class="search-bar px-4 py-3">
-        <view class="search-input flex items-center rounded-full bg-gray-100 px-3">
-          <uni-icons type="search" size="18" color="#999" />
-          <input
-            v-model="searchKeyword"
-            class="ml-2 box-border h-[80rpx] w-full flex-1 rounded-full bg-transparent text-sm outline-none"
-            placeholder="搜索收藏内容"
-            placeholder-class="text-gray-400"
-            @input="handleSearch"
-          >
-          <uni-icons
-            v-if="searchKeyword"
-            type="clear"
-            size="18"
-            color="#999"
-            class="cursor-pointer"
-            @click="clearSearch"
-          />
-        </view>
+      <view class="p-4">
+        <SearchBar
+          placeholder="搜索收藏内容"
+          @search="searchKeyword = $event"
+        />
       </view>
 
       <!-- 标签切换和管理按钮在同一行 -->
-      <view class="flex items-center border-b px-4">
+      <view class="flex items-center border-b bg-white px-4">
         <view class="flex flex-1">
           <view
             v-for="tab in ['所有收藏', '文章类', '视频类']"
