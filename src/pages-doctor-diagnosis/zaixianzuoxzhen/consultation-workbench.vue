@@ -543,22 +543,22 @@ function autoResizeTextarea(event) {
         </div>
       </view>
       <!-- 统计信息 -->
-      <view class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-5 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
-        <div class="grid grid-cols-3 gap-2 text-center" style="font-size: 12px;">
-          <div class="rounded-lg p-3">
-            <div class="mt-1 text-xs text-[#6B7280]">
-              排队中
-            </div>
-            <div class="text-lg font-bold">
-              28
-            </div>
-          </div>
+      <view class="w-full border border-[#E5E7EB] rounded-[20px] bg-white shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
+        <div class="grid grid-cols-3 gap-2 text-center">
           <div class="rounded-lg p-3">
             <div class="mt-1 text-xs text-[#6B7280]">
               问诊中
             </div>
             <div class="text-lg text-[#8E4337] font-bold">
               1
+            </div>
+          </div>
+          <div class="rounded-lg p-3">
+            <div class="mt-1 text-xs text-[#6B7280]">
+              排队中
+            </div>
+            <div class="text-lg font-bold">
+              28
             </div>
           </div>
           <div class="rounded-lg p-3">
