@@ -283,20 +283,18 @@ onMounted(() => {
           </p>
         </div>
         <div class="grid grid-cols-2 gap-3">
-          <button
-            class="border-2 border-[#E5E7EB] rounded-lg py-3 text-sm text-[#6B7280] font-medium transition-all active:scale-98 hover:bg-[#F9FAFB]"
-            aria-label="取消"
+          <wd-button
+            type="info"
             @click="closeModal"
           >
             取消
-          </button>
-          <button
-            class="rounded-lg bg-[#8E4337] py-3 text-sm text-white font-medium transition-all active:scale-98 hover:bg-[#6E2F25]"
-            aria-label="确认拒绝"
+          </wd-button>
+          <wd-button
+            type="primary"
             @click="confirmRejectOrder"
           >
             确认拒绝
-          </button>
+          </wd-button>
         </div>
       </div>
     </div>
@@ -394,7 +392,7 @@ onMounted(() => {
         </div>
 
         <!-- 底部提示 -->
-        <div v-else class="py-4 text-center">
+        <div v-else class="py-3 text-center">
           <span class="text-sm text-[#9CA3AF]">没有更多了</span>
         </div>
       </main>

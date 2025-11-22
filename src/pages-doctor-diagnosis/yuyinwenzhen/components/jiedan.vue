@@ -124,17 +124,25 @@ function acceptOrder(orderId: string): void {
     </div>
 
     <!-- 操作按钮 -->
-    <div class="grid grid-cols-2 gap-2">
-      <div
-        class="flex cursor-pointer items-center justify-center gap-1 border-2 border-[#D1D5DB] rounded-xl bg-[#FCE7E3] py-3 text-sm text-[#6B7280] font-semibold transition-all"
-        :disabled="loadingOrderIds.has(order.id)"
-        aria-label="暂不接单"
+    <div class="grid grid-cols-2 gap-4">
+      <wd-button
+        plain hairline type="default"
+        class="border-[#E5E7EB] bg-[#F3F4F6] text-[#6B7280]"
         @click="rejectOrder(order.id)"
       >
-        <wd-icon name="close" size="16px" />
+        <wd-icon name="close" size="12px" color="#6B7280" />
         暂不接单
-      </div>
-      <div
+      </wd-button>
+      <wd-button
+        hairline
+        class="border-[#8E4337] bg-[#8E4337] text-white"
+        :disabled="loadingOrderIds.has(order.id)"
+        @click="acceptOrder(order.id)"
+      >
+        <wd-icon name="check" size="12px" color="#ffffff" />
+        立即接单
+      </wd-button>
+      <!-- <div
         class="flex items-center justify-center gap-1 rounded-xl bg-[#8E4337] py-3 text-sm text-white font-semibold shadow-md transition-all active:scale-95 hover:bg-[#6E2F25]"
         :class="{ 'relative text-transparent cursor-not-allowed': loadingOrderIds.has(order.id) }"
         :disabled="loadingOrderIds.has(order.id)"
@@ -146,11 +154,10 @@ function acceptOrder(orderId: string): void {
           <wd-icon name="check" size="16px" />
           立即接单
         </template>
-        <!-- 加载动画 -->
         <div v-else class="absolute inset-0 flex items-center justify-center">
           <div class="h-4 w-4 animate-spin border-2 border-white border-t-transparent rounded-full" />
         </div>
-      </div>
+      </div> -->
     </div>
   </article>
 </template>
