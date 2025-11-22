@@ -65,7 +65,7 @@ function getPatientData() {
     consultationType: '图文问诊',
     price: 50,
     symptoms: '头痛、咳嗽、发热',
-    waitTime: '0分钟',
+    waitTime: '05:31',
     medicalRecordId: 'MR1001',
   }
 
@@ -78,7 +78,7 @@ function getPatientData() {
     consultationType: '图文问诊',
     price: 50,
     symptoms: '腹痛、腹泻',
-    waitTime: '5分钟',
+    waitTime: '05:00',
     medicalRecordId: 'MR1002',
   }
 
@@ -91,7 +91,7 @@ function getPatientData() {
     consultationType: '图文问诊',
     price: 50,
     symptoms: '高血压、头晕',
-    waitTime: '10分钟',
+    waitTime: '10:00',
     medicalRecordId: 'MR1003',
   }
 
@@ -104,7 +104,7 @@ function getPatientData() {
     consultationType: '图文问诊',
     price: 50,
     symptoms: '胸闷、气短',
-    waitTime: '15分钟',
+    waitTime: '15:00',
     medicalRecordId: 'MR1004',
   }
 
@@ -589,14 +589,25 @@ function autoResizeTextarea(event) {
             <!-- 患者信息 -->
             <div class="flex-1">
               <div class="mb-2 flex items-center gap-2">
-                <span class="text-lg text-[#1F2937] font-bold">{{ currentPatient.name }}</span>
+                <div class="mb-1 flex flex-wrap items-center gap-2">
+                  <view class="inline-block max-w-[80px] text-ellipsis text-[#1F2937] font-semibold">
+                    {{ currentPatient.name }}
+                  </view>
+                  <view class="text-sm text-[#6B7280]">
+                    {{ currentPatient.age }}岁/{{ currentPatient.gender }}
+                  </view>
+                </div>
                 <div class="ml-auto flex items-center gap-2">
                   <div class="flex items-center gap-1 rounded-full bg-[#F5EBE9] px-2.5 py-1">
                     <div class="h-1.5 w-1.5 animate-pulse rounded-full bg-[#8E4337]" />
-                    <span class="text-xs text-[#8E4337] font-bold">问诊中</span>
+                    <view class="text-xs text-[#8E4337] font-bold">
+                      问诊中
+                    </view>
                   </div>
                   <div class="rounded-full bg-[#8E4337] px-2.5 py-1">
-                    <span class="text-xs text-white font-bold">12:34</span>
+                    <view class="text-xs text-white font-bold">
+                      12:34
+                    </view>
                   </div>
                 </div>
               </div>
@@ -676,20 +687,40 @@ function autoResizeTextarea(event) {
 
               <!-- 患者信息 -->
               <div class="flex-1">
-                <div class="mb-1 flex flex-wrap items-center gap-2">
-                  <span class="inline-block max-w-[80px] text-ellipsis text-[#1F2937] font-semibold">{{ patient.name }}</span>
-                  <span class="text-sm text-[#6B7280]">{{ patient.age }}岁/{{ patient.gender }}</span>
+                <div class="mb-2 flex items-center gap-2">
+                  <div class="mb-1 flex flex-wrap items-center gap-2">
+                    <view class="inline-block max-w-[80px] text-ellipsis text-[#1F2937] font-semibold">
+                      {{ currentPatient.name }}
+                    </view>
+                    <view class="text-sm text-[#6B7280]">
+                      {{ currentPatient.age }}岁/{{ currentPatient.gender }}
+                    </view>
+                  </div>
+                  <div class="ml-auto flex items-center gap-2">
+                    <div class="flex items-center gap-1 rounded-full bg-[#F3F4F6] px-2.5 py-1">
+                      <view class="text-xs text-[#6B7280]">
+                        排队中
+                      </view>
+                    </div>
+                    <div class="rounded-full bg-[#8E4337] px-2.5 py-1">
+                      <view class="text-xs text-white">
+                        {{ 1 }}号
+                      </view>
+                    </div>
+                  </div>
                 </div>
-                <div class="mb-1 text-xs text-[#6B7280]">
-                  {{ patient.consultationType }} · ¥{{ patient.price }}
+
+                <div class="mb-1 flex justify-between text-xs text-[#6B7280]">
+                  <view>{{ patient.consultationType }}</view>  <view class="text-[#8E4337] font-bold">
+                    ¥{{ patient.price }}
+                  </view>
                 </div>
                 <div class="text-ellipsis-2 mb-1 text-xs text-[#6B7280]">
                   {{ patient.symptoms }}
                 </div>
                 <div class="flex flex-wrap items-center justify-between">
-                  <div class="flex flex-shrink-0 items-center gap-1 text-xs text-[#F59E0B]">
-                    <wd-icon name="warn-bold" size="16px" color-amber />
-                    已等待{{ patient.waitTime }}
+                  <div class="flex flex-shrink-0 items-center gap-1 text-xs text-[#8E4337]">
+                    等候时间：{{ patient.waitTime }}
                   </div>
                 </div>
               </div>
