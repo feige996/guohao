@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
-import { safeAreaInsets } from '@/utils/systemInfo'
+import { ref } from 'vue'
 import YuyueCard from './compoents/yuyueCard.vue'
 
 // 预约状态接口
@@ -164,19 +163,7 @@ filterAppointments()
 </script>
 
 <template>
-  <view class="appointment-consult-page" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
-    <!-- 顶部导航栏
-    <view class="sticky top-0 z-10 bg-white shadow-sm">
-      <view class="flex items-center h-[100rpx] px-[24rpx] relative">
-        返回按钮
-        <view class="flex items-center justify-center w-[80rpx] h-[80rpx] absolute left-[24rpx]" @click="closePage">
-          <text class="text-[32rpx] font-bold">&lt;</text>
-        </view>
-         居中标题
-        <text class="text-[36rpx] font-medium text-[#333333] absolute left-1/2 transform -translate-x-1/2">我的预约</text>
-      </view>
-    </view> -->
-
+  <view class="appointment-consult-page">
     <!-- 搜索栏 -->
     <view class="sticky top-0 z-10 bg-white px-[24rpx] py-[24rpx] shadow-sm">
       <view class="relative">

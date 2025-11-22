@@ -3,6 +3,14 @@ import { computed, onMounted, ref } from 'vue'
 import { useUserStore } from '@/store/userStore'
 import { safeAreaInsets } from '@/utils/systemInfo'
 
+// 页面配置
+definePage({
+  style: {
+    navigationBarTitleText: '标题',
+    navigationStyle: 'default',
+  },
+})
+
 // 定义收藏项目接口
 interface FavoriteItem {
   id: string | number
@@ -267,8 +275,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <view class="healthcare-favorites-page min-h-screen bg-gray-50" :style="{ paddingTop: `${safeAreaInsets.top}px` }">
-    <!-- 顶部导航栏 -->
+  <view class="healthcare-favorites-page min-h-screen bg-gray-50">
     <view class="sticky top-0 z-10 bg-white shadow-sm">
       <!-- 搜索栏 -->
       <view class="search-bar px-4 py-3">
@@ -339,10 +346,10 @@ onMounted(() => {
           @click="handleItemClick(item)"
         >
           <!-- 管理模式下的选择框 -->
-          <view v-if="isManaging" class="mr-3 h-24 w-12 flex flex-shrink-0 flex-col items-center justify-center relative">
+          <view v-if="isManaging" class="relative mr-3 h-24 w-12 flex flex-shrink-0 flex-col items-center justify-center">
             <view v-if="selectedItems.has(item.id)" class="absolute inset-0 flex items-center justify-center">
-              <view class="h-5 w-5 rounded-full bg-red-500 flex items-center justify-center">
-                <text class="text-white text-xs">✓</text>
+              <view class="h-5 w-5 flex items-center justify-center rounded-full bg-red-500">
+                <text class="text-xs text-white">✓</text>
               </view>
             </view>
           </view>

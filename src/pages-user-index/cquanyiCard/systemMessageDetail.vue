@@ -5,6 +5,7 @@ import { safeAreaInsets } from '@/utils/systemInfo'
 definePage({
   style: {
     navigationBarTitleText: '我的消息',
+    navigationStyle: 'default',
     navigationBarTextStyle: 'black',
   },
 })

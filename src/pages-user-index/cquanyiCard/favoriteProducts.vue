@@ -1,12 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { safeAreaInsets } from '@/utils/systemInfo'
 
 // 页面配置
 definePage({
   style: {
     navigationBarTitleText: '关注商品',
-    navigationStyle: 'custom',
+    navigationStyle: 'default',
   },
 })
 
@@ -162,7 +161,7 @@ function clearSearch() {
 </script>
 
 <template>
-  <view class="min-h-screen bg-[#f5f7f4]" :style="{ paddingTop: `${safeAreaInsets?.top || 0}px` }">
+  <view class="min-h-screen bg-[#f5f7f4]">
     <!-- 搜索栏和标签页连在一起 -->
     <view class="bg-white">
       <!-- 搜索栏 -->
