@@ -5,7 +5,7 @@ import ProductBuyModal from './components/ProductBuyModal.vue'
 
 definePage({
   style: {
-    navigationStyle: 'custom',
+    navigationStyle: 'default',
     navigationBarTitleText: '商品详情',
   },
 })
@@ -309,23 +309,9 @@ onLoad((options: any) => {
 </script>
 
 <template>
-  <div class="min-h-screen flex flex-col bg-[#f5f5f5]" :style="{ paddingTop: `${safeAreaInsets?.top}px` }">
-    <!-- 自定义导航栏 -->
-    <div class="relative sticky top-0 z-50 h-[96rpx] flex items-center justify-center bg-white px-[32rpx] shadow-sm">
-      <view class="absolute left-[32rpx] h-[64rpx] w-[64rpx] flex items-center justify-center" @click="handleBack">
-        <text class="font-bold text-[40rpx]">&lt;</text>
-      </view>
-      <text class="font-medium text-[36rpx]">商品详情</text>
-    </div>
-
+  <div class="min-h-screen flex flex-col bg-[#f5f5f5]">
     <!-- 主内容区域 -->
     <scroll-view scroll-y class="flex-1">
-      <!-- 顶部返回按钮 -->
-      <!-- 返回按钮 -->
-      <view class="mr-[20rpx]" @click="handleBack">
-        <image src="/static/back_arrow.png" class="h-[28rpx] w-[28rpx]" mode="aspectFill" />
-      </view>
-
       <!-- 商品图片轮播 -->
       <div class="relative h-[600rpx] bg-white">
         <swiper
