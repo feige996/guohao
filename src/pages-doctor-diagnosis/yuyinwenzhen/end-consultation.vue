@@ -203,9 +203,9 @@ onMounted(() => {
 
       <!-- 四诊信息 -->
       <div class="space-y-3">
-        <h3 class="text-sm text-[#333333] font-semibold">
+        <view class="text-base text-[#333333] font-semibold">
           四诊信息
-        </h3>
+        </view>
 
         <!-- 望诊 -->
         <div class="space-y-1">
@@ -261,13 +261,16 @@ onMounted(() => {
         </div>
 
         <!-- 常用模板按钮 -->
-        <button
-          class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
-          style="border: 2px solid #1677FF; box-sizing: border-box;"
-          @click="selectCommonTemplate"
-        >
-          选择常用模板
-        </button>
+        <view class="mt-2">
+          <wd-button
+            type="primary"
+            plain
+            block
+            @click="selectCommonTemplate"
+          >
+            选择常用模板
+          </wd-button>
+        </view>
 
         <!-- 切诊 -->
         <div class="space-y-1">
@@ -338,13 +341,16 @@ onMounted(() => {
             class="mx-auto min-h-[100px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#CCCCCC] placeholder-[#9CA3AF]"
             style="border: 2px solid #E5E7EB; box-sizing: border-box;"
           />
-          <button
-            class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
-            style="border: 2px solid #1677FF; box-sizing: border-box;"
-            @click="selectSyndromeTemplate"
-          >
-            选择辨证分析模板
-          </button>
+          <view class="mt-2">
+            <wd-button
+              type="primary"
+              plain
+              block
+              @click="selectSyndromeTemplate"
+            >
+              选择辨证分析模板
+            </wd-button>
+          </view>
         </div>
 
         <!-- 调护建议 -->
@@ -356,13 +362,16 @@ onMounted(() => {
             class="mx-auto min-h-[80px] w-[calc(100%-4px)] resize-none rounded-lg px-4 py-3 text-sm text-[#1F2937] focus:outline-none focus:ring-2 focus:ring-[#CCCCCC] placeholder-[#9CA3AF]"
             style="border: 2px solid #E5E7EB; box-sizing: border-box;"
           />
-          <button
-            class="w-full flex items-center justify-center rounded-lg py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
-            style="border: 2px solid #1677FF; box-sizing: border-box;"
-            @click="selectCareAdvice"
-          >
-            选择调护建议
-          </button>
+          <view class="mt-2">
+            <wd-button
+              type="primary"
+              plain
+              block
+              @click="selectCareAdvice"
+            >
+              选择调护建议
+            </wd-button>
+          </view>
         </div>
       </div>
 
@@ -414,58 +423,57 @@ onMounted(() => {
     </main>
 
     <!-- 底部按钮区域 -->
-    <div class="fixed bottom-0 left-0 right-0 mx-auto  w-full border-t border-[#E5E7EB] bg-white p-4">
+    <div class="fixed bottom-0 left-0 right-0 border-t border-[#E5E7EB] bg-white p-4">
       <div class="grid grid-cols-2 gap-3">
-        <button
-          class="border-2 border-[#1677FF] py-3 text-sm text-[#1677FF] font-medium transition-colors hover:bg-[#E6F4FF]"
+        <wd-button
+          type="info"
+          plain
           @click="handleCancel"
         >
-          确认取消
-        </button>
-        <button
-          class="rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors hover:bg-[#0958D9]"
+          取消
+        </wd-button>
+        <wd-button
+          type="primary"
           @click="submitEndConsultation"
         >
           确认结束
-        </button>
+        </wd-button>
       </div>
     </div>
 
     <!-- 处方开具确认弹窗 -->
-    <transition name="fade">
-      <div v-if="prescriptionModalVisible" class="pointer-events-auto fixed inset-0 z-50 bg-black/50 opacity-100">
-        <div class="fixed left-1/2 top-1/2 max-w-[320px] w-[calc(100%-48px)] transform rounded-[16px] bg-white p-6 text-center shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 -translate-x-1/2 -translate-y-1/2">
-          <div class="mb-6">
-            <div class="mx-auto mb-4 h-12 w-12 flex items-center justify-center rounded-full bg-[#F3F4F6]">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6B7280" class="h-6 w-6">
-                <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
-                <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
-              </svg>
-            </div>
-            <h3 class="mb-2 text-lg text-[#1F2937] font-bold">
-              处方开具
-            </h3>
-            <p class="text-sm text-[#6B7280] leading-relaxed">
-              是否需要为患者开具处方？
-            </p>
+    <div v-if="prescriptionModalVisible" class="pointer-events-auto fixed inset-0 z-50 bg-black/50 opacity-100">
+      <div class="fixed left-1/2 top-1/2 max-w-[320px] w-[calc(100%-48px)] transform rounded-[16px] bg-white p-6 text-center shadow-[0_8px_32px_rgba(0,0,0,0.15)] transition-all duration-300 -translate-x-1/2 -translate-y-1/2">
+        <div class="mb-6">
+          <div class="mx-auto mb-4 h-12 w-12 flex items-center justify-center rounded-full bg-[#F3F4F6]">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#6B7280" class="h-6 w-6">
+              <path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z" />
+              <path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z" />
+            </svg>
           </div>
-          <div class="grid grid-cols-2 gap-3">
-            <button
-              class="border-2 border-[#1677FF] py-3 text-sm text-[#1677FF] font-medium transition-colors active:scale-98 hover:bg-[#E6F4FF]"
-              @click="postponePrescription"
-            >
-              稍后开方
-            </button>
-            <button
-              class="rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#0958D9]"
-              @click="createPrescription"
-            >
-              立即开方
-            </button>
-          </div>
+          <h3 class="mb-2 text-lg text-[#1F2937] font-bold">
+            处方开具
+          </h3>
+          <p class="text-sm text-[#6B7280] leading-relaxed">
+            是否需要为患者开具处方？
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <button
+            class="border-2 border-[#1677FF] py-3 text-sm text-[#1677FF] font-medium transition-colors active:scale-98 hover:bg-[#E6F4FF]"
+            @click="postponePrescription"
+          >
+            稍后开方
+          </button>
+          <button
+            class="rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors active:scale-98 hover:bg-[#0958D9]"
+            @click="createPrescription"
+          >
+            立即开方
+          </button>
         </div>
       </div>
-    </transition>
+    </div>
   </div>
 </template>
 

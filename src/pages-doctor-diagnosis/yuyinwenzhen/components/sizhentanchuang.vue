@@ -212,128 +212,126 @@ watch(
 </script>
 
 <template>
-  <transition name="fade">
-    <div v-if="visible" class="pointer-events-auto fixed inset-0 z-50 flex items-center justify-center bg-black/50 opacity-100">
-      <div class="max-w-[320px] w-[calc(100%-32px)] rounded-[16px] bg-white text-center shadow-[0_8px_32px_rgba(0,0,0,0.15)]">
-        <!-- 弹窗标题 -->
-        <div class="flex items-center border-b border-[#E5E7EB] px-5 py-4">
-          <h3 class="flex-1 text-base text-[#1F2937] font-bold">
-            {{ title || '选择望诊描述' }}
-          </h3>
-          <button class="h-6 w-6 flex items-center justify-center text-[#6B7280]" @click="handleClose">
-            <wd-icon name="close" />
-          </button>
-        </div>
+  <div v-if="visible" class="pointer-events-auto fixed inset-0 z-50 flex items-center justify-center bg-black/50 opacity-100">
+    <div class="w-[calc(100%-32px)] rounded-[16px] bg-white text-center shadow-[0_8px_32px_rgba(0,0,0,0.15)]">
+      <!-- 弹窗标题 -->
+      <view class="flex items-center border-b border-[#E5E7EB] px-5 py-4">
+        <view class="flex-1 text-base text-[#1F2937] font-bold">
+          {{ title || '选择望诊描述' }}
+        </view>
+        <view class="h-6 w-6 flex items-center justify-center text-[#6B7280]" @click="handleClose">
+          <wd-icon name="close" />
+        </view>
+      </view>
 
-        <!-- 提示文本 -->
-        <div v-if="type === 'syndromeType'" class="px-5 pb-1 pt-3">
-          <p class="text-xs text-[#6B7280]">
-            点击可添加多个证型，用顿号分隔
-          </p>
-        </div>
-        <div v-if="type === 'syndromeAnalysisTemplate'" class="px-5 pb-1 pt-3">
-          <p class="text-xs text-[#6B7280]">
-            选择后可根据实际情况修改
-          </p>
-        </div>
-        <div v-if="type === 'careAdvice'" class="px-5 pb-1 pt-3">
-          <p class="text-xs text-[#6B7280]">
-            点击可添加多条建议，用分号分隔
-          </p>
-        </div>
+      <!-- 提示文本 -->
+      <view v-if="type === 'syndromeType'" class="px-5 pb-1 pt-3">
+        <view class="text-xs text-[#6B7280]">
+          点击可添加多个证型，用顿号分隔
+        </view>
+      </view>
+      <view v-if="type === 'syndromeAnalysisTemplate'" class="px-5 pb-1 pt-3">
+        <view class="text-xs text-[#6B7280]">
+          选择后可根据实际情况修改
+        </view>
+      </view>
+      <view v-if="type === 'careAdvice'" class="px-5 pb-1 pt-3">
+        <view class="text-xs text-[#6B7280]">
+          点击可添加多条建议，用分号分隔
+        </view>
+      </view>
 
-        <!-- 选择列表 -->
-        <div class="max-h-[400px] overflow-y-auto px-5 py-3">
-          <!-- 辨证分析模板使用卡片布局 -->
-          <div v-if="type === 'syndromeAnalysisTemplate'" class="space-y-3">
-            <div
-              v-for="(item, index) in displayDataList"
-              :key="index"
-              class="border-2 border-blue-300 rounded-lg p-4 text-left shadow-sm transition-all duration-200"
-              :class="{
-                'border-blue-500 bg-blue-50': selectedItems.includes(item.title),
-                'hover:border-blue-500 hover:shadow-md': !selectedItems.includes(item.title),
-              }"
-              @click="handleItemClick(item)"
-            >
-              <h4 class="mb-2 text-base text-[#1677FF] font-bold">
-                {{ item.title }}
-              </h4>
-              <p class="whitespace-pre-line text-sm text-[#333333] leading-relaxed">
-                {{ item.content }}
-              </p>
-            </div>
-          </div>
-
-          <!-- 调护建议使用红色边框样式 -->
-          <div v-else-if="type === 'careAdvice'" class="space-y-3">
-            <div
-              v-for="item in displayDataList"
-              :key="item"
-              class="border-2 border-[#E5E7EB] rounded-lg p-3 text-left transition-colors"
-              :class="{
-                'border-[#B91C1C] bg-[#FEE2E2]': selectedItems.includes(item),
-                'hover:border-[#B91C1C]': !selectedItems.includes(item),
-              }"
-              @click="handleItemClick(item)"
-            >
-              <span
-                class="text-sm" :class="{
-                  'text-[#B91C1C] font-medium': selectedItems.includes(item),
-                  'text-[#333333]': !selectedItems.includes(item),
-                }"
-              >
-                {{ item }}
-              </span>
-            </div>
-          </div>
-
-          <!-- 辨证分型使用网格布局 -->
-          <div v-else-if="type === 'syndromeType'" class="grid grid-cols-2 gap-3">
-            <div
-              v-for="item in displayDataList"
-              :key="item"
-              class="flex items-center justify-center border-2 border-blue-300 rounded-lg px-4 py-3 text-center transition-colors"
-              :class="{
-                'border-[#1677FF] bg-[#E6F4FF] text-[#1677FF]': selectedItems.includes(item),
-                'hover:border-[#1677FF]': !selectedItems.includes(item),
-              }"
-              @click="handleItemClick(item)"
-            >
-              <span>{{ item }}</span>
-            </div>
-          </div>
-
-          <!-- 其他类型使用单列布局 -->
-          <template v-else>
-            <div
-              v-for="item in displayDataList"
-              :key="item"
-              class="mb-3 flex items-center justify-between border-2 border-blue-300 rounded-lg px-4 py-3 text-left transition-colors"
-              :class="{
-                'border-[#1677FF] bg-[#E6F4FF] text-[#1677FF]': selectedItems.includes(item),
-                'hover:border-[#1677FF]': !selectedItems.includes(item),
-              }"
-              @click="handleItemClick(item)"
-            >
-              <span>{{ item }}</span>
-              <wd-icon v-if="selectedItems.includes(item)" name="check" size="16" />
-            </div>
-          </template>
-        </div>
-
-        <!-- 确认按钮 - 辨证分析模板不需要确认按钮 -->
-        <div v-if="type !== 'syndromeAnalysisTemplate'" class="border-t border-[#E5E7EB] px-5 py-4">
-          <button
-            class="w-full rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors hover:bg-[#0958D9]"
-            @click="handleConfirm"
+      <!-- 选择列表 -->
+      <div class="max-h-[400px] overflow-y-auto px-5 py-3">
+        <!-- 辨证分析模板使用卡片布局 -->
+        <div v-if="type === 'syndromeAnalysisTemplate'" class="space-y-3">
+          <div
+            v-for="(item, index) in displayDataList"
+            :key="index"
+            class="border-2 border-blue-300 rounded-lg p-4 text-left shadow-sm transition-all duration-200"
+            :class="{
+              'border-blue-500 bg-blue-50': selectedItems.includes(item.title),
+              'hover:border-blue-500 hover:shadow-md': !selectedItems.includes(item.title),
+            }"
+            @click="handleItemClick(item)"
           >
-            确认 ({{ selectedItems.length }})
-          </button>
+            <h4 class="mb-2 text-base text-[#1677FF] font-bold">
+              {{ item.title }}
+            </h4>
+            <p class="whitespace-pre-line text-sm text-[#333333] leading-relaxed">
+              {{ item.content }}
+            </p>
+          </div>
         </div>
+
+        <!-- 调护建议使用红色边框样式 -->
+        <div v-else-if="type === 'careAdvice'" class="space-y-3">
+          <div
+            v-for="item in displayDataList"
+            :key="item"
+            class="border-2 border-[#E5E7EB] rounded-lg p-3 text-left transition-colors"
+            :class="{
+              'border-[#B91C1C] bg-[#FEE2E2]': selectedItems.includes(item),
+              'hover:border-[#B91C1C]': !selectedItems.includes(item),
+            }"
+            @click="handleItemClick(item)"
+          >
+            <span
+              class="text-sm" :class="{
+                'text-[#B91C1C] font-medium': selectedItems.includes(item),
+                'text-[#333333]': !selectedItems.includes(item),
+              }"
+            >
+              {{ item }}
+            </span>
+          </div>
+        </div>
+
+        <!-- 辨证分型使用网格布局 -->
+        <div v-else-if="type === 'syndromeType'" class="grid grid-cols-2 gap-3">
+          <div
+            v-for="item in displayDataList"
+            :key="item"
+            class="flex items-center justify-center border-2 border-blue-300 rounded-lg px-4 py-3 text-center transition-colors"
+            :class="{
+              'border-[#1677FF] bg-[#E6F4FF] text-[#1677FF]': selectedItems.includes(item),
+              'hover:border-[#1677FF]': !selectedItems.includes(item),
+            }"
+            @click="handleItemClick(item)"
+          >
+            <span>{{ item }}</span>
+          </div>
+        </div>
+
+        <!-- 其他类型使用单列布局 -->
+        <template v-else>
+          <div
+            v-for="item in displayDataList"
+            :key="item"
+            class="mb-3 flex items-center justify-between border-2 border-blue-300 rounded-lg px-4 py-3 text-left transition-colors"
+            :class="{
+              'border-[#1677FF] bg-[#E6F4FF] text-[#1677FF]': selectedItems.includes(item),
+              'hover:border-[#1677FF]': !selectedItems.includes(item),
+            }"
+            @click="handleItemClick(item)"
+          >
+            <span>{{ item }}</span>
+            <wd-icon v-if="selectedItems.includes(item)" name="check" size="16" />
+          </div>
+        </template>
+      </div>
+
+      <!-- 确认按钮 - 辨证分析模板不需要确认按钮 -->
+      <div v-if="type !== 'syndromeAnalysisTemplate'" class="border-t border-[#E5E7EB] px-5 py-4">
+        <wd-button
+          class="w-full rounded-lg bg-[#1677FF] py-3 text-sm text-white font-medium transition-colors hover:bg-[#0958D9]"
+          @click="handleConfirm"
+        >
+          确认 ({{ selectedItems.length }})
+        </wd-button>
       </div>
     </div>
-  </transition>
+  </div>
 </template>
 
 <style scoped>
