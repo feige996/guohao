@@ -473,7 +473,7 @@ function autoResizeTextarea(event) {
     </div>
 
     <!-- 主内容区 -->
-    <main class="flex flex-col gap-5 px-4 pb-20 pt-[24px]">
+    <main class="flex flex-col gap-5 px-4 pt-[24px]">
       <!-- 坐诊状态头部卡片 -->
       <view class="w-full border border-[#E5E7EB] rounded-[20px] bg-white p-5 shadow-[0px_4px_16px_0px_rgba(0,0,0,0.08)]">
         <div class="mb-4 flex items-center gap-2">
