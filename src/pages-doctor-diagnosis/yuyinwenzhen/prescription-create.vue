@@ -596,7 +596,7 @@ function viewMedicalRecord(): void {
             </div>
             <wd-button
               icon="search"
-              block
+              plain block
               type="primary"
               @click="openFunctionSelector"
             >
@@ -618,7 +618,7 @@ function viewMedicalRecord(): void {
             </div>
             <wd-button
               icon="search"
-              block
+              plain block
               type="primary"
               @click="openMainTreatmentSelector"
             >
