@@ -100,7 +100,7 @@ function handleButtonClick(buttonType: 'cancel' | 'reschedule' | 'enter'): void 
 </script>
 
 <template>
-  <view class="mb-[24rpx] overflow-hidden border border-[#f0f0f0] rounded-[20rpx] bg-white">
+  <view class="mb-[24rpx] overflow-hidden border border-[#f0f0f0] rounded bg-white">
     <!-- 卡片头部 -->
     <view class="flex items-center justify-between p-[24rpx]">
       <view>
