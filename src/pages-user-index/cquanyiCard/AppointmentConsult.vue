@@ -165,24 +165,12 @@ filterAppointments()
 <template>
   <view class="appointment-consult-page">
     <!-- 搜索栏 -->
-    <view class="sticky top-0 z-10 bg-white px-[24rpx] py-[24rpx] shadow-sm">
-      <view class="relative">
-        <uni-icons class="absolute left-[20rpx] top-1/2 transform text-[#999] -translate-y-1/2" type="search" size="28rpx" />
-        <input
-          v-model="searchKeyword"
-          class="h-[72rpx] rounded-[36rpx] bg-[#f5f5f5] pl-[72rpx] pr-[72rpx] outline-none text-[28rpx]"
-          placeholder="搜索预约信息"
-          @input="handleSearch"
-        >
-        <uni-icons
-          v-if="searchKeyword"
-          class="absolute right-[20rpx] top-1/2 transform text-[#999] -translate-y-1/2"
-          type="clear"
-          size="28rpx"
-          @click="clearSearch"
-        />
-      </view>
-    </view>
+    <div class="p-2">
+      <SearchBar
+        placeholder="搜索预约信息"
+        @clear="searchKeyword = $event"
+      />
+    </div>
 
     <!-- 分类标签 -->
     <view class="sticky top-[100rpx] z-5 border-b border-[#f0f0f0] bg-white">

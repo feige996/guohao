@@ -64,17 +64,17 @@ const isCompleted = computed(() => {
 
 // 计算属性 - 按钮颜色配置
 const buttonConfigs = computed(() => ({
-  cancel: { 
-    color: isCompleted.value ? '#999999' : '#ff4d4f', 
-    borderColor: isCompleted.value ? '#d9d9d9' : '#ff4d4f'
+  cancel: {
+    color: isCompleted.value ? '#999999' : '#ff4d4f',
+    borderColor: isCompleted.value ? '#d9d9d9' : '#ff4d4f',
   },
-  reschedule: { 
-    color: isCompleted.value ? '#999999' : '#fa8c16', 
-    borderColor: isCompleted.value ? '#d9d9d9' : '#fa8c16'
+  reschedule: {
+    color: isCompleted.value ? '#999999' : '#fa8c16',
+    borderColor: isCompleted.value ? '#d9d9d9' : '#fa8c16',
   },
-  enter: { 
-    color: isCompleted.value ? '#999999' : '#409eff', 
-    borderColor: isCompleted.value ? '#d9d9d9' : '#409eff'
+  enter: {
+    color: isCompleted.value ? '#999999' : '#409eff',
+    borderColor: isCompleted.value ? '#d9d9d9' : '#409eff',
   },
 }))
 
@@ -123,48 +123,36 @@ function handleButtonClick(buttonType: 'cancel' | 'reschedule' | 'enter'): void 
     </view>
 
     <!-- 卡片底部操作 -->
-    <view class="flex justify-end p-[24rpx]">
-      <wot-button
-        :disabled="isCompleted"
-        :style="{
-          color: buttonConfigs.cancel.color,
-          border: `1px solid ${buttonConfigs.cancel.borderColor}`,
-          backgroundColor: 'transparent',
-          borderRadius: '9999rpx',
-          padding: '20rpx 36rpx'
-        }"
-        class="mr-[40rpx]"
-        @click="handleButtonClick('cancel')"
-      >
-        取消
-      </wot-button>
-      <wot-button
-        :disabled="isCompleted"
-        :style="{
-          color: buttonConfigs.reschedule.color,
-          border: `1px solid ${buttonConfigs.reschedule.borderColor}`,
-          backgroundColor: 'transparent',
-          borderRadius: '9999rpx',
-          padding: '20rpx 36rpx'
-        }"
-        class="mr-[40rpx]"
-        @click="handleButtonClick('reschedule')"
-      >
-        改签
-      </wot-button>
-      <wot-button
-        :disabled="isCompleted"
-        :style="{
-          color: buttonConfigs.enter.color,
-          border: `1px solid ${buttonConfigs.enter.borderColor}`,
-          backgroundColor: 'transparent',
-          borderRadius: '9999rpx',
-          padding: '20rpx 36rpx'
-        }"
-        @click="handleButtonClick('enter')"
-      >
-        进入诊室
-      </wot-button>
+    <view class="flex items-center justify-end p-[24rpx]">
+      <view class="flex items-center gap-4">
+        <wd-button
+          :disabled="isCompleted"
+          type="warning"
+          plain
+          size="small"
+          @click="handleButtonClick('cancel')"
+        >
+          取消
+        </wd-button>
+        <wd-button
+          :disabled="isCompleted"
+          type="primary"
+          plain
+          size="small"
+          @click="handleButtonClick('reschedule')"
+        >
+          改签
+        </wd-button>
+        <wd-button
+          :disabled="isCompleted"
+          type="success"
+          plain
+          size="small"
+          @click="handleButtonClick('enter')"
+        >
+          进入诊室
+        </wd-button>
+      </view>
     </view>
   </view>
 </template>
