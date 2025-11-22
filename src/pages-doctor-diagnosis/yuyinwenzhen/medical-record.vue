@@ -156,13 +156,13 @@ function callPatient() {
             <wd-icon name="file" size="22px" color="#8E4337" />
             <span class="text-lg text-[#333333] font-bold leading-7">病史与体质</span>
           </div>
-          <button
-            class="m-0 ml-auto appearance-none border-0 bg-transparent text-[#8E4337] outline-none transition-colors hover:text-[#6E2F25] focus:ring-0"
-            aria-label="展开/折叠"
+          <view
+            class="transition-transform duration-300"
+            :class="{ '-rotate-90': expandedSections.medicalHistory }"
             @click="toggleSection('medicalHistory')"
           >
             <wd-icon name="arrow-down" size="20px" color="#8E4337" />
-          </button>
+          </view>
         </div>
 
         <div class="max-h-0 overflow-hidden transition-all duration-300 ease" :style="{ maxHeight: expandedSections.medicalHistory ? '2000px' : '0px' }">
@@ -244,7 +244,7 @@ function callPatient() {
                 <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 003</span>
                 <div class="flex items-center gap-2">
                   <span class="whitespace-nowrap rounded-full bg-[#D1FAE5] px-2 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" />
+                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ '-rotate-90': expandedSections.record003 }" />
                 </div>
               </div>
               <div class="text-xs text-[#6B7280]">
@@ -333,7 +333,7 @@ function callPatient() {
                 <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 002</span>
                 <div class="flex items-center gap-2">
                   <span class="whitespace-nowrap rounded-full bg-[#E0E7FF] px-2 py-0.5 text-xs text-[#6366F1] font-semibold">视频问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" />
+                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ 'rotate-90': expandedSections.record002 }" />
                 </div>
               </div>
               <div class="text-xs text-[#6B7280]">
@@ -359,7 +359,7 @@ function callPatient() {
                 <span class="truncate text-base text-[#1F2937] font-bold">问诊记录 001</span>
                 <div class="flex items-center gap-2">
                   <span class="rounded-full bg-[#D1FAE5] px-2.5 py-0.5 text-xs text-[#10B981] font-semibold">图文问诊</span>
-                  <wd-icon name="arrow-down" size="16px" color="#6B7280" />
+                  <wd-icon name="arrow-down" size="16px" color="#6B7280" class="transition-transform duration-300" :class="{ 'rotate-90': expandedSections.record001 }" />
                 </div>
               </div>
               <div class="text-xs text-[#6B7280]">
