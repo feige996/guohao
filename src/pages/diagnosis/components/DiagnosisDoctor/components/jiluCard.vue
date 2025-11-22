@@ -85,35 +85,23 @@ function enterConsultation(sessionId: string) {
   <div class="w-full rounded-[20px] bg-white p-5 shadow-[0px_4px_12px_0px_rgba(0,0,0,0.05)]">
     <div class="mb-5 flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="h-5 w-5 text-[#8E4337]">
-          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" fill="currentColor" />
-        </svg>
-        <span class="text-lg text-[#333333] font-medium leading-7">问诊会话记录</span>
+        <wd-icon name="chat" class="h-5 w-5 text-[#8E4337]" />
+        <view class="text-lg text-[#333333] font-medium leading-7">
+          问诊会话记录
+        </view>
+        <view class="ml-2 rounded-full bg-[#FFF7ED] px-2 py-0.5 text-xs text-[#EA580C] font-bold">
+          进行中
+        </view>
       </div>
 
-      <!-- Tab切换 -->
-      <div class="flex rounded-full bg-gray-100 p-0.5">
-        <button
-          class="px-3 py-0.5 text-sm font-medium transition-colors"
-          :class="activeTab === 'ongoing'
-            ? 'bg-[#8E4337] text-white'
-            : 'text-gray-600 hover:bg-gray-200'
-          "
-          @click="handleSwitchTab('ongoing')"
-        >
-          进行中
-        </button>
-        <button
-          class="px-3 py-0.5 text-sm font-medium transition-colors"
-          :class="activeTab === 'all'
-            ? 'bg-[#8E4337] text-white'
-            : 'text-gray-600 hover:bg-gray-200'
-          "
-          @click="handleSwitchTab('all')"
-        >
-          全部
-        </button>
-      </div>
+      <wd-button
+        type="text"
+        size="small"
+        @click="handleSwitchTab('all')"
+      >
+        全部
+        <wd-icon name="arrow-right" class="h-4 w-4 text-[#8E4337]" />
+      </wd-button>
     </div>
 
     <!-- 会话列表 -->
@@ -128,8 +116,10 @@ function enterConsultation(sessionId: string) {
           <!-- 患者头像 -->
           <div class="relative">
             <div class="h-12 w-12 flex items-center justify-center overflow-hidden rounded-full bg-[#F5EBE9]">
-              <img v-if="session.avatar" :src="session.avatar" alt="患者头像" class="h-full w-full object-cover">
-              <span v-else class="text-[#8E4337] font-medium">{{ session.patientName.charAt(0) }}</span>
+              <image v-if="session.avatar" :src="session.avatar" alt="患者头像" class="h-full w-full object-cover" />
+              <view v-else class="text-[#8E4337] font-medium">
+                {{ session.patientName.charAt(0) }}
+              </view>
             </div>
             <!-- 咨询类型图标 -->
             <div class="absolute h-5 w-5 flex items-center justify-center rounded-full bg-white shadow-sm -bottom-1 -right-1">
