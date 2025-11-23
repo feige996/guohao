@@ -197,9 +197,7 @@ function getStatusText(status: string) {
           <image src="~@/static/OnlineConsultation.png" mode="widthFix" class="block h-auto w-full" />
           <!-- 立即问诊按钮 -->
           <view class="absolute bottom-40rpx left-1/2 z-10 min-w-160rpx flex items-center justify-center gap-6rpx border border-cyan-600/20 rounded-36rpx from-white to-[#f0fdff] bg-gradient-to-br px-24rpx py-14rpx shadow-md transition-all -translate-x-1/2 active:scale-95" @tap.stop="handleMainFeature(mainFeatures[1])">
-            <svg class="h-32rpx w-32rpx flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke="#0891b2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <wd-icon name="login" size="18px" text-cyan-600 />
             <text class="whitespace-nowrap text-24rpx text-cyan-600 font-semibold tracking-tight">立即问诊</text>
           </view>
         </view>
@@ -209,9 +207,7 @@ function getStatusText(status: string) {
           <image src="~@/static/Guidance.png" mode="widthFix" class="block h-auto w-full" />
           <!-- 立即咨询按钮 -->
           <view class="absolute bottom-40rpx left-1/2 z-10 min-w-160rpx flex items-center justify-center gap-6rpx border border-amber-600/20 rounded-36rpx from-white to-[#fef7ed] bg-gradient-to-br px-24rpx py-14rpx shadow-md transition-all -translate-x-1/2 active:scale-95" @tap.stop="handleMainFeature(mainFeatures[2])">
-            <svg class="h-32rpx w-32rpx flex-shrink-0" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" stroke="#d97706" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+            <wd-icon name="chat1" size="18px" text-amber-600 />
             <text class="whitespace-nowrap text-24rpx text-amber-600 font-semibold tracking-tight">立即咨询</text>
           </view>
         </view>
@@ -244,6 +240,8 @@ function getStatusText(status: string) {
               <path d="M9 12h6" />
               <path d="M9 16h4" />
             </svg>
+            <!-- <wd-icon name="list" size="18px" text-[#8e4337] v-if="action.icon === 'records'" /> -->
+
             <svg
               v-else-if="action.icon === 'prescription'"
               class="h-44rpx w-44rpx"

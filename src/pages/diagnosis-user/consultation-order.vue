@@ -521,3 +521,32 @@ function startPayment() {
     />
   </view>
 </template>
+
+<style>
+/* 全局box-sizing设置，确保所有元素使用border-box模型 */
+* {
+  box-sizing: border-box;
+}
+
+/* 确保页面内容不会超出安全区域，特别是在iOS设备上 */
+page {
+  box-sizing: border-box;
+}
+
+/* 确保scroll-view正确处理内边距和box-sizing */
+.scroll-view {
+  box-sizing: border-box;
+}
+
+/* 确保textarea不会超出容器 */
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* 确保所有带边框的容器正确计算宽度 */
+.border {
+  box-sizing: border-box;
+}
+</style>
