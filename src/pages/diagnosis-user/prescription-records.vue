@@ -213,6 +213,7 @@ function refreshPrescriptionRecords() {
 
             <wd-button
               v-if="!record.isPaid"
+              type="primary"
               icon="wallet"
               block
               class="w-full"
