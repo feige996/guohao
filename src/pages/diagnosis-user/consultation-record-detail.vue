@@ -8,6 +8,7 @@ definePage({
   style: {
     navigationBarTitleText: '问诊详情',
     navigationBarBackgroundColor: '#FFFFFF',
+    navigationStyle: 'default',
   },
 })
 
@@ -273,15 +274,6 @@ function handleShowToast(text: string) {
 
 <template>
   <view class="h-screen w-full flex flex-col bg-gray-50">
-    <!-- 顶部导航 -->
-    <view class="flex flex-shrink-0 items-center justify-between bg-white px-32rpx pb-20rpx pt-24rpx shadow-sm">
-      <button class="h-68rpx w-68rpx flex items-center justify-center border-none bg-gray-100" @tap="goBack">
-        <text class="text-32rpx text-gray-700 font-bold">←</text>
-      </button>
-      <text class="flex-1 text-center text-34rpx text-gray-900 font-bold">问诊详情</text>
-      <view class="w-68rpx" />
-    </view>
-
     <scroll-view v-if="record" class="flex-1" scroll-y>
       <view class="flex flex-col gap-16rpx p-24rpx">
         <!-- 状态卡片 -->
