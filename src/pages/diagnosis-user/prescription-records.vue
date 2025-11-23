@@ -52,7 +52,7 @@ function switchTab(tab: string) {
 // 查看处方详情
 function viewPrescriptionDetail(id: number) {
   uni.navigateTo({
-    url: `/pages/prescription-detail?id=${id}`,
+    url: `/pages/diagnosis-user/prescription-detail?id=${id}`,
   })
 }
 
@@ -202,32 +202,20 @@ function refreshPrescriptionRecords() {
           <!-- 操作按钮 -->
           <view class="flex gap-20rpx">
             <button
-              class="h-80rpx flex flex-1 items-center justify-center gap-12rpx border-2rpx border-primary rounded-16rpx border-none bg-white text-26rpx text-primary font-semibold transition-all active:scale-95 active:bg-red-50"
+              class="h-80rpx flex flex-1 items-center justify-center gap-12rpx border-2rpx border-primary border-none bg-white text-26rpx text-primary font-semibold transition-all active:scale-95 active:bg-red-50"
               aria-label="查看详情"
               @tap="viewPrescriptionDetail(record.id)"
             >
-              <svg viewBox="0 0 16 16" fill="currentColor" class="h-28rpx w-28rpx">
-                <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z" />
-                <path
-                  fill-rule="evenodd"
-                  d="M1.38 8.28a.87.87 0 0 1 0-.566 7.003 7.003 0 0 1 13.238.006.87.87 0 0 1 0 .566A7.003 7.003 0 0 1 1.379 8.28ZM11 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"
-                  clip-rule="evenodd"
-                />
-              </svg>
+              <wd-icon name="view" size="16px" />
               查看详情
             </button>
 
             <button
               v-if="!record.isPaid"
-              class="to-primary-dark h-80rpx flex flex-1 items-center justify-center gap-12rpx rounded-16rpx border-none from-primary bg-gradient-to-br text-26rpx text-white font-semibold shadow-lg transition-all active:scale-95 active:shadow-md"
-              aria-label="支付"
+              class="h-80rpx flex flex-1 items-center justify-center gap-12rpx bg-[#8E4337] text-26rpx text-white font-semibold shadow-lg transition-all active:scale-95 active:opacity-90 active:shadow-md"
               @tap="payPrescription(record)"
             >
-              <svg viewBox="0 0 16 16" fill="currentColor" class="h-28rpx w-28rpx">
-                <path
-                  d="M2.5 3.5a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5H3a.5.5 0 0 1-.5-.5v-9ZM1 4v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4H1Zm14 3H0v5a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V6ZM4 7.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5Z"
-                />
-              </svg>
+              <wd-icon name="wallet" size="20px" />
               支付
             </button>
           </view>

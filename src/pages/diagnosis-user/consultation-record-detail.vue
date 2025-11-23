@@ -275,7 +275,7 @@ function handleShowToast(text: string) {
   <view class="h-screen w-full flex flex-col bg-gray-50">
     <!-- 顶部导航 -->
     <view class="flex flex-shrink-0 items-center justify-between bg-white px-32rpx pb-20rpx pt-24rpx shadow-sm">
-      <button class="h-68rpx w-68rpx flex items-center justify-center rounded-16rpx border-none bg-gray-100" @tap="goBack">
+      <button class="h-68rpx w-68rpx flex items-center justify-center border-none bg-gray-100" @tap="goBack">
         <text class="text-32rpx text-gray-700 font-bold">←</text>
       </button>
       <text class="flex-1 text-center text-34rpx text-gray-900 font-bold">问诊详情</text>
