@@ -91,7 +91,7 @@ const filteredRecords = computed(() => {
 
 function viewConsultationDetail(id: number) {
   uni.navigateTo({
-    url: `/pages/consultation-record-detail?id=${id}`,
+    url: `/pages/diagnosis-user/consultation-record-detail?id=${id}`,
   })
 }
 

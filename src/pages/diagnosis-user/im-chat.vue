@@ -110,9 +110,7 @@ function adjustTextareaHeight(e: any) {
   <view class="h-screen w-full flex flex-col overflow-hidden bg-gray-50">
     <!-- 主诉信息卡片 -->
     <view class="flex flex-shrink-0 items-start gap-16rpx border-b-2rpx border-red-100 bg-orange-50 p-24rpx">
-      <svg viewBox="0 0 20 20" fill="currentColor" class="mt-8rpx h-40rpx w-40rpx flex-shrink-0 text-orange-600">
-        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a.75.75 0 000 1.5h.253a.25.25 0 01.244.304l-.459 2.066A1.75 1.75 0 0010.747 15H11a.75.75 0 000-1.5h-.253a.25.25 0 01-.244-.304l.459-2.066A1.75 1.75 0 009.253 9H9z" clip-rule="evenodd" />
-      </svg>
+      <wd-icon name="warn-bold" size="16px" text-orange-600 />
       <view class="flex-1">
         <text class="mb-10rpx block text-24rpx text-orange-600 font-medium">患者主诉</text>
         <text class="block break-all text-28rpx text-gray-500 leading-relaxed">{{ patientInfo.chiefComplaint }}</text>
@@ -139,15 +137,11 @@ function adjustTextareaHeight(e: any) {
 
     <!-- 底部输入区域 -->
     <view class="w-full flex flex-shrink-0 items-end gap-16rpx border-t-2rpx border-gray-200 bg-white p-24rpx">
-      <button class="h-72rpx w-72rpx flex items-center justify-center rounded-12rpx border-none bg-transparent text-gray-500 transition-all active:scale-95 active:bg-primary/8" aria-label="表情">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="h-48rpx w-48rpx">
-          <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-2.625 6c-.54 0-.828.419-.936.634a1.96 1.96 0 00-.189.866c0 .298.059.605.189.866.108.215.395.634.936.634.54 0 .828-.419.936-.634.13-.26.189-.568.189-.866 0-.298-.059-.605-.189-.866-.108-.215-.395-.634-.936-.634zm4.314.634c.108-.215.395-.634.936-.634.54 0 .828.419.936.634.13.26.189.568.189.866 0 .298-.059.605-.189.866-.108.215-.395.634-.936.634-.54 0-.828-.419-.936-.634a1.96 1.96 0 01-.189-.866c0-.298.059-.605.189-.866zm2.023 6.828a.75.75 0 10-1.06-1.06 3.75 3.75 0 01-5.304 0 .75.75 0 00-1.06 1.06 5.25 5.25 0 007.424 0z" clip-rule="evenodd" />
-        </svg>
+      <button class="h-72rpx w-72rpx flex items-center justify-center border-none bg-transparent text-gray-500 transition-all active:scale-95 active:bg-primary/8" aria-label="表情">
+        <wd-icon name="github-filled" size="18px" />
       </button>
-      <button class="h-72rpx w-72rpx flex items-center justify-center rounded-12rpx border-none bg-transparent text-gray-500 transition-all active:scale-95 active:bg-primary/8" aria-label="图片">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="h-48rpx w-48rpx">
-          <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
-        </svg>
+      <button class="h-72rpx w-72rpx flex items-center justify-center border-none bg-transparent text-gray-500 transition-all active:scale-95 active:bg-primary/8" aria-label="图片">
+        <wd-icon name="picture" size="18px" />
       </button>
       <view class="flex flex-1 items-center border-2rpx border-gray-200 rounded-12rpx bg-gray-50 px-16rpx transition-colors focus-within:border-primary">
         <textarea
@@ -160,11 +154,38 @@ function adjustTextareaHeight(e: any) {
           @confirm="sendMessage"
         />
       </view>
-      <button class="active:bg-primary-dark h-72rpx w-72rpx flex items-center justify-center rounded-12rpx border-none bg-primary transition-all active:scale-95" aria-label="发送" @tap="sendMessage">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="h-40rpx w-40rpx text-white">
-          <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
-        </svg>
+      <button class="active:bg-primary-dark h-72rpx w-72rpx flex items-center justify-center border-none bg-primary transition-all active:scale-95" aria-label="发送" @tap="sendMessage">
+        <wd-icon name="chevron-up-rectangle" size="18px" />
       </button>
     </view>
   </view>
 </template>
+
+<style>
+/* 全局box-sizing设置，确保所有元素使用border-box模型 */
+* {
+  box-sizing: border-box;
+}
+
+/* 确保页面内容不会超出安全区域，特别是在iOS设备上 */
+page {
+  box-sizing: border-box;
+}
+
+/* 确保scroll-view正确处理内边距和box-sizing */
+.scroll-view {
+  box-sizing: border-box;
+}
+
+/* 确保textarea不会超出容器 */
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* 确保所有带边框的容器正确计算宽度 */
+.border {
+  box-sizing: border-box;
+}
+</style>
