@@ -87,7 +87,7 @@ function handleConsultation() {
   if (!doctor.value)
     return
   uni.navigateTo({
-    url: `/pages/consultation-order?mode=assign&doctorId=${doctor.value.id}`,
+    url: `/pages/diagnosis-user/consultation-order?mode=assign&doctorId=${doctor.value.id}`,
   })
 }
 
@@ -250,13 +250,12 @@ function toggleFavorite() {
         <text class="text-36rpx text-primary font-bold">¥ {{ doctor?.consultationFee }}</text>
       </view>
       <view>
-        <button
-          class="to-primary-dark h-88rpx rounded-44rpx border-none from-primary bg-gradient-to-br px-56rpx text-30rpx text-white font-semibold shadow-lg transition-all active:scale-95 active:shadow-md"
-          aria-label="预约问诊"
+        <wd-button
+          type="primary"
           @tap="handleConsultation"
         >
           预约问诊
-        </button>
+        </wd-button>
       </view>
     </view>
   </view>
