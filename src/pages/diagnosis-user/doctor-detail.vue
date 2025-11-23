@@ -1,12 +1,23 @@
 ﻿<script setup lang="ts">
 import type { Doctor } from '@/data'
 import { mockDoctors } from '@/data'
-import PageHeader from './components/PageHeader.vue'
 
 definePage({
   style: {
-    navigationBarTitleText: '医生详情',
-    navigationBarBackgroundColor: '#FFFFFF',
+    'navigationStyle': 'default',
+    'navigationBarTitleText': '医生详情',
+    'navigationBarBackgroundColor': '#FFFFFF',
+    'app-plus': {
+      titleNView: {
+        titleText: '医生详情',
+        buttons: [
+          {
+            type: 'favorite',
+            color: '#8e4337',
+          },
+        ],
+      },
+    },
   },
 })
 
@@ -37,7 +48,39 @@ onLoad((options: any) => {
     // 如果没找到，使用第一个医生
     doctor.value = mockDoctors['1'] || Object.values(mockDoctors)[0]
   }
+
+  // #ifdef APP-PLUS
+  // 初始化按钮颜色
+  updateFavoriteButtonColor()
+  // #endif
 })
+
+// 处理导航栏按钮点击事件
+onNavigationBarButtonTap((e: any) => {
+  // #ifdef APP-PLUS
+  if (e.type === 'favorite') {
+    toggleFavorite()
+  }
+  // #endif
+})
+
+// 更新收藏按钮颜色
+function updateFavoriteButtonColor() {
+  // #ifdef APP-PLUS
+  // 获取当前页面的webview实例
+  const pages = getCurrentPages()
+  const currentPage = pages[pages.length - 1]
+  const webView = currentPage.$getAppWebview()
+
+  if (webView && webView.setTitleNViewButtonStyle) {
+    // 设置按钮颜色：收藏状态为红色，未收藏状态为原始颜色
+    // setTitleNViewButtonStyle需要两个参数：按钮索引和样式对象
+    webView.setTitleNViewButtonStyle(0, {
+      color: isFavorited.value ? '#FF4444' : '#8e4337', // 根据收藏状态设置颜色
+    })
+  }
+  // #endif
+}
 
 // 预约问诊
 function handleConsultation() {
@@ -97,6 +140,9 @@ function toggleFavorite() {
     // 保存到本地存储
     uni.setStorageSync('favoriteDoctors', favorites)
     isFavorited.value = !isFavorited.value
+
+    // 更新导航栏按钮颜色
+    updateFavoriteButtonColor()
   }
   catch (e) {
     console.error('收藏操作失败:', e)
@@ -110,16 +156,6 @@ function toggleFavorite() {
 
 <template>
   <view class="relative h-screen w-full flex flex-col overflow-hidden bg-gray-50">
-    <!-- 顶部导航 -->
-    <PageHeader
-      title="医生详情"
-      show-right
-      right-icon="favorite"
-      :is-favorited="isFavorited"
-      @back="handleBack"
-      @right-click="toggleFavorite"
-    />
-
     <!-- 滚动内容 -->
     <scroll-view scroll-y class="min-h-0 flex-1">
       <!-- 医生基本信息卡片 -->
