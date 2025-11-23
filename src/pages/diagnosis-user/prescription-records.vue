@@ -204,7 +204,7 @@ function refreshPrescriptionRecords() {
             <wd-button
               type="primary"
               icon="view"
-              block
+              plain block
               class="w-full"
               @tap="viewPrescriptionDetail(record.id)"
             >
