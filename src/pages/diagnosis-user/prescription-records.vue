@@ -60,7 +60,7 @@ function viewPrescriptionDetail(id: number) {
 function payPrescription(record: any) {
   recordId.value = record.id.toString()
   uni.navigateTo({
-    url: `/pages/payment-order?recordId=${record.id}&fee=${record.totalAmount}`,
+    url: `/pages/diagnosis-user/payment-order?recordId=${record.id}&fee=${record.totalAmount}`,
   })
 }
 
