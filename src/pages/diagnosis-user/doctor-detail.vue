@@ -211,9 +211,7 @@ function toggleFavorite() {
       <!-- 专业介绍 -->
       <view class="m-24rpx border border-gray-200/80 rounded-24rpx bg-white p-32rpx shadow-lg">
         <view class="mb-24rpx flex items-center gap-16rpx">
-          <svg viewBox="0 0 18 18" fill="currentColor" class="h-32rpx w-32rpx text-primary">
-            <path d="M9 0C4.029 0 0 4.029 0 9s4.029 9 9 9 9-4.029 9-9-4.029-9-9-9zm0 16.5c-4.136 0-7.5-3.364-7.5-7.5S4.864 1.5 9 1.5s7.5 3.364 7.5 7.5-3.364 7.5-7.5 7.5z" />
-          </svg>
+          <wd-icon name="file-powerpoint" size="20px" text-primary />
           <text class="text-30rpx text-gray-800 font-bold">专业介绍</text>
         </view>
         <text class="block text-26rpx text-gray-600 leading-relaxed">{{ doctor?.introduction }}</text>
@@ -222,9 +220,7 @@ function toggleFavorite() {
       <!-- 教育背景 -->
       <view class="m-24rpx border border-gray-200/80 rounded-24rpx bg-white p-32rpx shadow-lg">
         <view class="mb-24rpx flex items-center gap-16rpx">
-          <svg viewBox="0 0 18 18" fill="currentColor" class="h-32rpx w-32rpx text-primary">
-            <path d="M9 0L0 4.5l2.25 1.125v4.875c0 1.657 2.686 3 6 3s6-1.343 6-3V5.625L16.5 4.5v6h1.5V4.5L9 0z" />
-          </svg>
+          <wd-icon name="layers" size="20px" text-primary />
           <text class="text-30rpx text-gray-800 font-bold">教育背景</text>
         </view>
         <text class="block text-26rpx text-gray-600 leading-relaxed">{{ doctor?.education }}</text>
@@ -233,9 +229,7 @@ function toggleFavorite() {
       <!-- 资质证书 -->
       <view class="m-24rpx border border-gray-200/80 rounded-24rpx bg-white p-32rpx shadow-lg">
         <view class="mb-24rpx flex items-center gap-16rpx">
-          <svg viewBox="0 0 18 18" fill="currentColor" class="h-32rpx w-32rpx text-primary">
-            <path d="M13.5 0h-9c-.825 0-1.5.675-1.5 1.5v15c0 .825.675 1.5 1.5 1.5h9c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zM9 3c1.103 0 2 .897 2 2s-.897 2-2 2-2-.897-2-2 .897-2 2-2zm3 10.5H6v-.75c0-1 2-1.5 3-1.5s3 .5 3 1.5v.75z" />
-          </svg>
+          <wd-icon name="note" size="20px" text-primary />
           <text class="text-30rpx text-gray-800 font-bold">资质证书</text>
         </view>
         <view class="flex flex-col gap-16rpx">

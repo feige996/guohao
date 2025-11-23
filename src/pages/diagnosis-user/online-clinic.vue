@@ -339,7 +339,7 @@ function handleViewDoctorDetail(doctor: ClinicDoctor) {
           </view>
 
           <!-- 操作按钮 -->
-          <button
+          <wd-button
             class="h-80rpx w-full flex items-center justify-center rounded-36rpx border-none text-28rpx font-semibold transition-all"
             :class="getButtonDisabled(doctor)
               ? 'bg-gray-200 text-gray-400 shadow-none border border-gray-200 opacity-60'
@@ -347,7 +347,7 @@ function handleViewDoctorDetail(doctor: ClinicDoctor) {
             @tap="handleButtonClick(doctor)"
           >
             {{ getButtonText(doctor) }}
-          </button>
+          </wd-button>
         </view>
       </view>
 
