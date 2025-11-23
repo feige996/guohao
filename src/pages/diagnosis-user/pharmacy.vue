@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { pharmacyPrescriptions, addresses } from '@/data'
-import type { Prescription, Address } from '@/data'
+import type { Address, Prescription } from '@/data'
+import { addresses, pharmacyPrescriptions } from '@/data'
 
 definePage({
   style: {
-    navigationBarTitleText: "购药服务",
-    navigationBarBackgroundColor: "#FFFFFF",
+    navigationBarTitleText: '购药服务',
+    navigationBarBackgroundColor: '#FFFFFF',
   },
-});
+})
 
 // 处方数据
 const prescriptions = ref<Prescription[]>(pharmacyPrescriptions)
@@ -74,7 +74,8 @@ function selectPaymentMethod(method: string) {
 
 // 计算总价
 const totalAmount = computed(() => {
-  if (!selectedPrescription.value) return 0
+  if (!selectedPrescription.value)
+    return 0
   return selectedPrescription.value.totalAmount * purchaseDosage.value
 })
 
@@ -105,15 +106,15 @@ function handlePayment() {
     success: (res) => {
       if (res.confirm) {
         uni.showLoading({ title: '支付中...' })
-        
+
         setTimeout(() => {
           uni.hideLoading()
           uni.showToast({
             title: '支付成功',
             icon: 'success',
-            duration: 2000
+            duration: 2000,
           })
-          
+
           setTimeout(() => {
             uni.navigateBack()
           }, 2000)
@@ -127,7 +128,8 @@ function handlePayment() {
 function handleBack() {
   if (currentStep.value > 1) {
     prevStep()
-  } else {
+  }
+  else {
     uni.navigateBack()
   }
 }
@@ -143,9 +145,9 @@ function manageAddresses() {
 // 获取处方类型图标
 function getPrescriptionTypeIcon(type: string) {
   const icons: Record<string, string> = {
-    '颗粒': '💊',
-    '饮片': '🌿',
-    '混合': '🔄'
+    颗粒: '💊',
+    饮片: '🌿',
+    混合: '🔄',
   }
   return icons[type] || '💊'
 }
@@ -153,31 +155,33 @@ function getPrescriptionTypeIcon(type: string) {
 // 获取处方类型颜色
 function getPrescriptionTypeColor(type: string) {
   const colors: Record<string, string> = {
-    '颗粒': '#8e4337',
-    '饮片': '#059669',
-    '混合': '#7c3aed'
+    颗粒: '#8e4337',
+    饮片: '#059669',
+    混合: '#7c3aed',
   }
   return colors[type] || '#8e4337'
 }
 </script>
 
 <template>
-  <view class="w-full min-h-screen bg-gray-50 flex flex-col">
+  <view class="min-h-screen w-full flex flex-col bg-gray-50">
     <!-- 步骤指示器 -->
     <view class="flex-shrink-0 bg-white px-24rpx py-32rpx">
-      <wd-steps :active="currentStep - 1" :steps="[
-        { title: '选择处方' },
-        { title: '确认订单' },
-        { title: '支付' }
-      ]" />
+      <wd-steps
+        :active="currentStep - 1" :steps="[
+          { title: '选择处方' },
+          { title: '确认订单' },
+          { title: '支付' },
+        ]"
+      />
     </view>
 
     <scroll-view scroll-y class="flex-1">
-      <view class="p-24rpx flex flex-col gap-24rpx">
+      <view class="flex flex-col gap-24rpx p-24rpx">
         <!-- 步骤1: 选择处方 -->
         <view v-if="currentStep === 1">
           <wd-cell-group title="选择历史处方" border>
-            <view v-if="prescriptions.length === 0" class="px-32rpx py-120rpx flex flex-col items-center justify-center gap-16rpx">
+            <view v-if="prescriptions.length === 0" class="flex flex-col items-center justify-center gap-16rpx px-32rpx py-120rpx">
               <text class="text-80rpx">📋</text>
               <text class="text-28rpx text-gray-400">暂无历史处方</text>
             </view>
@@ -192,16 +196,16 @@ function getPrescriptionTypeColor(type: string) {
             >
               <view class="w-full">
                 <!-- 医生信息 -->
-                <view class="flex gap-24rpx mb-24rpx">
+                <view class="mb-24rpx flex gap-24rpx">
                   <image
                     :src="prescription.doctor.avatar"
-                    class="w-120rpx h-120rpx rounded-16rpx flex-shrink-0"
+                    class="h-120rpx w-120rpx flex-shrink-0 rounded-16rpx"
                     mode="aspectFill"
                   />
-                  
-                  <view class="flex-1 flex flex-col gap-8rpx">
+
+                  <view class="flex flex-1 flex-col gap-8rpx">
                     <view class="flex items-center justify-between">
-                      <text class="text-30rpx font-bold text-gray-800">{{ prescription.doctor.name }}</text>
+                      <text class="text-30rpx text-gray-800 font-bold">{{ prescription.doctor.name }}</text>
                       <wd-tag :type="selectedPrescription?.id === prescription.id ? 'primary' : 'default'" size="small">
                         {{ prescription.prescriptionType || '颗粒' }}
                       </wd-tag>
@@ -213,24 +217,24 @@ function getPrescriptionTypeColor(type: string) {
                 </view>
 
                 <!-- 处方信息 -->
-                <view class="px-20rpx py-16rpx bg-gray-50 rounded-12rpx">
-                  <view class="flex items-center justify-between mb-12rpx">
+                <view class="rounded-12rpx bg-gray-50 px-20rpx py-16rpx">
+                  <view class="mb-12rpx flex items-center justify-between">
                     <text class="text-24rpx text-gray-600">处方编号：{{ prescription.prescriptionNumber }}</text>
                   </view>
-                  <text class="text-26rpx text-gray-700 block mb-12rpx">诊断：{{ prescription.diagnosis }}</text>
-                  
+                  <text class="mb-12rpx block text-26rpx text-gray-700">诊断：{{ prescription.diagnosis }}</text>
+
                   <view class="mb-12rpx">
                     <text class="text-24rpx text-gray-600">功用：</text>
                     <text class="text-24rpx text-gray-700">{{ prescription.functionDescription }}</text>
                   </view>
-                  
+
                   <view class="mb-16rpx">
                     <text class="text-24rpx text-gray-600">主治：</text>
                     <text class="text-24rpx text-gray-700">{{ prescription.mainTreatment }}</text>
                   </view>
 
                   <!-- 药品预览 -->
-                  <view class="flex flex-wrap gap-8rpx mb-12rpx">
+                  <view class="mb-12rpx flex flex-wrap gap-8rpx">
                     <wd-tag
                       v-for="(medicine, index) in prescription.medicines.slice(0, 4)"
                       :key="index"
@@ -246,9 +250,9 @@ function getPrescriptionTypeColor(type: string) {
                   </view>
 
                   <!-- 价格 -->
-                  <view class="flex items-center justify-between pt-12rpx border-t-1rpx border-gray-200">
+                  <view class="flex items-center justify-between border-t-1rpx border-gray-200 pt-12rpx">
                     <text class="text-24rpx text-gray-600">单剂价格</text>
-                    <text class="text-32rpx font-bold text-primary">¥ {{ prescription.totalAmount }}</text>
+                    <text class="text-32rpx text-primary font-bold">¥ {{ prescription.totalAmount }}</text>
                   </view>
                 </view>
               </view>
@@ -275,7 +279,9 @@ function getPrescriptionTypeColor(type: string) {
               :label="`${medicine.dosage} · ${medicine.frequency}`"
             >
               <template #right-icon>
-                <wd-tag type="success" plain size="small">{{ medicine.category }}</wd-tag>
+                <wd-tag type="success" plain size="small">
+                  {{ medicine.category }}
+                </wd-tag>
               </template>
             </wd-cell>
           </wd-cell-group>
@@ -294,8 +300,8 @@ function getPrescriptionTypeColor(type: string) {
                   >
                     −
                   </wd-button>
-                  <view class="flex flex-col items-center gap-4rpx min-w-120rpx">
-                    <text class="text-48rpx font-bold text-primary">{{ purchaseDosage }}</text>
+                  <view class="min-w-120rpx flex flex-col items-center gap-4rpx">
+                    <text class="text-48rpx text-primary font-bold">{{ purchaseDosage }}</text>
                     <text class="text-24rpx text-gray-500">剂</text>
                   </view>
                   <wd-button
@@ -331,13 +337,13 @@ function getPrescriptionTypeColor(type: string) {
             <wd-cell title="购买剂数" :value="`× ${purchaseDosage} 剂`" />
             <wd-cell title="订单总价">
               <template #value>
-                <text class="text-36rpx font-bold text-primary">¥ {{ totalAmount.toFixed(2) }}</text>
+                <text class="text-36rpx text-primary font-bold">¥ {{ totalAmount.toFixed(2) }}</text>
               </template>
             </wd-cell>
           </wd-cell-group>
 
           <!-- 操作按钮 -->
-          <view class="flex gap-24rpx mt-16rpx">
+          <view class="mt-16rpx flex gap-24rpx">
             <wd-button custom-class="flex-1" size="large" @click="prevStep">
               上一步
             </wd-button>
@@ -352,14 +358,14 @@ function getPrescriptionTypeColor(type: string) {
           <!-- 收货地址 -->
           <wd-cell-group border>
             <template #title>
-              <view class="flex items-center justify-between w-full pr-24rpx">
+              <view class="w-full flex items-center justify-between pr-24rpx">
                 <text class="text-28rpx font-bold">收货地址</text>
                 <wd-button size="small" type="primary" plain @click="manageAddresses">
                   管理地址
                 </wd-button>
               </view>
             </template>
-            
+
             <wd-radio-group v-model="selectedAddressIndex">
               <wd-cell
                 v-for="(address, index) in addressList"
@@ -370,12 +376,14 @@ function getPrescriptionTypeColor(type: string) {
                 <view class="w-full flex items-start gap-16rpx">
                   <wd-radio :value="index" custom-class="mt-4rpx" />
                   <view class="flex-1">
-                    <view class="flex items-center gap-12rpx mb-8rpx">
-                      <text class="text-28rpx font-bold text-gray-800">{{ address.name }}</text>
+                    <view class="mb-8rpx flex items-center gap-12rpx">
+                      <text class="text-28rpx text-gray-800 font-bold">{{ address.name }}</text>
                       <text class="text-26rpx text-gray-600">{{ address.phone }}</text>
-                      <wd-tag v-if="address.isDefault" type="primary" size="small">默认</wd-tag>
+                      <wd-tag v-if="address.isDefault" type="primary" size="small">
+                        默认
+                      </wd-tag>
                     </view>
-                    <text class="text-26rpx text-gray-600 block">
+                    <text class="block text-26rpx text-gray-600">
                       {{ address.province }}{{ address.city }}{{ address.district }}{{ address.detail }}
                     </text>
                   </view>
@@ -391,9 +399,11 @@ function getPrescriptionTypeColor(type: string) {
                 <view class="w-full flex items-center gap-16rpx">
                   <wd-radio value="wechat" />
                   <text class="text-32rpx">💚</text>
-                  <view class="flex-1 flex items-center gap-12rpx">
-                    <text class="text-28rpx font-semibold text-gray-800">微信支付</text>
-                    <wd-tag type="success" size="small">推荐</wd-tag>
+                  <view class="flex flex-1 items-center gap-12rpx">
+                    <text class="text-28rpx text-gray-800 font-semibold">微信支付</text>
+                    <wd-tag type="success" size="small">
+                      推荐
+                    </wd-tag>
                   </view>
                 </view>
               </wd-cell>
@@ -402,9 +412,11 @@ function getPrescriptionTypeColor(type: string) {
                 <view class="w-full flex items-center gap-16rpx">
                   <wd-radio value="alipay" />
                   <text class="text-32rpx">💙</text>
-                  <view class="flex-1 flex items-center gap-12rpx">
-                    <text class="text-28rpx font-semibold text-gray-800">支付宝</text>
-                    <wd-tag type="default" size="small">快捷</wd-tag>
+                  <view class="flex flex-1 items-center gap-12rpx">
+                    <text class="text-28rpx text-gray-800 font-semibold">支付宝</text>
+                    <wd-tag type="default" size="small">
+                      快捷
+                    </wd-tag>
                   </view>
                 </view>
               </wd-cell>
@@ -418,13 +430,13 @@ function getPrescriptionTypeColor(type: string) {
             <wd-cell title="运费" value="¥ 0.00" />
             <wd-cell title="实付金额">
               <template #value>
-                <text class="text-36rpx font-bold text-primary">¥ {{ totalAmount.toFixed(2) }}</text>
+                <text class="text-36rpx text-primary font-bold">¥ {{ totalAmount.toFixed(2) }}</text>
               </template>
             </wd-cell>
           </wd-cell-group>
 
           <!-- 操作按钮 -->
-          <view class="flex gap-24rpx mt-16rpx">
+          <view class="mt-16rpx flex gap-24rpx">
             <wd-button custom-class="flex-1" size="large" @click="prevStep">
               上一步
             </wd-button>

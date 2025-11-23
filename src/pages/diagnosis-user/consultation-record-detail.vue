@@ -265,6 +265,10 @@ function isSmartWaiting() {
     && record.value.assignMode === AssignMode.SMART
     && !record.value.doctorId
 }
+
+function handleShowToast(text: string) {
+  uni.showToast({ title: text, icon: 'none' })
+}
 </script>
 
 <template>
@@ -534,19 +538,19 @@ function isSmartWaiting() {
             信息查看
           </view>
           <view class="flex flex-col gap-8rpx">
-            <view v-if="record.doctorId" class="flex items-center justify-between rounded-12rpx bg-gray-50 px-16rpx py-12rpx active:bg-gray-100" @tap="() => uni.showToast({ title: '查看医生详情', icon: 'none' })">
+            <view v-if="record.doctorId" class="flex items-center justify-between rounded-12rpx bg-gray-50 px-16rpx py-12rpx active:bg-gray-100" @tap="handleShowToast('查看医生详细信息')">
               <text class="text-24rpx text-gray-700">查看医生详细信息</text>
               <text class="text-24rpx text-gray-400">></text>
             </view>
-            <view class="flex items-center justify-between rounded-12rpx bg-gray-50 px-16rpx py-12rpx active:bg-gray-100" @tap="() => uni.showToast({ title: '查看订单详情', icon: 'none' })">
+            <view class="flex items-center justify-between rounded-12rpx bg-gray-50 px-16rpx py-12rpx active:bg-gray-100" @tap="handleShowToast('查看订单详情')">
               <text class="text-24rpx text-gray-700">查看订单详细信息</text>
               <text class="text-24rpx text-gray-400">></text>
             </view>
-            <view v-if="record.prescriptionId" class="flex items-center justify-between rounded-12rpx bg-gray-50 px-16rpx py-12rpx active:bg-gray-100" @tap="() => uni.showToast({ title: '查看处方详情', icon: 'none' })">
+            <view v-if="record.prescriptionId" class="flex items-center justify-between rounded-12rpx bg-gray-50 px-16rpx py-12rpx active:bg-gray-100" @tap="handleShowToast('查看处方详情')">
               <text class="text-24rpx text-gray-700">查看处方详情</text>
               <text class="text-24rpx text-gray-400">></text>
             </view>
-            <view v-if="record.status === AppointmentStatus.COMPLETED" class="flex items-center justify-between rounded-12rpx bg-gray-50 px-16rpx py-12rpx active:bg-gray-100" @tap="() => uni.showToast({ title: '查看完整病历', icon: 'none' })">
+            <view v-if="record.status === AppointmentStatus.COMPLETED" class="flex items-center justify-between rounded-12rpx bg-gray-50 px-16rpx py-12rpx active:bg-gray-100" @tap="handleShowToast('查看完整病历')">
               <text class="text-24rpx text-gray-700">查看完整病历</text>
               <text class="text-24rpx text-gray-400">></text>
             </view>

@@ -1,11 +1,8 @@
 ﻿<script setup lang="ts">
 import type { Appointment } from '@/types2'
-import { onMounted, onUnmounted } from 'vue'
-import EmptyState from '@/components/EmptyState.vue'
-import StatusBadge from '@/components/StatusBadge.vue'
 import { consultationRecords as mockConsultationRecords, mockDoctors } from '@/data'
-
 import { AppointmentStatus, AssignMode, ConsultMode, ConsultType } from '@/types2'
+import EmptyState from './components/EmptyState.vue'
 
 definePage({
   style: {

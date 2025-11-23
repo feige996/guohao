@@ -124,7 +124,7 @@ const bmi = computed(() => {
 // BMI状态
 const bmiStatus = computed(() => {
   const value = Number.parseFloat(bmi.value)
-  if (isNaN(value))
+  if (Number.isNaN(value))
     return { text: '--', color: 'text-gray-500' }
   if (value < 18.5)
     return { text: '偏瘦', color: 'text-blue-600' }

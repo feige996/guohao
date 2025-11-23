@@ -1,11 +1,11 @@
 <script setup lang="ts">
+import type { Address } from '@/data'
 import { onLoad } from '@dcloudio/uni-app'
-import { addresses, paymentMethods } from '@/data'
-import type { Address, PaymentMethodOption } from '@/data'
-import PageHeader from '@/components/PageHeader.vue'
-import AddressSelector from '@/components/AddressSelector.vue'
-import PaymentMethodSelector from '@/components/PaymentMethodSelector.vue'
-import ConfirmModal from '@/components/ConfirmModal.vue'
+import { addresses } from '@/data'
+import AddressSelector from './components/AddressSelector.vue'
+import ConfirmModal from './components/ConfirmModal.vue'
+import PageHeader from './components/PageHeader.vue'
+import PaymentMethodSelector from './components/PaymentMethodSelector.vue'
 
 // 页面参数
 const recordId = ref('')
@@ -42,7 +42,7 @@ const paymentMethodList = ref([
 // 页面加载
 onLoad((options: any) => {
   recordId.value = options.recordId || ''
-  fee.value = parseInt(options.fee) || 0
+  fee.value = Number.parseInt(options.fee) || 0
 })
 
 // 选择支付方式
@@ -57,12 +57,12 @@ function selectAddress(index: number) {
 
 // 立即支付
 function handlePayment() {
-  showPaymentModal.value = true;
+  showPaymentModal.value = true
 }
 
 // 确认支付
 function confirmPayment() {
-  startPayment();
+  startPayment()
 }
 
 // 开始支付
@@ -112,26 +112,26 @@ function manageAddresses() {
   uni.showToast({
     title: '跳转地址管理',
     icon: 'none',
-  });
+  })
 }
 </script>
 
 <template>
-  <view class="w-full min-h-screen bg-gray-50 flex flex-col">
+  <view class="min-h-screen w-full flex flex-col bg-gray-50">
     <!-- 顶部导航 -->
     <PageHeader title="订单支付" @back="handleBack" />
 
     <!-- 订单信息 -->
-    <view class="bg-white m-24rpx rounded-24rpx p-32rpx shadow-lg border border-gray-200/80">
-      <view class="flex items-center justify-between mb-24rpx">
-        <text class="text-32rpx font-bold text-gray-800">订单信息</text>
+    <view class="m-24rpx border border-gray-200/80 rounded-24rpx bg-white p-32rpx shadow-lg">
+      <view class="mb-24rpx flex items-center justify-between">
+        <text class="text-32rpx text-gray-800 font-bold">订单信息</text>
       </view>
       <view class="flex flex-col gap-20rpx">
-        <view class="flex items-center justify-between py-16rpx border-b border-gray-100">
+        <view class="flex items-center justify-between border-b border-gray-100 py-16rpx">
           <text class="text-28rpx text-gray-500 font-medium">订单号</text>
           <text class="text-28rpx text-gray-800 font-semibold">{{ recordId }}</text>
         </view>
-        <view class="flex items-center justify-between py-16rpx border-b border-gray-100">
+        <view class="flex items-center justify-between border-b border-gray-100 py-16rpx">
           <text class="text-28rpx text-gray-500 font-medium">商品</text>
           <text class="text-28rpx text-gray-800 font-semibold">处方药品</text>
         </view>
@@ -143,7 +143,7 @@ function manageAddresses() {
     </view>
 
     <!-- 收货地址 -->
-    <view class="bg-white m-24rpx rounded-24rpx p-32rpx shadow-lg border border-gray-200/80">
+    <view class="m-24rpx border border-gray-200/80 rounded-24rpx bg-white p-32rpx shadow-lg">
       <AddressSelector
         v-model="selectedAddressIndex"
         :addresses="addressList"
@@ -152,9 +152,9 @@ function manageAddresses() {
     </view>
 
     <!-- 支付方式 -->
-    <view class="bg-white m-24rpx rounded-24rpx p-32rpx shadow-lg border border-gray-200/80">
+    <view class="m-24rpx border border-gray-200/80 rounded-24rpx bg-white p-32rpx shadow-lg">
       <view class="mb-24rpx">
-        <text class="text-32rpx font-bold text-gray-800">支付方式</text>
+        <text class="text-32rpx text-gray-800 font-bold">支付方式</text>
       </view>
       <PaymentMethodSelector
         v-model="selectedPaymentMethod"
@@ -172,12 +172,12 @@ function manageAddresses() {
     />
 
     <!-- 支付按钮 -->
-    <view class="sticky bottom-0 left-0 right-0 bg-white p-24rpx shadow-lg border-t border-gray-200/80 flex items-center gap-24rpx mt-auto">
-      <view class="flex-1 flex flex-col gap-4rpx">
+    <view class="sticky bottom-0 left-0 right-0 mt-auto flex items-center gap-24rpx border-t border-gray-200/80 bg-white p-24rpx shadow-lg">
+      <view class="flex flex-1 flex-col gap-4rpx">
         <text class="text-24rpx text-gray-500">需支付</text>
-        <text class="text-36rpx font-bold text-primary">¥ {{ fee }}</text>
+        <text class="text-36rpx text-primary font-bold">¥ {{ fee }}</text>
       </view>
-      <button class="flex-shrink-0 h-96rpx px-48rpx bg-gradient-to-br from-primary to-primary-dark text-white rounded-48rpx text-32rpx font-semibold border-none shadow-lg transition-all active:scale-95 active:shadow-md" @tap="handlePayment" aria-label="立即支付">
+      <button class="to-primary-dark h-96rpx flex-shrink-0 rounded-48rpx border-none from-primary bg-gradient-to-br px-48rpx text-32rpx text-white font-semibold shadow-lg transition-all active:scale-95 active:shadow-md" aria-label="立即支付" @tap="handlePayment">
         立即支付
       </button>
     </view>
