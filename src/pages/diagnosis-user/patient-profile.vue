@@ -163,7 +163,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">姓名 *</text>
             <input
               v-model="formData.nickName"
-              class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+              class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
               placeholder="请输入姓名"
               :maxlength="20"
             >
@@ -193,13 +193,13 @@ const bmiStatus = computed(() => {
               <input
                 v-model.number="formData.age"
                 type="number"
-                class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+                class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
                 placeholder="年龄"
               >
             </view>
             <view class="flex-1">
               <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">生日</text>
-              <view class="h-88rpx w-full flex items-center border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx" @tap="selectBirthday">
+              <view class="box-border h-88rpx w-full flex items-center border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx" @tap="selectBirthday">
                 <text class="flex-1 text-28rpx" :class="formData.birthday ? 'text-gray-800' : 'text-gray-400'">
                   {{ formData.birthday || '选择生日' }}
                 </text>
@@ -214,7 +214,7 @@ const bmiStatus = computed(() => {
             <input
               v-model="formData.mobile"
               type="tel"
-              class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+              class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
               placeholder="请输入手机号"
               :maxlength="11"
             >
@@ -225,7 +225,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">身份证号</text>
             <input
               v-model="formData.idCardNum"
-              class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+              class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
               placeholder="请输入身份证号"
               :maxlength="18"
             >
@@ -236,7 +236,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">民族</text>
             <input
               v-model="formData.nation"
-              class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+              class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
               placeholder="请输入民族"
             >
           </view>
@@ -256,7 +256,7 @@ const bmiStatus = computed(() => {
               <input
                 v-model.number="formData.height"
                 type="digit"
-                class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+                class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
                 placeholder="身高"
               >
             </view>
@@ -265,7 +265,7 @@ const bmiStatus = computed(() => {
               <input
                 v-model.number="formData.weight"
                 type="digit"
-                class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+                class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
                 placeholder="体重"
               >
             </view>
@@ -327,7 +327,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">主诉</text>
             <textarea
               v-model="formData.chiefComplaint"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="描述您的主要症状..."
               :maxlength="500"
               :auto-height="true"
@@ -339,7 +339,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">现病史</text>
             <textarea
               v-model="formData.presentIllness"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="描述当前疾病情况..."
               :maxlength="500"
               :auto-height="true"
@@ -351,7 +351,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">过敏史</text>
             <textarea
               v-model="formData.allergyHistory"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="描述过敏情况..."
               :maxlength="500"
               :auto-height="true"
@@ -363,7 +363,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">既往病史</text>
             <textarea
               v-model="formData.medicalHistory"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="描述既往病史..."
               :maxlength="500"
               :auto-height="true"
@@ -375,7 +375,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">家族病史</text>
             <textarea
               v-model="formData.familyMedicalHistory"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="描述家族病史..."
               :maxlength="500"
               :auto-height="true"
@@ -387,7 +387,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">中医诊断</text>
             <textarea
               v-model="formData.chineseDiagnosis"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="中医诊断结果..."
               :maxlength="500"
               :auto-height="true"
@@ -399,7 +399,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">西医诊断</text>
             <textarea
               v-model="formData.westernDiagnosis"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="西医诊断结果..."
               :maxlength="500"
               :auto-height="true"
@@ -419,7 +419,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">饮食习惯</text>
             <textarea
               v-model="formData.dietHabits"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="描述您的饮食习惯..."
               :maxlength="500"
               :auto-height="true"
@@ -431,7 +431,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">运动习惯</text>
             <textarea
               v-model="formData.exerciseHabits"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="描述您的运动习惯..."
               :maxlength="500"
               :auto-height="true"
@@ -443,7 +443,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">睡眠情况</text>
             <textarea
               v-model="formData.sleepCondition"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="描述您的睡眠情况..."
               :maxlength="500"
               :auto-height="true"
@@ -490,7 +490,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">联系人姓名</text>
             <input
               v-model="formData.emergencyContact"
-              class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+              class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
               placeholder="请输入联系人姓名"
             >
           </view>
@@ -501,7 +501,7 @@ const bmiStatus = computed(() => {
             <input
               v-model="formData.emergencyPhone"
               type="tel"
-              class="h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
+              class="box-border h-88rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx text-28rpx"
               placeholder="请输入联系人电话"
               :maxlength="11"
             >
@@ -512,7 +512,7 @@ const bmiStatus = computed(() => {
             <text class="mb-12rpx block text-28rpx text-gray-700 font-semibold">联系人地址</text>
             <textarea
               v-model="formData.emergencyAddress"
-              class="min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+              class="box-border min-h-120rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
               placeholder="请输入联系人地址..."
               :maxlength="200"
               :auto-height="true"
@@ -529,7 +529,7 @@ const bmiStatus = computed(() => {
 
           <textarea
             v-model="formData.healthGoals"
-            class="min-h-160rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
+            class="box-border min-h-160rpx w-full border-2rpx border-gray-200 rounded-16rpx bg-white px-24rpx py-16rpx text-28rpx"
             placeholder="描述您的健康目标..."
             :maxlength="500"
             :auto-height="true"
@@ -560,3 +560,5 @@ const bmiStatus = computed(() => {
     </scroll-view>
   </view>
 </template>
+
+<!-- 已移除全局样式，使用 box-border 类名代替 -->
