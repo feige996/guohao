@@ -201,23 +201,23 @@ function refreshPrescriptionRecords() {
 
           <!-- 操作按钮 -->
           <view class="flex gap-20rpx">
-            <button
+            <wd-button
               class="h-80rpx flex flex-1 items-center justify-center gap-12rpx border-2rpx border-primary border-none bg-white text-26rpx text-primary font-semibold transition-all active:scale-95 active:bg-red-50"
               aria-label="查看详情"
               @tap="viewPrescriptionDetail(record.id)"
             >
               <wd-icon name="view" size="16px" />
               查看详情
-            </button>
+            </wd-button>
 
-            <button
+            <wd-button
               v-if="!record.isPaid"
               class="h-80rpx flex flex-1 items-center justify-center gap-12rpx bg-[#8E4337] text-26rpx text-white font-semibold shadow-lg transition-all active:scale-95 active:opacity-90 active:shadow-md"
               @tap="payPrescription(record)"
             >
               <wd-icon name="wallet" size="20px" />
               支付
-            </button>
+            </wd-button>
           </view>
         </view>
       </view>
