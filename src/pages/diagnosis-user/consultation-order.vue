@@ -256,11 +256,11 @@ function startPayment() {
     <view class="absolute inset-0 z-0 from-gray-100 via-gray-50 to-white bg-gradient-to-b" aria-hidden="true" />
 
     <!-- 优化滚动体验，添加更好的滚动参数支持 -->
-    <scroll-view 
-      scroll-y 
-      class="min-h-0 flex-1 px-24rpx pb-40rpx" 
-      :enhanced="true" 
-      :bounces="true" 
+    <scroll-view
+      scroll-y
+      class="min-h-0 flex-1 px-24rpx pb-40rpx"
+      :enhanced="true"
+      :bounces="true"
       :scroll-with-animation="true"
       :enable-back-to-top="true"
       :show-scrollbar="false"
