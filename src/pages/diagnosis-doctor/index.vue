@@ -4,15 +4,16 @@ import JieZhenCard from './components/jiezhenCard.vue'
 import JiLuCard from './components/jiluCard.vue'
 import ZuoZhenCard from './components/zuozhenCard.vue'
 
+definePage({
+  style: {
+    navigationBarTitleText: '问诊',
+  },
+})
+
 const activeTab = ref<'ongoing' | 'all'>('ongoing')
 
 function switchTab(tab: 'ongoing' | 'all') {
   activeTab.value = tab
-}
-
-function showToast(message: string) {
-  // 实际项目中应该使用全局的Toast组件或工具
-  console.log(message)
 }
 </script>
 

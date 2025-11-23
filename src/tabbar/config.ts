@@ -92,10 +92,19 @@ export const customTabbarList: CustomTabBarItem[] = [
   },
   {
     text: '问诊',
-    pagePath: 'pages/diagnosis/index',
+    pagePath: 'pages/diagnosis-doctor/index',
     iconType: 'image',
     icon: '/static/tabbar/diagnosis.png',
     iconActive: '/static/tabbar/diagnosisHL.png',
+    roles: [AppRoleEnum.Doctor],
+  },
+  {
+    text: '问诊',
+    pagePath: 'pages/diagnosis-user/index',
+    iconType: 'image',
+    icon: '/static/tabbar/diagnosis.png',
+    iconActive: '/static/tabbar/diagnosisHL.png',
+    roles: [AppRoleEnum.NormalUser],
   },
 
   {
