@@ -163,7 +163,7 @@ function adjustTextareaHeight(e: any) {
 
 <style>
 /* 全局box-sizing设置，确保所有元素使用border-box模型 */
-*.border {
+* {
   box-sizing: border-box;
 }
 
