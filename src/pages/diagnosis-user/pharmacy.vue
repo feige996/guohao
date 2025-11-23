@@ -4,6 +4,7 @@ import { addresses, pharmacyPrescriptions } from '@/data'
 
 definePage({
   style: {
+    navigationStyle: 'default', // 使用默认导航栏
     navigationBarTitleText: '购药服务',
     navigationBarBackgroundColor: '#FFFFFF',
   },

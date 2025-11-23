@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { departments, allDoctors as importedDoctors } from '@/data'
-import PageHeader from './components/PageHeader.vue'
 import SearchBar from './components/SearchBar.vue'
 
 definePage({
   style: {
+    navigationStyle: 'default',
     navigationBarTitleText: '所有专家',
     navigationBarBackgroundColor: '#FFFFFF',
   },
@@ -73,9 +73,6 @@ function handleSearch() {
 
 <template>
   <view class="h-screen w-full flex flex-col bg-gray-50">
-    <!-- 页头 -->
-    <PageHeader title="所有专家" @back="handleBack" />
-
     <!-- 搜索栏 -->
     <SearchBar
       v-model="searchKeyword"

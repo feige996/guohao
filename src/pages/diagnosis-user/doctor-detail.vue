@@ -162,10 +162,7 @@ function toggleFavorite() {
       <!-- 擅长领域 -->
       <view class="m-24rpx border border-gray-200/80 rounded-24rpx bg-white p-32rpx shadow-lg">
         <view class="mb-24rpx flex items-center gap-16rpx">
-          <svg viewBox="0 0 18 18" fill="currentColor" class="h-32rpx w-32rpx text-primary">
-            <path d="M9 0C4.029 0 0 4.029 0 9s4.029 9 9 9 9-4.029 9-9-4.029-9-9-9zm0 16.5c-4.136 0-7.5-3.364-7.5-7.5S4.864 1.5 9 1.5s7.5 3.364 7.5 7.5-3.364 7.5-7.5 7.5z" />
-            <path d="M9 4.5c-.414 0-.75.336-.75.75v3.75c0 .414.336.75.75.75s.75-.336.75-.75V5.25c0-.414-.336-.75-.75-.75zm0 7.5c-.552 0-1 .448-1 1s.448 1 1 1 1-.448 1-1-.448-1-1-1z" />
-          </svg>
+          <wd-icon name="info" />
           <text class="text-30rpx text-gray-800 font-bold">擅长领域</text>
         </view>
         <view class="flex flex-wrap gap-16rpx">

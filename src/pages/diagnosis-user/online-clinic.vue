@@ -8,11 +8,11 @@ import {
   mockPatientStatus,
 
 } from '@/data'
-import PageHeader from './components/PageHeader.vue'
 import SearchBar from './components/SearchBar.vue'
 
 definePage({
   style: {
+    navigationStyle: 'default',
     navigationBarTitleText: '在线坐诊',
     navigationBarBackgroundColor: '#FFFFFF',
   },
@@ -217,7 +217,7 @@ function handleButtonClick(doctor: ClinicDoctor) {
 function handleTakeNumber(doctor: ClinicDoctor) {
   // 跳转到问诊订单页面（指定医生模式，当前问诊）
   uni.navigateTo({
-    url: `/pages/consultation-order?mode=clinic&doctorId=${doctor.id}&consultationType=text-image&action=queue&scheduledTime=${encodeURIComponent('当前问诊')}`,
+    url: `/pages/diagnosis-user/consultation-order?mode=clinic&doctorId=${doctor.id}&consultationType=text-image&action=queue&scheduledTime=${encodeURIComponent('当前问诊')}`,
   })
 }
 
@@ -225,7 +225,7 @@ function handleTakeNumber(doctor: ClinicDoctor) {
 function handleMakeAppointment(doctor: ClinicDoctor) {
   // 跳转到问诊订单页面（指定医生模式，预约时间）
   uni.navigateTo({
-    url: `/pages/consultation-order?mode=clinic&doctorId=${doctor.id}&consultationType=text-image&action=appointment&scheduledTime=${encodeURIComponent(doctor.scheduledTime || '')}`,
+    url: `/pages/diagnosis-user/consultation-order?mode=clinic&doctorId=${doctor.id}&consultationType=text-image&action=appointment&scheduledTime=${encodeURIComponent(doctor.scheduledTime || '')}`,
   })
 }
 
@@ -244,16 +244,13 @@ function showQueueStatus(doctor: ClinicDoctor) {
 // 查看医生详情
 function handleViewDoctorDetail(doctor: ClinicDoctor) {
   uni.navigateTo({
-    url: `/pages/doctor-detail?doctorId=${doctor.id}`,
+    url: `/pages/diagnosis-user/doctor-detail?doctorId=${doctor.id}`,
   })
 }
 </script>
 
 <template>
   <view class="h-screen w-full flex flex-col from-[#fffcfa] to-[#fff9f3] bg-gradient-to-b">
-    <!-- 页头 -->
-    <PageHeader title="在线坐诊" @back="handleBack" />
-
     <!-- Tab切换栏 -->
     <view class="flex flex-shrink-0 border-b border-gray-200 bg-white px-24rpx">
       <view

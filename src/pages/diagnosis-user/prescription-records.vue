@@ -3,12 +3,12 @@ import type { PrescriptionRecord } from '@/data'
 import { onMounted, onUnmounted } from 'vue'
 import { prescriptionRecords as mockPrescriptionRecords } from '@/data'
 import EmptyState from './components/EmptyState.vue'
-import PageHeader from './components/PageHeader.vue'
 import StatusBadge from './components/StatusBadge.vue'
 import TabBar from './components/TabBar.vue'
 
 definePage({
   style: {
+    navigationStyle: 'default',
     navigationBarTitleText: '我的处方',
     navigationBarBackgroundColor: '#FFFFFF',
   },
@@ -143,9 +143,6 @@ function refreshPrescriptionRecords() {
 
 <template>
   <view class="h-screen w-full flex flex-col overflow-hidden bg-gray-50">
-    <!-- 顶部导航 -->
-    <PageHeader title="我的处方" @back="handleBack" />
-
     <!-- 标签页导航 -->
     <view class="flex-shrink-0 bg-white pb-16rpx pt-24rpx shadow-sm">
       <TabBar v-model="activeTab" :tabs="tabs" @change="handleTabChange" />

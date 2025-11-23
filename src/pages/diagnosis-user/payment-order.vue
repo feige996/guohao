@@ -4,9 +4,14 @@ import { onLoad } from '@dcloudio/uni-app'
 import { addresses } from '@/data'
 import AddressSelector from './components/AddressSelector.vue'
 import ConfirmModal from './components/ConfirmModal.vue'
-import PageHeader from './components/PageHeader.vue'
 import PaymentMethodSelector from './components/PaymentMethodSelector.vue'
 
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '订单支付',
+  },
+})
 // 页面参数
 const recordId = ref('')
 const fee = ref(0)
@@ -118,9 +123,6 @@ function manageAddresses() {
 
 <template>
   <view class="min-h-screen w-full flex flex-col bg-gray-50">
-    <!-- 顶部导航 -->
-    <PageHeader title="订单支付" @back="handleBack" />
-
     <!-- 订单信息 -->
     <view class="m-24rpx border border-gray-200/80 rounded-24rpx bg-white p-32rpx shadow-lg">
       <view class="mb-24rpx flex items-center justify-between">

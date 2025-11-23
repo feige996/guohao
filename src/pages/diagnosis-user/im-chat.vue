@@ -8,7 +8,7 @@ definePage({
   style: {
     navigationBarTitleText: 'IM 聊天',
     navigationBarBackgroundColor: '#FFFFFF',
-    navigationStyle: 'custom', // 使用自定义导航栏
+    navigationStyle: 'default', // 使用默认导航栏
   },
 })
 
@@ -108,25 +108,6 @@ function adjustTextareaHeight(e: any) {
 
 <template>
   <view class="h-screen w-full flex flex-col overflow-hidden bg-gray-50">
-    <!-- 顶部导航栏 -->
-    <view class="h-112rpx flex flex-shrink-0 items-center justify-between border-b-2rpx border-gray-200 bg-white px-24rpx shadow-sm">
-      <button class="h-60rpx w-60rpx flex items-center justify-center rounded-full border-none bg-transparent transition-all active:scale-95 active:bg-primary/8" aria-label="返回" @tap="handleBack">
-        <text class="text-48rpx text-gray-800">←</text>
-      </button>
-      <view class="flex flex-1 items-center justify-center gap-16rpx">
-        <image :src="patientInfo.avatar" class="h-64rpx w-64rpx overflow-hidden rounded-full" mode="aspectFill" />
-        <view>
-          <text class="block text-32rpx text-gray-800 font-bold">{{ patientInfo.name }}</text>
-          <text v-if="patientInfo.age || patientInfo.gender" class="block text-24rpx text-gray-400">{{ patientInfo.age }} · {{ patientInfo.gender }}</text>
-        </view>
-      </view>
-      <button class="h-60rpx w-60rpx flex items-center justify-center rounded-full border-none bg-transparent transition-all active:scale-95 active:bg-primary/8" aria-label="更多选项">
-        <svg viewBox="0 0 24 24" fill="currentColor" class="h-48rpx w-48rpx text-gray-800">
-          <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
-        </svg>
-      </button>
-    </view>
-
     <!-- 主诉信息卡片 -->
     <view class="flex flex-shrink-0 items-start gap-16rpx border-b-2rpx border-red-100 bg-orange-50 p-24rpx">
       <svg viewBox="0 0 20 20" fill="currentColor" class="mt-8rpx h-40rpx w-40rpx flex-shrink-0 text-orange-600">

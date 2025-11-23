@@ -151,7 +151,7 @@ function handleViewAllDoctors() {
 // 查看全部专家坐诊
 function handleViewAll() {
   uni.navigateTo({
-    url: '/pages/online-clinic',
+    url: '/pages/diagnosis-user/online-clinic',
   })
 }
 

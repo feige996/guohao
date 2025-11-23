@@ -10,9 +10,14 @@ import {
 } from '@/data'
 import ConfirmModal from './components/ConfirmModal.vue'
 import HealthConcernSelector from './components/HealthConcernSelector.vue'
-import PageHeader from './components/PageHeader.vue'
 import PaymentMethodSelector from './components/PaymentMethodSelector.vue'
 
+definePage({
+  style: {
+    navigationStyle: 'default',
+    navigationBarTitleText: '请填写问诊信息',
+  },
+})
 // 路由参数（从路由参数获取）
 const dispatchMode = ref<string>('smart') // smart(智能推荐), assign(指定医生), clinic(坐诊模式)
 const doctorId = ref<string>('')
@@ -249,7 +254,6 @@ function startPayment() {
 <template>
   <view class="relative h-screen w-full flex flex-col overflow-hidden bg-gray-50">
     <view class="absolute inset-0 z-0 from-gray-100 via-gray-50 to-white bg-gradient-to-b" aria-hidden="true" />
-    <PageHeader title="请填写问诊信息" @back="handleBack" />
 
     <scroll-view scroll-y class="min-h-0 flex-1 px-24rpx pb-40rpx">
       <!-- 智能推荐模式-派单方式 -->
