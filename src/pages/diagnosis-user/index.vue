@@ -216,14 +216,14 @@ function getStatusText(status: string) {
 
     <!-- 快捷功能 -->
     <view class="px-24rpx pb-20rpx">
-      <view class="box-border w-full flex items-center justify-between border border-[#8e4337]/12 rounded-20rpx from-[#fdf7f5] to-[#f7ebe7] bg-gradient-to-b px-30rpx py-28rpx shadow-lg">
+      <view class="box-border w-full flex items-center justify-between border border-[#8e43371f] rounded-20rpx from-[#fdf7f5] to-[#f7ebe7] bg-gradient-to-b px-30rpx py-28rpx shadow-lg">
         <view
           v-for="action in quickActions"
           :key="action.id"
           class="box-border flex flex-1 flex-col items-center gap-12rpx transition-all active:scale-95"
           @tap="handleQuickAction(action)"
         >
-          <view class="box-border h-76rpx w-76rpx flex items-center justify-center border border-[#8e4337]/20 rounded-12rpx from-[#8e4337]/14 to-[#b85c4f]/8 bg-gradient-to-br shadow-md">
+          <view class="box-border h-76rpx w-76rpx flex items-center justify-center border border-[#8e433733] rounded-12rpx from-[#8e4337]/14 to-[#b85c4f]/8 bg-gradient-to-br shadow-md">
             <wd-icon v-if="action.icon === 'records'" name="list" size="17px" color="#8e4337" />
             <wd-icon v-else-if="action.icon === 'prescription'" name="spool" size="17px" color="#8e4337" />
             <wd-icon v-else-if="action.icon === 'health'" name="file-excel" size="17px" color="#8e4337" />
