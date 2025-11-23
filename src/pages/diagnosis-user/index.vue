@@ -216,81 +216,20 @@ function getStatusText(status: string) {
 
     <!-- 快捷功能 -->
     <view class="px-24rpx pb-20rpx">
-      <view class="w-full flex items-center justify-around border border-[#8e4337]/12 rounded-20rpx from-[#fdf7f5] to-[#f7ebe7] bg-gradient-to-b px-20rpx py-28rpx shadow-lg">
+      <view class="box-border w-full flex items-center justify-between border border-[#8e4337]/12 rounded-20rpx from-[#fdf7f5] to-[#f7ebe7] bg-gradient-to-b px-30rpx py-28rpx shadow-lg">
         <view
           v-for="action in quickActions"
           :key="action.id"
-          class="flex flex-1 flex-col items-center gap-12rpx transition-all active:scale-95"
+          class="box-border flex flex-1 flex-col items-center gap-12rpx transition-all active:scale-95"
           @tap="handleQuickAction(action)"
         >
-          <view class="h-80rpx w-80rpx flex items-center justify-center border border-[#8e4337]/20 rounded-12rpx from-[#8e4337]/14 to-[#b85c4f]/8 bg-gradient-to-br shadow-md">
-            <svg
-              v-if="action.icon === 'records'"
-              class="h-44rpx w-44rpx"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              stroke="#8e4337"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <rect x="6.5" y="3.5" width="11" height="17" rx="2" />
-              <path d="M9 8h6" />
-              <path d="M9 12h6" />
-              <path d="M9 16h4" />
-            </svg>
-            <!-- <wd-icon name="list" size="18px" text-[#8e4337] v-if="action.icon === 'records'" /> -->
-
-            <svg
-              v-else-if="action.icon === 'prescription'"
-              class="h-44rpx w-44rpx"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              stroke="#8e4337"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M6 8h12l-1 6a5 5 0 0 1-10 0L6 8z" />
-              <path d="M8 5h8" />
-              <path d="M10 19h4" />
-              <path d="M12 10v3" />
-              <path d="M10.5 11.5h3" />
-            </svg>
-            <svg
-              v-else-if="action.icon === 'health'"
-              class="h-44rpx w-44rpx"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              stroke="#8e4337"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M5 17l4-5 3 4 5-7" />
-              <path d="M5 5v12h14" />
-            </svg>
-            <svg
-              v-else
-              class="h-44rpx w-44rpx"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              stroke="#8e4337"
-              stroke-width="1.8"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M7 9h10l1 10H6l1-10z" />
-              <path d="M9 9V7a3 3 0 0 1 6 0v2" />
-              <path d="M12 12v4" />
-              <path d="M10 14h4" />
-            </svg>
+          <view class="box-border h-76rpx w-76rpx flex items-center justify-center border border-[#8e4337]/20 rounded-12rpx from-[#8e4337]/14 to-[#b85c4f]/8 bg-gradient-to-br shadow-md">
+            <wd-icon v-if="action.icon === 'records'" name="list" size="17px" color="#8e4337" />
+            <wd-icon v-else-if="action.icon === 'prescription'" name="spool" size="17px" color="#8e4337" />
+            <wd-icon v-else-if="action.icon === 'health'" name="file-excel" size="17px" color="#8e4337" />
+            <wd-icon v-else name="shop" size="17px" color="#8e4337" />
           </view>
-          <text class="text-center text-24rpx text-[#6b4a43] font-medium">{{ action.title }}</text>
+          <text class="whitespace-nowrap text-center text-24rpx text-[#6b4a43] font-medium">{{ action.title }}</text>
         </view>
       </view>
     </view>
