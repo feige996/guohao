@@ -86,7 +86,7 @@ export default defineConfig({
     /** 背景颜色 */
     backgroundColor: {
       /** 背景颜色，用法如: bg-primary */
-      primary: '#8e433714',
+      primary: '#8e4337',
       secondary: 'var(--wot-color-theme-secondary,#000000)',
     },
     background: {
