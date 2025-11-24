@@ -137,7 +137,7 @@ function handleOpenChat() {
         <wd-button
           type="primary"
           icon="check"
-          @click="handleEndConsultation"
+          @click="handleOpenChat"
         >
           进入问诊
         </wd-button>

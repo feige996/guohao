@@ -47,7 +47,7 @@ function handlePayment() {
   if (!prescription.value)
     return
   uni.navigateTo({
-    url: `/pages/payment-order?recordId=${prescription.value.id}&fee=${prescription.value.totalAmount}`,
+    url: `/pages/diagnosis-user/payment-order?recordId=${prescription.value.id}&fee=${prescription.value.totalAmount}`,
   })
 }
 

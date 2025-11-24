@@ -76,6 +76,7 @@ function startPayment() {
     title: '支付中...',
   })
 
+  // TODO: 对接旧代码
   setTimeout(() => {
     uni.hideLoading()
     uni.showModal({
