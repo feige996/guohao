@@ -269,9 +269,11 @@ function isPrimaryButtonUrgent(record: Appointment): boolean {
 function handlePrimaryButtonClick(record: Appointment) {
   const status = record.status
 
-  // 支付相关
+  // 支付相关 - 跳转到支付表单页面
   if (status === AppointmentStatus.PENDING_PAYMENT || status === AppointmentStatus.PAYMENT_FAILED) {
-    uni.showToast({ title: '跳转支付页面', icon: 'none' })
+    uni.navigateTo({
+      url: `/pages/diagnosis-user/dispatch-form?id=${record.id}&amount=${record.actualAmount}&type=payment`
+    })
     return
   }
 

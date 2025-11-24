@@ -36,17 +36,6 @@ function goBack(): void {
         {{ toastMessage }}
       </div>
 
-      <!-- 顶部导航 -->
-      <!-- <header class="w-full h-[56px] flex justify-between items-center px-4 bg-white fixed top-0 left-0 right-0  mx-auto z-50 shadow-sm">
-            <button class="text-[#333333] hover:text-[#6B7280] transition-colors" @click="goBack" aria-label="返回上一页">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                    <path fill-rule="evenodd" d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z" clip-rule="evenodd" />
-                </svg>
-            </button>
-            <h1 class="text-[#1F2937] text-lg font-bold">处方详情</h1>
-            <div class="w-6"></div>
-        </header> -->
-
       <!-- 主内容区 -->
       <main class="px-4 pt-[24px] space-y-4">
         <!-- 处方状态 -->
