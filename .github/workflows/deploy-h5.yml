@@ -31,7 +31,7 @@ jobs:
           node-version: '18'
           cache: pnpm
       - name: Install dependencies
-        run: pnpm i --no-frozen-lockfile
+        run: pnpm i --no-lockfile
       - name: Build
         run: pnpm build:h5
       - name: Upload artifact
